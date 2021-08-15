@@ -56,4 +56,4 @@ for file in os.listdir("./config/events/"):
     if file.endswith(".py"):
         bot.load_extension(F"config.events.{file[:-3]}")
 
-bot.run("ODc0NDkyODMwMDI5MDcwNDE3.YRHw6Q.CY9m7dHaBOExGfie3h37Aa5QB0I")
+bot.run(os.getenv("TOKEN"))
