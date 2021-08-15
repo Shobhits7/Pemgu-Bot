@@ -90,6 +90,7 @@ class Owner(commands.Cog, name="Owner 👑", description="Only lvlahraam can use
             title="Removed the user from the blacklist",
             timestamp=ctx.message.created_at
         )
+        unblmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         doblmbed = discord.Embed(
             colour=self.bot.color,
             title="Added user to the blacklist",
