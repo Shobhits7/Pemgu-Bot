@@ -39,7 +39,7 @@ class MyHelp(commands.HelpCommand):
                 else:
                     name = "No Category"
                     description = "Commands with no category"
-                hmainmbed.add_field(name=F"{name} Category [{amount_commands}]", value=description)
+                hmainmbed.add_field(name=F"{name} Category [{amount_commands}]", value=description, inline=False)
         hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable" 
         await ctx.reply(embed=hmainmbed)
 
@@ -53,17 +53,14 @@ class MyHelp(commands.HelpCommand):
         )
         hcmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
         if cog := command.cog:
-            hcmdmbed.add_field(name="Category", value=cog.qualified_name)
+            hcmdmbed.add_field(name="Category", value=cog.qualified_name, inline=False)
         can_run = "No"
         with contextlib.suppress(commands.CommandError):
             if await command.can_run(self.context):
                 can_run = "Yes"  
-        hcmdmbed.add_field(name="Usable", value=can_run)
+        hcmdmbed.add_field(name="Usable", value=can_run, inline=False)
         if command._buckets and (cooldown := command._buckets._cooldown):
-            hcmdmbed.add_field(
-                name="Cooldown",
-                value=F"{cooldown.rate} per {cooldown.per:.0f} seconds",
-            )
+            hcmdmbed.add_field(name="Cooldown", value=F"{cooldown.rate} per {cooldown.per:.0f} seconds", inline=False)
         await ctx.reply(embed=hcmdmbed)
 
     # Help Cog
@@ -75,7 +72,7 @@ class MyHelp(commands.HelpCommand):
             description=cog.description or "No help found..."
         )
         for commands in cog.get_commands():
-            hcogmbed.add_field(name=self.get_command_signature(commands), value=commands.help or "No help found...")
+            hcogmbed.add_field(name=self.get_command_signature(commands), value=commands.help or "No help found...", inline=False)
         await ctx.reply(embed=hcogmbed)
 
     # Help Group
@@ -88,7 +85,7 @@ class MyHelp(commands.HelpCommand):
         )
         hgrouphelp.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
         for commands in group.commands:
-            hgrouphelp.add_field(name=self.get_command_signature(commands), value=commands.help or "No help found...")
+            hgrouphelp.add_field(name=self.get_command_signature(commands), value=commands.help or "No help found...", inline=False)
         await ctx.reply(embed=hgrouphelp)
 
     # Help Error
