@@ -29,9 +29,8 @@ class MyHelp(commands.HelpCommand):
         )
         hmainmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
         usable = 0 
-        mapping = {cog:cmd for cog, cmd in sorted(mapping.items(), key=lambda c: str(c[0]))}
         for cog, commands in mapping.items(): 
-            if filtered_commands := await self.filter_commands(commands, sort=True):
+            if filtered_commands := await self.filter_commands(commands):
                 amount_commands = len(filtered_commands)
                 usable += amount_commands
                 if cog:
