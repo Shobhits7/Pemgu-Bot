@@ -53,5 +53,6 @@ for file in os.listdir("./config/commands/"):
 for file in os.listdir("./config/events/"):
     if file.endswith(".py"):
         bot.load_extension(F"config.events.{file[:-3]}")
+sorted(bot.cogs)
 
 bot.run(os.getenv("TOKEN"))
