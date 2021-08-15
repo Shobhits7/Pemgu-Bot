@@ -1,1 +1,1 @@
-worker: python bot.py sorted(bot.cogs)
+worker: py bot.py sorted(bot.cogs)
