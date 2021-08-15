@@ -3,7 +3,7 @@
 import discord
 from discord.ext import commands
 import datetime
-import config.json.json
+import config.utils.json
 
 class Owner(commands.Cog, name="Owner 👑", description="Only lvlahraam can use these commands"):
     def __init__(self, bot):

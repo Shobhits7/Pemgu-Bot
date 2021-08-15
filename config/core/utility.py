@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from config.core.help import MyHelp
+from config.utils.help import MyHelp
 import time
 
 class Utility(commands.Cog, name="Utility ⚙", description="Useful commands are open to everyone"):

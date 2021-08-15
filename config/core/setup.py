@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 import datetime
-import config.json.json
+import config.utils.json
 
 class Setup(commands.Cog, name="Setup ❓", description="For setting up the bot"):
     def __init__(self, bot):
@@ -23,9 +23,9 @@ class Setup(commands.Cog, name="Setup ❓", description="For setting up the bot"
         if not pre:
             pass
         elif pre:
-            data = config.json.json.read_json("prefixes")
+            data = config.utils.json.read_json("prefixes")
             data[str(ctx.guild.id)] = pre
-            config.json.json.write_json(data, "prefixes")
+            config.utils.json.write_json(data, "prefixes")
             await ctx.reply(embed=pfmbed)
             
 def setup(bot):

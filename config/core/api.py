@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from config.core.aiohttp import session_json, session_text, session_bytes
+from config.utils.aiohttp import session_json, session_text, session_bytes
 import os
 import datetime
 

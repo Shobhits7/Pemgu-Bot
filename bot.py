@@ -2,10 +2,10 @@ import discord
 from discord.ext import commands
 import os
 import datetime
-import config.json.json
+import config.utils.json
 
 def get_prefix(bot, message):
-    data = config.json.json.read_json("prefixes")
+    data = config.utils.json.read_json("prefixes")
     if message.guild:
         if not str(message.guild.id) in data:
             return "~b"
