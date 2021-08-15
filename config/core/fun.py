@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import datetime
 
-class Fun(commands.Cog, name="Fun 🤣", description="Very Funny commands"):
+class Fun(commands.Cog, name="Fun 🤣", aliases=["fun", "Fun"], description="Very Funny commands"):
     def __init__(self, bot):
         self.bot = bot
     
