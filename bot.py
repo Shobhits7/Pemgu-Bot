@@ -50,9 +50,10 @@ bot.time = datetime.datetime.utcnow()
 for file in os.listdir("./config/commands/"):
     if file.endswith(".py"):
         bot.load_extension(F"config.commands.{file[:-3]}")
+    sorted(bot.cogs)
 for file in os.listdir("./config/events/"):
     if file.endswith(".py"):
         bot.load_extension(F"config.events.{file[:-3]}")
-sorted(bot.cogs)
+    sorted(bot.cogs)
 
 bot.run(os.getenv("TOKEN"))
