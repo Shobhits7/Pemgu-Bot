@@ -6,10 +6,10 @@ import contextlib
 class HelpEmbed(discord.Embed): 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.color = 0x2F3136
         self.timestamp = datetime.datetime.utcnow()
         self.text = "Use help [command] or help [category] for more information | <> is required | [] is optional"
         self.set_footer(text=self.text)
-        self.color = 0x2F3136
 
 class MyHelp(commands.HelpCommand):
     def __init__(self):
