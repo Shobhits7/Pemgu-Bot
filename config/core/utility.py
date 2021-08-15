@@ -3,7 +3,7 @@ from discord.ext import commands
 from config.utils.help import MyHelp
 import time
 
-class Utility(commands.Cog, name="Utility ⚙", aliases=["utility", "Utility"], description="Useful commands are open to everyone"):
+class Utility(commands.Cog, name="Utility ⚙", description="Useful commands are open to everyone"):
     def __init__(self, bot):
         self.bot = bot
         self.bot.help_command = MyHelp()

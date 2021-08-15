@@ -4,7 +4,7 @@ from config.utils.aiohttp import session_json, session_text, session_bytes
 import os
 import datetime
 
-class API(commands.Cog, name="API 🌐", aliases=["api", "API"], description="Some cool API commands"):
+class API(commands.Cog, name="API 🌐", description="Some cool API commands"):
     def __init__(self, bot):
         self.bot = bot
         self.dagpi_headers = {
