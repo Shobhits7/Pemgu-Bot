@@ -12,7 +12,7 @@ class OnMessage(commands.Cog):
         if message.author.bot:
             return
 
-        elif message.author.id == self.bot.blacklist_ids:
+        elif message.author.id in self.bot.blacklist_ids:
             return
         
         elif F"<@!{self.bot.user.id}>" == message.content or F"<@{self.bot.user.id}>" == message.content:
