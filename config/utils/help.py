@@ -27,6 +27,7 @@ class MyHelp(commands.HelpCommand):
         hmainmbed = HelpEmbed(
             title=F"{ctx.me.display_name} Help",
         )
+        hmainmbed.set_thumbnail(url=ctx.me.avatar_url)
         hmainmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
         usable = 0 
         for cog, commands in mapping.items(): 
@@ -39,7 +40,7 @@ class MyHelp(commands.HelpCommand):
                 else:
                     name = "No Category"
                     description = "Commands with no category"
-                hmainmbed.add_field(name=F"{name} Category [{amount_commands}]", value=description, inline=False)
+                hmainmbed.add_field(name=F"{name} Category [{amount_commands}]", value=description)
         hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable" 
         await ctx.reply(embed=hmainmbed)
 
@@ -51,16 +52,17 @@ class MyHelp(commands.HelpCommand):
             title=signature,
             description=command.help or "No help found...",
         )
+        hcmdmbed.set_thumbnail(url=ctx.me.avatar_url)
         hcmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
         if cog := command.cog:
-            hcmdmbed.add_field(name="Category", value=cog.qualified_name, inline=False)
+            hcmdmbed.add_field(name="Category", value=cog.qualified_name)
         can_run = "No"
         with contextlib.suppress(commands.CommandError):
             if await command.can_run(self.context):
                 can_run = "Yes"  
-        hcmdmbed.add_field(name="Usable", value=can_run, inline=False)
+        hcmdmbed.add_field(name="Usable", value=can_run)
         if command._buckets and (cooldown := command._buckets._cooldown):
-            hcmdmbed.add_field(name="Cooldown", value=F"{cooldown.rate} per {cooldown.per:.0f} seconds", inline=False)
+            hcmdmbed.add_field(name="Cooldown", value=F"{cooldown.rate} per {cooldown.per:.0f} seconds")
         await ctx.reply(embed=hcmdmbed)
 
     # Help Cog
@@ -71,22 +73,25 @@ class MyHelp(commands.HelpCommand):
             title=title,
             description=cog.description or "No help found..."
         )
+        hcogmbed.set_thumbnail(url=ctx.me.avatar_url)
+        hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
         for commands in cog.get_commands():
-            hcogmbed.add_field(name=self.get_command_signature(commands), value=commands.help or "No help found...", inline=False)
+            hcogmbed.add_field(name=self.get_command_signature(commands), value=commands.help or "No help found...")
         await ctx.reply(embed=hcogmbed)
 
     # Help Group
     async def send_group_help(self, group):
         ctx= self.context
         title = self.get_command_signature(group)
-        hgrouphelp = HelpEmbed(
+        hgroupmbed = HelpEmbed(
             title=title,
             description=group.help or "No help found..."
         )
-        hgrouphelp.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
+        hgroupmbed.set_thumbnail(url=ctx.me.avatar_url)
+        hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
         for commands in group.commands:
-            hgrouphelp.add_field(name=self.get_command_signature(commands), value=commands.help or "No help found...", inline=False)
-        await ctx.reply(embed=hgrouphelp)
+            hgroupmbed.add_field(name=self.get_command_signature(commands), value=commands.help or "No help found...")
+        await ctx.reply(embed=hgroupmbed)
 
     # Help Error
     async def send_error_message(self, error):
@@ -96,4 +101,5 @@ class MyHelp(commands.HelpCommand):
             description=error
         )
         herrormbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
+        herrormbed.set_thumbnail(url=ctx.me.avatar_url)
         await ctx.reply(embed=herrormbed)
