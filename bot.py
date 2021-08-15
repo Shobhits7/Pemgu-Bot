@@ -47,11 +47,8 @@ bot.colors = [
 bot.color = 0x2F3136
 bot.time = datetime.datetime.utcnow()
 
-for file in os.listdir("./config/commands/"):
+for file in os.listdir("./config/core/"):
     if file.endswith(".py"):
-        bot.load_extension(F"config.commands.{file[:-3]}")
-for file in os.listdir("./config/events/"):
-    if file.endswith(".py"):
-        bot.load_extension(F"config.events.{file[:-3]}")
+        bot.load_extension(F"config.core.{file[:-3]}")
 
 bot.run(os.getenv("TOKEN"))
