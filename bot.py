@@ -1,10 +1,8 @@
 import discord
-from discord import activity
 from discord.ext import commands
 import os
 import datetime
 import config.json.json
-from itertools import cycle
 
 def get_prefix(bot, message):
     data = config.json.json.read_json("prefixes")
