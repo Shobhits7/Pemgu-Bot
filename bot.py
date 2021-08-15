@@ -50,5 +50,6 @@ bot.time = datetime.datetime.utcnow()
 for file in os.listdir("./config/core/"):
     if file.endswith(".py"):
         bot.load_extension(F"config.core.{file[:-3]}")
-
+bot.cogs.sort()
+        
 bot.run(os.getenv("TOKEN"))
