@@ -75,7 +75,6 @@ class MyHelp(commands.HelpCommand):
         )
         hcogmbed.set_thumbnail(url=ctx.me.avatar_url)
         hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-        commands = [c.name for c in cog.get_command()]
         commands = {c.name : c for c in cog.get_commands()}
         for command in sorted(commands):
             hcogmbed.add_field(name=self.get_command_signature(commands[command]), value=command.help or "No help found...")
