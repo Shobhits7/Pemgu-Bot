@@ -9,7 +9,7 @@ class OnReady(commands.Cog):
     async def on_connect(self):
         print(F"---------------------------------------------------\nLogged in as: {self.bot.user} - {self.bot.user.id}\nMain prefix is: ~b\nThe Bot  is online now\n---------------------------------------------------")
 
-        msgchannel = self.bot.get_channel(873472317114679336)
+        msgchannel =await self.bot.fetch_channel(873472317114679336)
         onlinembed= discord.Embed(
             colour=self.bot.color,
             title="Bot is online now",
