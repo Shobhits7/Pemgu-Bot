@@ -1,9 +1,7 @@
 import discord
 from discord.ext import commands
-import datetime
 import difflib
 import traceback
-import sys
 
 class OnError(commands.Cog):
     def __init__(self, bot):
@@ -128,7 +126,7 @@ class OnError(commands.Cog):
             cfmbed = discord.Embed(
                 colour=self.bot.color,
                 title="You are blacklisted, stop using the commands",
-                timestamp=self.bot.time
+                timestamp=ctx.message.created_at
             )
             cfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             await ctx.reply(embed=cfmbed)
@@ -137,7 +135,7 @@ class OnError(commands.Cog):
             cafmbed = discord.Embed(
                 colour=self.bot.color,
                 title="You are blacklisted, stop using the commands",
-                timestamp=self.bot.time
+                timestamp=ctx.message.created_at
             )
             cafmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             await ctx.reply(embed=cafmbed)

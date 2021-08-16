@@ -1,8 +1,7 @@
 import discord
 from discord.ext import commands
-import datetime
 
-class Fun(commands.Cog, name="Fun :rofl:", description="Very Funny commands"):
+class Fun(commands.Cog, description="Very Funny commands"):
     def __init__(self, bot):
         self.bot = bot
     

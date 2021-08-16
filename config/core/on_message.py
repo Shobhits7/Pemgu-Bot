@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
-import datetime
-import config.utils.json
+from config.utils.json import read_json, write_json
 
 class OnMessage(commands.Cog):
     def __init__(self, bot):
@@ -13,7 +12,7 @@ class OnMessage(commands.Cog):
             return
 
         if F"<@!{self.bot.user.id}>" == message.content or F"<@{self.bot.user.id}>" == message.content:
-            data = config.utils.json.read_json("prefixes")
+            data = read_json("prefixes")
             if str(message.guild.id) in data:
                 prefix = data[str(message.guild.id)]
             else:
