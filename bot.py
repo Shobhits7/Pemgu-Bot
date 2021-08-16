@@ -16,6 +16,8 @@ def get_prefix(bot, message):
 
 bot = commands.Bot(command_prefix=get_prefix, strip_after_prefix=True, case_insensitive=True, owner_ids={798928603201929306, 494496285676535811}, intents=discord.Intents.all(), status=discord.Status.online, activity=discord.Game(name="@Brevity for prefix | ~b help for help | Made by lvlahraam"))
 
+bot.blacklist_ids = []
+
 bot.colors = [
     discord.Colour.default(),
     discord.Colour.teal(),
@@ -44,14 +46,6 @@ bot.colors = [
 
 bot.color = 0x2F3136
 bot.time = datetime.datetime.utcnow()
-
-bot.blacklist_ids = []
-
-@bot.check
-async def bot_check(ctx):
-    if ctx.author.id in bot.blacklist_ids:
-        return False
-    return True 
 
 for file in sorted(os.listdir("./config/core/")):
     if file.endswith(".py"):
