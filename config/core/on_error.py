@@ -131,6 +131,7 @@ class OnError(commands.Cog):
             )
             tbmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             t = traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+            tbmbed.description += t
             await ctx.reply(embed=tbmbed)
 
 def setup(bot):
