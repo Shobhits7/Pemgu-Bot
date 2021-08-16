@@ -130,8 +130,8 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             tbmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-            t = traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
-            tbmbed.description += t
+            t = traceback.format_exception
+            print(t)
             await ctx.reply(embed=tbmbed)
 
 def setup(bot):
