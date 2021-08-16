@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import datetime
 
-class Moderation(commands.Cog, description="Was someone being bad"):
+class Moderation(commands.Cog, name="Moderation :crossed_swords:", description="Was someone being bad"):
     def __init__(self, bot):
         self.bot = bot
 
