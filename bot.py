@@ -8,7 +8,7 @@ def get_prefix(bot, message):
     data = read_json("prefixes")
     if message.guild:
         if not str(message.guild.id) in data:
-            return "~b"
+            return "~b" or "~B"
         elif str(message.guild.id) in data:
             return data[str(message.guild.id)]
     else:
