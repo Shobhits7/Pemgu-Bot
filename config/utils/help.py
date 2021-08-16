@@ -90,8 +90,9 @@ class MyHelp(commands.HelpCommand):
         )
         hgroupmbed.set_thumbnail(url=ctx.me.avatar_url)
         hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-        for commands in group.commands:
-            hgroupmbed.add_field(name=self.get_command_signature(commands), value=commands.help or "No help found...")
+        commands = {c.name : c for c in group.commands}
+        for command in sorted(commands):
+            hgroupmbed.add_field(name=self.get_command_signature(commands[command]), value=commands[command].help or "No help found...")
         await ctx.reply(embed=hgroupmbed)
 
     # Help Error
