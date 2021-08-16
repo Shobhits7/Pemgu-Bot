@@ -47,7 +47,7 @@ bot.time = datetime.datetime.utcnow()
 
 bot.blacklist_ids = []
 
-@bot.check
+@bot.check_once
 async def bot_check(ctx):
     if ctx.author.id in bot.blacklist_ids:
         return False
