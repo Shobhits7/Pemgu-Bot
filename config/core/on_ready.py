@@ -7,7 +7,7 @@ class OnReady(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print(F"---------------------------------------------------\nLogged in as: {self.bot.user} - {self.bot.user.id}\nMain prefix is: {self.bot.command_prefix}\nThe Bot  is online now\n---------------------------------------------------")
+        print(F"---------------------------------------------------\nLogged in as: {self.bot.user} - {self.bot.user.id}\nMain prefix is: ~b or ~B\nThe Bot  is online now\n---------------------------------------------------")
 
 def setup(bot):
     bot.add_cog(OnReady(bot))
