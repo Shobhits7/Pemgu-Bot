@@ -125,14 +125,14 @@ class OnError(commands.Cog):
             await ctx.reply(embed=rnfmbed)
         elif isinstance(error, commands.CheckFailure):
             cfmbed = discord.Embed(
-                colour=self.bot.colors,
+                colour=self.bot.color,
                 title="You are blacklisted, stop using the commands"
             )
             cfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             await ctx.reply(embed=cfmbed)
         elif isinstance(error, commands.CheckAnyFailure):
             cafmbed = discord.Embed(
-                colour=self.bot.colors,
+                colour=self.bot.color,
                 title="You are blacklisted, stop using the commands"
             )
             cafmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
