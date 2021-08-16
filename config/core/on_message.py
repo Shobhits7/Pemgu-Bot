@@ -11,9 +11,6 @@ class OnMessage(commands.Cog):
     async def on_message(self, message):
         if message.author.bot:
             return
-        
-        if message.author.id in self.bot.blacklist_ids:
-            return
 
         if F"<@!{self.bot.user.id}>" == message.content or F"<@{self.bot.user.id}>" == message.content:
             data = config.utils.json.read_json("prefixes")
