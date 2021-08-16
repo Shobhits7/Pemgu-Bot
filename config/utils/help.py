@@ -75,9 +75,10 @@ class MyHelp(commands.HelpCommand):
         )
         hcogmbed.set_thumbnail(url=ctx.me.avatar_url)
         hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-        for commands in cog.get_commands():
-            commands.sort()
-            hcogmbed.add_field(name=self.get_command_signature(commands), value=commands.help or "No help found...")
+        commands = [c.name for c in cog.get_command()]
+        for commands in sorted(commands):
+            for command in cog.get_commands():
+                hcogmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
         await ctx.reply(embed=hcogmbed)
 
     # Help Group
