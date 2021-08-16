@@ -25,7 +25,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
             data = read_json("prefixes")
             data[str(ctx.guild.id)] = pre
             write_json(data, "prefixes")
-            await ctx.reply(embed=pfmbed)
+            await ctx.send(embed=pfmbed)
 
 def setup(bot):
     bot.add_cog(Setup(bot))

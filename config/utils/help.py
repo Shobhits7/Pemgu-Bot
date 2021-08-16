@@ -42,7 +42,7 @@ class MyHelp(commands.HelpCommand):
                     description = "Commands with no category"
                 hmainmbed.add_field(name=F"{name} Category [{amount_commands}]", value=description)
         hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable" 
-        await ctx.reply(embed=hmainmbed)
+        await ctx.send(embed=hmainmbed)
 
     # Help Command
     async def send_command_help(self, command):
@@ -63,7 +63,7 @@ class MyHelp(commands.HelpCommand):
         hcmdmbed.add_field(name="Usable", value=can_run)
         if command._buckets and (cooldown := command._buckets._cooldown):
             hcmdmbed.add_field(name="Cooldown", value=F"{cooldown.rate} per {cooldown.per:.0f} seconds")
-        await ctx.reply(embed=hcmdmbed)
+        await ctx.send(embed=hcmdmbed)
 
     # Help Cog
     async def send_cog_help(self, cog):
@@ -78,7 +78,7 @@ class MyHelp(commands.HelpCommand):
         commands = {c.name : c for c in cog.get_commands()}
         for command in sorted(commands):
             hcogmbed.add_field(name=self.get_command_signature(commands[command]), value=commands[command].help or "No help found...")
-        await ctx.reply(embed=hcogmbed)
+        await ctx.send(embed=hcogmbed)
 
     # Help Group
     async def send_group_help(self, group):
@@ -93,7 +93,7 @@ class MyHelp(commands.HelpCommand):
         commands = {c.name : c for c in group.commands}
         for command in sorted(commands):
             hgroupmbed.add_field(name=self.get_command_signature(commands[command]), value=commands[command].help or "No help found...")
-        await ctx.reply(embed=hgroupmbed)
+        await ctx.send(embed=hgroupmbed)
 
     # Help Error
     async def send_error_message(self, error):
@@ -104,4 +104,4 @@ class MyHelp(commands.HelpCommand):
         )
         herrormbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
         herrormbed.set_thumbnail(url=ctx.me.avatar_url)
-        await ctx.reply(embed=herrormbed)
+        await ctx.send(embed=herrormbed)

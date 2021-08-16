@@ -16,7 +16,7 @@ class Fun(commands.Cog, description="Very Funny commands"):
         )
         tsmbed.set_image(url="https://cdn.discordapp.com/attachments/873478114183880704/875570208629198890/matt-artz-nTRDnDdDYk8-unsplash.png")
         tsmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        await ctx.reply(embed=tsmbed)
+        await ctx.send(embed=tsmbed)
 
     # Echo
     @commands.command(name="echo", aliases=["eo"], help="Will echo your message", usage="<text>")
@@ -30,10 +30,10 @@ class Fun(commands.Cog, description="Very Funny commands"):
         badeombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         if "@everyone" in ctx.message.content or "@here" in ctx.message.content:
             if ctx.author.guild_permissions.mention_everyone:
-                return await ctx.reply(echo)
-            return await ctx.reply(embed=badeombed)
+                return await ctx.send(echo)
+            return await ctx.send(embed=badeombed)
         else:
-            await ctx.reply(echo)
+            await ctx.send(echo)
 
 def setup(bot):
     bot.add_cog(Fun(bot))

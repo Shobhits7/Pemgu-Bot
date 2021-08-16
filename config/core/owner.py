@@ -16,7 +16,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             timestamp=ctx.message.created_at
         )
         ltmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        await ctx.reply(embed=ltmbed)
+        await ctx.send(embed=ltmbed)
         await self.bot.close()
 
     # Relog
@@ -30,7 +30,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             timestamp=ctx.message.created_at
         )
         rgmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        await ctx.reply(embed=rgmbed)
+        await ctx.send(embed=rgmbed)
         await self.bot.close()
         await self.bot.login()
     
@@ -46,7 +46,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             timestamp=ctx.message.created_at
         )
         gdmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        await ctx.reply(embed=gdmbed)
+        await ctx.send(embed=gdmbed)
     
     # Perms
     @commands.command(name="perms", aliases=["pm"], help="Will show the perms that the bot has in this guild")
@@ -56,7 +56,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         pmbed = discord.Embed(colour=self.bot.color, title="Bot Permissions", timestamp=ctx.message.created_at)
         pmbed.add_field(name="Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if val))
         pmbed.add_field(name="Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if not val))
-        await ctx.reply(embed=pmbed)
+        await ctx.send(embed=pmbed)
 
     # Template
     @commands.command(name="template", aliases=["te"], help="Will give the guild's template")
@@ -72,7 +72,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             timestamp=ctx.message.created_at
         )
         tembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        await ctx.reply(embed=tembed)
+        await ctx.send(embed=tembed)
         temp = await ctx.guild.templates()
         await ctx.author.send(temp)
     
@@ -95,9 +95,9 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         doblmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         if user.id in self.bot.blacklisted:
             self.bot.blacklisted.remove(user.id)
-            return await ctx.reply(embed=unblmbed)
+            return await ctx.send(embed=unblmbed)
         self.bot.blacklisted.append(user.id)
-        await ctx.reply(embed=doblmbed)
+        await ctx.send(embed=doblmbed)
 
 def setup(bot):
     bot.add_cog(Owner(bot))

@@ -23,7 +23,7 @@ class OnMessage(commands.Cog):
                 timestamp=message.created_at
             )
             ompmbed.set_footer(text=message.author.display_name, icon_url=message.author.avatar_url)
-            return await message.reply(embed=ompmbed)
+            return await message.send(embed=ompmbed)
         
 
 def setup(bot):

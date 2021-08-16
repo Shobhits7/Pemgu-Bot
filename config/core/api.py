@@ -24,7 +24,7 @@ class API(commands.Cog, description="Some cool API commands"):
             timestamp=ctx.message.created_at
         )
         jkmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        await ctx.reply(embed=jkmbed)
+        await ctx.send(embed=jkmbed)
 
         # 8Ball
     @commands.command(name="8ball", aliases=["8b"], help="Will give you a random answer", usage="<question>")
@@ -39,7 +39,7 @@ class API(commands.Cog, description="Some cool API commands"):
         _8bmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         _8bmbed.add_field(name="Your Question:", value=question)
         _8bmbed.add_field(name="Your Answer:", value=session["response"])
-        await ctx.reply(embed=_8bmbed)
+        await ctx.send(embed=_8bmbed)
 
     # Image
         # Pixel
@@ -56,7 +56,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         pxlmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         pxlmbed.set_image(url="attachment://pixel.png")
-        await ctx.reply(file=discord.File(session, filename="pixel.png"), embed=pxlmbed)
+        await ctx.send(file=discord.File(session, filename="pixel.png"), embed=pxlmbed)
     
         # Mirror
     @commands.command(name="mirror", aliases=["mr"], help="Will make the given picture mirrored", usage="[user]")
@@ -72,7 +72,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         mrmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         mrmbed.set_image(url="attachment://mirror.png")
-        await ctx.reply(file=discord.File(session, filename="mirror.png"), embed=mrmbed)
+        await ctx.send(file=discord.File(session, filename="mirror.png"), embed=mrmbed)
 
         # Flip
     @commands.command(name="flip", aliases=["fi"], help="Will make the given picture flipped", usage="[user]")
@@ -88,7 +88,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         fimbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         fimbed.set_image(url="attachment://flip.png")
-        await ctx.reply(file=discord.File(session, filename="flip.png"), embed=fimbed)
+        await ctx.send(file=discord.File(session, filename="flip.png"), embed=fimbed)
 
         # Colors
     @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image", usage="[user]")
@@ -104,7 +104,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         clrsmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         clrsmbed.set_image(url="attachment://colors.png")
-        await ctx.reply(file=discord.File(session, filename="colors.png"), embed=clrsmbed)
+        await ctx.send(file=discord.File(session, filename="colors.png"), embed=clrsmbed)
 
         # RGB
     @commands.command(name="rgb", help="Will give you rgb information about the given image", usage="[user]")
@@ -120,7 +120,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         rgbmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         rgbmbed.set_image(url="attachment://rgb.png")
-        await ctx.reply(file=discord.File(session, filename="rgb.png"), embed=rgbmbed)
+        await ctx.send(file=discord.File(session, filename="rgb.png"), embed=rgbmbed)
 
         # Tweet
     @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet", usage="<username> <text>")
@@ -136,7 +136,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         twmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         twmbed.set_image(url="attachment://tweet.png")
-        await ctx.reply(file=discord.File(session, filename="tweet.png"), embed=twmbed)
+        await ctx.send(file=discord.File(session, filename="tweet.png"), embed=twmbed)
 
 # Other
     # Screenshot
@@ -152,7 +152,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         ssmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         ssmbed.set_image(url="attachment://screenshot.png")
-        await ctx.reply(file=discord.File(session, filename="screenshot.png"), embed=ssmbed)
+        await ctx.send(file=discord.File(session, filename="screenshot.png"), embed=ssmbed)
     
     # Code
     @commands.command(name="code", aliases=["cd"], help="Will give you a preview from your code", usage="<code>")
@@ -167,7 +167,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         cdmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         cdmbed.set_image(url="attachment://code.png")
-        await ctx.reply(file=discord.File(session, filename="code.png"), embed=cdmbed)
+        await ctx.send(file=discord.File(session, filename="code.png"), embed=cdmbed)
 
 # Dinosaur API
     # Chat
@@ -177,14 +177,14 @@ class API(commands.Cog, description="Some cool API commands"):
         session = await session_text(F"https://dinosaur.ml/misc/chatbot/?msg={text}")
         if not session["msg"]:
             pass
-        await ctx.reply(session["msg"])
+        await ctx.send(session["msg"])
     
     # Sarcasm
     @commands.command(name="sarcasm", aliases=["sc"], help="Will make your message sarcasm", usage="<text>")
     async def sarcasm(self, ctx, *, text):
         await ctx.trigger_typing()
         session = await session_text(F"https://dinosaur.ml/misc/sarcastic/?text={text}")
-        await ctx.reply(session["message"])        
+        await ctx.send(session["message"])        
 
     # Coinflip
     @commands.command(name="coinflip", aliases=["cf"], help="Will do a coinflip")
@@ -198,7 +198,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         cfmbed.set_image(url=session['image'])
         cfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        await ctx.reply(embed=cfmbed)
+        await ctx.send(embed=cfmbed)
 
     # Bitcoin
     @commands.command(name="bitcoin", aliases=["bc"], help="Will show the current worth of Bitcoin")
@@ -216,7 +216,7 @@ class API(commands.Cog, description="Some cool API commands"):
         bcmbed.add_field(name="GBP:", value=F"{session['GBP']}", inline=False)
         bcmbed.add_field(name="EUR:", value=F"{session['EUR']}", inline=False)
         bcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        await ctx.reply(embed=bcmbed)
+        await ctx.send(embed=bcmbed)
 
 
     # Color
@@ -234,7 +234,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         clrmbed.set_image(url="attachment://colors.png")
         clrmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        await ctx.reply(file=discord.File(session, filename="colors.png"), embed=clrmbed)
+        await ctx.send(file=discord.File(session, filename="colors.png"), embed=clrmbed)
 
 def setup(bot):
     bot.add_cog(API(bot))
