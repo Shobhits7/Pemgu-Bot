@@ -3,7 +3,7 @@ from discord.ext import commands
 import datetime
 import config.utils.json
 
-class Setup(commands.Cog, name="Setup ❓", description="For setting up the bot"):
+class Setup(commands.Cog, description="For setting up the bot"):
     def __init__(self, bot):
         self.bot = bot
 
