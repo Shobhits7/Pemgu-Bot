@@ -6,7 +6,7 @@ class OnCheck(commands.Cog):
         self.bot = bot
     
     @commands.Cog.bot_check()
-    async def blacklist(self, ctx):
+    async def blacklist(self, ctx:commands.Context):
         if ctx.author.id in self.bot.blacklist_ids:
             return False
         return True
