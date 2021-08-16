@@ -45,13 +45,13 @@ bot.colors = [
 bot.color = 0x2F3136
 bot.time = datetime.datetime.utcnow()
 
-bot.blacklist_ids = []
+bot.blacklisted = []
 
-# @bot.check_once
-# async def bot_check(ctx):
-#     if ctx.author.id in bot.blacklist_ids:
-#         return False
-#     return True 
+@bot.check
+async def blacklisted(ctx):
+    if ctx.author.id in bot.blacklisted:
+        return False
+    return True 
 
 for file in sorted(os.listdir("./config/core/")):
     if file.endswith(".py"):

@@ -97,10 +97,10 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             timestamp=ctx.message.created_at
         )
         doblmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        if user.id in self.bot.blacklist_ids:
-            self.bot.blacklist_ids.remove(user.id)
+        if user.id in self.bot.blacklisted:
+            self.bot.blacklisted.remove(user.id)
             return await ctx.reply(embed=unblmbed)
-        self.bot.blacklist_ids.append(user.id)
+        self.bot.blacklisted.append(user.id)
         await ctx.reply(embed=doblmbed)
 
 def setup(bot):
