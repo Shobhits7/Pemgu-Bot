@@ -12,7 +12,10 @@ class OnMessage(commands.Cog):
         if message.author.bot:
             return
         
-        elif F"<@!{self.bot.user.id}>" == message.content or F"<@{self.bot.user.id}>" == message.content:
+        if message.author.id in self.bot.blacklist_ids:
+            return
+
+        if F"<@!{self.bot.user.id}>" == message.content or F"<@{self.bot.user.id}>" == message.content:
             data = config.utils.json.read_json("prefixes")
             if str(message.guild.id) in data:
                 prefix = data[str(message.guild.id)]
