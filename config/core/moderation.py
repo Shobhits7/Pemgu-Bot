@@ -73,7 +73,8 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         ukcmbed.add_field(name=F"For this reason:", value=reason)
         ukcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.guild.kick(user=member, reason=reason)
-        await ctx.send(embed=akcmbed)try:
+        await ctx.send(embed=akcmbed)
+        try:
             await member.send(embed=ukcmbed)
         except discord.Forbidden:
             raise discord.Forbidden
