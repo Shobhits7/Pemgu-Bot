@@ -29,7 +29,10 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         ubnmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.guild.ban(user, reason=reason)
         await ctx.send(embed=abnmbed)
-        await user.send(embed=ubnmbed)
+        try:
+            await user.send(embed=ubnmbed)
+        except discord.Forbidden:
+            raise discord.Forbidden
     
     # Unban
     @commands.command(name="unban", aliases=["un"], help="Will unban the user", usage="<user>")
@@ -70,8 +73,10 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         ukcmbed.add_field(name=F"For this reason:", value=reason)
         ukcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.guild.kick(user=member, reason=reason)
-        await ctx.send(embed=akcmbed)
-        await member.send(embed=ukcmbed)
+        await ctx.send(embed=akcmbed)try:
+            await member.send(embed=ukcmbed)
+        except discord.Forbidden:
+            raise discord.Forbidden
 
     # AddRole
     @commands.command(name="addrole", aliases=["ae"], help="Will add the given role to the given user", usage="<user> <role>")

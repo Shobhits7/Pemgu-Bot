@@ -60,9 +60,11 @@ class OnError(commands.Cog):
             fmbed = discord.Embed(
                 colour=self.bot.color,
                 title="Forbidden Error",
-                description="If you are the owner of this server, you can't do the commands that will change things for you\nOr maybe the bot's role is not that high (this won't change the concept for you if you are the owner)",
+                description="The problem is one of the options down below",
                 timestamp=ctx.message.created_at
             )
+            fmbed.add_field(name="You are the owner of this server:", value="If you are the owner, and you are trying to use changing command, you can't")
+            fmbed.add_field(name="Couldn't send messages to the user", value="The user is not accepting messages from the members in here or just blocked this bot")
             fmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             await ctx.send(embed=fmbed)
         elif isinstance(error, commands.MissingRequiredArgument):
