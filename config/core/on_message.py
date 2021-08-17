@@ -24,7 +24,10 @@ class OnMessage(commands.Cog):
             )
             ompmbed.set_footer(text=message.author.display_name, icon_url=message.author.avatar_url)
             return await message.send(embed=ompmbed)
-        
+    
+    @commands.Cog.listener()
+    async def on_message_edit(self, old, new):
+        self.bot.proccess_command(new)
 
 def setup(bot):
     bot.add_cog(OnMessage(bot))
