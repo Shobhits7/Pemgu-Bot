@@ -12,15 +12,23 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     @commands.bot_has_guild_permissions(ban_members=True)
     async def ban(self, ctx, user:commands.UserConverter, *, reason=None):
         await ctx.trigger_typing()
-        bnmbed = discord.Embed(
+        abnmbed = discord.Embed(
             colour=self.bot.color,
             title=F"`{user.display_name}` is now Banned",
             description=F"For reason: {reason}",
             timestamp=ctx.message.created_at
         )
-        bnmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        abnmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        ubnmbed = discord.Embed(
+            colour=self.bot.color,
+            title=F"Dear {user.display_name}"
+        )
+        ubnmbed.add_field(name=F"You were banned from:", value=F"{ctx.guild.id}")
+        ubnmbed.add_field(name=F"By:", value=F"{ctx.author.name}")
+        ubnmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.guild.ban(user, reason=reason)
-        await ctx.send(embed=bnmbed)
+        await ctx.send(embed=abnmbed)
+        await user.send(embed=ubnmbed)
     
     # Unban
     @commands.command(name="unban", aliases=["un"], help="Will unban the user", usage="<user>")
@@ -45,15 +53,23 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     @commands.bot_has_guild_permissions(kick_members=True)
     async def kick(self, ctx, member:commands.MemberConverter, *, reason=None):
         await ctx.trigger_typing()
-        kcmbed = discord.Embed(
+        akcmbed = discord.Embed(
             colour=self.bot.color,
             title=F"{member.display_name} is now Kicked",
             description=F"For reason: {reason}",
             timestamp=ctx.message.created_at
         )
-        kcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        akcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        ukcmbed = discord.Embed(
+            colour=self.bot.color,
+            title=F"Dear {member.display_name}"
+        )
+        ukcmbed.add_field(name=F"You were banned from:", value=F"{ctx.guild.id}")
+        ukcmbed.add_field(name=F"By:", value=F"{ctx.author.name}")
+        ukcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.guild.kick(user=member, reason=reason)
-        await ctx.send(embed=kcmbed)
+        await ctx.send(embed=akcmbed)
+        await member.send(embed=ukcmbed)
 
     # AddRole
     @commands.command(name="addrole", aliases=["ae"], help="Will add the given role to the given user", usage="<user> <role>")
