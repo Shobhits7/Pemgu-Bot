@@ -27,7 +27,7 @@ class OnMessage(commands.Cog):
     
     @commands.Cog.listener()
     async def on_message_edit(self, old, new):
-        self.bot.proccess_command(new)
+        self.bot.process_commands(new)
 
 def setup(bot):
     bot.add_cog(OnMessage(bot))
