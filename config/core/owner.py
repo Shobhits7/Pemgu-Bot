@@ -101,11 +101,11 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         await ctx.send(embed=doblmbed)
 
     # DB
-    @commands.command(name="db", aliases=["db"], help="Will change the db", usage="<prefix>")
+    @commands.command(name="database", aliases=["db"], help="Will change the db", usage="<prefix>")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     @commands.cooldown(1, 5, commands.BucketType.guild)
-    async def db(self, ctx):
+    async def database(self, ctx):
         print("First word")
         url = os.getenv("MONGODB")
         cluster = motor.AsyncIOMotorClient(url)
