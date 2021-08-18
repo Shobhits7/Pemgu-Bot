@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import motor.motor_asyncio as motor
 import os
 
 class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
