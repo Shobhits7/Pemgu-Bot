@@ -4,16 +4,13 @@ attrs
 cffi
 chardet
 discord.py
-dnspython
 idna
 jishaku
-motor
 multidict
 pycparser
 pymunk
 PyNaCl
 pytiled-parser
-pymongo
 PyYAML
 Shapely
 six
