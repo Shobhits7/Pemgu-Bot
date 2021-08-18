@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import os
 
 class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     def __init__(self, bot):
@@ -98,6 +99,27 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             return await ctx.send(embed=unblmbed)
         self.bot.blacklisted.append(user.id)
         await ctx.send(embed=doblmbed)
+
+    # DB
+    @commands.command(name="db", aliases=["db"], help="Will change the db", usage="<prefix>")
+    @commands.guild_only()
+    @commands.has_guild_permissions(administrator=True)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
+    async def db(self, ctx):
+        print("First word")
+        url = os.getenv("MONGODB")
+        cluster = motor.AsyncIOMotorClient(url)
+        print("client word")
+        db = cluster["brevity-database"]
+        print("db word")
+        collection = db["prefixes"]
+        print("collection word")
+        document = {"key": "value"}
+        print("docs word")
+        await collection.insert_one(document)
+        print("insert word")
+        await ctx.send("IT WORKED")
+        print("Last Word")
 
 def setup(bot):
     bot.add_cog(Owner(bot))
