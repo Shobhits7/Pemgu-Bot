@@ -19,7 +19,7 @@ class OnMessage(commands.Cog):
                 prefix = prefix[0].get("prefix")
             ompmbed = discord.Embed(
                 colour=0x2F3136,
-                title=F"My Prefix here is {prefix}",
+                title=F"My Prefix here is `{prefix}`",
                 timestamp=message.created_at
             )
             ompmbed.set_footer(text=message.author.display_name, icon_url=message.author.avatar_url)
