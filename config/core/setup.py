@@ -12,10 +12,15 @@ class Setup(commands.Cog, description="For setting up the bot"):
     @commands.cooldown(1, 5, commands.BucketType.guild)
     async def prefix(self, ctx):
         await ctx.trigger_typing()
+        data = read_json("prefixes")
+        if str(ctx.guild.id) in data:
+            prefix = data[str(ctx.guild.id)]
+        else:
+            prefix = "~b"
         pfmbed = discord.Embed(
             colour=self.bot.color,
-            title=F"My Prefix here is {self.bot.prefix}",
-            timestamp=ctx.message.created_at
+            title=F"My Prefix here is {prefix}",
+            timestamp=ctx.created_at
         )
         pfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
     # Prefix Change

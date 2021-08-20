@@ -16,8 +16,6 @@ def get_prefix(bot, message):
 
 bot = commands.Bot(command_prefix=get_prefix, strip_after_prefix=True, case_insensitive=True, owner_ids={798928603201929306, 494496285676535811}, intents=discord.Intents.all(), status=discord.Status.online, activity=discord.Game(name="@Brevity for prefix | ~b help for help | Made by lvlahraam"))
 
-bot.prefix = get_prefix
-
 bot.colors = [
     discord.Colour.default(),
     discord.Colour.teal(),
