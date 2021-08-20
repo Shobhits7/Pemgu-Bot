@@ -23,6 +23,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
             timestamp=ctx.message.created_at
         )
         pfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        await ctx.send(pfmbed)
     # Prefix Change
     @prefix.command(name="prefixchange", aliases=["pfc"], help="Will change the prefix for this guild", usage="<prefix>")
     @commands.guild_only()
