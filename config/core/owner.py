@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from config.utils.aiohttp import session_bytes
 
 class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     def __init__(self, bot):
@@ -26,7 +27,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         await ctx.trigger_typing()
         rgmbed = discord.Embed(
             colour=self.bot.color,
-            title="Okay Relogging 👀",
+            title="Okay Relogging :eyes:",
             timestamp=ctx.message.created_at
         )
         rgmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
@@ -98,6 +99,22 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             return await ctx.send(embed=unblmbed)
         self.bot.blacklisted.append(user.id)
         await ctx.send(embed=doblmbed)
+
+    # Code
+    @commands.command(name="code", aliases=["cd"], help="Will give you a preview from your code", usage="<code>")
+    @commands.is_owner()
+    @commands.bot_has_guild_permissions(attach_files=True)
+    async def code(self, ctx, *code):
+        await ctx.trigger_typing()
+        session = await session_bytes(F"https://carbonnowsh.herokuapp.com/?code={code}&paddingVertical=56px&paddingHorizontal=56px&backgroundImage=none&backgroundImageSelection=none&backgroundMode=color&backgroundColor=rgba(88, 89, 185, 100)&dropShadow=true&dropShadowOffsetY=20px&dropShadowBlurRadius=68px&theme=seti&windowTheme=none&language=auto&fontFamily=Hack&fontSize=16px&lineHeight=133%&windowControls=true&widthAdjustment=true&lineNumbers=true&firstLineNumber=0&exportSize=2x&watermark=false&squaredImage=false&hiddenCharacters=false&name=Hello World&width=680")
+        cdmbed = discord.Embed(
+            colour=self.bot.color,
+            title="Here is your preview for the code",
+            timestamp=ctx.message.created_at
+        )
+        cdmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        cdmbed.set_image(url="attachment://code.png")
+        await ctx.send(file=discord.File(session, filename="code.png"), embed=cdmbed)
 
 def setup(bot):
     bot.add_cog(Owner(bot))

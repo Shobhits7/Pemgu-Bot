@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from config.utils.aiohttp import session_bytes
 from config.utils.help import MyHelp
 import time
 
@@ -39,22 +40,6 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         iombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.send(embed=iombed)
 
-    # Stats
-    @commands.command(name="stats", aliases=["sa"], help="Will show the stats of this server")
-    @commands.guild_only()
-    async def stats(self, ctx):
-        await ctx.trigger_typing()
-        sambed = discord.Embed(
-            colour=self.bot.color,
-            title="Stats for this server",
-            timestamp=ctx.message.created_at
-        )
-        sambed.add_field(name="Members", value=F"{len(ctx.guild.members)} members are in this guild")
-        sambed.add_field(name="Channels", value=F"{len(ctx.guild.channels)} channels are in this guild")
-        sambed.set_thumbnail(url=ctx.guild.icon_url)
-        sambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        await ctx.send(embed=sambed)
-
     # Avatar
     @commands.command(name="avatar", aliases=["av"], help="Will show your or another member avatar", usage="[user]")
     async def avatar(self, ctx, *, user:commands.UserConverter = None):
@@ -83,6 +68,22 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         icmbed.set_image(url=ctx.guild.icon_url)
         icmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.send(embed=icmbed)
+
+    # Stats
+    @commands.command(name="stats", aliases=["sa"], help="Will show the stats of this server")
+    @commands.guild_only()
+    async def stats(self, ctx):
+        await ctx.trigger_typing()
+        sambed = discord.Embed(
+            colour=self.bot.color,
+            title="Stats for this server",
+            timestamp=ctx.message.created_at
+        )
+        sambed.add_field(name="Members", value=F"{len(ctx.guild.members)} members are in this guild")
+        sambed.add_field(name="Channels", value=F"{len(ctx.guild.channels)} channels are in this guild")
+        sambed.set_thumbnail(url=ctx.guild.icon_url)
+        sambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        await ctx.send(embed=sambed)
 
     # Ping
     @commands.command(name="ping", aliases=["pi"], help="Will show your latency")
@@ -118,7 +119,55 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         )
         iembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.send(embed=iembed)
-    
+
+    # Colors
+    @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image", usage="[user]")
+    @commands.bot_has_guild_permissions(attach_files=True)
+    async def colors(self, ctx, user:commands.UserConverter = None):
+        await ctx.trigger_typing()
+        user = user or ctx.author
+        session = await session_bytes(F"https://api.dagpi.xyz/image/colors/?url={user.avatar_url_as(static_format='png', size=1024)}", self.dagpi_headers)
+        clrsmbed = discord.Embed(
+            colour=self.bot.color,
+            title="Here is the colors for the image",
+            timestamp=ctx.message.created_at
+        )
+        clrsmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        clrsmbed.set_image(url="attachment://colors.png")
+        await ctx.send(file=discord.File(session, filename="colors.png"), embed=clrsmbed)
+
+    # Screenshot
+    @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website", usage="<website>")
+    @commands.bot_has_guild_permissions(attach_files=True)
+    async def screenshot(self, ctx, *, website):
+        await ctx.trigger_typing()
+        session = await session_bytes(F"https://api.screenshotmachine.com?key=a95edd&url={website}&dimension=1024x768")
+        ssmbed = discord.Embed(
+            colour=self.bot.color,
+            title="Here is your screenshot",
+            timestamp=ctx.message.created_at
+        )
+        ssmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        ssmbed.set_image(url="attachment://screenshot.png")
+        await ctx.send(file=discord.File(session, filename="screenshot.png"), embed=ssmbed)
+
+    # Echo
+    @commands.command(name="echo", aliases=["eo"], help="Will echo your message", usage="<text>")
+    async def echo(self, ctx, *, echo):
+        await ctx.trigger_typing()
+        badeombed = discord.Embed(
+            colour=self.bot.color,
+            title="Don't even think of using that",
+            timestamp=ctx.message.created_at
+        )
+        badeombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        if "@everyone" in ctx.message.content or "@here" in ctx.message.content:
+            if ctx.author.guild_permissions.mention_everyone:
+                return await ctx.send(echo)
+            return await ctx.send(embed=badeombed)
+        else:
+            await ctx.send(echo)
+
     # AFK
     @commands.command(name="afk", help="Will make you AFK")
     @commands.guild_only()
