@@ -40,21 +40,6 @@ class MyHelp(commands.HelpCommand):
                 else:
                     name = "No Category"
                     description = "Commands with no category"
-                for emoji in name:
-                    if "API" in emoji:
-                        name = "API 🌐"
-                    elif "Fun" in emoji:
-                        name = "Fun 🤣"
-                    elif "Moderation" in emoji:
-                        name = "Moderation ⚔"
-                    elif "Owner" in emoji:
-                        name = "Owner 👑"
-                    elif "Setup" in emoji:
-                        name = "Setup ❓"
-                    elif "Utility" in emoji:
-                        name = "Utility ⚙"
-                    elif "Jishaku" in emoji:
-                        name = "Jishaku 👀"
                 hmainmbed.add_field(name=F"{name} Category [{amount_commands}]", value=description)
         hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable" 
         await ctx.send(embed=hmainmbed)
@@ -94,7 +79,7 @@ class MyHelp(commands.HelpCommand):
         # for command in sorted(commands):
         #     hcogmbed.add_field(name=self.get_command_signature(commands[command]), value=commands[command].help or "No help found...")
         for command in cog.get_commands():
-            hcogmbed.add_filed(name=self.get_command_signature(command), value=command.help or "No help found...")
+            hcogmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
         await ctx.send(embed=hcogmbed)
 
     # Help Group
