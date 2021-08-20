@@ -25,7 +25,7 @@ class MyHelp(commands.HelpCommand):
     async def send_bot_help(self, mapping):
         ctx = self.context
         hmainmbed = HelpEmbed(
-            title=F"{ctx.me.display_name} Help",
+            title=F"{ctx.me.display_name} <:bot_tag:878221621687640074> Help",
         )
         hmainmbed.set_thumbnail(url=ctx.me.avatar_url)
         hmainmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
