@@ -29,8 +29,8 @@ bot = commands.Bot(command_prefix=get_prefix_postgresql, strip_after_prefix=True
 async def create_db_pool():
     bot.db = await asyncpg.create_pool(dsn=os.getenv("POSTGRESQL"))
     print("Connection to Postgres was successful")
-    await bot.db.execute("CREATE TABLE prefixes (guild_id bigint, prefix text)")
-    print("Making a table was successful")
+    # await bot.db.execute("CREATE TABLE prefixes (guild_id bigint, prefix text)")
+    # print("Making a table was successful")
 
 bot.blacklisted = []
 
