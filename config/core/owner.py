@@ -12,7 +12,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     async def logout(self, ctx):
         await ctx.trigger_typing()
         ltmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="Okay, I'm logging out :wave:",
             timestamp=ctx.message.created_at
         )
@@ -26,7 +26,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     async def relog(self, ctx):
         await ctx.trigger_typing()
         rgmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="Okay Relogging :eyes:",
             timestamp=ctx.message.created_at
         )
@@ -41,7 +41,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     async def guild(self, ctx):
         await ctx.trigger_typing()
         gdmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="This bot is joined in: ",
             description=F"{len(self.bot.guilds)} Servers",
             timestamp=ctx.message.created_at
@@ -54,7 +54,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.is_owner()
     async def perms(self, ctx):
         await ctx.trigger_typing()
-        pmbed = discord.Embed(colour=self.bot.color, title="Bot Permissions", timestamp=ctx.message.created_at)
+        pmbed = discord.Embed(colour=0x2F3136, title="Bot Permissions", timestamp=ctx.message.created_at)
         pmbed.add_field(name="Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if val))
         pmbed.add_field(name="Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if not val))
         await ctx.send(embed=pmbed)
@@ -68,7 +68,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     async def template(self, ctx):
         await ctx.trigger_typing()
         tembed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="Please check your DM",
             timestamp=ctx.message.created_at
         )
@@ -83,13 +83,13 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     async def blacklist(self, ctx, user:commands.UserConverter):
         await ctx.trigger_typing()
         unblmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="Removed the user from the blacklist",
             timestamp=ctx.message.created_at
         )
         unblmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         doblmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="Added user to the blacklist",
             timestamp=ctx.message.created_at
         )
@@ -108,7 +108,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         await ctx.trigger_typing()
         session = await session_bytes(F"https://carbonnowsh.herokuapp.com/?code={code}&paddingVertical=56px&paddingHorizontal=56px&backgroundImage=none&backgroundImageSelection=none&backgroundMode=color&backgroundColor=rgba(88, 89, 185, 100)&dropShadow=true&dropShadowOffsetY=20px&dropShadowBlurRadius=68px&theme=seti&windowTheme=none&language=auto&fontFamily=Hack&fontSize=16px&lineHeight=133%&windowControls=true&widthAdjustment=true&lineNumbers=true&firstLineNumber=0&exportSize=2x&watermark=false&squaredImage=false&hiddenCharacters=false&name=Hello World&width=680")
         cdmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="Here is your preview for the code",
             timestamp=ctx.message.created_at
         )

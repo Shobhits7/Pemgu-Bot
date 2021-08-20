@@ -12,13 +12,13 @@ class Setup(commands.Cog, description="For setting up the bot"):
     @commands.cooldown(1, 5, commands.BucketType.guild)
     async def prefix(self, ctx):
         await ctx.trigger_typing()
-        data = read_json("prefixes")
-        if str(ctx.guild.id) in data:
-            prefix = data[str(ctx.guild.id)]
-        else:
+        prefix = await self.bot.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", ctx.guild.id)
+        if len(prefix) == 0:
             prefix = "~b"
+        else:
+            prefix = prefix[0].get("prefix")
         pfmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title=F"My Prefix here is `{prefix}`",
             timestamp=ctx.message.created_at
         )
@@ -31,14 +31,9 @@ class Setup(commands.Cog, description="For setting up the bot"):
     @commands.cooldown(1, 5, commands.BucketType.guild)
     async def change(self, ctx, prefix):
         await ctx.trigger_typing()
-        if not prefix:
-            pass
-        elif prefix:
-            data = read_json("prefixes")
-            data[str(ctx.guild.id)] = prefix
-            write_json(data, "prefixes")
+        await self.bot.db.execute("UPDATE prefixes SET prefix = $1 WHERE guild_id = $2", prefix, ctx.message.guild)
         pfcmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title=F"Changed my prefix to `{prefix}`",
             timestamp=ctx.message.created_at
         )
@@ -51,10 +46,9 @@ class Setup(commands.Cog, description="For setting up the bot"):
     @commands.cooldown(1, 5, commands.BucketType.guild)
     async def reset(self, ctx):
         await ctx.trigger_typing()
-        data = read_json("prefixes")
-        del data[str(ctx.guild.id)]
+        await self.bot.db.execute("DELETE prefix FROM prefixes WHERE guild_id = $1", ctx.guild.id)
         pfrmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="The prefix has been reseted to `~b`",
             timestamp=ctx.message.created_at
         )

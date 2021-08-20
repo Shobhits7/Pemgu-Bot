@@ -15,7 +15,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     async def about(self, ctx):
         await ctx.trigger_typing()
         abmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="About Bot",
             timestamp=ctx.message.created_at
         )
@@ -30,7 +30,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         await ctx.trigger_typing()
         user = member or ctx.author
         iombed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title=F"{user.display_name} Information",
             timestamp=ctx.message.created_at
         )
@@ -46,7 +46,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         await ctx.trigger_typing()
         user = user or ctx.author
         avmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="User's Avatar",
             timestamp=ctx.message.created_at
         )
@@ -60,7 +60,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     async def icon(self, ctx):
         await ctx.trigger_typing()
         icmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="Server's Icon",
             timestamp=ctx.message.created_at
         )
@@ -75,7 +75,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     async def stats(self, ctx):
         await ctx.trigger_typing()
         sambed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="Stats for this server",
             timestamp=ctx.message.created_at
         )
@@ -91,7 +91,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         await ctx.trigger_typing()
         start = time.perf_counter()
         unpimbed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="🎾 Pinging...",
             timestamp=ctx.message.created_at
         )
@@ -99,7 +99,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         unpimsg = await ctx.send(embed=unpimbed)
         end = time.perf_counter()
         dopimbed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="🏓 Pong:",
             description=F"Ping! {(end - start) * 1000}ms",
             timestamp=ctx.message.created_at
@@ -112,7 +112,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     async def invite(self, ctx):
         await ctx.trigger_typing()
         iembed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="Here is the invite link for adding the bot 👈",
             url=discord.utils.oauth_url(client_id=844226171972616205, permissions=discord.Permissions(administrator=True)),
             timestamp=ctx.message.created_at
@@ -125,7 +125,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     async def echo(self, ctx, *, echo):
         await ctx.trigger_typing()
         badeombed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="Don't even think of using that",
             timestamp=ctx.message.created_at
         )
@@ -145,13 +145,13 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     async def afk(self, ctx):
         await ctx.trigger_typing()
         unafkmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="Your name has been changed to it's original",
             timestamp=ctx.message.created_at
         )
         unafkmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         doafkmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=0x2F3136,
             title="Doing AFK",
             description="Your name has been now changed to `AFK`\nAnd now moving you to the afk voice",
             timestamp=ctx.message.created_at

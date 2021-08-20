@@ -18,7 +18,7 @@ class OnMessage(commands.Cog):
             else:
                 prefix = "~b"
             ompmbed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title=F"My Prefix here is {prefix}",
                 timestamp=message.created_at
             )

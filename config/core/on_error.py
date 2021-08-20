@@ -12,7 +12,7 @@ class OnError(commands.Cog):
         await ctx.trigger_typing()
         if isinstance(error, commands.NotOwner):
             nombed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title="You are not the owner of this bot",
                 timestamp=ctx.message.created_at
             )
@@ -23,14 +23,14 @@ class OnError(commands.Cog):
             cmds = [cmd.name for cmd in self.bot.commands]
             matches = difflib.get_close_matches(cmd, cmds)
             matcnfmbed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title=F"There is no `{cmd}` command",
                 description=F"Maybe you meant `{matches}`",
                 timestamp=ctx.message.created_at
             )
             matcnfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             nmatcnfmbed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title=F"There is no `{cmd}` command",
                 description="Use `~b help` command to know what command are there",
                 timestamp=ctx.message.created_at
@@ -42,7 +42,7 @@ class OnError(commands.Cog):
                 await ctx.send(embed=nmatcnfmbed)
         elif isinstance(error, commands.MissingPermissions):
             mpmbed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title=F"You don't have permission for {ctx.command}",
                 timestamp=ctx.message.created_at
             )
@@ -50,7 +50,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=mpmbed)
         elif isinstance(error, commands.BotMissingPermissions):
             bmpmbed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title=F"Bot does not have perimssion for {ctx.command}",
                 timestamp=ctx.message.created_at
             )
@@ -58,7 +58,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=bmpmbed)
         elif isinstance(error, discord.Forbidden):
             fmbed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title="Forbidden Error",
                 description="The problem is one of the options down below",
                 timestamp=ctx.message.created_at
@@ -69,7 +69,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=fmbed)
         elif isinstance(error, commands.MissingRequiredArgument):
             mrambed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title="Please pass an argument",
                 timestamp=ctx.message.created_at
             )
@@ -77,7 +77,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=mrambed)
         elif isinstance(error, commands.BadArgument):
             bambed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title="Please pass an correct argument",
                 timestamp=ctx.message.created_at
             )
@@ -85,7 +85,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=bambed)
         elif isinstance(error, commands.CommandOnCooldown):
             cocmbed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title=F"Command {ctx.command} on Cooldown",
                 timestamp=ctx.message.created_at
             )
@@ -93,7 +93,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=cocmbed)
         elif isinstance(error, commands.PrivateMessageOnly):
             pmombed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title=F"{ctx.command} can only be used in DMs",
                 timestamp=ctx.message.created_at
             )
@@ -101,7 +101,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=pmombed)
         elif isinstance(error, commands.NoPrivateMessage):
             npmmbed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title=F"Can't use {ctx.command} in DMs",
                 timestamp=ctx.message.created_at
             )
@@ -109,7 +109,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=npmmbed)
         elif isinstance(error, commands.UserNotFound):
             unfmbed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title="Did not find the user",
                 timestamp=ctx.message.created_at
             )
@@ -117,7 +117,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=unfmbed)
         elif isinstance(error, commands.RoleNotFound):
             rnfmbed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title="Did not find the role",
                 timestamp=ctx.message.created_at
             )
@@ -126,7 +126,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.CheckFailure):
             await ctx.trigger_typing()
             cfmbed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title="You are blacklisted, stop using the commands",
                 timestamp=ctx.message.created_at
             )
@@ -135,7 +135,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.CheckAnyFailure):
             await ctx.trigger_typing()
             cafmbed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title="You are blacklisted, stop using the commands",
                 timestamp=ctx.message.created_at
             )
@@ -143,7 +143,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=cafmbed)
         else:
             tbmbed = discord.Embed(
-                colour=self.bot.color,
+                colour=0x2F3136,
                 title=F"Error in {ctx.command}",
                 description=''.join(traceback.format_exception(type(error), error,  error.__traceback__)),
                 timestamp=ctx.message.created_at
