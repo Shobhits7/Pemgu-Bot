@@ -8,13 +8,15 @@ def get_prefix(bot, message):
     data = read_json("prefixes")
     if message.guild:
         if not str(message.guild.id) in data:
-            return "~b" or "~B"
+            return "~b"
         elif str(message.guild.id) in data:
             return data[str(message.guild.id)]
     else:
         return ""
 
 bot = commands.Bot(command_prefix=get_prefix, strip_after_prefix=True, case_insensitive=True, owner_ids={798928603201929306, 494496285676535811}, intents=discord.Intents.all(), status=discord.Status.online, activity=discord.Game(name="@Brevity for prefix | ~b help for help | Made by lvlahraam"))
+
+bot.prefix = get_prefix
 
 bot.colors = [
     discord.Colour.default(),

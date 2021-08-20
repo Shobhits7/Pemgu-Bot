@@ -7,25 +7,38 @@ class Setup(commands.Cog, description="For setting up the bot"):
         self.bot = bot
 
     # Prefix
-    @commands.command(name="prefix", aliases=["pf"], help="Will change the prefix", usage="<prefix>")
+    @commands.group(name="prefix", aliases=["pf"], help="Will tell you the prefix for this guild", invoke_without_command=True)
     @commands.guild_only()
-    @commands.has_guild_permissions(administrator=True)
     @commands.cooldown(1, 5, commands.BucketType.guild)
-    async def prefix(self, ctx, *, pre="~b"):
+    async def prefix(self, ctx):
+        await ctx.trigger_typing()
         pfmbed = discord.Embed(
             colour=self.bot.color,
-            title="Prefix",
-            description=F"The guild prefix has been changed to `{pre}`",
+            title=F"My Prefix here is {self.bot.prefix}",
             timestamp=ctx.message.created_at
         )
         pfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        if not pre:
+    # Prefix Change
+    @prefix.command(name="prefixchange", aliases=["pfc"], help="Will change the prefix for this guild", usage="<prefix>")
+    @commands.guild_only()
+    @commands.has_guild_permissions(administrator=True)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
+    async def prefix_change(self, ctx, prefix="~b"):
+        await ctx.trigger_typing()
+        pfcmbed = discord.Embed(
+            colour=self.bot.color,
+            title=F"Changed my prefix to ",
+            timestamp=ctx.created_at
+        )
+        pfcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        if not prefix:
             pass
-        elif pre:
+        elif prefix:
             data = read_json("prefixes")
-            data[str(ctx.guild.id)] = pre
+            data[str(ctx.guild.id)] = prefix
             write_json(data, "prefixes")
-            await ctx.send(embed=pfmbed)
+        pfcmbed.title += prefix
+        await ctx.send(pfcmbed)
 
 def setup(bot):
     bot.add_cog(Setup(bot))

@@ -10,6 +10,9 @@ class API(commands.Cog, description="Some cool API commands"):
             "Authorization": os.getenv("DAGPI")
         }
     
+    
+    
+    
     # Joke
     @commands.command(name="joke", aliases=["jk"], help="Will tell you a random joke")
     async def joke(self, ctx):
