@@ -26,11 +26,11 @@ async def get_prefix_postgresql(bot, message):
 
 bot = commands.Bot(command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, owner_ids={798928603201929306, 494496285676535811}, intents=discord.Intents.all(), status=discord.Status.online, activity=discord.Game(name="@Brevity for prefix | ~b help for help | Made by lvlahraam"))
 
-async def create_db_pool():
-    bot.db = await asyncpg.create_pool(database=os.getenv("PDB"), user=os.getenv("PUN"), password=os.getenv("PPW"))
+async def connect_db():
+    bot.db = await asyncpg.connect(os.getenv("POSTGRESQL"))
     print("Connection to Postgres was successful")
-    # await bot.db.execute("CREATE TABLE prefixes (guild_id bigint, prefix text)")
-    # print("Making a table was successful")
+    await bot.db.execute("CREATE TABLE prefixes (guild_id bigint, prefix text)")
+    print("Making a table was successful")
 
 bot.blacklisted = []
 
@@ -48,5 +48,5 @@ bot.load_extension('jishaku')
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
-bot.loop.run_until_complete(create_db_pool())
+bot.loop.run_until_complete(connect_db())
 bot.run(os.getenv("TOKEN"))
