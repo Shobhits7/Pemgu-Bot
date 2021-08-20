@@ -56,6 +56,9 @@ async def blacklisted(ctx):
 for file in sorted(os.listdir("./config/core/")):
     if file.endswith(".py"):
         bot.load_extension(F"config.core.{file[:-3]}")
+
 bot.load_extension('jishaku')
+os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
+os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
 bot.run(os.getenv("TOKEN"))
