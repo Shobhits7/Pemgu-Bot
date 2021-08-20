@@ -16,18 +16,18 @@ from config.utils.json import read_json, write_json
 
 async def get_prefix_postgresql(bot, message):
     if not message.guild:
-        return commands.when_mentioned_or("~b")(bot, message)
+        return "~b"
     prefix = await bot.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", message.guild.id)
     if len(prefix) == 0:
         await bot.db.execute("INSERT INTO prefixes(guild_id, prefix) VALUES ($1, $2)", message.guild.id, "~b")
     else:
         prefix = prefix[0].get("prefix")
-    return commands.when_mentioned_or(prefix)(bot, message)
+    return prefix
 
 bot = commands.Bot(command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, owner_ids={798928603201929306, 494496285676535811}, intents=discord.Intents.all(), status=discord.Status.online, activity=discord.Game(name="@Brevity for prefix | ~b help for help | Made by lvlahraam"))
 
-async def connect_db():
-    bot.db = await asyncpg.connect(os.getenv("POSTGRESQL"))
+async def create_db_pool():
+    bot.db = await asyncpg.create_pool(dsn=os.getenv("POSTGRESQL"))
     print("Connection to Postgres was successful")
     await bot.db.execute("CREATE TABLE prefixes (guild_id bigint, prefix text)")
     print("Making a table was successful")
@@ -48,5 +48,5 @@ bot.load_extension('jishaku')
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
-bot.loop.run_until_complete(connect_db())
+bot.loop.run_until_complete(create_db_pool())
 bot.run(os.getenv("TOKEN"))
