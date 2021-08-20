@@ -46,7 +46,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
     @commands.cooldown(1, 5, commands.BucketType.guild)
     async def reset(self, ctx):
         await ctx.trigger_typing()
-        await self.bot.db.execute("UPDATE prefixes SET prefix = $1 WHERE guild_id = $2", "~b", ctx.guild.id)
+        await self.bot.db.execute("DELETE FROM prefixes WHERE guild_id = $1", ctx.guild.id)
         pfrmbed = discord.Embed(
             colour=0x2F3136,
             title="The prefix has been resetted  to `~b`",
