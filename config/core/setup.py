@@ -29,22 +29,37 @@ class Setup(commands.Cog, description="For setting up the bot"):
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     @commands.cooldown(1, 5, commands.BucketType.guild)
-    async def change(self, ctx, prefix="~b"):
+    async def change(self, ctx, prefix):
         await ctx.trigger_typing()
-        pfcmbed = discord.Embed(
-            colour=self.bot.color,
-            title=F"Changed my prefix to ",
-            timestamp=ctx.message.created_at
-        )
-        pfcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         if not prefix:
             pass
         elif prefix:
             data = read_json("prefixes")
             data[str(ctx.guild.id)] = prefix
             write_json(data, "prefixes")
-        pfcmbed.title += prefix
+        pfcmbed = discord.Embed(
+            colour=self.bot.color,
+            title=F"Changed my prefix to `{prefix}`",
+            timestamp=ctx.message.created_at
+        )
+        pfcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.send(embed=pfcmbed)
+    # Prefix Normal
+    @prefix.command(name="normal", aliases=["pfn"], help="Will change the prefix to the normal prefix for this guild", usage="<prefix>")
+    @commands.guild_only()
+    @commands.has_guild_permissions(administrator=True)
+    @commands.cooldown(1, 5, commands.BucketType.guild)
+    async def normal(self, ctx):
+        await ctx.trigger_typing()
+        data = read_json("prefixes")
+        data.pop(ctx.guild.id)
+        pfnmbed = discord.Embed(
+            colour=self.bot.color,
+            title="The prefix has been reseted to `~b`",
+            timestamp=ctx.message.created_at
+        )
+        pfnmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        await ctx.send(embed=pfnmbed)
 
 def setup(bot):
     bot.add_cog(Setup(bot))
