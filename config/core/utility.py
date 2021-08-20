@@ -120,37 +120,6 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         iembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.send(embed=iembed)
 
-    # Colors
-    @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image", usage="[user]")
-    @commands.bot_has_guild_permissions(attach_files=True)
-    async def colors(self, ctx, user:commands.UserConverter = None):
-        await ctx.trigger_typing()
-        user = user or ctx.author
-        session = await session_bytes(F"https://api.dagpi.xyz/image/colors/?url={user.avatar_url_as(static_format='png', size=1024)}", self.dagpi_headers)
-        clrsmbed = discord.Embed(
-            colour=self.bot.color,
-            title="Here is the colors for the image",
-            timestamp=ctx.message.created_at
-        )
-        clrsmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        clrsmbed.set_image(url="attachment://colors.png")
-        await ctx.send(file=discord.File(session, filename="colors.png"), embed=clrsmbed)
-
-    # Screenshot
-    @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website", usage="<website>")
-    @commands.bot_has_guild_permissions(attach_files=True)
-    async def screenshot(self, ctx, *, website):
-        await ctx.trigger_typing()
-        session = await session_bytes(F"https://api.screenshotmachine.com?key=a95edd&url={website}&dimension=1024x768")
-        ssmbed = discord.Embed(
-            colour=self.bot.color,
-            title="Here is your screenshot",
-            timestamp=ctx.message.created_at
-        )
-        ssmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        ssmbed.set_image(url="attachment://screenshot.png")
-        await ctx.send(file=discord.File(session, filename="screenshot.png"), embed=ssmbed)
-
     # Echo
     @commands.command(name="echo", aliases=["eo"], help="Will echo your message", usage="<text>")
     async def echo(self, ctx, *, echo):
