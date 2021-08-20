@@ -23,13 +23,13 @@ class Setup(commands.Cog, description="For setting up the bot"):
             timestamp=ctx.message.created_at
         )
         pfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        await ctx.send(pfmbed)
+        await ctx.send(embed=pfmbed)
     # Prefix Change
-    @prefix.command(name="prefixchange", aliases=["pfc"], help="Will change the prefix for this guild", usage="<prefix>")
+    @prefix.command(name="change", aliases=["pfc"], help="Will change the prefix for this guild", usage="<prefix>")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     @commands.cooldown(1, 5, commands.BucketType.guild)
-    async def prefix_change(self, ctx, prefix="~b"):
+    async def change(self, ctx, prefix="~b"):
         await ctx.trigger_typing()
         pfcmbed = discord.Embed(
             colour=self.bot.color,
@@ -44,7 +44,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
             data[str(ctx.guild.id)] = prefix
             write_json(data, "prefixes")
         pfcmbed.title += prefix
-        await ctx.send(pfcmbed)
+        await ctx.send(embed=pfcmbed)
 
 def setup(bot):
     bot.add_cog(Setup(bot))
