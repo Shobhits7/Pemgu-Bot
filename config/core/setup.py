@@ -20,7 +20,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
         pfmbed = discord.Embed(
             colour=self.bot.color,
             title=F"My Prefix here is {prefix}",
-            timestamp=ctx.created_at
+            timestamp=ctx.message.created_at
         )
         pfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
     # Prefix Change
@@ -33,7 +33,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
         pfcmbed = discord.Embed(
             colour=self.bot.color,
             title=F"Changed my prefix to ",
-            timestamp=ctx.created_at
+            timestamp=ctx.message.created_at
         )
         pfcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         if not prefix:
