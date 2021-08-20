@@ -52,7 +52,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
     async def reset(self, ctx):
         await ctx.trigger_typing()
         data = read_json("prefixes")
-        data.pop(str(ctx.guild.id))
+        del data[str(ctx.guild.id)]
         pfrmbed = discord.Embed(
             colour=self.bot.color,
             title="The prefix has been reseted to `~b`",
