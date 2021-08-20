@@ -19,7 +19,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
             prefix = "~b"
         pfmbed = discord.Embed(
             colour=self.bot.color,
-            title=F"My Prefix here is {prefix}",
+            title=F"My Prefix here is `{prefix}`",
             timestamp=ctx.message.created_at
         )
         pfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
@@ -44,22 +44,22 @@ class Setup(commands.Cog, description="For setting up the bot"):
         )
         pfcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.send(embed=pfcmbed)
-    # Prefix Normal
-    @prefix.command(name="normal", aliases=["pfn"], help="Will change the prefix to the normal prefix for this guild", usage="<prefix>")
+    # Prefix Reset
+    @prefix.command(name="reset", aliases=["pfr"], help="Will reset the prefix for this guild")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     @commands.cooldown(1, 5, commands.BucketType.guild)
-    async def normal(self, ctx):
+    async def reset(self, ctx):
         await ctx.trigger_typing()
         data = read_json("prefixes")
-        data.pop(ctx.guild.id)
-        pfnmbed = discord.Embed(
+        data.pop(str(ctx.guild.id))
+        pfrmbed = discord.Embed(
             colour=self.bot.color,
             title="The prefix has been reseted to `~b`",
             timestamp=ctx.message.created_at
         )
-        pfnmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        await ctx.send(embed=pfnmbed)
+        pfrmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        await ctx.send(embed=pfrmbed)
 
 def setup(bot):
     bot.add_cog(Setup(bot))
