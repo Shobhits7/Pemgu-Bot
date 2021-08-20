@@ -4,16 +4,6 @@ import os
 import asyncpg
 from config.utils.json import read_json, write_json
 
-# def get_prefix_json(bot, message):
-#     data = read_json("prefixes")
-#     if message.guild:
-#         if not str(message.guild.id) in data:
-#             return "~b"
-#         elif str(message.guild.id) in data:
-#             return data[str(message.guild.id)]
-#     else:
-#         return ""
-
 async def get_prefix_postgresql(bot, message):
     if not message.guild:
         return "~b"
@@ -30,8 +20,6 @@ bot = commands.Bot(command_prefix=get_prefix_postgresql, strip_after_prefix=True
 async def create_db_pool():
     bot.db = await asyncpg.create_pool(dsn=os.getenv("POSTGRESQL"))
     print("Connection to Postgres was successful")
-    # await bot.db.execute("CREATE TABLE prefixes (guild_id bigint, prefix text)")
-    # print("Making a table was successful")
 
 bot.blacklisted = []
 
