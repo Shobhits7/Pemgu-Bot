@@ -31,7 +31,8 @@ class Setup(commands.Cog, description="For setting up the bot"):
     @commands.cooldown(1, 5, commands.BucketType.guild)
     async def change(self, ctx, prefix):
         await ctx.trigger_typing()
-        await self.bot.db.execute("UPDATE prefixes SET prefix = $1 WHERE guild_id = $2", prefix, ctx.guild.id)
+        # await self.bot.db.execute("UPDATE prefixes SET prefix = $1 WHERE guild_id = $2", prefix, ctx.guild.id)
+        await self.bot.db.execute("INSERT INTO prefixes(guild_id, prefix) VALUES ($1, $2)", ctx.guild.id, prefix)
         pfcmbed = discord.Embed(
             colour=0x2F3136,
             title=F"Changed my prefix to `{prefix}`",

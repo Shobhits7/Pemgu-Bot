@@ -9,7 +9,6 @@ async def get_prefix_postgresql(bot, message):
         return "~b"
     prefix = await bot.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", message.guild.id)
     if len(prefix) == 0:
-        await bot.db.execute("INSERT INTO prefixes(guild_id, prefix) VALUES ($1, $2)", message.guild.id, "~b")
         prefix = "~b"
     else:
         prefix = prefix[0].get("prefix")
