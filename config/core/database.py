@@ -8,9 +8,9 @@ class Database(commands.Cog, description="Database command line"):
     # Delete
     @commands.command(name="delete", aliases=["dlt"], help="Will delete a row", usage="<table> <guild_id>")
     @commands.is_owner()
-    async def delete(self, ctx, *, table, guild_id: int):
+    async def delete(self, ctx, *, guild_id):
         await ctx.trigger_typing()
-        await self.bot.db.execute(F"DELETE FROM  {table} WHERE guild_id = $1", guild_id)
+        await self.bot.db.execute(F"DELETE FROM prefixes WHERE guild_id = $1", guild_id)
         dltmbed = discord.Embed(
             colour=0x2F3136,
             title=F"Deleted the row for {guild_id}",
