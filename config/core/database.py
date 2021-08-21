@@ -8,7 +8,7 @@ class Database(commands.Cog, description="Database command line"):
     # Delete
     @commands.command(name="delete", aliases=["dlt"], help="Will delete a row", usage="<table> <guild_id>")
     @commands.is_owner()
-    async def delete(self, ctx, *, guild_id):
+    async def delete(self, ctx, *, guild_id: int):
         await ctx.trigger_typing()
         await self.bot.db.execute(F"DELETE FROM prefixes WHERE guild_id = $1", guild_id)
         dltmbed = discord.Embed(
