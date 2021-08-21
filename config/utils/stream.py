@@ -13,6 +13,6 @@ async def player(url):
     url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" or url
     with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
         info = ydl.extract_info(url, download=False)
-        url2 = info["format"][0]["url"]
+        url2 = info["formats"][0]["url"]
         source = await discord.FFmpegOpusAudio.from_probe(url2, **FFMPEG_OPTIONS)
         return source
