@@ -1,6 +1,15 @@
 import discord
 from discord.ext import commands
+import youtube_dl
 from config.utils.stream import player
+
+FFMPEG_OPTIONS = {
+    "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
+    "options": "=vn"
+}
+YDL_OPTIONS = {
+    "format": "bestaudio"
+}
 
 class Music(commands.Cog, description="Commands to jam out with"):
     def __init__(self, bot):
@@ -24,7 +33,11 @@ class Music(commands.Cog, description="Commands to jam out with"):
     @commands.command(name="play", aliases=["p"], help="Will play the music given music in your voice channel", usage="<link>")
     async def play(self, ctx, *, url):
         await ctx.trigger_typing()
-        await player(url)
+        with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
+            info = ydl.extract_info(url, download=False)
+            url2 = info["format"][0]["url"]
+            source = await discord.FFmpegOpusAudio.from_probe(url2, **FFMPEG_OPTIONS)
+            ctx.voice_client.play(source)
     
     # Pause
     @commands.command(name="pause", aliases=["pa"], help="Will pause the song")
