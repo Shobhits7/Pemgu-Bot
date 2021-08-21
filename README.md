@@ -30,7 +30,7 @@ ban unban kick addrole removerole purge
 logout relog guilds perms template blacklist code
 
 **Setup:**
-prefix(change, reset)
+prefix(change, reset
 
 **Utility:**
 about info avatar icon stats ping invite echo afk help
