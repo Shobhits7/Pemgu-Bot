@@ -19,7 +19,9 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             title="About Bot",
             timestamp=ctx.message.created_at
         )
-        abmbed.set_image(url="https://imgur.com/YTmL4GG.png")
+        abmbed.description += "[Click here for Commands](https://lvlahraam.gitbook.io/brevity-bot/commands)"
+        abmbed.description += "\n[Click here for FAQ](https://lvlahraam.gitbook.io/brevity-bot)\n"
+        abmbed.description += F"[Click here for Invite]({discord.utils.oauth_url(client_id=844226171972616205, permissions=discord.Permissions(administrator=True))})"
         abmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.send(embed=abmbed)
 
