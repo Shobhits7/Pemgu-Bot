@@ -6,7 +6,7 @@ class Database(commands.Cog, description="Database command line"):
         self.bot = bot
     
     # Delete
-    @commands.command(name="delete", aliases=["dlt"], help="Will delete a row", usage="<guild_id>")
+    @commands.command(name="delete", aliases=["dlt"], help="Will delete a row", usage="<table> <guild_id>")
     @commands.is_owner()
     async def delete(self, ctx, *, table, guild_id: int):
         await ctx.trigger_typing()
