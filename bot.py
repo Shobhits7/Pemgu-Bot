@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 import os
 import asyncpg
-from config.utils.json import read_json, write_json
 
 async def create_db_pool():
     bot.db = await asyncpg.create_pool(dsn=os.getenv("POSTGRESQL"))
