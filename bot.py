@@ -4,6 +4,11 @@ import os
 import asyncpg
 from config.utils.json import read_json, write_json
 
+async def create_db_pool():
+    await bot.wait_until_ready()
+    bot.db = await asyncpg.create_pool(dsn=os.getenv("POSTGRESQL"))
+    print("Connection to Postgres was successful")
+
 async def get_prefix_postgresql(bot, message):
     if not message.guild:
         return commands.when_mentioned_or(bot.default_prefix)(bot, message)
@@ -23,11 +28,6 @@ bot = commands.Bot(command_prefix=get_prefix_postgresql, strip_after_prefix=True
 
 bot.prefixes = {}
 bot.default_prefix = "~b"
-
-async def create_db_pool():
-    await bot.wait_until_ready()
-    bot.db = await asyncpg.create_pool(dsn=os.getenv("POSTGRESQL"))
-    print("Connection to Postgres was successful")
 
 bot.blacklisted = []
 
