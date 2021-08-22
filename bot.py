@@ -18,7 +18,7 @@ async def get_prefix_postgresql(bot, message):
             bot.prefixes[message.guild.id] = prefix
             return commands.when_mentioned_or(bot.prefix[message.guild.id])(bot, message)
         else:
-            await bot.db.execute("INSERT INTO prefixes (guild_d,prefix) VALUES ($1,$2) ON CONFLICT (guild_id) DO UPDATE SET prefix = $2", message.guild.id, bot.default_prefix)
+            await bot.db.execute("INSERT INTO prefixes (guild_id,prefix) VALUES ($1,$2) ON CONFLICT (guild_id) DO UPDATE SET prefix = $2", message.guild.id, bot.default_prefix)
             bot.prefixes[message.guild.id] = bot.default_prefix
             return commands.when_mentioned_or(bot.prefixes[message.guild.id])(bot, message)
 
