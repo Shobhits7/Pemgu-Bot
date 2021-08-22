@@ -49,7 +49,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
         await self.bot.db.execute("UPDATE prefixes SET prefix = $1 WHERE guild_id = $2",self.bot.prefix, ctx.guild.id)
         pfrmbed = discord.Embed(
             colour=0x2F3136,
-            title=F"The prefix has been resetted  to {self.bot.prefix}",
+            title=F"The prefix has been resetted  to `{self.bot.prefix}`",
             timestamp=ctx.message.created_at
         )
         pfrmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
