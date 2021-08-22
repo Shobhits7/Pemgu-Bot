@@ -31,8 +31,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
     @commands.cooldown(1, 5, commands.BucketType.guild)
     async def change(self, ctx, prefix):
         await ctx.trigger_typing()
-        await self.bot.db.execute("UPDATE prefixes SET prefix = $1 WHERE guild_id = $2", prefix, ctx.guild.id)
-        self.bot.prefixes[ctx.guild.id] = prefix
+        await self.bot.db.execute("INSERT INTO prefixes(guild_id, prefix) VALUES ($1, $2)", ctx.guild.id, prefix)
         pfcmbed = discord.Embed(
             colour=0x2F3136,
             title=F"Changed my prefix to `{prefix}`",
@@ -47,10 +46,10 @@ class Setup(commands.Cog, description="For setting up the bot"):
     @commands.cooldown(1, 5, commands.BucketType.guild)
     async def reset(self, ctx):
         await ctx.trigger_typing()
-        await self.bot.db.execute("UPDATE prefixes SET prefix = $1 WHERE guild_id", self.bot.default_prefix, ctx.guild.id)
+        await self.bot.db.execute("UPDATE prefixes SET prefix = $1 WHERE guild_id = $2",self.bot.prefix, ctx.guild.id)
         pfrmbed = discord.Embed(
             colour=0x2F3136,
-            title="The prefix has been resetted  to `~b`",
+            title=F"The prefix has been resetted  to {self.bot.prefix}",
             timestamp=ctx.message.created_at
         )
         pfrmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)

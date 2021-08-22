@@ -9,23 +9,17 @@ async def create_db_pool():
 
 async def get_prefix_postgresql(bot, message):
     if not message.guild:
-        return commands.when_mentioned_or(bot.default_prefix)(bot, message)
-    try:
-        return commands.when_mentioned_or(bot.prefixes[message.guild.id])(bot, message)
-    except KeyError:
-        prefix = await bot.db.fetchval("SELECT prefix FROM prefixes WHERE guild_id = $1", message.guild.id)
-        if prefix:
-            bot.prefixes[message.guild.id] = prefix
-            return commands.when_mentioned_or(bot.prefix[message.guild.id])(bot, message)
-        else:
-            await bot.db.execute("INSERT INTO prefixes (guild_id,prefix) VALUES ($1,$2) ON CONFLICT (guild_id) DO UPDATE SET prefix = $2", message.guild.id, bot.default_prefix)
-            bot.prefixes[message.guild.id] = bot.default_prefix
-            return commands.when_mentioned_or(bot.prefixes[message.guild.id])(bot, message)
+        return "~b"
+    prefix = await bot.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", message.guild.id)
+    if len(prefix) == 0:
+        prefix = "~b"
+    else:
+        prefix = prefix[0].get("prefix")
+    return prefix
 
 bot = commands.Bot(command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, owner_ids={798928603201929306, 494496285676535811}, intents=discord.Intents.all(), status=discord.Status.online, activity=discord.Game(name="@Brevity for prefix | ~b help for help | Made by lvlahraam"))
 
-bot.prefixes = {}
-bot.default_prefix = "~b"
+bot.prefix = "~b"
 
 bot.blacklisted = []
 
