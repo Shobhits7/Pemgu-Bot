@@ -45,5 +45,5 @@ bot.load_extension('jishaku')
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
+bot.loop.run_until_complete(create_db_pool())
 bot.run(os.getenv("TOKEN"))
-bot.loop.create_task(bot.create_db_pool())
