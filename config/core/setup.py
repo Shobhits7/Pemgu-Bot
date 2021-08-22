@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from config.utils.json import read_json, write_json
 
 class Setup(commands.Cog, description="For setting up the bot"):
     def __init__(self, bot):

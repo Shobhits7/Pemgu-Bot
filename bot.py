@@ -4,7 +4,6 @@ import os
 import asyncpg
 
 async def create_db_pool():
-    await bot.wait_until_ready()
     bot.db = await asyncpg.create_pool(dsn=os.getenv("POSTGRESQL"))
     print("Connection to Postgres was successful")
 
@@ -38,5 +37,5 @@ bot.load_extension('jishaku')
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
-bot.run(os.getenv("TOKEN"))
 bot.loop.run_until_complete(create_db_pool())
+bot.run(os.getenv("TOKEN"))
