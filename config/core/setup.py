@@ -1,5 +1,5 @@
-import discord
-from discord.ext import commands
+import nextcord
+from nextcord.ext import commands
 
 class Setup(commands.Cog, description="For setting up the bot"):
     def __init__(self, bot):
@@ -16,7 +16,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
             prefix = "~b"
         else:
             prefix = prefix[0].get("prefix")
-        pfmbed = discord.Embed(
+        pfmbed = nextcord.Embed(
             colour=0x2F3136,
             title=F"My Prefix here is `{prefix}`",
             timestamp=ctx.message.created_at
@@ -31,7 +31,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
     async def change(self, ctx, prefix):
         await ctx.trigger_typing()
         await self.bot.db.execute("INSERT INTO prefixes(guild_id, prefix) VALUES ($1, $2)", ctx.guild.id, prefix)
-        pfcmbed = discord.Embed(
+        pfcmbed = nextcord.Embed(
             colour=0x2F3136,
             title=F"Changed my prefix to `{prefix}`",
             timestamp=ctx.message.created_at
@@ -46,7 +46,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
     async def reset(self, ctx):
         await ctx.trigger_typing()
         await self.bot.db.execute("UPDATE prefixes SET prefix = $1 WHERE guild_id = $2",self.bot.prefix, ctx.guild.id)
-        pfrmbed = discord.Embed(
+        pfrmbed = nextcord.Embed(
             colour=0x2F3136,
             title=F"The prefix has been resetted  to `{self.bot.prefix}`",
             timestamp=ctx.message.created_at

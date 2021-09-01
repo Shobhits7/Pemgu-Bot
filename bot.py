@@ -1,5 +1,5 @@
-import discord
-from discord.ext import commands
+import nextcord
+from nextcord.ext import commands
 import os
 import asyncpg
 
@@ -17,7 +17,7 @@ async def get_prefix_postgresql(bot, message):
         prefix = prefix[0].get("prefix")
     return prefix
 
-bot = commands.Bot(command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, owner_ids={798928603201929306, 494496285676535811}, intents=discord.Intents.all(), status=discord.Status.online, activity=discord.Game(name="@Brevity for prefix | ~b help for help | Made by lvlahraam"))
+bot = commands.Bot(command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, owner_ids={798928603201929306, 494496285676535811}, intents=nextcord.Intents.all(), status=nextcord.Status.online, activity=nextcord.Game(name="@Brevity for prefix | ~b help for help | Made by lvlahraam"))
 
 bot.prefix = "~b"
 

@@ -1,5 +1,5 @@
-import discord
-from discord.ext import commands
+import nextcord
+from nextcord.ext import commands
 
 class OnMessage(commands.Cog):
     def __init__(self, bot):
@@ -16,7 +16,7 @@ class OnMessage(commands.Cog):
                 prefix = "~b"
             else:
                 prefix = prefix[0].get("prefix")
-            ompmbed = discord.Embed(
+            ompmbed = nextcord.Embed(
                 colour=0x2F3136,
                 title=F"My Prefix here is `{prefix}`",
                 timestamp=message.created_at

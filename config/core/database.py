@@ -1,5 +1,5 @@
-import discord
-from discord.ext import commands
+import nextcord
+from nextcord.ext import commands
 
 class Database(commands.Cog, description="Monotoring database with these"):
     def __init__(self, bot):
@@ -9,7 +9,7 @@ class Database(commands.Cog, description="Monotoring database with these"):
     @commands.is_owner()
     async def delete(self, ctx, *, table):
         await ctx.trigger_typing()
-        dltmbed = discord.Embed(
+        dltmbed = nextcord.Embed(
             colour=0x2F3136,
             title=F"Deleted from {table}",
             timestamp=ctx.message.created_at
