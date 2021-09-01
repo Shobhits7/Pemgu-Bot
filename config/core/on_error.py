@@ -1,5 +1,5 @@
-import discord
-from discord.ext import commands
+import nextcord
+from nextcord.ext import commands
 import difflib
 import traceback
 
@@ -11,7 +11,7 @@ class OnError(commands.Cog):
     async def on_command_error(self, ctx, error):
         await ctx.trigger_typing()
         if isinstance(error, commands.NotOwner):
-            nombed = discord.Embed(
+            nombed = nextcord.Embed(
                 colour=0x2F3136,
                 title="You are not the owner of this bot",
                 timestamp=ctx.message.created_at
@@ -22,14 +22,14 @@ class OnError(commands.Cog):
             cmd = ctx.invoked_with
             cmds = [cmd.name for cmd in self.bot.commands]
             matches = difflib.get_close_matches(cmd, cmds)
-            matcnfmbed = discord.Embed(
+            matcnfmbed = nextcord.Embed(
                 colour=0x2F3136,
                 title=F"There is no `{cmd}` command",
                 description=F"Maybe you meant `{matches}`",
                 timestamp=ctx.message.created_at
             )
             matcnfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-            nmatcnfmbed = discord.Embed(
+            nmatcnfmbed = nextcord.Embed(
                 colour=0x2F3136,
                 title=F"There is no `{cmd}` command",
                 description="Use `~b help` command to know what command are there",
@@ -41,7 +41,7 @@ class OnError(commands.Cog):
             else:
                 await ctx.send(embed=nmatcnfmbed)
         elif isinstance(error, commands.MissingPermissions):
-            mpmbed = discord.Embed(
+            mpmbed = nextcord.Embed(
                 colour=0x2F3136,
                 title=F"You don't have permission for {ctx.command}",
                 timestamp=ctx.message.created_at
@@ -49,15 +49,15 @@ class OnError(commands.Cog):
             mpmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             await ctx.send(embed=mpmbed)
         elif isinstance(error, commands.BotMissingPermissions):
-            bmpmbed = discord.Embed(
+            bmpmbed = nextcord.Embed(
                 colour=0x2F3136,
                 title=F"Bot does not have perimssion for {ctx.command}",
                 timestamp=ctx.message.created_at
             )
             bmpmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             await ctx.send(embed=bmpmbed)
-        elif isinstance(error, discord.Forbidden):
-            fmbed = discord.Embed(
+        elif isinstance(error, nextcord.Forbidden):
+            fmbed = nextcord.Embed(
                 colour=0x2F3136,
                 title="Forbidden Error",
                 description="The problem is one of the options down below",
@@ -68,7 +68,7 @@ class OnError(commands.Cog):
             fmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             await ctx.send(embed=fmbed)
         elif isinstance(error, commands.MissingRequiredArgument):
-            mrambed = discord.Embed(
+            mrambed = nextcord.Embed(
                 colour=0x2F3136,
                 title="Please pass an argument",
                 timestamp=ctx.message.created_at
@@ -76,7 +76,7 @@ class OnError(commands.Cog):
             mrambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             await ctx.send(embed=mrambed)
         elif isinstance(error, commands.BadArgument):
-            bambed = discord.Embed(
+            bambed = nextcord.Embed(
                 colour=0x2F3136,
                 title="Please pass an correct argument",
                 timestamp=ctx.message.created_at
@@ -84,7 +84,7 @@ class OnError(commands.Cog):
             bambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             await ctx.send(embed=bambed)
         elif isinstance(error, commands.CommandOnCooldown):
-            cocmbed = discord.Embed(
+            cocmbed = nextcord.Embed(
                 colour=0x2F3136,
                 title=F"Command {ctx.command} on Cooldown",
                 timestamp=ctx.message.created_at
@@ -92,7 +92,7 @@ class OnError(commands.Cog):
             cocmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             await ctx.send(embed=cocmbed)
         elif isinstance(error, commands.PrivateMessageOnly):
-            pmombed = discord.Embed(
+            pmombed = nextcord.Embed(
                 colour=0x2F3136,
                 title=F"{ctx.command} can only be used in DMs",
                 timestamp=ctx.message.created_at
@@ -100,7 +100,7 @@ class OnError(commands.Cog):
             pmombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             await ctx.send(embed=pmombed)
         elif isinstance(error, commands.NoPrivateMessage):
-            npmmbed = discord.Embed(
+            npmmbed = nextcord.Embed(
                 colour=0x2F3136,
                 title=F"Can't use {ctx.command} in DMs",
                 timestamp=ctx.message.created_at
@@ -108,7 +108,7 @@ class OnError(commands.Cog):
             npmmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             await ctx.send(embed=npmmbed)
         elif isinstance(error, commands.UserNotFound):
-            unfmbed = discord.Embed(
+            unfmbed = nextcord.Embed(
                 colour=0x2F3136,
                 title="Did not find the user",
                 timestamp=ctx.message.created_at
@@ -116,7 +116,7 @@ class OnError(commands.Cog):
             unfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             await ctx.send(embed=unfmbed)
         elif isinstance(error, commands.RoleNotFound):
-            rnfmbed = discord.Embed(
+            rnfmbed = nextcord.Embed(
                 colour=0x2F3136,
                 title="Did not find the role",
                 timestamp=ctx.message.created_at
@@ -125,7 +125,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=rnfmbed)
         elif isinstance(error, commands.CheckFailure):
             await ctx.trigger_typing()
-            cfmbed = discord.Embed(
+            cfmbed = nextcord.Embed(
                 colour=0x2F3136,
                 title="You are blacklisted, stop using the commands",
                 timestamp=ctx.message.created_at
@@ -134,7 +134,7 @@ class OnError(commands.Cog):
             await ctx.send(embed=cfmbed)
         elif isinstance(error, commands.CheckAnyFailure):
             await ctx.trigger_typing()
-            cafmbed = discord.Embed(
+            cafmbed = nextcord.Embed(
                 colour=0x2F3136,
                 title="You are blacklisted, stop using the commands",
                 timestamp=ctx.message.created_at
@@ -142,7 +142,7 @@ class OnError(commands.Cog):
             cafmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
             await ctx.send(embed=cafmbed)
         else:
-            tbmbed = discord.Embed(
+            tbmbed = nextcord.Embed(
                 colour=0x2F3136,
                 title=F"Error in {ctx.command}",
                 description=''.join(traceback.format_exception(type(error), error,  error.__traceback__)),
