@@ -56,7 +56,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         await ctx.trigger_typing()
         pmbed = nextcord.Embed(colour=0x2F3136, title="Bot Permissions", timestamp=ctx.message.created_at)
         pmbed.add_field(name="Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if val))
-        pmbed.add_field(name="Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if not val))
+        pmbed.add_field(name="Not Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if not val))
         await ctx.send(embed=pmbed)
 
     # Template
