@@ -95,7 +95,7 @@ class MyHelp(commands.HelpCommand):
 
     # Help Group
     async def send_group_help(self, group):
-        ctx= self.context
+        ctx = self.context
         title = self.get_command_signature(group)
         hgroupmbed = HelpEmbed(
             title=title,
