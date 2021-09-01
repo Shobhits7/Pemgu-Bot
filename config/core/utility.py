@@ -167,4 +167,3 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     
 def setup(bot):
     bot.add_cog(Utility(bot))
-    

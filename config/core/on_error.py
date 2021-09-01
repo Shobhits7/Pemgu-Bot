@@ -145,7 +145,7 @@ class OnError(commands.Cog):
             tbmbed = nextcord.Embed(
                 colour=0x2F3136,
                 title=F"Error in {ctx.command}",
-                description=''.join(traceback.format_exception(type(error), error,  error.__traceback__)),
+                description="".join(traceback.format_exception(type(error), error,  error.__traceback__)),
                 timestamp=ctx.message.created_at
             )
             tbmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)

@@ -48,7 +48,7 @@ class API(commands.Cog, description="Some cool API commands"):
     async def pixel(self, ctx, user:commands.UserConverter = None):
         await ctx.trigger_typing()
         user = user or ctx.author
-        session = await session_bytes(F"https://api.dagpi.xyz/image/pixel/?url={user.avatar.url_as(static_format='png', size=1024)}", self.dagpi_headers)
+        session = await session_bytes(F"https://api.dagpi.xyz/image/pixel/?url={user.avatar.with_static_format('png').with_size(1024)}", self.dagpi_headers)
         pxlmbed = nextcord.Embed(
             colour=0x2F3136,
             title="Here is the pixelated for the image",
@@ -64,7 +64,7 @@ class API(commands.Cog, description="Some cool API commands"):
     async def colors(self, ctx, user:commands.UserConverter = None):
         await ctx.trigger_typing()
         user = user or ctx.author
-        session = await session_bytes(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.url_as(static_format='png', size=1024)}", self.dagpi_headers)
+        session = await session_bytes(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.with_static_format('png').with_size(1024)}", self.dagpi_headers)
         clrsmbed = nextcord.Embed(
             colour=0x2F3136,
             title="Here is the colors for the image",
@@ -80,7 +80,7 @@ class API(commands.Cog, description="Some cool API commands"):
     async def tweet(self, ctx, *, text, user:commands.UserConverter = None):
         await ctx.trigger_typing()
         user = user or ctx.author
-        session = await session_bytes(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.url_as(static_format='png', size=1024)}&username={ctx.author.name}&text={text}", self.dagpi_headers)
+        session = await session_bytes(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_static_format('png').with_size(1024)}&username={ctx.author.name}&text={text}", self.dagpi_headers)
         twmbed = nextcord.Embed(
             colour=0x2F3136,
             title="Here is your tweet's preview",
