@@ -10,9 +10,6 @@ class API(commands.Cog, description="Some cool API commands"):
             "Authorization": os.getenv("DAGPI")
         }
     
-    
-    
-    
     # Joke
     @commands.command(name="joke", aliases=["jk"], help="Will tell you a random joke")
     async def joke(self, ctx):
@@ -77,7 +74,7 @@ class API(commands.Cog, description="Some cool API commands"):
     # Tweet
     @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet", usage="<username> <text>")
     @commands.bot_has_guild_permissions(attach_files=True)
-    async def tweet(self, ctx, *, text, user:commands.UserConverter = None):
+    async def tweet(self, ctx, user:commands.UserConverter = None, *, text,):
         await ctx.trigger_typing()
         user = user or ctx.author
         session = await session_bytes(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_static_format('png').with_size(1024)}&username={ctx.author.name}&text={text}", self.dagpi_headers)

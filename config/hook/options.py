@@ -24,5 +24,5 @@ class Colors():
         nextcord.Colour.light_grey(),
         nextcord.Colour.lighter_grey(),
         nextcord.Colour.dark_grey(),
-        nextcord.Colour.darker_grey()
+        nextcord.Colour.darker_grey(),
     ]
