@@ -86,6 +86,23 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         sambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.send(embed=sambed)
 
+    # Echo
+    @commands.command(name="echo", aliases=["eo"], help="Will echo your message", usage="<text>")
+    async def echo(self, ctx, *, echo):
+        await ctx.trigger_typing()
+        badeombed = discord.Embed(
+            colour=0x2F3136,
+            title="Don't even think of using that",
+            timestamp=ctx.message.created_at
+        )
+        badeombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        if "@everyone" in ctx.message.content or "@here" in ctx.message.content:
+            if ctx.author.guild_permissions.mention_everyone:
+                return await ctx.send(echo)
+            return await ctx.send(embed=badeombed)
+        else:
+            await ctx.send(echo)
+
     # Ping
     @commands.command(name="ping", aliases=["pi"], help="Will show your latency")
     async def ping(self, ctx):
@@ -120,23 +137,6 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         )
         iembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.send(embed=iembed)
-
-    # Echo
-    @commands.command(name="echo", aliases=["eo"], help="Will echo your message", usage="<text>")
-    async def echo(self, ctx, *, echo):
-        await ctx.trigger_typing()
-        badeombed = discord.Embed(
-            colour=0x2F3136,
-            title="Don't even think of using that",
-            timestamp=ctx.message.created_at
-        )
-        badeombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        if "@everyone" in ctx.message.content or "@here" in ctx.message.content:
-            if ctx.author.guild_permissions.mention_everyone:
-                return await ctx.send(echo)
-            return await ctx.send(embed=badeombed)
-        else:
-            await ctx.send(echo)
 
     # AFK
     @commands.command(name="afk", help="Will make you AFK")
