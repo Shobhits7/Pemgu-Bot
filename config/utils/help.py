@@ -102,3 +102,14 @@ class MyHelp(commands.HelpCommand):
         herrormbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         herrormbed.set_thumbnail(url=ctx.me.avatar.url)
         await ctx.send(embed=herrormbed)
+
+    # Help SubCommand Error
+    async def subcommand_not_found(self, command, string):
+        ctx = self.context
+        hscmdmbed = HelpEmbed(
+            title="Sub Command Not Found",
+            description=F"{command} - {string}"
+        )
+        hscmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
+        hscmdmbed.set_thumbnail(url=ctx.me.avatar.url)
+        await ctx.send(embed=hscmdmbed)
