@@ -42,6 +42,7 @@ class MyHelp(commands.HelpCommand):
                 hmainmbed.add_field(name=F"{name} Category [{amount_commands}]", value=description)
         hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable" 
         await ctx.send(embed=hmainmbed)
+        return
 
     # Help Command
     async def send_command_help(self, command):
@@ -63,6 +64,19 @@ class MyHelp(commands.HelpCommand):
         if command._buckets and (cooldown := command._buckets._cooldown):
             hcmdmbed.add_field(name="Cooldown", value=F"{cooldown.rate} per {cooldown.per:.0f} seconds")
         await ctx.send(embed=hcmdmbed)
+        return
+
+    # Help SubCommand Error
+    async def subcommand_not_found(self, command, string):
+        ctx = self.context
+        hscmdmbed = HelpEmbed(
+            title="Sub Command Not Found",
+            description=F"{command} - {string}"
+        )
+        hscmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
+        hscmdmbed.set_thumbnail(url=ctx.me.avatar.url)
+        await ctx.send(embed=hscmdmbed)
+        return
 
     # Help Cog
     async def send_cog_help(self, cog):
@@ -77,6 +91,7 @@ class MyHelp(commands.HelpCommand):
         for command in cog.get_commands():
             hcogmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
         await ctx.send(embed=hcogmbed)
+        return
 
     # Help Group
     async def send_group_help(self, group):
@@ -91,6 +106,7 @@ class MyHelp(commands.HelpCommand):
         for command in group.commands:
             hgroupmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
         await ctx.send(embed=hgroupmbed)
+        return
 
     # Help Error
     async def send_error_message(self, error):
@@ -102,14 +118,5 @@ class MyHelp(commands.HelpCommand):
         herrormbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         herrormbed.set_thumbnail(url=ctx.me.avatar.url)
         await ctx.send(embed=herrormbed)
+        return
 
-    # Help SubCommand Error
-    async def subcommand_not_found(self, command, string):
-        ctx = self.context
-        hscmdmbed = HelpEmbed(
-            title="Sub Command Not Found",
-            description=F"{command} - {string}"
-        )
-        hscmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
-        hscmdmbed.set_thumbnail(url=ctx.me.avatar.url)
-        await ctx.send(embed=hscmdmbed)
