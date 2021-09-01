@@ -1,5 +1,5 @@
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 from config.utils.aiohttp import session_bytes
 
 class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
@@ -11,7 +11,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.is_owner()
     async def logout(self, ctx):
         await ctx.trigger_typing()
-        ltmbed = nextcord.Embed(
+        ltmbed = discord.Embed(
             colour=0x2F3136,
             title="Okay, I'm logging out :wave:",
             timestamp=ctx.message.created_at
@@ -25,7 +25,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.is_owner()
     async def relog(self, ctx):
         await ctx.trigger_typing()
-        rgmbed = nextcord.Embed(
+        rgmbed = discord.Embed(
             colour=0x2F3136,
             title="Okay Relogging :eyes:",
             timestamp=ctx.message.created_at
@@ -40,7 +40,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.is_owner()
     async def guild(self, ctx):
         await ctx.trigger_typing()
-        gdmbed = nextcord.Embed(
+        gdmbed = discord.Embed(
             colour=0x2F3136,
             title="This bot is joined in: ",
             description=F"{len(self.bot.guilds)} Servers",
@@ -54,7 +54,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.is_owner()
     async def perms(self, ctx):
         await ctx.trigger_typing()
-        pmbed = nextcord.Embed(colour=0x2F3136, title="Bot Permissions", timestamp=ctx.message.created_at)
+        pmbed = discord.Embed(colour=0x2F3136, title="Bot Permissions", timestamp=ctx.message.created_at)
         pmbed.add_field(name="Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if val))
         pmbed.add_field(name="Not Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if not val))
         await ctx.send(embed=pmbed)
@@ -67,7 +67,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.bot_has_guild_permissions(manage_guild=True)
     async def template(self, ctx):
         await ctx.trigger_typing()
-        tembed = nextcord.Embed(
+        tembed = discord.Embed(
             colour=0x2F3136,
             title="Please check your DM",
             timestamp=ctx.message.created_at
@@ -82,13 +82,13 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.is_owner()
     async def blacklist(self, ctx, user:commands.UserConverter):
         await ctx.trigger_typing()
-        unblmbed = nextcord.Embed(
+        unblmbed = discord.Embed(
             colour=0x2F3136,
             title="Removed the user from the blacklist",
             timestamp=ctx.message.created_at
         )
         unblmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        doblmbed = nextcord.Embed(
+        doblmbed = discord.Embed(
             colour=0x2F3136,
             title="Added user to the blacklist",
             timestamp=ctx.message.created_at
@@ -107,14 +107,14 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     async def code(self, ctx, *code):
         await ctx.trigger_typing()
         session = await session_bytes(F"https://carbonnowsh.herokuapp.com/?code={code}&paddingVertical=56px&paddingHorizontal=56px&backgroundImage=none&backgroundImageSelection=none&backgroundMode=color&backgroundColor=rgba(88, 89, 185, 100)&dropShadow=true&dropShadowOffsetY=20px&dropShadowBlurRadius=68px&theme=seti&windowTheme=none&language=auto&fontFamily=Hack&fontSize=16px&lineHeight=133%&windowControls=true&widthAdjustment=true&lineNumbers=true&firstLineNumber=0&exportSize=2x&watermark=false&squaredImage=false&hiddenCharacters=false&name=Hello World&width=680")
-        cdmbed = nextcord.Embed(
+        cdmbed = discord.Embed(
             colour=0x2F3136,
             title="Here is your preview for the code",
             timestamp=ctx.message.created_at
         )
         cdmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         cdmbed.set_image(url="attachment://code.png")
-        await ctx.send(file=nextcord.File(session, filename="code.png"), embed=cdmbed)
+        await ctx.send(file=discord.File(session, filename="code.png"), embed=cdmbed)
 
 def setup(bot):
     bot.add_cog(Owner(bot))

@@ -1,9 +1,9 @@
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 import datetime
 import contextlib
 
-class HelpEmbed(nextcord.Embed): 
+class HelpEmbed(discord.Embed): 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.color = 0x2F3136

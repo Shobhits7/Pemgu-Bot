@@ -4,7 +4,8 @@ asyncpg
 attrs
 cffi
 chardet
-nextcord
+discord.py
+discord.py[voice]
 idna
 jishaku
 multidict

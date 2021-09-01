@@ -1,5 +1,5 @@
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 from config.utils.help import MyHelp
 import time
 
@@ -7,20 +7,20 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     def __init__(self, bot):
         self.bot = bot
         self.bot.help_command = MyHelp()
-        self.bot.help_command.cog = self
+        self.bot.help_command.cog = self.cog
 
     # About
     @commands.command(name="about", aliases=["ab"], help="Will show the bot's information")
     async def about(self, ctx):
         await ctx.trigger_typing()
-        abmbed = nextcord.Embed(
+        abmbed = discord.Embed(
             colour=0x2F3136,
             title="About Bot",
             timestamp=ctx.message.created_at
         )
         abmbed.description += "[Click here for Commands](https://lvlahraam.gitbook.io/brevity-bot/commands)"
         abmbed.description += "\n[Click here for FAQ](https://lvlahraam.gitbook.io/brevity-bot)\n"
-        abmbed.description += F"[Click here for Invite]({nextcord.utils.oauth_url(client_id=844226171972616205, permissions=nextcord.Permissions(administrator=True))})"
+        abmbed.description += F"[Click here for Invite]({discord.utils.oauth_url(client_id=844226171972616205, permissions=discord.Permissions(administrator=True))})"
         abmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.send(embed=abmbed)
 
@@ -30,7 +30,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     async def info(self, ctx, *, member:commands.MemberConverter = None):
         await ctx.trigger_typing()
         user = member or ctx.author
-        iombed = nextcord.Embed(
+        iombed = discord.Embed(
             colour=0x2F3136,
             title=F"{user.display_name} Information",
             timestamp=ctx.message.created_at
@@ -46,7 +46,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     async def avatar(self, ctx, *, user:commands.UserConverter = None):
         await ctx.trigger_typing()
         user = user or ctx.author
-        avmbed = nextcord.Embed(
+        avmbed = discord.Embed(
             colour=0x2F3136,
             title="User's Avatar",
             timestamp=ctx.message.created_at
@@ -60,7 +60,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     @commands.guild_only()
     async def icon(self, ctx):
         await ctx.trigger_typing()
-        icmbed = nextcord.Embed(
+        icmbed = discord.Embed(
             colour=0x2F3136,
             title="Server's Icon",
             timestamp=ctx.message.created_at
@@ -75,7 +75,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     @commands.guild_only()
     async def stats(self, ctx):
         await ctx.trigger_typing()
-        sambed = nextcord.Embed(
+        sambed = discord.Embed(
             colour=0x2F3136,
             title="Stats for this server",
             timestamp=ctx.message.created_at
@@ -91,7 +91,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     async def ping(self, ctx):
         await ctx.trigger_typing()
         start = time.perf_counter()
-        unpimbed = nextcord.Embed(
+        unpimbed = discord.Embed(
             colour=0x2F3136,
             title="🎾 Pinging...",
             timestamp=ctx.message.created_at
@@ -99,7 +99,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         unpimbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         unpimsg = await ctx.send(embed=unpimbed)
         end = time.perf_counter()
-        dopimbed = nextcord.Embed(
+        dopimbed = discord.Embed(
             colour=0x2F3136,
             title="🏓 Pong:",
             description=F"Ping! {(end - start) * 1000}ms",
@@ -112,10 +112,10 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     @commands.command(name="invite", aliases=["ie"], help="Will make a send the link for adding  the bot")
     async def invite(self, ctx):
         await ctx.trigger_typing()
-        iembed = nextcord.Embed(
+        iembed = discord.Embed(
             colour=0x2F3136,
             title="Here is the invite link for adding the bot 👈",
-            url=nextcord.utils.oauth_url(client_id=844226171972616205, permissions=nextcord.Permissions(administrator=True)),
+            url=discord.utils.oauth_url(client_id=844226171972616205, permissions=discord.Permissions(administrator=True)),
             timestamp=ctx.message.created_at
         )
         iembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
@@ -125,7 +125,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     @commands.command(name="echo", aliases=["eo"], help="Will echo your message", usage="<text>")
     async def echo(self, ctx, *, echo):
         await ctx.trigger_typing()
-        badeombed = nextcord.Embed(
+        badeombed = discord.Embed(
             colour=0x2F3136,
             title="Don't even think of using that",
             timestamp=ctx.message.created_at
@@ -145,13 +145,13 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     @commands.bot_has_guild_permissions(manage_nicknames=True)
     async def afk(self, ctx):
         await ctx.trigger_typing()
-        unafkmbed = nextcord.Embed(
+        unafkmbed = discord.Embed(
             colour=0x2F3136,
             title="Your name has been changed to it's original",
             timestamp=ctx.message.created_at
         )
         unafkmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        doafkmbed = nextcord.Embed(
+        doafkmbed = discord.Embed(
             colour=0x2F3136,
             title="Doing AFK",
             description="Your name has been now changed to `AFK`\nAnd now moving you to the afk voice",

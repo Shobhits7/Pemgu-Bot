@@ -1,5 +1,5 @@
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 
 class Moderation(commands.Cog, description="Was someone being bad"):
     def __init__(self, bot):
@@ -12,14 +12,14 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     @commands.bot_has_guild_permissions(ban_members=True)
     async def ban(self, ctx, user:commands.UserConverter, *, reason=None):
         await ctx.trigger_typing()
-        abnmbed = nextcord.Embed(
+        abnmbed = discord.Embed(
             colour=0x2F3136,
             title=F"`{user.display_name}` is now Banned",
             description=F"For reason: {reason}",
             timestamp=ctx.message.created_at
         )
         abnmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        ubnmbed = nextcord.Embed(
+        ubnmbed = discord.Embed(
             colour=0x2F3136,
             title=F"Dear {user.display_name}"
         )
@@ -31,8 +31,8 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         await ctx.send(embed=abnmbed)
         try:
             await user.send(embed=ubnmbed)
-        except nextcord.Forbidden:
-            raise nextcord.Forbidden
+        except discord.Forbidden:
+            raise discord.Forbidden
     
     # Unban
     @commands.command(name="unban", aliases=["un"], help="Will unban the user", usage="<user>")
@@ -41,7 +41,7 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     @commands.bot_has_guild_permissions(ban_members=True)
     async def unban(self, ctx, user:commands.UserConverter):
         await ctx.trigger_typing()
-        unmbed = nextcord.Embed(
+        unmbed = discord.Embed(
             colour=0x2F3136,
             title=F"{user.name} is now Unbanned",
             timestamp=ctx.message.created_at
@@ -57,14 +57,14 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     @commands.bot_has_guild_permissions(kick_members=True)
     async def kick(self, ctx, member:commands.MemberConverter, *, reason=None):
         await ctx.trigger_typing()
-        akcmbed = nextcord.Embed(
+        akcmbed = discord.Embed(
             colour=0x2F3136,
             title=F"{member.display_name} is now Kicked",
             description=F"For reason: {reason}",
             timestamp=ctx.message.created_at
         )
         akcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        ukcmbed = nextcord.Embed(
+        ukcmbed = discord.Embed(
             colour=0x2F3136,
             title=F"Dear {member.display_name}"
         )
@@ -76,8 +76,8 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         await ctx.send(embed=akcmbed)
         try:
             await member.send(embed=ukcmbed)
-        except nextcord.Forbidden:
-            raise nextcord.Forbidden
+        except discord.Forbidden:
+            raise discord.Forbidden
 
     # AddRole
     @commands.command(name="addrole", aliases=["ae"], help="Will add the given role to the given user", usage="<user> <role>")
@@ -86,13 +86,13 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     @commands.bot_has_guild_permissions(manage_roles=True)
     async def addrole(self, ctx, member: commands.MemberConverter, role: commands.RoleConverter):
         await ctx.trigger_typing()
-        finaembed = nextcord.Embed(
+        finaembed = discord.Embed(
             colour=0x2F3136,
             title=F"Successfully added the {role} role",
             timestamp=ctx.message.created_at
         )
         finaembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        badaembed = nextcord.Embed(
+        badaembed = discord.Embed(
             colour=0x2F3136,
             title=F"The member already has the {role} role",
             timestamp=ctx.message.created_at
@@ -111,13 +111,13 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     @commands.bot_has_guild_permissions(manage_roles=True)
     async def removerole(self, ctx, member: commands.MemberConverter, role: commands.RoleConverter):
         await ctx.trigger_typing()
-        finrembed = nextcord.Embed(
+        finrembed = discord.Embed(
             colour=0x2F3136,
             title=F"Successfully removed the {role} role",
             timestamp=ctx.message.created_at
         )
         finrembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        badrembed = nextcord.Embed(
+        badrembed = discord.Embed(
             colour=0x2F3136,
             title=F"The member don't have the {role} role",
             timestamp=ctx.message.created_at
@@ -136,13 +136,13 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     @commands.bot_has_guild_permissions(manage_messages=True)
     async def purge(self, ctx, amount: int):
         await ctx.trigger_typing()
-        finpumbed = nextcord.Embed(
+        finpumbed = discord.Embed(
             colour=0x2F3136,
             title=F"Deleted {amount} amount of messages",
             timestamp=ctx.message.created_at
         )
         finpumbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        badpumbed = nextcord.Embed(
+        badpumbed = discord.Embed(
             colour=0x2F3136,
             title="Can't clear more than 100 messages",
             timestamp=ctx.message.created_at
