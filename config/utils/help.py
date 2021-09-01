@@ -110,6 +110,8 @@ class MyHelp(commands.HelpCommand):
 
     # Help Error
     async def send_error_message(self, error):
+        if error is None:
+            return
         ctx = self.context
         herrormbed = HelpEmbed(
             title="Help Error",
