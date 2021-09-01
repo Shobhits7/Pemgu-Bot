@@ -1,9 +1,9 @@
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 import datetime
 import contextlib
 
-class HelpEmbed(nextcord.Embed): 
+class HelpEmbed(discord.Embed): 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.color = 0x2F3136
@@ -16,6 +16,7 @@ class MyHelp(commands.HelpCommand):
         super().__init__(
             command_attrs={
                 "help": "The help command for the bot",
+                "cooldown": commands.Cooldown(1, 3.0, commands.BucketType.user),
                 "aliases": ["h", "commands"]
             }
         )
@@ -37,7 +38,7 @@ class MyHelp(commands.HelpCommand):
                     name = cog.qualified_name
                     description = cog.description or "No description"
                 else:
-                    name = "No Category"
+                    name = "No"
                     description = "Commands with no category"
                 hmainmbed.add_field(name=F"{name} Category [{amount_commands}]", value=description)
         hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable" 
