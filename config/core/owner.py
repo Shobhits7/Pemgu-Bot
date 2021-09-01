@@ -16,7 +16,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             title="Okay, I'm logging out :wave:",
             timestamp=ctx.message.created_at
         )
-        ltmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        ltmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=ltmbed)
         await self.bot.close()
 
@@ -30,7 +30,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             title="Okay Relogging :eyes:",
             timestamp=ctx.message.created_at
         )
-        rgmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        rgmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=rgmbed)
         await self.bot.close()
         await self.bot.login()
@@ -46,7 +46,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             description=F"{len(self.bot.guilds)} Servers",
             timestamp=ctx.message.created_at
         )
-        gdmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        gdmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=gdmbed)
     
     # Perms
@@ -72,7 +72,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             title="Please check your DM",
             timestamp=ctx.message.created_at
         )
-        tembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        tembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=tembed)
         temp = await ctx.guild.templates()
         await ctx.author.send(temp)
@@ -87,13 +87,13 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             title="Removed the user from the blacklist",
             timestamp=ctx.message.created_at
         )
-        unblmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        unblmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         doblmbed = discord.Embed(
             colour=0x2F3136,
             title="Added user to the blacklist",
             timestamp=ctx.message.created_at
         )
-        doblmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        doblmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         if user.id in self.bot.blacklisted:
             self.bot.blacklisted.remove(user.id)
             return await ctx.send(embed=unblmbed)
@@ -112,7 +112,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             title="Here is your preview for the code",
             timestamp=ctx.message.created_at
         )
-        cdmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        cdmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         cdmbed.set_image(url="attachment://code.png")
         await ctx.send(file=discord.File(session, filename="code.png"), embed=cdmbed)
 

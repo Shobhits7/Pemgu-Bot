@@ -16,7 +16,7 @@ class OnError(commands.Cog):
                 title="You are not the owner of this bot",
                 timestamp=ctx.message.created_at
             )
-            nombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            nombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=nombed)
         elif isinstance(error, commands.CommandNotFound):
             cmd = ctx.invoked_with
@@ -28,14 +28,14 @@ class OnError(commands.Cog):
                 description=F"Maybe you meant `{matches}`",
                 timestamp=ctx.message.created_at
             )
-            matcnfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            matcnfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             nmatcnfmbed = discord.Embed(
                 colour=0x2F3136,
                 title=F"There is no `{cmd}` command",
                 description="Use `~b help` command to know what command are there",
                 timestamp=ctx.message.created_at
             )
-            nmatcnfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            nmatcnfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             if len(matches) > 0:
                 await ctx.send(embed=matcnfmbed)
             else:
@@ -46,7 +46,7 @@ class OnError(commands.Cog):
                 title=F"You don't have permission for {ctx.command}",
                 timestamp=ctx.message.created_at
             )
-            mpmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            mpmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=mpmbed)
         elif isinstance(error, commands.BotMissingPermissions):
             bmpmbed = discord.Embed(
@@ -54,7 +54,7 @@ class OnError(commands.Cog):
                 title=F"Bot does not have perimssion for {ctx.command}",
                 timestamp=ctx.message.created_at
             )
-            bmpmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            bmpmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=bmpmbed)
         elif isinstance(error, discord.Forbidden):
             fmbed = discord.Embed(
@@ -65,7 +65,7 @@ class OnError(commands.Cog):
             )
             fmbed.add_field(name="You are the owner of this server:", value="If you are the owner, and you are trying to use changing command, you can't")
             fmbed.add_field(name="Couldn't send messages to the user", value="The user is not accepting messages from the members in here or just blocked this bot")
-            fmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            fmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=fmbed)
         elif isinstance(error, commands.MissingRequiredArgument):
             mrambed = discord.Embed(
@@ -73,7 +73,7 @@ class OnError(commands.Cog):
                 title="Please pass an argument",
                 timestamp=ctx.message.created_at
             )
-            mrambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            mrambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=mrambed)
         elif isinstance(error, commands.BadArgument):
             bambed = discord.Embed(
@@ -81,7 +81,7 @@ class OnError(commands.Cog):
                 title="Please pass an correct argument",
                 timestamp=ctx.message.created_at
             )
-            bambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            bambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=bambed)
         elif isinstance(error, commands.CommandOnCooldown):
             cocmbed = discord.Embed(
@@ -89,7 +89,7 @@ class OnError(commands.Cog):
                 title=F"Command {ctx.command} on Cooldown",
                 timestamp=ctx.message.created_at
             )
-            cocmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            cocmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=cocmbed)
         elif isinstance(error, commands.PrivateMessageOnly):
             pmombed = discord.Embed(
@@ -97,7 +97,7 @@ class OnError(commands.Cog):
                 title=F"{ctx.command} can only be used in DMs",
                 timestamp=ctx.message.created_at
             )
-            pmombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            pmombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=pmombed)
         elif isinstance(error, commands.NoPrivateMessage):
             npmmbed = discord.Embed(
@@ -105,7 +105,7 @@ class OnError(commands.Cog):
                 title=F"Can't use {ctx.command} in DMs",
                 timestamp=ctx.message.created_at
             )
-            npmmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            npmmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=npmmbed)
         elif isinstance(error, commands.UserNotFound):
             unfmbed = discord.Embed(
@@ -113,7 +113,7 @@ class OnError(commands.Cog):
                 title="Did not find the user",
                 timestamp=ctx.message.created_at
             )
-            unfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            unfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=unfmbed)
         elif isinstance(error, commands.RoleNotFound):
             rnfmbed = discord.Embed(
@@ -121,7 +121,7 @@ class OnError(commands.Cog):
                 title="Did not find the role",
                 timestamp=ctx.message.created_at
             )
-            rnfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            rnfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=rnfmbed)
         elif isinstance(error, commands.CheckFailure):
             await ctx.trigger_typing()
@@ -130,7 +130,7 @@ class OnError(commands.Cog):
                 title="You are blacklisted, stop using the commands",
                 timestamp=ctx.message.created_at
             )
-            cfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            cfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=cfmbed)
         elif isinstance(error, commands.CheckAnyFailure):
             await ctx.trigger_typing()
@@ -139,7 +139,7 @@ class OnError(commands.Cog):
                 title="You are blacklisted, stop using the commands",
                 timestamp=ctx.message.created_at
             )
-            cafmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            cafmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=cafmbed)
         else:
             tbmbed = discord.Embed(
@@ -148,7 +148,7 @@ class OnError(commands.Cog):
                 description=''.join(traceback.format_exception(type(error), error,  error.__traceback__)),
                 timestamp=ctx.message.created_at
             )
-            tbmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            tbmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=tbmbed)
 
 def setup(bot):

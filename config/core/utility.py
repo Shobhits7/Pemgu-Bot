@@ -21,7 +21,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         abmbed.description += "[Click here for Commands](https://lvlahraam.gitbook.io/brevity-bot/commands)"
         abmbed.description += "\n[Click here for FAQ](https://lvlahraam.gitbook.io/brevity-bot)\n"
         abmbed.description += F"[Click here for Invite]({discord.utils.oauth_url(client_id=844226171972616205, permissions=discord.Permissions(administrator=True))})"
-        abmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        abmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=abmbed)
 
     # Info
@@ -37,8 +37,8 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         )
         iombed.add_field(name="Joined Date", value=F"{user.mention} joined the server on\n{user.joined_at}")
         iombed.add_field(name="Roles", value=F"User has {len(user.roles)-1} roles")
-        iombed.set_thumbnail(url=user.avatar_url)
-        iombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        iombed.set_thumbnail(url=user.avatar.url)
+        iombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=iombed)
 
     # Avatar
@@ -51,8 +51,8 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             title="User's Avatar",
             timestamp=ctx.message.created_at
         )
-        avmbed.set_image(url=user.avatar_url)
-        avmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        avmbed.set_image(url=user.avatar.url)
+        avmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=avmbed)
 
     # Icon
@@ -67,7 +67,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         )
         icmbed.set_image(url=ctx.guild.icon_url)
         icmbed.set_image(url=ctx.guild.icon_url)
-        icmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        icmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=icmbed)
 
     # Stats
@@ -83,7 +83,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         sambed.add_field(name="Members", value=F"{len(ctx.guild.members)} members are in this guild")
         sambed.add_field(name="Channels", value=F"{len(ctx.guild.channels)} channels are in this guild")
         sambed.set_thumbnail(url=ctx.guild.icon_url)
-        sambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        sambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=sambed)
 
     # Echo
@@ -95,7 +95,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             title="Don't even think of using that",
             timestamp=ctx.message.created_at
         )
-        badeombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        badeombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         if "@everyone" in ctx.message.content or "@here" in ctx.message.content:
             if ctx.author.guild_permissions.mention_everyone:
                 return await ctx.send(echo)
@@ -113,7 +113,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             title="🎾 Pinging...",
             timestamp=ctx.message.created_at
         )
-        unpimbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        unpimbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         unpimsg = await ctx.send(embed=unpimbed)
         end = time.perf_counter()
         dopimbed = discord.Embed(
@@ -122,7 +122,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             description=F"Ping! {(end - start) * 1000}ms",
             timestamp=ctx.message.created_at
         )
-        dopimbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        dopimbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await unpimsg.edit(embed=dopimbed)
 
     # Invite
@@ -135,7 +135,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             url=discord.utils.oauth_url(client_id=844226171972616205, permissions=discord.Permissions(administrator=True)),
             timestamp=ctx.message.created_at
         )
-        iembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        iembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=iembed)
 
     # AFK
@@ -150,14 +150,14 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             title="Your name has been changed to it's original",
             timestamp=ctx.message.created_at
         )
-        unafkmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        unafkmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         doafkmbed = discord.Embed(
             colour=0x2F3136,
             title="Doing AFK",
             description="Your name has been now changed to `AFK`\nAnd now moving you to the afk voice",
             timestamp=ctx.message.created_at
         )
-        doafkmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        doafkmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         if ctx.author.nick == "AFK":
             await ctx.author.edit(nick=None)
             return await ctx.send(embed=unafkmbed)

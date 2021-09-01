@@ -27,8 +27,8 @@ class MyHelp(commands.HelpCommand):
         hmainmbed = HelpEmbed(
             title=F"{ctx.me.display_name} <:bot_tag:878221621687640074> Help",
         )
-        hmainmbed.set_thumbnail(url=ctx.me.avatar_url)
-        hmainmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
+        hmainmbed.set_thumbnail(url=ctx.me.avatar.url)
+        hmainmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         usable = 0 
         for cog, commands in mapping.items(): 
             if filtered_commands := await self.filter_commands(commands, sort=True):
@@ -52,8 +52,8 @@ class MyHelp(commands.HelpCommand):
             title=signature,
             description=command.help or "No help found...",
         )
-        hcmdmbed.set_thumbnail(url=ctx.me.avatar_url)
-        hcmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
+        hcmdmbed.set_thumbnail(url=ctx.me.avatar.url)
+        hcmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         if cog := command.cog:
             hcmdmbed.add_field(name="Category", value=cog.qualified_name)
         can_run = "No"
@@ -73,8 +73,8 @@ class MyHelp(commands.HelpCommand):
             title=title,
             description=cog.description or "No help found..."
         )
-        hcogmbed.set_thumbnail(url=ctx.me.avatar_url)
-        hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
+        hcogmbed.set_thumbnail(url=ctx.me.avatar.url)
+        hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         for command in cog.get_commands():
             hcogmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
         await ctx.send(embed=hcogmbed)
@@ -87,8 +87,8 @@ class MyHelp(commands.HelpCommand):
             title=title,
             description=group.help or "No help found..."
         )
-        hgroupmbed.set_thumbnail(url=ctx.me.avatar_url)
-        hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
+        hgroupmbed.set_thumbnail(url=ctx.me.avatar.url)
+        hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         for command in group.commands:
             hgroupmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
         await ctx.send(embed=hgroupmbed)
@@ -100,6 +100,6 @@ class MyHelp(commands.HelpCommand):
             title="Help Error",
             description=error
         )
-        herrormbed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
-        herrormbed.set_thumbnail(url=ctx.me.avatar_url)
+        herrormbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
+        herrormbed.set_thumbnail(url=ctx.me.avatar.url)
         await ctx.send(embed=herrormbed)

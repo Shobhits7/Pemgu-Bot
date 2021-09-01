@@ -18,7 +18,7 @@ class Moderation(commands.Cog, description="Was someone being bad"):
             description=F"For reason: {reason}",
             timestamp=ctx.message.created_at
         )
-        abnmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        abnmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         ubnmbed = discord.Embed(
             colour=0x2F3136,
             title=F"Dear {user.display_name}"
@@ -26,7 +26,7 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         ubnmbed.add_field(name=F"You were banned from:", value=F"{ctx.guild.id}")
         ubnmbed.add_field(name=F"By:", value=F"{ctx.author.name}")
         ubnmbed.add_field(name=F"For this reason:", value=reason)
-        ubnmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        ubnmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.guild.ban(user, reason=reason)
         await ctx.send(embed=abnmbed)
         try:
@@ -46,7 +46,7 @@ class Moderation(commands.Cog, description="Was someone being bad"):
             title=F"{user.name} is now Unbanned",
             timestamp=ctx.message.created_at
         )
-        unmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        unmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.guild.unban(user)
         await ctx.send(embed=unmbed)
 
@@ -63,7 +63,7 @@ class Moderation(commands.Cog, description="Was someone being bad"):
             description=F"For reason: {reason}",
             timestamp=ctx.message.created_at
         )
-        akcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        akcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         ukcmbed = discord.Embed(
             colour=0x2F3136,
             title=F"Dear {member.display_name}"
@@ -71,7 +71,7 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         ukcmbed.add_field(name=F"You were banned from:", value=F"{ctx.guild.id}")
         ukcmbed.add_field(name=F"By:", value=F"{ctx.author.name}")
         ukcmbed.add_field(name=F"For this reason:", value=reason)
-        ukcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        ukcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.guild.kick(user=member, reason=reason)
         await ctx.send(embed=akcmbed)
         try:
@@ -91,13 +91,13 @@ class Moderation(commands.Cog, description="Was someone being bad"):
             title=F"Successfully added the {role} role",
             timestamp=ctx.message.created_at
         )
-        finaembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        finaembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         badaembed = discord.Embed(
             colour=0x2F3136,
             title=F"The member already has the {role} role",
             timestamp=ctx.message.created_at
         )
-        badaembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        badaembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         if role in member.roles:
             await ctx.send(embed=badaembed)
             return
@@ -116,13 +116,13 @@ class Moderation(commands.Cog, description="Was someone being bad"):
             title=F"Successfully removed the {role} role",
             timestamp=ctx.message.created_at
         )
-        finrembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        finrembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         badrembed = discord.Embed(
             colour=0x2F3136,
             title=F"The member don't have the {role} role",
             timestamp=ctx.message.created_at
         )
-        badrembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        badrembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         if role in member.roles:
             await member.remove_roles(role)
             await ctx.send(embed=finrembed)
@@ -141,13 +141,13 @@ class Moderation(commands.Cog, description="Was someone being bad"):
             title=F"Deleted {amount} amount of messages",
             timestamp=ctx.message.created_at
         )
-        finpumbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        finpumbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         badpumbed = discord.Embed(
             colour=0x2F3136,
             title="Can't clear more than 100 messages",
             timestamp=ctx.message.created_at
         )
-        badpumbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        badpumbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         if amount > 100:
             return await ctx.send(embed=badpumbed, delete_after=2.5)
         await ctx.channel.purge(limit=amount+1)
