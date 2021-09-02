@@ -20,7 +20,7 @@ class MyHelp(commands.HelpCommand):
             "Modeartion": ":crossed_swords:",
             "Owner": ":crown:",
             "Setup": ":question:",
-            "Utility": ":gears:",
+            "Utility": ":gear:",
             "Jishaku": ":eyes:"
         }
         super().__init__(
