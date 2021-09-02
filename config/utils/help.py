@@ -65,7 +65,7 @@ class MyHelp(commands.HelpCommand):
         hcmdmbed.set_thumbnail(url=ctx.me.avatar.url)
         hcmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         if cog := command.cog:
-            hcmdmbed.add_field(name="Category", value=cog.qualified_name)
+            hcmdmbed.add_field(name="Category", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else ''} {cog.qualified_name}")
         can_run = "No"
         with contextlib.suppress(commands.CommandError):
             if await command.can_run(self.context):
@@ -91,7 +91,7 @@ class MyHelp(commands.HelpCommand):
     # Help Cog
     async def send_cog_help(self, cog):
         ctx = self.context
-        title = cog.qualified_name or "No"
+        title = F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else ''} {cog.qualified_name}" or "No"
         hcogmbed = HelpEmbed(
             title=title,
             description=cog.description or "No help found..."
