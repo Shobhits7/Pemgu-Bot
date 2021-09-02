@@ -107,13 +107,13 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     @commands.command(name="ping", aliases=["pi"], help="Will show your latency")
     async def ping(self, ctx):
         await ctx.trigger_typing()
-        start = time.perf_counter()
         unpimbed = nextcord.Embed(
             colour=0x2F3136,
             title="🎾 Pinging...",
             timestamp=ctx.message.created_at
         )
         unpimbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        start = time.perf_counter()
         unpimsg = await ctx.send(embed=unpimbed)
         end = time.perf_counter()
         dopimbed = nextcord.Embed(

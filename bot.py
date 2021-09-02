@@ -18,7 +18,12 @@ async def get_prefix_postgresql(bot, message):
         prefix = prefix[0].get("prefix")
     return prefix
 
-bot = commands.Bot(command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, owner_ids={798928603201929306, 494496285676535811}, intents=nextcord.Intents.all(), status=nextcord.Status.online, activity=nextcord.Game(name="@Brevity for prefix | ~b help for help | Made by lvlahraam"))
+bot = commands.Bot(command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, owner_ids={798928603201929306, 494496285676535811}, intents=nextcord.Intents.all())
+
+bot.activity = nextcord.Game(name="@Brevity for prefix | ~b help for help | Made by lvlahraam")
+bot.status = nextcord.Status.online 
+
+bot.change_presence(activity=bot.activity, status=bot.status)
 
 bot.prefix = "~b"
 

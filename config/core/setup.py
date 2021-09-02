@@ -28,7 +28,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     @commands.cooldown(1, 5, commands.BucketType.guild)
-    async def change(self, ctx, prefix):
+    async def prefix_change(self, ctx, prefix):
         await ctx.trigger_typing()
         await self.bot.db.execute("INSERT INTO prefixes(guild_id, prefix) VALUES ($1, $2)", ctx.guild.id, prefix)
         pfcmbed = nextcord.Embed(
@@ -43,7 +43,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     @commands.cooldown(1, 5, commands.BucketType.guild)
-    async def reset(self, ctx):
+    async def prefix_reset(self, ctx):
         await ctx.trigger_typing()
         await self.bot.db.execute("UPDATE prefixes SET prefix = $1 WHERE guild_id = $2",self.bot.prefix, ctx.guild.id)
         pfrmbed = nextcord.Embed(

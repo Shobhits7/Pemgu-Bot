@@ -57,6 +57,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         pmbed = nextcord.Embed(colour=0x2F3136, title="Bot Permissions", timestamp=ctx.message.created_at)
         pmbed.add_field(name="Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if val))
         pmbed.add_field(name="Not Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if not val))
+        pmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=pmbed)
 
     # Template
@@ -115,6 +116,47 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         cdmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         cdmbed.set_image(url="attachment://code.png")
         await ctx.send(file=nextcord.File(session, filename="code.png"), embed=cdmbed)
+
+    # Status
+    @commands.group(name="status", aliases=["st"], help="Will show the bot's current status")
+    @commands.is_owner()
+    async def status(self, ctx, *, text):
+        await ctx.trigger_typing()
+        stmbed = nextcord.Embed(
+            colour=0x2F3136,
+            title=F"Bot's current status is",
+            description=F"{self.bot.activity} - {self.bot.status}",
+            timestamp=ctx.message.created_at
+        )
+        stmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=stmbed)
+    # Status Change
+    @status.command(name="change", aliases=["stc"], help="Will change the bot's status to the given text", usage="<text>")
+    @commands.is_owner()
+    async def status_change(self, ctx, *, text):
+        await ctx.trigger_typing()
+        self.bot.change_presence(activity=nextcord.Game(name=text), status=self.bot.status)
+        stcmbed = nextcord.Embed(
+            colour=0x2F3136,
+            title=F"Bot's status has been now changed to:",
+            description=text,
+            timestamp=ctx.message.created_at
+        )
+        stcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=stcmbed)
+    # Status Reset
+    @status.command(name="reset", aliases=["str"], help="Will reset the bot's status")
+    @commands.is_owner()
+    async def status_reset(self, ctx):
+        await ctx.trigger_typing()
+        self.bot.change_presence(activity=self.bot.activity, status=self.bot.status)
+        strmbed = nextcord.Embed(
+            colour=0x2F3136,
+            title="Resetted the bot's status",
+            timestamp=ctx.message.created_at
+        )
+        strmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=strmbed)
 
 def setup(bot):
     bot.add_cog(Owner(bot))
