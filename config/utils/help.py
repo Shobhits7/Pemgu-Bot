@@ -1,9 +1,22 @@
-import discord
-from discord.ext import commands
+import nextcord
+from nextcord.ext import commands
 import datetime
 import contextlib
 
-class HelpEmbed(discord.Embed): 
+class HelpMenu(nextcord.ui.Select):
+    def __init__(self):
+        options = []
+        super().__init__(placeholder="Help Command with Menu", min_values=1, max_values=1, options=options)
+
+    async def callback(self, interaction: nextcord.Interaction):
+        await interaction.response.send_message("Here is your help")
+
+class HelpView(nextcord.ui.View):
+    def __init__(self):
+        super().__init__()
+        self.add_item(HelpMenu())
+
+class HelpEmbed(nextcord.Embed): 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.color = 0x2F3136
@@ -21,7 +34,8 @@ class MyHelp(commands.HelpCommand):
             "Owner": ":crown:",
             "Setup": ":question:",
             "Utility": ":gear:",
-            "Jishaku": ":eyes:"
+            "Jishaku": ":eyes:",
+            "No": ":no_entry_sign:"
         }
         super().__init__(
             command_attrs={
@@ -33,11 +47,11 @@ class MyHelp(commands.HelpCommand):
     # Help Main
     async def send_bot_help(self, mapping):
         ctx = self.context
-        hmainmbed = HelpEmbed(
-            title=F"{ctx.me.display_name} <:bot_tag:878221621687640074> Help",
-        )
-        hmainmbed.set_thumbnail(url=ctx.me.avatar.url)
-        hmainmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
+        # hmainmbed = HelpEmbed(
+        #     title=F"{ctx.me.display_name} <:bot_tag:878221621687640074> Help",
+        # )
+        # hmainmbed.set_thumbnail(url=ctx.me.avatar.url)
+        # hmainmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         usable = 0 
         for cog, commands in mapping.items(): 
             if filtered_commands := await self.filter_commands(commands, sort=True):
@@ -49,9 +63,12 @@ class MyHelp(commands.HelpCommand):
                 else:
                     name = "No"
                     description = "Commands with no category"
-                hmainmbed.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else ''} {name} Category [{amount_commands}]", value=description)
-        hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable" 
-        await ctx.reply(embed=hmainmbed)
+                option = nextcord.SelectOption(label=name, description=description, emoji=self.emojis.get(name) if self.emojis.get(name) else 'no_entry_sign')
+                HelpMenu.options.append(option)
+                # hmainmbed.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else ''} {name} Category [{amount_commands}]", value=description)
+        # hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable"
+        view = HelpView()
+        await ctx.reply(view=view)
         return
 
     # Help Command
