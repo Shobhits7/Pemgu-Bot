@@ -46,11 +46,11 @@ class MyHelp(commands.HelpCommand):
     # Help Main
     async def send_bot_help(self, mapping):
         ctx = self.context
-        hmainmbed = HelpEmbed(
-            title=F"{ctx.me.display_name} <:bot_tag:878221621687640074> Help",
-        )
-        hmainmbed.set_thumbnail(url=ctx.me.avatar.url)
-        hmainmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
+        # hmainmbed = HelpEmbed(
+        #     title=F"{ctx.me.display_name} <:bot_tag:878221621687640074> Help",
+        # )
+        # hmainmbed.set_thumbnail(url=ctx.me.avatar.url)
+        # hmainmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         usable = 0 
         options_list = []
         for cog, commands in mapping.items(): 
@@ -69,7 +69,6 @@ class MyHelp(commands.HelpCommand):
         # hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable"
         view = HelpView(options_list)
         await ctx.reply(view=view)
-        await ctx.reply(embed=hmainmbed)
         return
 
     # Help Command
