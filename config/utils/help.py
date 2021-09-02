@@ -5,7 +5,6 @@ import contextlib
 
 class HelpMenu(nextcord.ui.Select):
     def __init__(self, options):
-        options = []
         super().__init__(placeholder="Help Command with Menu", min_values=1, max_values=1, options=options)
 
     async def callback(self, interaction: nextcord.Interaction):
