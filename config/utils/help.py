@@ -13,6 +13,16 @@ class HelpEmbed(discord.Embed):
 
 class MyHelp(commands.HelpCommand):
     def __init__(self):
+        self.emojis = {
+            "API": ":globe_with_meridians:",
+            "Database": ":pencil:",
+            "Fun": ":rofl:",
+            "Modeartion": ":crossed_swords:",
+            "Owner": ":crown:",
+            "Setup": ":question:",
+            "Utility": ":gears:",
+            "Jishaku": ":eyes:"
+        }
         super().__init__(
             command_attrs={
                 "help": "The help command for the bot",
@@ -39,7 +49,7 @@ class MyHelp(commands.HelpCommand):
                 else:
                     name = "No"
                     description = "Commands with no category"
-                hmainmbed.add_field(name=F"{name} Category [{amount_commands}]", value=description)
+                hmainmbed.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else ''} {name} Category [{amount_commands}]", value=description)
         hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable" 
         await ctx.reply(embed=hmainmbed)
         return
