@@ -11,9 +11,9 @@ class HelpMenu(nextcord.ui.Select):
         await interaction.response.send_message("Here is your help")
 
 class HelpView(nextcord.ui.View):
-    def __init__(self):
+    def __init__(self, options):
         super().__init__()
-        self.add_item(HelpMenu())
+        self.add_item(HelpMenu(options))
 
 class HelpEmbed(nextcord.Embed): 
     def __init__(self, **kwargs):
@@ -67,7 +67,7 @@ class MyHelp(commands.HelpCommand):
                 options_list.append(select_option)
                 # hmainmbed.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else ''} {name} Category [{amount_commands}]", value=description)
         # hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable"
-        view = HelpView(self, options_list)
+        view = HelpView(options_list)
         await ctx.reply(view=view)
         return
 
