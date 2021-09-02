@@ -3,18 +3,6 @@ from nextcord.ext import commands
 import datetime
 import contextlib
 
-class HelpMenu(nextcord.ui.Select):
-    def __init__(self, options):
-        super().__init__(placeholder="Help Command with Menu", min_values=1, max_values=1, options=options)
-
-    async def callback(self, interaction: nextcord.Interaction):
-        await interaction.response.send_message("Here is your help")
-
-class HelpView(nextcord.ui.View):
-    def __init__(self, options):
-        super().__init__()
-        self.add_item(HelpMenu(options))
-
 class HelpEmbed(nextcord.Embed): 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -46,13 +34,12 @@ class MyHelp(commands.HelpCommand):
     # Help Main
     async def send_bot_help(self, mapping):
         ctx = self.context
-        # hmainmbed = HelpEmbed(
-        #     title=F"{ctx.me.display_name} <:bot_tag:878221621687640074> Help",
-        # )
-        # hmainmbed.set_thumbnail(url=ctx.me.avatar.url)
-        # hmainmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
+        hmainmbed = HelpEmbed(
+            title=F"{ctx.me.display_name} <:bot_tag:878221621687640074> Help",
+        )
+        hmainmbed.set_thumbnail(url=ctx.me.avatar.url)
+        hmainmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         usable = 0 
-        options_list = []
         for cog, commands in mapping.items(): 
             if filtered_commands := await self.filter_commands(commands, sort=True):
                 amount_commands = len(filtered_commands)
@@ -63,12 +50,9 @@ class MyHelp(commands.HelpCommand):
                 else:
                     name = "No"
                     description = "Commands with no category"
-                select_option = nextcord.SelectOption(label=F"{name} [{amount_commands}]", description=description, emoji=self.emojis.get(name) if self.emojis.get(name) else '⛔')
-                options_list.append(select_option)
-        #         hmainmbed.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{amount_commands}]", value=description)
-        # hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable"
-        view = HelpView(options_list)
-        await ctx.reply(view=view)
+                hmainmbed.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{amount_commands}]", value=description)
+        hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable"
+        await ctx.reply(embed=hmainmbed)
         return
 
     # Help Command
