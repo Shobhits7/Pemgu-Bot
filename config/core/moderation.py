@@ -28,7 +28,7 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         ubnmbed.add_field(name=F"For this reason:", value=reason)
         ubnmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.guild.ban(user, reason=reason)
-        await ctx.send(embed=abnmbed)
+        await ctx.reply(embed=abnmbed)
         try:
             await user.send(embed=ubnmbed)
         except nextcord.Forbidden:
@@ -48,7 +48,7 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         )
         unmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.guild.unban(user)
-        await ctx.send(embed=unmbed)
+        await ctx.reply(embed=unmbed)
 
     # Kick
     @commands.command(name="kick", aliases=["kc"], help="Will kick the user", usage="<user>")
@@ -73,7 +73,7 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         ukcmbed.add_field(name=F"For this reason:", value=reason)
         ukcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.guild.kick(user=member, reason=reason)
-        await ctx.send(embed=akcmbed)
+        await ctx.reply(embed=akcmbed)
         try:
             await member.send(embed=ukcmbed)
         except nextcord.Forbidden:
@@ -99,10 +99,10 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         )
         badaembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         if role in member.roles:
-            await ctx.send(embed=badaembed)
+            await ctx.reply(embed=badaembed)
             return
         await member.add_roles(role)
-        await ctx.send(embed=finaembed)
+        await ctx.reply(embed=finaembed)
     
     # RemoveRole
     @commands.command(name="removerole", aliases=["re"], help="Will remove the given role from the given user", usage="<user> <role>")
@@ -125,9 +125,9 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         badrembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         if role in member.roles:
             await member.remove_roles(role)
-            await ctx.send(embed=finrembed)
+            await ctx.reply(embed=finrembed)
             return
-        await ctx.send(embed=badrembed)
+        await ctx.reply(embed=badrembed)
 
     # Purge
     @commands.command(name="purge", aliases=["pu"], help="Will delete messages", usage="<amount>")
@@ -149,9 +149,9 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         )
         badpumbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         if amount > 100:
-            return await ctx.send(embed=badpumbed, delete_after=2.5)
+            return await ctx.reply(embed=badpumbed, delete_after=2.5)
         await ctx.channel.purge(limit=amount+1)
-        await ctx.send(embed=finpumbed, delete_after=2.5)
+        await ctx.reply(embed=finpumbed, delete_after=2.5)
 
 def setup(bot):
     bot.add_cog(Moderation(bot))

@@ -41,7 +41,7 @@ class MyHelp(commands.HelpCommand):
                     description = "Commands with no category"
                 hmainmbed.add_field(name=F"{name} Category [{amount_commands}]", value=description)
         hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable" 
-        await ctx.send(embed=hmainmbed)
+        await ctx.reply(embed=hmainmbed)
         return
 
     # Help Command
@@ -63,7 +63,7 @@ class MyHelp(commands.HelpCommand):
         hcmdmbed.add_field(name="Usable", value=can_run)
         if command._buckets and (cooldown := command._buckets._cooldown):
             hcmdmbed.add_field(name="Cooldown", value=F"{cooldown.rate} per {cooldown.per:.0f} seconds")
-        await ctx.send(embed=hcmdmbed)
+        await ctx.reply(embed=hcmdmbed)
         return
 
     # Help SubCommand Error
@@ -75,7 +75,7 @@ class MyHelp(commands.HelpCommand):
         )
         hscmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         hscmdmbed.set_thumbnail(url=ctx.me.avatar.url)
-        await ctx.send(embed=hscmdmbed)
+        await ctx.reply(embed=hscmdmbed)
         return
 
     # Help Cog
@@ -90,7 +90,7 @@ class MyHelp(commands.HelpCommand):
         hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         for command in cog.get_commands():
             hcogmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
-        await ctx.send(embed=hcogmbed)
+        await ctx.reply(embed=hcogmbed)
         return
 
     # Help Group
@@ -105,7 +105,7 @@ class MyHelp(commands.HelpCommand):
         hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         for command in group.commands:
             hgroupmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
-        await ctx.send(embed=hgroupmbed)
+        await ctx.reply(embed=hgroupmbed)
         return
 
     # Help Error
@@ -119,6 +119,6 @@ class MyHelp(commands.HelpCommand):
         )
         herrormbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         herrormbed.set_thumbnail(url=ctx.me.avatar.url)
-        await ctx.send(embed=herrormbed)
+        await ctx.reply(embed=herrormbed)
         return
 
