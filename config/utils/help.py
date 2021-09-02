@@ -24,7 +24,7 @@ class HelpEmbed(nextcord.Embed):
         self.set_footer(text=self.text)
 
 class MyHelp(commands.HelpCommand):
-    def __init__(self, options):
+    def __init__(self):
         self.emojis = {
             "API": ":globe_with_meridians:",
             "Database": ":pencil:",
