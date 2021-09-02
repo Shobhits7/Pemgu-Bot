@@ -118,7 +118,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         await ctx.send(file=nextcord.File(session, filename="code.png"), embed=cdmbed)
 
     # Status
-    @commands.group(name="status", aliases=["st"], help="Will show the bot's current status")
+    @commands.group(name="status", aliases=["st"], help="Will show the bot's current status", invoke_without_command=True)
     @commands.is_owner()
     async def status(self, ctx):
         await ctx.trigger_typing()
