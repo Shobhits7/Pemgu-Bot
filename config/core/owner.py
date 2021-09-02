@@ -120,7 +120,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     # Status
     @commands.group(name="status", aliases=["st"], help="Will show the bot's current status")
     @commands.is_owner()
-    async def status(self, ctx, *, text):
+    async def status(self, ctx):
         await ctx.trigger_typing()
         stmbed = nextcord.Embed(
             colour=0x2F3136,
