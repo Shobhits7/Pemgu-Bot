@@ -22,8 +22,6 @@ bot = commands.Bot(command_prefix=get_prefix_postgresql, strip_after_prefix=True
 
 bot.prefix = "~b"
 
-bot.help_command = MyHelp()
-
 bot.blacklisted = []
 
 @bot.check
