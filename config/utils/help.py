@@ -62,7 +62,7 @@ class MyHelp(commands.HelpCommand):
                 else:
                     name = "No"
                     description = "Commands with no category"
-                select_option = nextcord.SelectOption(label=name, description=description, emoji=F"{self.emojis.get(name) if self.emojis.get(name) else ':no_entry_sign:'}")
+                select_option = nextcord.SelectOption(label=name, description=description, emoji=":no_entry_sign:")
                 options_list = []
                 options_list.append(select_option)
                 # hmainmbed.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else ''} {name} Category [{amount_commands}]", value=description)
