@@ -62,10 +62,10 @@ class MyHelp(commands.HelpCommand):
                 else:
                     name = "No"
                     description = "Commands with no category"
-                # select_option = nextcord.SelectOption(label="Category", description="Description", emoji="👀")
+                # select_option = nextcord.SelectOption(label=F"{name} [{amount_commands}]", description=description, emoji=self.emojis.get(name) if self.emojis.get(name) else '⛔')
                 # options_list.append(select_option)
                 # options_list = []
-                hmainmbed.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else ''} {name} Category [{amount_commands}]", value=description)
+                hmainmbed.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{amount_commands}]", value=description)
         hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable"
         # view = HelpView(options_list)
         # await ctx.reply(view=view)
