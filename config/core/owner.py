@@ -135,7 +135,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.is_owner()
     async def status_change(self, ctx, *, text):
         await ctx.trigger_typing()
-        self.bot.change_presence(activity=nextcord.Game(name=text), status=self.bot.status)
+        await self.bot.change_presence(activity=nextcord.Game(name=text), status=self.bot.status)
         stcmbed = nextcord.Embed(
             colour=0x2F3136,
             title=F"Bot's status has been now changed to:",
@@ -149,7 +149,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.is_owner()
     async def status_reset(self, ctx):
         await ctx.trigger_typing()
-        self.bot.change_presence(activity=self.bot.activity, status=self.bot.status)
+        await self.bot.change_presence(activity=self.bot.activity, status=self.bot.status)
         strmbed = nextcord.Embed(
             colour=0x2F3136,
             title="Resetted the bot's status",
