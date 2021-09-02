@@ -4,7 +4,7 @@ import datetime
 import contextlib
 
 class HelpMenu(nextcord.ui.Select):
-    def __init__(self):
+    def __init__(self, options):
         options = []
         super().__init__(placeholder="Help Command with Menu", min_values=1, max_values=1, options=options)
 
@@ -25,7 +25,7 @@ class HelpEmbed(nextcord.Embed):
         self.set_footer(text=self.text)
 
 class MyHelp(commands.HelpCommand):
-    def __init__(self):
+    def __init__(self, options):
         self.emojis = {
             "API": ":globe_with_meridians:",
             "Database": ":pencil:",
@@ -64,10 +64,11 @@ class MyHelp(commands.HelpCommand):
                     name = "No"
                     description = "Commands with no category"
                 option = nextcord.SelectOption(label=name, description=description, emoji=F"{self.emojis.get(name) if self.emojis.get(name) else ':no_entry_sign:'}")
-                HelpMenu.options.setter(option)
+                options = []
+                options.append(option)
                 # hmainmbed.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else ''} {name} Category [{amount_commands}]", value=description)
         # hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable"
-        view = HelpView()
+        view = HelpView(options)
         await ctx.reply(view=view)
         return
 
