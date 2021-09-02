@@ -67,7 +67,7 @@ class MyHelp(commands.HelpCommand):
                 options_list.append(select_option)
                 # hmainmbed.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else ''} {name} Category [{amount_commands}]", value=description)
         # hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable"
-        view = HelpView(options=options_list)
+        view = HelpView(options_list)
         await ctx.reply(view=view)
         return
 
