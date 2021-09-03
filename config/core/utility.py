@@ -6,8 +6,6 @@ import time
 class Utility(commands.Cog, description="Useful commands are open to everyone"):
     def __init__(self, bot):
         self.bot = bot
-        self.bot.help_command = MyHelp()
-        self.bot.help_command.cog = self
 
     # About
     @commands.command(name="about", aliases=["ab"], help="Will show the bot's information")
