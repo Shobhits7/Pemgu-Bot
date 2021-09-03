@@ -27,7 +27,7 @@ class HelpMenu(nextcord.ui.Select):
             if self.values[0] == name:
                 mbed = nextcord.Embed(
                     colour=0x2F3136,
-                    title=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category {len(commands)}",
+                    title=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]",
                     description=description,
                     timestamp=datetime.datetime.now()
                 )
