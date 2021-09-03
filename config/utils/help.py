@@ -50,6 +50,9 @@ class HelpView(nextcord.ui.View):
         self.emojis = emojis
         self.add_item(HelpMenu(self.help, self.mapping, self.homepage, self.emojis))
 
+    async def on_timeout(self):
+        await self.message.edit(view=self)
+
 class MyHelp(commands.HelpCommand):
     def __init__(self):
         self.emojis = {
@@ -90,7 +93,7 @@ class MyHelp(commands.HelpCommand):
                 description = cog.description if cog else "No descrption found..."
                 homepage.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]", value=description)
         view = HelpView(self, mapping, homepage, self.emojis)
-        await ctx.reply(embed=homepage, view=view)
+        view.message = await ctx.reply(embed=homepage, view=view)
         return
 
     # Help Command
