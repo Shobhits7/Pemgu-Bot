@@ -32,7 +32,7 @@ class HelpMenu(nextcord.ui.Select):
                     timestamp=datetime.datetime.now()
                 )
                 for command in commands:
-                    mbed.add_field(name=command, value=command.help or "No help")
+                    mbed.add_field(name=self.help.get_command_signature(command), value=command.help or "No help")
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
             elif self.values[0] == "Home":
@@ -87,7 +87,7 @@ class MyHelp(commands.HelpCommand):
                 description = cog.description if cog else "No descrption found..."
                 homepage.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]", value=description)
         view = HelpView(self, mapping, homepage, self.emojis)
-        await ctx.send(embed=homepage, view=view)
+        await ctx.reply(embed=homepage, view=view)
         return
 
     # Help Command
@@ -111,7 +111,7 @@ class MyHelp(commands.HelpCommand):
         hcmdmbed.add_field(name="Usable", value=can_run)
         if command._buckets and (cooldown := command._buckets._cooldown):
             hcmdmbed.add_field(name="Cooldown", value=F"{cooldown.rate} per {cooldown.per:.0f} seconds")
-        await ctx.send(embed=hcmdmbed)
+        await ctx.reply(embed=hcmdmbed)
         return
 
     # Help SubCommand Error
@@ -125,7 +125,7 @@ class MyHelp(commands.HelpCommand):
         )
         hscmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         hscmdmbed.set_thumbnail(url=ctx.me.avatar.url)
-        await ctx.send(embed=hscmdmbed)
+        await ctx.reply(embed=hscmdmbed)
         return
 
     # Help Cog
@@ -142,7 +142,7 @@ class MyHelp(commands.HelpCommand):
         hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         for command in cog.get_commands():
             hcogmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
-        await ctx.send(embed=hcogmbed)
+        await ctx.reply(embed=hcogmbed)
         return
 
     # Help Group
@@ -159,7 +159,7 @@ class MyHelp(commands.HelpCommand):
         hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         for command in group.commands:
             hgroupmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
-        await ctx.send(embed=hgroupmbed)
+        await ctx.reply(embed=hgroupmbed)
         return
 
     # Help Error
@@ -175,6 +175,6 @@ class MyHelp(commands.HelpCommand):
         )
         herrormbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         herrormbed.set_thumbnail(url=ctx.me.avatar.url)
-        await ctx.send(embed=herrormbed)
+        await ctx.reply(embed=herrormbed)
         return
 

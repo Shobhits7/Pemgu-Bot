@@ -17,7 +17,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             nombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=nombed)
+            await ctx.reply(embed=nombed)
         elif isinstance(error, commands.CommandNotFound):
             cmd = ctx.invoked_with
             cmds = [cmd.name for cmd in self.bot.commands]
@@ -37,9 +37,9 @@ class OnError(commands.Cog):
             )
             nmatcnfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             if len(matches) > 0:
-                await ctx.send(embed=matcnfmbed)
+                await ctx.reply(embed=matcnfmbed)
             else:
-                await ctx.send(embed=nmatcnfmbed)
+                await ctx.reply(embed=nmatcnfmbed)
         elif isinstance(error, commands.MissingPermissions):
             mpmbed = nextcord.Embed(
                 colour=0x2F3136,
@@ -47,7 +47,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             mpmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=mpmbed)
+            await ctx.reply(embed=mpmbed)
         elif isinstance(error, commands.BotMissingPermissions):
             bmpmbed = nextcord.Embed(
                 colour=0x2F3136,
@@ -55,7 +55,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             bmpmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=bmpmbed)
+            await ctx.reply(embed=bmpmbed)
         elif isinstance(error, nextcord.Forbidden):
             fmbed = nextcord.Embed(
                 colour=0x2F3136,
@@ -66,7 +66,7 @@ class OnError(commands.Cog):
             fmbed.add_field(name="You are the owner of this server:", value="If you are the owner, and you are trying to use changing command, you can't")
             fmbed.add_field(name="Couldn't send messages to the user", value="The user is not accepting messages from the members in here or just blocked this bot")
             fmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=fmbed)
+            await ctx.reply(embed=fmbed)
         elif isinstance(error, commands.MissingRequiredArgument):
             mrambed = nextcord.Embed(
                 colour=0x2F3136,
@@ -74,7 +74,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             mrambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=mrambed)
+            await ctx.reply(embed=mrambed)
         elif isinstance(error, commands.BadArgument):
             bambed = nextcord.Embed(
                 colour=0x2F3136,
@@ -82,7 +82,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             bambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=bambed)
+            await ctx.reply(embed=bambed)
         elif isinstance(error, commands.CommandOnCooldown):
             cocmbed = nextcord.Embed(
                 colour=0x2F3136,
@@ -90,7 +90,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             cocmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=cocmbed)
+            await ctx.reply(embed=cocmbed)
         elif isinstance(error, commands.PrivateMessageOnly):
             pmombed = nextcord.Embed(
                 colour=0x2F3136,
@@ -98,7 +98,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             pmombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=pmombed)
+            await ctx.reply(embed=pmombed)
         elif isinstance(error, commands.NoPrivateMessage):
             npmmbed = nextcord.Embed(
                 colour=0x2F3136,
@@ -106,7 +106,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             npmmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=npmmbed)
+            await ctx.reply(embed=npmmbed)
         elif isinstance(error, commands.UserNotFound):
             unfmbed = nextcord.Embed(
                 colour=0x2F3136,
@@ -114,7 +114,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             unfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=unfmbed)
+            await ctx.reply(embed=unfmbed)
         elif isinstance(error, commands.RoleNotFound):
             rnfmbed = nextcord.Embed(
                 colour=0x2F3136,
@@ -122,7 +122,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             rnfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=rnfmbed)
+            await ctx.reply(embed=rnfmbed)
         elif isinstance(error, commands.CheckFailure):
             await ctx.trigger_typing()
             cfmbed = nextcord.Embed(
@@ -131,7 +131,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             cfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=cfmbed)
+            await ctx.reply(embed=cfmbed)
         elif isinstance(error, commands.CheckAnyFailure):
             await ctx.trigger_typing()
             cafmbed = nextcord.Embed(
@@ -140,7 +140,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             cafmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=cafmbed)
+            await ctx.reply(embed=cafmbed)
         else:
             tbmbed = nextcord.Embed(
                 colour=0x2F3136,
@@ -149,7 +149,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             tbmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=tbmbed)
+            await ctx.reply(embed=tbmbed)
 
 def setup(bot):
     bot.add_cog(OnError(bot))

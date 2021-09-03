@@ -21,7 +21,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             timestamp=ctx.message.created_at
         )
         abmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=abmbed)
+        await ctx.reply(embed=abmbed)
 
     # Info
     @commands.command(name="info", aliases=["io"], help="Will show member info", usage="[user]")
@@ -38,7 +38,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         iombed.add_field(name="Roles", value=F"User has {len(user.roles)-1} roles")
         iombed.set_thumbnail(url=user.avatar.url)
         iombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=iombed)
+        await ctx.reply(embed=iombed)
 
     # Avatar
     @commands.command(name="avatar", aliases=["av"], help="Will show your or another member avatar", usage="[user]")
@@ -52,7 +52,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         )
         avmbed.set_image(url=user.avatar.url)
         avmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=avmbed)
+        await ctx.reply(embed=avmbed)
 
     # Icon
     @commands.command(name="icon", aliases=["ic"], help="Will show the guild's icon")
@@ -67,7 +67,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         icmbed.set_image(url=ctx.guild.icon_url)
         icmbed.set_image(url=ctx.guild.icon_url)
         icmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=icmbed)
+        await ctx.reply(embed=icmbed)
 
     # Stats
     @commands.command(name="stats", aliases=["sa"], help="Will show the stats of this server")
@@ -83,13 +83,13 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         sambed.add_field(name="Channels", value=F"{len(ctx.guild.channels)} channels are in this guild")
         sambed.set_thumbnail(url=ctx.guild.icon_url)
         sambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=sambed)
+        await ctx.reply(embed=sambed)
 
     # Echo
     @commands.command(name="echo", aliases=["eo"], help="Will echo your message", usage="<text>")
     async def echo(self, ctx, *, echo):
         await ctx.trigger_typing()
-        await ctx.send(echo)
+        await ctx.reply(echo)
 
     # Ping
     @commands.command(name="ping", aliases=["pi"], help="Will show your latency")
@@ -102,7 +102,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         )
         unpimbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         start = time.perf_counter()
-        unpimsg = await ctx.send(embed=unpimbed)
+        unpimsg = await ctx.reply(embed=unpimbed)
         end = time.perf_counter()
         dopimbed = nextcord.Embed(
             colour=0x2F3136,
@@ -124,7 +124,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             timestamp=ctx.message.created_at
         )
         iembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=iembed)
+        await ctx.reply(embed=iembed)
 
     # AFK
     @commands.command(name="afk", help="Will make you AFK")
@@ -148,9 +148,9 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         doafkmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         if ctx.author.nick == "AFK":
             await ctx.author.edit(nick=None)
-            return await ctx.send(embed=unafkmbed)
+            return await ctx.reply(embed=unafkmbed)
         await ctx.author.edit(nick="AFK")
-        await ctx.send(embed=doafkmbed)
+        await ctx.reply(embed=doafkmbed)
         await ctx.author.move_to(ctx.guild.afk_channel)
     
 def setup(bot):

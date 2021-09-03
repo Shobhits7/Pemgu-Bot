@@ -16,7 +16,7 @@ class Database(commands.Cog, description="Monotoring database with these"):
         )
         dltmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await self.bot.db.execute(F"DELETE FROM {table} WHERE guild_id = $1", ctx.guild.id)
-        await ctx.send(embed=dltmbed)
+        await ctx.reply(embed=dltmbed)
 
 def setup(bot):
     bot.add_cog(Database(bot))
