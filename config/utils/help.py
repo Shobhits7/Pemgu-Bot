@@ -34,11 +34,11 @@ class HelpMenu(nextcord.ui.Select):
                     timestamp=datetime.datetime.now()
                 )
                 for command in cog.get_commands():
-                    if command is None:
-                        mbed.add_field(name="Why would there be commands out of categories ?", value="You tell me...")
-                    else:
-                        mbed.add_field(name=command, value=command.help or "No help found...")
+                    mbed.add_field(name=command, value=command.help or "No help found...")
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+                await interaction.response.edit_message(embed=mbed)
+            elif self.values[0] == ["No", "No Category"]:
+                mbed.add_field(name="Why would there be commands out of categories ?", value="You tell me...")
                 await interaction.response.edit_message(embed=mbed)
             elif self.values[0] == "Home":
                 await interaction.response.edit_message(embed=self.homepage)
