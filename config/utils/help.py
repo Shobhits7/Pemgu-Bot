@@ -13,8 +13,8 @@ class HelpMenu(nextcord.ui.Select):
             nextcord.SelectOption(label="Home", description="The main page of this menu", value="Home", emoji=":bot_tag:878221621687640074")
         ]
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name
-            description = cog.description
+            name = cog.qualified_name if cog else "No"
+            description = cog.description if cog else "No description found..."
             if name.startswith("On"):
                 pass
             else:
