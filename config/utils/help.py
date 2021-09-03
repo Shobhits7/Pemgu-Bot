@@ -56,15 +56,15 @@ class HelpView(nextcord.ui.View):
 class MyHelp(commands.HelpCommand):
     def __init__(self):
         self.emojis = {
-            "API": "🌐",
-            "Database": "📝",
-            "Fun": "🤣",
-            "Moderation": "⚔",
-            "Owner": "👑",
-            "Setup": "❓",
+            "API": ":globe_with_meridians:",
+            "Database": ":pencil:",
+            "Fun": ":rofl:",
+            "Moderation": ":crossed_swords:",
+            "Owner": ":crown:",
+            "Setup": ":question:",
             "Utility": ":gear:",
-            "Jishaku": "👀",
-            "No": "⛔"
+            "Jishaku": ":eyes:",
+            "No": ":no_entry:"
         }
         super().__init__(
             command_attrs={
