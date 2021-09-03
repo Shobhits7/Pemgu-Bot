@@ -71,7 +71,7 @@ class MyHelp(commands.HelpCommand):
     async def send_bot_help(self, mapping):
         ctx = self.context
         homepage = nextcord.Embed(
-            color = 0x2F3136,
+            colour=0x525BC2,
             title=F"{ctx.me.display_name} <:bot_tag:878221621687640074> Help",
             description=F"**Prefix**: `{ctx.clean_prefix}`\nThis is a list of all modules in the bot.\nSelect a module for more information.",
             timestamp = ctx.message.created_at
