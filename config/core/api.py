@@ -22,7 +22,7 @@ class API(commands.Cog, description="Some cool API commands"):
             timestamp=ctx.message.created_at
         )
         jkmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-        await ctx.reply(embed=jkmbed)
+        await ctx.send(embed=jkmbed)
 
     # 8Ball
     @commands.command(name="8ball", aliases=["8b"], help="Will give you a random answer", usage="<question>")
@@ -37,7 +37,7 @@ class API(commands.Cog, description="Some cool API commands"):
         _8bmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         _8bmbed.add_field(name="Your Question:", value=question)
         _8bmbed.add_field(name="Your Answer:", value=session["response"])
-        await ctx.reply(embed=_8bmbed)
+        await ctx.send(embed=_8bmbed)
 
     # Pixel
     @commands.command(name="pixel", aliases=["pxl"], help="Will make the given image pixelated", usage="[user]")
@@ -53,7 +53,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         pxlmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         pxlmbed.set_image(url="attachment://pixel.png")
-        await ctx.reply(file=nextcord.File(session, filename="pixel.png"), embed=pxlmbed)
+        await ctx.send(file=nextcord.File(session, filename="pixel.png"), embed=pxlmbed)
 
     # Colors
     @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image", usage="[user]")
@@ -69,7 +69,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         clrsmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         clrsmbed.set_image(url="attachment://colors.png")
-        await ctx.reply(file=nextcord.File(session, filename="colors.png"), embed=clrsmbed)
+        await ctx.send(file=nextcord.File(session, filename="colors.png"), embed=clrsmbed)
 
     # Tweet
     @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet", usage="<username> <text>")
@@ -85,7 +85,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         twmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         twmbed.set_image(url="attachment://tweet.png")
-        await ctx.reply(file=nextcord.File(session, filename="tweet.png"), embed=twmbed)
+        await ctx.send(file=nextcord.File(session, filename="tweet.png"), embed=twmbed)
 
     # Screenshot
     @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website", usage="<website>")
@@ -100,7 +100,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         ssmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         ssmbed.set_image(url="attachment://screenshot.png")
-        await ctx.reply(file=nextcord.File(session, filename="screenshot.png"), embed=ssmbed)
+        await ctx.send(file=nextcord.File(session, filename="screenshot.png"), embed=ssmbed)
 
 def setup(bot):
     bot.add_cog(API(bot))
