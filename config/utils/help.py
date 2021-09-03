@@ -36,7 +36,10 @@ class HelpMenu(nextcord.ui.Select):
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
             elif self.values[0] == "Home":
-                await interaction.response.defer(embed=self.homepage)
+                try:
+                    await interaction.response.edit_message(embed=self.homepage)
+                except nextcord.InteractionResponded:
+                    pass
 
 class HelpView(nextcord.ui.View):
     def __init__(self, help, mapping, homepage, emojis):
