@@ -17,7 +17,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
         else:
             prefix = prefix[0].get("prefix")
         pfmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=F"My Prefix here is `{prefix}`",
             timestamp=ctx.message.created_at
         )
@@ -32,7 +32,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
         await ctx.trigger_typing()
         await self.bot.db.execute("INSERT INTO prefixes(guild_id, prefix) VALUES ($1, $2)", ctx.guild.id, prefix)
         pfcmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=F"Changed my prefix to `{prefix}`",
             timestamp=ctx.message.created_at
         )
@@ -47,7 +47,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
         await ctx.trigger_typing()
         await self.bot.db.execute("UPDATE prefixes SET prefix = $1 WHERE guild_id = $2",self.bot.prefix, ctx.guild.id)
         pfrmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=F"The prefix has been resetted  to `{self.bot.prefix}`",
             timestamp=ctx.message.created_at
         )

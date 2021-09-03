@@ -10,7 +10,7 @@ class Database(commands.Cog, description="Monotoring database with these"):
     async def delete(self, ctx, *, table):
         await ctx.trigger_typing()
         dltmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=F"Deleted from {table}",
             timestamp=ctx.message.created_at
         )

@@ -17,7 +17,7 @@ class OnMessage(commands.Cog):
             else:
                 prefix = prefix[0].get("prefix")
             ompmbed = nextcord.Embed(
-                colour=0x2F3136,
+                colour=0x525BC2,
                 title=F"My Prefix here is `{prefix}`",
                 timestamp=message.created_at
             )

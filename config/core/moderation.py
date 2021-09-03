@@ -13,14 +13,14 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     async def ban(self, ctx, user:commands.UserConverter, *, reason=None):
         await ctx.trigger_typing()
         abnmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=F"`{user.display_name}` is now Banned",
             description=F"For reason: {reason}",
             timestamp=ctx.message.created_at
         )
         abnmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         ubnmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=F"Dear {user.display_name}"
         )
         ubnmbed.add_field(name=F"You were banned from:", value=F"{ctx.guild.id}")
@@ -42,7 +42,7 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     async def unban(self, ctx, user:commands.UserConverter):
         await ctx.trigger_typing()
         unmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=F"{user.name} is now Unbanned",
             timestamp=ctx.message.created_at
         )
@@ -58,14 +58,14 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     async def kick(self, ctx, member:commands.MemberConverter, *, reason=None):
         await ctx.trigger_typing()
         akcmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=F"{member.display_name} is now Kicked",
             description=F"For reason: {reason}",
             timestamp=ctx.message.created_at
         )
         akcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         ukcmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=F"Dear {member.display_name}"
         )
         ukcmbed.add_field(name=F"You were banned from:", value=F"{ctx.guild.id}")
@@ -87,13 +87,13 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     async def addrole(self, ctx, member: commands.MemberConverter, role: commands.RoleConverter):
         await ctx.trigger_typing()
         finaembed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=F"Successfully added the {role} role",
             timestamp=ctx.message.created_at
         )
         finaembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         badaembed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=F"The member already has the {role} role",
             timestamp=ctx.message.created_at
         )
@@ -112,13 +112,13 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     async def removerole(self, ctx, member: commands.MemberConverter, role: commands.RoleConverter):
         await ctx.trigger_typing()
         finrembed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=F"Successfully removed the {role} role",
             timestamp=ctx.message.created_at
         )
         finrembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         badrembed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=F"The member don't have the {role} role",
             timestamp=ctx.message.created_at
         )
@@ -137,13 +137,13 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     async def purge(self, ctx, amount: int):
         await ctx.trigger_typing()
         finpumbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=F"Deleted {amount} amount of messages",
             timestamp=ctx.message.created_at
         )
         finpumbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         badpumbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title="Can't clear more than 100 messages",
             timestamp=ctx.message.created_at
         )

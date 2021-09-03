@@ -26,7 +26,7 @@ class HelpMenu(nextcord.ui.Select):
             description = cog.description if cog else "No descrption found..."
             if self.values[0] == name:
                 mbed = nextcord.Embed(
-                    colour=0x2F3136,
+                    colour=0x525BC2,
                     title=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]",
                     description=description,
                     timestamp=datetime.datetime.now()
@@ -95,7 +95,7 @@ class MyHelp(commands.HelpCommand):
         ctx = self.context
         signature = self.get_command_signature(command)
         hcmdmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=signature,
             description=command.help or "No help found...",
             timestamp=ctx.message.created_at
@@ -118,7 +118,7 @@ class MyHelp(commands.HelpCommand):
     async def subcommand_not_found(self, command, string):
         ctx = self.context
         hscmdmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title="Sub Command Not Found",
             description=F"{command} - {string}",
             timestamp=ctx.message.created_at
@@ -133,7 +133,7 @@ class MyHelp(commands.HelpCommand):
         ctx = self.context
         title = F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else ''} {cog.qualified_name}" or "No"
         hcogmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=title,
             description=cog.description or "No help found...",
             timestamp=ctx.message.created_at
@@ -150,7 +150,7 @@ class MyHelp(commands.HelpCommand):
         ctx = self.context
         title = self.get_command_signature(group)
         hgroupmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title=title,
             description=group.help or "No help found...",
             timestamp=ctx.message.created_at
@@ -168,7 +168,7 @@ class MyHelp(commands.HelpCommand):
             return
         ctx = self.context
         herrormbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title="Help Error",
             description=error,
             timestamp=ctx.message.created_at

@@ -16,7 +16,7 @@ class API(commands.Cog, description="Some cool API commands"):
         await ctx.trigger_typing()
         session = await session_json("https://api.dagpi.xyz/data/joke", self.dagpi_headers)
         jkmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title="Here is a random joke",
             description=session["joke"],
             timestamp=ctx.message.created_at
@@ -30,7 +30,7 @@ class API(commands.Cog, description="Some cool API commands"):
         await ctx.trigger_typing()
         session = await session_json("https://api.dagpi.xyz/data/8ball", self.dagpi_headers)
         _8bmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title="Here is your answer",
             timestamp=ctx.message.created_at
         )
@@ -47,7 +47,7 @@ class API(commands.Cog, description="Some cool API commands"):
         user = user or ctx.author
         session = await session_bytes(F"https://api.dagpi.xyz/image/pixel/?url={user.avatar.with_static_format('png').with_size(1024)}", self.dagpi_headers)
         pxlmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title="Here is the pixelated for the image",
             timestamp=ctx.message.created_at
         )
@@ -63,7 +63,7 @@ class API(commands.Cog, description="Some cool API commands"):
         user = user or ctx.author
         session = await session_bytes(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.with_static_format('png').with_size(1024)}", self.dagpi_headers)
         clrsmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title="Here is the colors for the image",
             timestamp=ctx.message.created_at
         )
@@ -79,7 +79,7 @@ class API(commands.Cog, description="Some cool API commands"):
         user = user or ctx.author
         session = await session_bytes(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_static_format('png').with_size(1024)}&username={ctx.author.name}&text={text}", self.dagpi_headers)
         twmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title="Here is your tweet's preview",
             timestamp=ctx.message.created_at
         )
@@ -94,7 +94,7 @@ class API(commands.Cog, description="Some cool API commands"):
         await ctx.trigger_typing()
         session = await session_bytes(F"https://api.screenshotmachine.com?key=a95edd&url={website}&dimension=1024x768")
         ssmbed = nextcord.Embed(
-            colour=0x2F3136,
+            colour=0x525BC2,
             title="Here is your screenshot",
             timestamp=ctx.message.created_at
         )
