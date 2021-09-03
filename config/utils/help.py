@@ -31,7 +31,7 @@ class HelpMenu(nextcord.ui.Select):
                     description=description,
                     timestamp=datetime.datetime.now()
                 )
-                for command in cog.get_commands():
+                for command in commands:
                     mbed.add_field(name=command, value=command.help or "No help")
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
