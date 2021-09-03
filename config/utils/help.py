@@ -36,7 +36,8 @@ class HelpMenu(nextcord.ui.Select):
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
             elif self.values[0] == "Home":
-                await interaction.edit_original_message(embed=self.homepage)
+                await interaction.delete_original_message()
+                await interaction.response.edit_message(embed=self.homepage)
                 # try:
                 #     await interaction.response.edit_message(embed=self.homepage)
                 # except nextcord.InteractionResponded:
