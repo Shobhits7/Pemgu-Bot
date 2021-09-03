@@ -4,7 +4,8 @@ import datetime
 import contextlib
 
 class HelpMenu(nextcord.ui.Select):
-    def __init__(self, help, mapping, homepage, emojis):
+    def __init__(self, view, help, mapping, homepage, emojis):
+        self.view = view
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
@@ -34,10 +35,9 @@ class HelpMenu(nextcord.ui.Select):
                 for command in commands:
                     mbed.add_field(name=self.help.get_command_signature(command), value=command.help or "No help")
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
-                await interaction.response.edit_message(embed=mbed)
+                await self.view.message.edit(embed=mbed)
             elif self.values[0] == "Home":
-                await interaction.delete_original_message()
-                await interaction.response.edit_message(embed=self.homepage)
+                await self.view.message.edit(embed=self.homepage)
                 # try:
                 #     await interaction.response.edit_message(embed=self.homepage)
                 # except nextcord.InteractionResponded:
@@ -46,11 +46,12 @@ class HelpMenu(nextcord.ui.Select):
 class HelpView(nextcord.ui.View):
     def __init__(self, help, mapping, homepage, emojis):
         super().__init__()
+        self.view = self
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
         self.emojis = emojis
-        self.add_item(HelpMenu(self.help, self.mapping, self.homepage, self.emojis))
+        self.add_item(HelpMenu(self.view, self.help, self.mapping, self.homepage, self.emojis))
         
     async def on_timeout(self):
         await self.message.edit(view=self)
