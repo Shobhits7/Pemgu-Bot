@@ -62,7 +62,7 @@ class MyHelp(commands.HelpCommand):
             "Moderation": "⚔",
             "Owner": "👑",
             "Setup": "❓",
-            "Utility": "⚙",
+            "Utility": ":gear:",
             "Jishaku": "👀",
             "No": "⛔"
         }
