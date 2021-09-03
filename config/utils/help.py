@@ -36,7 +36,7 @@ class HelpMenu(nextcord.ui.Select):
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
             elif self.values[0] == "Home":
-                await interaction.edit_original_message(embed=self.hompage)
+                await interaction.edit_original_message(embed=self.homepage)
                 # try:
                 #     await interaction.response.edit_message(embed=self.homepage)
                 # except nextcord.InteractionResponded:
@@ -80,7 +80,7 @@ class MyHelp(commands.HelpCommand):
         homepage = nextcord.Embed(
             colour=0x525BC2,
             title=F"{ctx.me.display_name} <:bot_tag:878221621687640074> Help",
-            description=F"**Prefix**: `{ctx.clean_prefix}`\nThis is a list of all modules in the bot.\nSelect a module for more information.",
+            description=F"**Prefix**: `{ctx.clean_prefix}`\nThis is a list of all modules in the bot.\nSelect a module for more information.\n[] means the argument is optional.\n<> means the argument is required",
             timestamp = ctx.message.created_at
         )
         homepage.set_thumbnail(url=ctx.me.avatar.url)
