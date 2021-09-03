@@ -36,10 +36,11 @@ class HelpMenu(nextcord.ui.Select):
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
             elif self.values[0] == "Home":
-                try:
-                    await interaction.response.edit_message(embed=self.homepage)
-                except nextcord.InteractionResponded:
-                    pass
+                await interaction.edit_original_message(embed=self.hompage)
+                # try:
+                #     await interaction.response.edit_message(embed=self.homepage)
+                # except nextcord.InteractionResponded:
+                #     pass
 
 class HelpView(nextcord.ui.View):
     def __init__(self, help, mapping, homepage, emojis):
@@ -49,22 +50,22 @@ class HelpView(nextcord.ui.View):
         self.homepage = homepage
         self.emojis = emojis
         self.add_item(HelpMenu(self.help, self.mapping, self.homepage, self.emojis))
-
+        
     async def on_timeout(self):
         await self.message.edit(view=self)
 
 class MyHelp(commands.HelpCommand):
     def __init__(self):
         self.emojis = {
-            "API": ":globe_with_meridians:",
-            "Database": ":pencil:",
-            "Fun": ":rofl:",
-            "Moderation": ":crossed_swords:",
-            "Owner": ":crown:",
-            "Setup": ":question:",
-            "Utility": ":gear:",
-            "Jishaku": ":eyes:",
-            "No": ":no_entry:"
+            "API": "🌐",
+            "Database": "📝",
+            "Fun": "🤣",
+            "Moderation": "⚔",
+            "Owner": "👑",
+            "Setup": "❓",
+            "Utility": "⚙",
+            "Jishaku": "👀",
+            "No": "⛔"
         }
         super().__init__(
             command_attrs={
