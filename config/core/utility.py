@@ -16,11 +16,11 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         abmbed = nextcord.Embed(
             colour=0x2F3136,
             title="About Bot",
+            description=F"""[Click here for Commands](https://lvlahraam.gitbook.io/brevity-bot/commands)
+        [Click here for FAQ](https://lvlahraam.gitbook.io/brevity-bot)
+        [Click here for Invite]({nextcord.utils.oauth_url(client_id=844226171972616205, permissions=nextcord.Permissions(administrator=True))})""",
             timestamp=ctx.message.created_at
         )
-        abmbed.description += "[Click here for Commands](https://lvlahraam.gitbook.io/brevity-bot/commands)"
-        abmbed.description += "\n[Click here for FAQ](https://lvlahraam.gitbook.io/brevity-bot)\n"
-        abmbed.description += F"[Click here for Invite]({nextcord.utils.oauth_url(client_id=844226171972616205, permissions=nextcord.Permissions(administrator=True))})"
         abmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.reply(embed=abmbed)
 
