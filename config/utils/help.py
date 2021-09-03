@@ -3,13 +3,54 @@ from nextcord.ext import commands
 import datetime
 import contextlib
 
-class HelpEmbed(nextcord.Embed): 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.color = 0x2F3136
-        self.timestamp = datetime.datetime.utcnow()
-        self.text = "Use help [command] or help [category] for more information | <> is required | [] is optional"
-        self.set_footer(text=self.text)
+class HelpMenu(nextcord.ui.Select):
+    def __init__(self, help, mapping, homepage, emojis):
+        self.help = help
+        self.mapping = mapping
+        self.homepage = homepage
+        self.emojis = emojis
+        options = [
+            nextcord.SelectOption(label="Home", description="The main page of this menu", value="Home", emoji=":bot_tag:878221621687640074")
+        ]
+        for cog, commands in self.mapping.items():
+            name = cog.qualified_name if cog else "No"
+            description = cog.description if cog else "No descrption found..."
+            if name.startswith("On"):
+                pass
+            else:
+                option = nextcord.SelectOption(label=F"{name} Category [{len(commands)}]", description=description, value=name, emoji=self.emojis.get(name) if self.emojis.get(name) else '⛔')
+                options.append(option)
+        super().__init__(placeholder="Choose the module you want to checkout: ", min_values=1, max_values=1, options=options)
+
+    async def callback(self, interaction: nextcord.Interaction):
+        for cog, commands in self.mapping.items():
+            name = cog.qualified_name if cog else "No"
+            description = cog.description if cog else "No descrption found..."
+            if self.values[0] == name:
+                mbed = nextcord.Embed(
+                    colour=0x2F3136,
+                    title=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category {len(commands)}",
+                    description=description,
+                    timestamp=datetime.datetime.now()
+                )
+                for command in cog.get_commands():
+                    if command is None:
+                        mbed.add_field(name="Why would there be commands out of categories ?", value="You tell me...")
+                    else:
+                        mbed.add_field(name=command, value=command.help or "No help found...")
+                mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+                await interaction.response.edit_message(embed=mbed)
+            elif self.values[0] == "Home":
+                await interaction.response.edit_message(embed=self.homepage)
+
+class HelpView(nextcord.ui.View):
+    def __init__(self, help, mapping, homepage, emojis):
+        super().__init__()
+        self.help = help
+        self.mapping = mapping
+        self.homepage = homepage
+        self.emojis = emojis
+        self.add_item(HelpMenu(self.help, self.mapping, self.homepage, self.emojis))
 
 class MyHelp(commands.HelpCommand):
     def __init__(self):
@@ -17,7 +58,7 @@ class MyHelp(commands.HelpCommand):
             "API": "🌐",
             "Database": "📝",
             "Fun": "🤣",
-            "Modeartion": "⚔",
+            "Moderation": "⚔",
             "Owner": "👑",
             "Setup": "❓",
             "Utility": "⚙",
@@ -30,38 +71,39 @@ class MyHelp(commands.HelpCommand):
                 "aliases": ["h", "commands"]
             }
         )
-    
+
     # Help Main
     async def send_bot_help(self, mapping):
         ctx = self.context
-        hmainmbed = HelpEmbed(
+        homepage = nextcord.Embed(
+            color = 0x2F3136,
             title=F"{ctx.me.display_name} <:bot_tag:878221621687640074> Help",
+            description=F"**Prefix**: `{ctx.clean_prefix}`\nThis is a list of all modules in the bot.\nSelect a module for more information.",
+            timestamp = ctx.message.created_at
         )
-        hmainmbed.set_thumbnail(url=ctx.me.avatar.url)
-        hmainmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
-        usable = 0 
-        for cog, commands in mapping.items(): 
+        homepage.set_thumbnail(url=ctx.me.avatar.url)
+        homepage.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
+        usable = 0
+        for cog, commands in mapping.items():
             if filtered_commands := await self.filter_commands(commands, sort=True):
                 amount_commands = len(filtered_commands)
                 usable += amount_commands
-                if cog:
-                    name = cog.qualified_name
-                    description = cog.description or "No description"
-                else:
-                    name = "No"
-                    description = "Commands with no category"
-                hmainmbed.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{amount_commands}]", value=description)
-        hmainmbed.description = F"{len(self.context.bot.commands)} commands | {usable} usable"
-        await ctx.reply(embed=hmainmbed)
+                name = cog.qualified_name if cog else "No"
+                description = cog.description if cog else "No descrption found..."
+                homepage.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]", value=description)
+        view = HelpView(self, mapping, homepage, self.emojis)
+        await ctx.reply(embed=homepage, view=view)
         return
 
     # Help Command
     async def send_command_help(self, command):
         ctx = self.context
         signature = self.get_command_signature(command)
-        hcmdmbed = HelpEmbed(
+        hcmdmbed = nextcord.Embed(
+            colour=0x2F3136,
             title=signature,
             description=command.help or "No help found...",
+            timestamp=ctx.message.created_at
         )
         hcmdmbed.set_thumbnail(url=ctx.me.avatar.url)
         hcmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
@@ -80,9 +122,11 @@ class MyHelp(commands.HelpCommand):
     # Help SubCommand Error
     async def subcommand_not_found(self, command, string):
         ctx = self.context
-        hscmdmbed = HelpEmbed(
+        hscmdmbed = nextcord.Embed(
+            colour=0x2F3136,
             title="Sub Command Not Found",
-            description=F"{command} - {string}"
+            description=F"{command} - {string}",
+            timestamp=ctx.message.created_at
         )
         hscmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         hscmdmbed.set_thumbnail(url=ctx.me.avatar.url)
@@ -93,9 +137,11 @@ class MyHelp(commands.HelpCommand):
     async def send_cog_help(self, cog):
         ctx = self.context
         title = F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else ''} {cog.qualified_name}" or "No"
-        hcogmbed = HelpEmbed(
+        hcogmbed = nextcord.Embed(
+            colour=0x2F3136,
             title=title,
-            description=cog.description or "No help found..."
+            description=cog.description or "No help found...",
+            timestamp=ctx.message.created_at
         )
         hcogmbed.set_thumbnail(url=ctx.me.avatar.url)
         hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
@@ -108,9 +154,11 @@ class MyHelp(commands.HelpCommand):
     async def send_group_help(self, group):
         ctx = self.context
         title = self.get_command_signature(group)
-        hgroupmbed = HelpEmbed(
+        hgroupmbed = nextcord.Embed(
+            colour=0x2F3136,
             title=title,
-            description=group.help or "No help found..."
+            description=group.help or "No help found...",
+            timestamp=ctx.message.created_at
         )
         hgroupmbed.set_thumbnail(url=ctx.me.avatar.url)
         hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
@@ -124,11 +172,14 @@ class MyHelp(commands.HelpCommand):
         if error == None:
             return
         ctx = self.context
-        herrormbed = HelpEmbed(
+        herrormbed = nextcord.Embed(
+            colour=0x2F3136,
             title="Help Error",
-            description=error
+            description=error,
+            timestamp=ctx.message.created_at
         )
         herrormbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         herrormbed.set_thumbnail(url=ctx.me.avatar.url)
         await ctx.reply(embed=herrormbed)
         return
+
