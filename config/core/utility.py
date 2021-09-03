@@ -18,7 +18,8 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             title="About Bot",
             description=F"""[Click here for Commands](https://lvlahraam.gitbook.io/brevity-bot/commands)
         [Click here for FAQ](https://lvlahraam.gitbook.io/brevity-bot)
-        [Click here for Invite]({nextcord.utils.oauth_url(client_id=844226171972616205, permissions=nextcord.Permissions(administrator=True))})""",
+        [Click here for Adding Bot](https://dsc.gg/brevity-bot)
+        [Click here for Joining Support](https://dsc.gg/brevity-support)""",
             timestamp=ctx.message.created_at
         )
         abmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
