@@ -132,4 +132,3 @@ class MyHelp(commands.HelpCommand):
         herrormbed.set_thumbnail(url=ctx.me.avatar.url)
         await ctx.reply(embed=herrormbed)
         return
-

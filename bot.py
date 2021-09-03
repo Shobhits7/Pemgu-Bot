@@ -28,8 +28,6 @@ bot.prefix = "~b"
 
 bot.blacklisted = []
 
-bot.help_command = MyHelp()
-
 @bot.check
 async def blacklisted(ctx):
     if ctx.author.id in bot.blacklisted:
