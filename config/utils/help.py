@@ -13,8 +13,11 @@ class HelpMenu(nextcord.ui.Select):
             nextcord.SelectOption(label="Home", description="The main page of this menu", value="Home", emoji=":bot_tag:878221621687640074")
         ]
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
-            description = cog.description if cog else "No descrption found..."
+            if cog:
+                name = cog.qualified_name
+                description = cog.description
+            else:
+                pass
             if name.startswith("On"):
                 pass
             else:
@@ -24,8 +27,11 @@ class HelpMenu(nextcord.ui.Select):
 
     async def callback(self, interaction: nextcord.Interaction):
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
-            description = cog.description if cog else "No descrption found..."
+            if cog:
+                name = cog.qualified_name
+                description = cog.description
+            else:
+                pass
             if self.values[0] == name:
                 mbed = nextcord.Embed(
                     colour=0x2F3136,
@@ -85,8 +91,11 @@ class MyHelp(commands.HelpCommand):
             if filtered_commands := await self.filter_commands(commands, sort=True):
                 amount_commands = len(filtered_commands)
                 usable += amount_commands
-                name = cog.qualified_name if cog else "No"
-                description = cog.description if cog else "No descrption found..."
+                if cog:
+                    name = cog.qualified_name
+                    description = cog.description
+                else:
+                    pass
                 homepage.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]", value=description)
         view = HelpView(self, mapping, homepage, self.emojis)
         await ctx.reply(embed=homepage, view=view)
