@@ -83,7 +83,7 @@ class MyHelp(commands.HelpCommand):
         ctx = self.context
         homepage = nextcord.Embed(
             colour=0x525BC2,
-            title=F"<a:loading:876046660315279380> {ctx.me.display_name} <:bot:878221621687640074> <:help:883519693267279912>",
+            title=F"{ctx.me.display_name} <:bot:878221621687640074> Help",
             description="""```py
 This is a list of all modules in the bot.
 Select a module for more information.
