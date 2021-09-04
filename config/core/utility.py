@@ -14,10 +14,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         abmbed = nextcord.Embed(
             colour=0x525BC2,
             title="About Bot",
-            description=F"""[Click here for Commands](https://lvlahraam.gitbook.io/brevity-bot/commands)
-        [Click here for FAQ](https://lvlahraam.gitbook.io/brevity-bot)
-        [Click here for Adding Bot](https://dsc.gg/brevity-bot)
-        [Click here for Joining Support](https://dsc.gg/brevity-support)""",
+            description=F"[Click here for Commands](https://lvlahraam.gitbook.io/brevity-bot/commands)\n[Click here for FAQ](https://lvlahraam.gitbook.io/brevity-bot)\n[Click here for Adding Bot](https://dsc.gg/brevity-bot)\n[Click here for Joining Support](https://dsc.gg/brevity-support)",
             timestamp=ctx.message.created_at
         )
         abmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
@@ -30,7 +27,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         user = user or ctx.author
         avmbed = nextcord.Embed(
             colour=0x525BC2,
-            title="User's Avatar",
+            title=F"{user} Avatar",
             timestamp=ctx.message.created_at
         )
         avmbed.set_image(url=user.avatar.url)
@@ -45,11 +42,13 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         image = await self.bot.fetch_user(user.id)
         brmbed = nextcord.Embed(
             colour=0x525BC2,
-            title="User's Banner",
+            title=F"{user} Banner",
             timestamp=ctx.message.created_at
         )
-        if image.banner.url:
-            brmbed.set_image(url=image.banner.url)
+        if image.banner and image.banner.url:
+            brmbed.set_image(url=ctx.guild.banner.url)
+        else:
+            brmbed.description += "*This user doesn't have any banner*"
         brmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.reply(embed=brmbed)
 
@@ -62,14 +61,16 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         image = await self.bot.fetch_user(user.id)
         iombed = nextcord.Embed(
             colour=0x525BC2,
-            title=F"{user.display_name} Information",
+            title=F"{user} Information",
             timestamp=ctx.message.created_at
         )
         iombed.add_field(name="Joined Date", value=F"{user.mention} joined the server on\n{user.joined_at}")
         iombed.add_field(name="Roles", value=F"User has {len(user.roles)-1} roles")
         iombed.set_thumbnail(url=user.avatar.url)
-        if image.banner.url:
-            iombed.set_image(url=image.banner.url)
+        if image.banner and image.banner.url:
+            iombed.set_image(url=ctx.guild.banner.url)
+        else:
+            iombed.description += "*This user doesn't have any banner*"
         iombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.reply(embed=iombed)
 
@@ -86,8 +87,10 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         sambed.add_field(name="Members", value=F"{len(ctx.guild.members)} members are in this guild")
         sambed.add_field(name="Channels", value=F"{len(ctx.guild.channels)} channels are in this guild")
         sambed.set_thumbnail(url=ctx.guild.icon.url)
-        if ctx.guild.banner.url:
+        if ctx.guild.banner and ctx.guild.banner.url:
             sambed.set_image(url=ctx.guild.banner.url)
+        else:
+            sambed.description += "*This guild doesn't have any banner*"
         sambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.reply(embed=sambed)
 
