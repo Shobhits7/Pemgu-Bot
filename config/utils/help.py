@@ -93,8 +93,8 @@ class MyHelp(commands.HelpCommand):
             if filtered_commands := await self.filter_commands(commands, sort=True):
                 amount_commands = len(filtered_commands)
                 usable += amount_commands
-                homepage.add_field(name="Commands:", value=amount_commands)
-                homepage.add_field(name="Usable:", value=usable)
+        homepage.add_field(name="Commands:", value=amount_commands)
+        homepage.add_field(name="Usable:", value=usable)
         view = HelpView(self, mapping, homepage, self.emojis)
         view.message = await ctx.send(embed=homepage, view=view)
         return
