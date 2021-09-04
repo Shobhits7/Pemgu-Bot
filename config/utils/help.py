@@ -63,7 +63,7 @@ class HelpView(discord.ui.View):
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id != self.help.context.author.id:
             await interaction.response.send_message(F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that.", ephemeral=True)
-            return
+            return False
 
 class MyHelp(commands.HelpCommand):
     def __init__(self):
