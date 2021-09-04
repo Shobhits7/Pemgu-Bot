@@ -82,19 +82,20 @@ class MyHelp(commands.HelpCommand):
         homepage = discord.Embed(
             colour=0x525BC2,
             title=F"{ctx.me.display_name} <:bot:878221621687640074> Help",
-            description="```py\nThis is a list of all modules in the bot.\nSelect a module for more information.\n[] means the argument is optional.\n<> means the argument is required.\n```",
+            description="This is a list of all modules in the bot.\nSelect a module for more information",
             timestamp = ctx.message.created_at
         )
+        homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.")
         homepage.set_thumbnail(url=ctx.me.avatar.url)
         homepage.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
-        usable = 0
-        for cog, commands in mapping.items():
-            if filtered_commands := await self.filter_commands(commands, sort=True):
-                amount_commands = len(filtered_commands)
-                usable += amount_commands
-                name = cog.qualified_name if cog else "No"
-                description = cog.description if cog else "Commands without category"
-                homepage.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]", value=description)
+        # usable = 0
+        # for cog, commands in mapping.items():
+        #     if filtered_commands := await self.filter_commands(commands, sort=True):
+        #         amount_commands = len(filtered_commands)
+        #         usable += amount_commands
+        #         name = cog.qualified_name if cog else "No"
+        #         description = cog.description if cog else "Commands without category"
+        #         homepage.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]", value=description)
         view = HelpView(self, mapping, homepage, self.emojis)
         view.message = await ctx.send(embed=homepage, view=view)
         return
