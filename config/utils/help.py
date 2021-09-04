@@ -64,7 +64,6 @@ class HelpView(discord.ui.View):
         if interaction.user.id != self.help.context.author.id:
             await interaction.response.send_message(F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that.", ephemeral=True)
 
-
 class MyHelp(commands.HelpCommand):
     def __init__(self):
         self.emojis = {
