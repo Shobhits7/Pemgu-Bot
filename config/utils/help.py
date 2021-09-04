@@ -88,14 +88,13 @@ class MyHelp(commands.HelpCommand):
         homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.")
         homepage.set_thumbnail(url=ctx.me.avatar.url)
         homepage.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
-        # usable = 0
-        # for cog, commands in mapping.items():
-        #     if filtered_commands := await self.filter_commands(commands, sort=True):
-        #         amount_commands = len(filtered_commands)
-        #         usable += amount_commands
-        #         name = cog.qualified_name if cog else "No"
-        #         description = cog.description if cog else "Commands without category"
-        #         homepage.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]", value=description)
+        usable = 0
+        for cog, commands in mapping.items():
+            if filtered_commands := await self.filter_commands(commands, sort=True):
+                amount_commands = len(filtered_commands)
+                usable += amount_commands
+                homepage.add_field(name="Commands:", value=amount_commands)
+                homepage.add_field(name="Usable:", value=usable)
         view = HelpView(self, mapping, homepage, self.emojis)
         view.message = await ctx.send(embed=homepage, view=view)
         return
