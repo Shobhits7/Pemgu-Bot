@@ -14,10 +14,10 @@ async def get_prefix_postgresql(bot, message):
         return commands.when_mentioned_or("~b")
     prefix = await bot.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", message.guild.id)
     if len(prefix) == 0:
-        prefix = "~b"
+        prefix = commands.when_mentioned_or("~b")
     else:
         prefix = prefix[0].get("prefix")
-    return commands.when_mentioned_or(prefix)
+    return prefix
 
 bot = commands.Bot(command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, allowed_mentions=nextcord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False), help_command=MyHelp(), owner_ids={798928603201929306, 494496285676535811}, intents=nextcord.Intents.all(), status=nextcord.Status.online, activity=nextcord.Game(name="@Brevity for prefix | ~b help for help | Made by lvlahraam"))
 
