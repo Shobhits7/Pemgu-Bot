@@ -24,7 +24,7 @@ class HelpMenu(nextcord.ui.Select):
         if interaction.user.id != self.help.context.author.id:
             await interaction.response.send_message(F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that.", ephemeral=True)
             return
-        if self.values[0] == self.values[0]:
+        if self.values[0] == self.options[0]:
             await interaction.response.send_message(F"<@{interaction.user.id}> - The options is already {self.values[0]} try something else.", ephemeral=True)
             return
         for cog, commands in self.mapping.items():
