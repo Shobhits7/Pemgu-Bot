@@ -27,28 +27,34 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         ubnmbed.add_field(name=F"By:", value=F"{ctx.author.name}")
         ubnmbed.add_field(name=F"For this reason:", value=reason)
         ubnmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        await user.send(embed=ubnmbed)
         await ctx.guild.ban(user, reason=reason)
         await ctx.reply(embed=abnmbed)
-        try:
-            await user.send(embed=ubnmbed)
-        except nextcord.Forbidden:
-            raise nextcord.Forbidden
-    
+
     # Unban
     @commands.command(name="unban", aliases=["un"], help="Will unban the user", usage="<user>")
     @commands.guild_only()
     @commands.has_guild_permissions(ban_members=True)
     @commands.bot_has_guild_permissions(ban_members=True)
-    async def unban(self, ctx, user:commands.UserConverter):
+    async def unban(self, ctx, user:commands.UserConverter, *, reason):
         await ctx.trigger_typing()
-        unmbed = nextcord.Embed(
+        aunmbed = nextcord.Embed(
             colour=0x525BC2,
             title=F"{user.name} is now Unbanned",
             timestamp=ctx.message.created_at
         )
-        unmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        aunmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        uunmbed = nextcord.Embed(
+            colour=0x525BC2,
+            title=F"Dear {user.display_name}"
+        )
+        uunmbed.add_field(name=F"You were unbanned from:", value=F"{ctx.guild.id}")
+        uunmbed.add_field(name=F"By:", value=F"{ctx.author.name}")
+        uunmbed.add_field(name=F"For this reason:", value=reason)
+        uunmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        await user.send(embed=uunmbed)
         await ctx.guild.unban(user)
-        await ctx.reply(embed=unmbed)
+        await ctx.reply(embed=aunmbed)
 
     # Kick
     @commands.command(name="kick", aliases=["kc"], help="Will kick the user", usage="<user>")
@@ -72,12 +78,9 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         ukcmbed.add_field(name=F"By:", value=F"{ctx.author.name}")
         ukcmbed.add_field(name=F"For this reason:", value=reason)
         ukcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        await member.send(embed=ukcmbed)
         await ctx.guild.kick(user=member, reason=reason)
         await ctx.reply(embed=akcmbed)
-        try:
-            await member.send(embed=ukcmbed)
-        except nextcord.Forbidden:
-            raise nextcord.Forbidden
 
     # AddRole
     @commands.command(name="addrole", aliases=["ae"], help="Will add the given role to the given user", usage="<user> <role>")
