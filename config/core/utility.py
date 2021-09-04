@@ -46,9 +46,9 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             timestamp=ctx.message.created_at
         )
         if image.banner and image.banner.url:
-            brmbed.set_image(url=ctx.guild.banner.url)
+            brmbed.set_image(url=image.banner.url)
         else:
-            brmbed.description += "*This user doesn't have any banner*"
+            brmbed.description = "*This user doesn't have any banner*"
         brmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.reply(embed=brmbed)
 
@@ -68,9 +68,9 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         iombed.add_field(name="Roles", value=F"User has {len(user.roles)-1} roles")
         iombed.set_thumbnail(url=user.avatar.url)
         if image.banner and image.banner.url:
-            iombed.set_image(url=ctx.guild.banner.url)
+            iombed.set_image(url=image.banner.url)
         else:
-            iombed.description += "*This user doesn't have any banner*"
+            iombed.description = "*This user doesn't have any banner*"
         iombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.reply(embed=iombed)
 
