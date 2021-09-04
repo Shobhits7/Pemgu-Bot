@@ -58,7 +58,7 @@ class HelpView(discord.ui.View):
         )
         otmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
         await self.message.edit(embed=otmbed)
-        return
+        return False
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
