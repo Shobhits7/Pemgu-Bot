@@ -81,9 +81,9 @@ class MyHelp(commands.HelpCommand):
             title=F"{ctx.me.display_name} <:bot_tag:878221621687640074> Help",
             description="""```py
             This is a list of all modules in the bot.
-            Select a module for more information.
-            [] means the argument is optional.
-            <> means the argument is required
+Select a module for more information.
+[] means the argument is optional.
+<> means the argument is required
             ```""",
             timestamp = ctx.message.created_at
         )
