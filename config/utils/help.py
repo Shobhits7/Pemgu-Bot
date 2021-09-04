@@ -10,7 +10,7 @@ class HelpMenu(nextcord.ui.Select):
         self.homepage = homepage
         self.emojis = emojis
         options = [
-            nextcord.SelectOption(label="Home", description="The main page of this menu", value="Home", emoji=":bot:878221621687640074")
+            nextcord.SelectOption(label="Home", description="The homepage of this menu", value="Home", emoji=":bot:878221621687640074")
         ]
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
