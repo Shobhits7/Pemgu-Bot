@@ -83,8 +83,7 @@ class MyHelp(commands.HelpCommand):
 This is a list of all modules in the bot.
 Select a module for more information.
 [] means the argument is optional.
-<> means the argument is required
-            ```""",
+<> means the argument is required.```""",
             timestamp = ctx.message.created_at
         )
         homepage.set_thumbnail(url=ctx.me.avatar.url)
