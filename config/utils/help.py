@@ -14,7 +14,7 @@ class HelpMenu(nextcord.ui.Select):
         ]
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
-            description = cog.description if cog else "No descrption found..."
+            description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
                 option = nextcord.SelectOption(label=F"{name} Category [{len(commands)}]", description=description, value=name, emoji=self.emojis.get(name) if self.emojis.get(name) else '⛔')
                 options.append(option)
@@ -23,7 +23,7 @@ class HelpMenu(nextcord.ui.Select):
     async def callback(self, interaction: nextcord.Interaction):
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
-            description = cog.description if cog else "No descrption found..."
+            description = cog.description if cog else "Commands without category"
             if self.values[0] == name:
                 mbed = nextcord.Embed(
                     colour=0x525BC2,
@@ -95,7 +95,7 @@ Select a module for more information.
                 amount_commands = len(filtered_commands)
                 usable += amount_commands
                 name = cog.qualified_name if cog else "No"
-                description = cog.description if cog else "No descrption found..."
+                description = cog.description if cog else "Commands without category"
                 homepage.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]", value=description)
         view = HelpView(self, mapping, homepage, self.emojis)
         view.message = await ctx.reply(embed=homepage, view=view)
