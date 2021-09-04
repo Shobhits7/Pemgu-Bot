@@ -4,8 +4,7 @@ asyncpg
 attrs
 cffi
 chardet
-nextcord
-nextcord[voice]
+git+https://github.com/Gnome-py/enhanced-discord.py@2.0
 idna
 jishaku
 multidict

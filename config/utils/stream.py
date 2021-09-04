@@ -1,4 +1,4 @@
-import nextcord
+import discord
 import youtube_dl
 
 FFMPEG_OPTIONS = {
@@ -14,5 +14,5 @@ async def player(url):
     with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
         info = ydl.extract_info(url, download=False)
         url2 = info["formats"][0]["url"]
-        source = await nextcord.FFmpegOpusAudio.from_probe(url2, **FFMPEG_OPTIONS)
+        source = await discord.FFmpegOpusAudio.from_probe(url2, **FFMPEG_OPTIONS)
         return source

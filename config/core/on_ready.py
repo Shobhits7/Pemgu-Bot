@@ -1,5 +1,5 @@
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 
 class OnReady(commands.Cog):
     def __init__(self, bot):

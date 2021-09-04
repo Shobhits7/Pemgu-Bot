@@ -1,5 +1,5 @@
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 from config.utils.aiohttp import session_json, session_text, session_bytes
 import os
 
@@ -15,7 +15,7 @@ class API(commands.Cog, description="Some cool API commands"):
     async def joke(self, ctx):
         await ctx.trigger_typing()
         session = await session_json("https://api.dagpi.xyz/data/joke", self.dagpi_headers)
-        jkmbed = nextcord.Embed(
+        jkmbed = discord.Embed(
             colour=0x525BC2,
             title="Here is a random joke",
             description=session["joke"],
@@ -29,7 +29,7 @@ class API(commands.Cog, description="Some cool API commands"):
     async def _8ball(self, ctx, *, question):
         await ctx.trigger_typing()
         session = await session_json("https://api.dagpi.xyz/data/8ball", self.dagpi_headers)
-        _8bmbed = nextcord.Embed(
+        _8bmbed = discord.Embed(
             colour=0x525BC2,
             title="Here is your answer",
             timestamp=ctx.message.created_at
@@ -46,14 +46,14 @@ class API(commands.Cog, description="Some cool API commands"):
         await ctx.trigger_typing()
         user = user or ctx.author
         session = await session_bytes(F"https://api.dagpi.xyz/image/pixel/?url={user.avatar.with_static_format('png').with_size(1024)}", self.dagpi_headers)
-        pxlmbed = nextcord.Embed(
+        pxlmbed = discord.Embed(
             colour=0x525BC2,
             title="Here is the pixelated for the image",
             timestamp=ctx.message.created_at
         )
         pxlmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         pxlmbed.set_image(url="attachment://pixel.png")
-        await ctx.reply(file=nextcord.File(session, filename="pixel.png"), embed=pxlmbed)
+        await ctx.reply(file=discord.File(session, filename="pixel.png"), embed=pxlmbed)
 
     # Colors
     @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image", usage="[user]")
@@ -62,14 +62,14 @@ class API(commands.Cog, description="Some cool API commands"):
         await ctx.trigger_typing()
         user = user or ctx.author
         session = await session_bytes(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.with_static_format('png').with_size(1024)}", self.dagpi_headers)
-        clrsmbed = nextcord.Embed(
+        clrsmbed = discord.Embed(
             colour=0x525BC2,
             title="Here is the colors for the image",
             timestamp=ctx.message.created_at
         )
         clrsmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         clrsmbed.set_image(url="attachment://colors.png")
-        await ctx.reply(file=nextcord.File(session, filename="colors.png"), embed=clrsmbed)
+        await ctx.reply(file=discord.File(session, filename="colors.png"), embed=clrsmbed)
 
     # Tweet
     @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet", usage="<username> <text>")
@@ -78,14 +78,14 @@ class API(commands.Cog, description="Some cool API commands"):
         await ctx.trigger_typing()
         user = user or ctx.author
         session = await session_bytes(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_static_format('png').with_size(1024)}&username={ctx.author.name}&text={text}", self.dagpi_headers)
-        twmbed = nextcord.Embed(
+        twmbed = discord.Embed(
             colour=0x525BC2,
             title="Here is your tweet's preview",
             timestamp=ctx.message.created_at
         )
         twmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         twmbed.set_image(url="attachment://tweet.png")
-        await ctx.reply(file=nextcord.File(session, filename="tweet.png"), embed=twmbed)
+        await ctx.reply(file=discord.File(session, filename="tweet.png"), embed=twmbed)
 
     # Screenshot
     @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website", usage="<website>")
@@ -93,14 +93,14 @@ class API(commands.Cog, description="Some cool API commands"):
     async def screenshot(self, ctx, *, website):
         await ctx.trigger_typing()
         session = await session_bytes(F"https://api.screenshotmachine.com?key=a95edd&url={website}&dimension=1024x768")
-        ssmbed = nextcord.Embed(
+        ssmbed = discord.Embed(
             colour=0x525BC2,
             title="Here is your screenshot",
             timestamp=ctx.message.created_at
         )
         ssmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         ssmbed.set_image(url="attachment://screenshot.png")
-        await ctx.reply(file=nextcord.File(session, filename="screenshot.png"), embed=ssmbed)
+        await ctx.reply(file=discord.File(session, filename="screenshot.png"), embed=ssmbed)
 
 def setup(bot):
     bot.add_cog(API(bot))

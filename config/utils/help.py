@@ -1,26 +1,26 @@
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 import datetime
 import contextlib
 
-class HelpMenu(nextcord.ui.Select):
+class HelpMenu(discord.ui.Select):
     def __init__(self, help, mapping, homepage, emojis):
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
         self.emojis = emojis
         options = [
-            nextcord.SelectOption(label="Home", description="The homepage of this menu", value="Home", emoji=":bot:878221621687640074")
+            discord.SelectOption(label="Home", description="The homepage of this menu", value="Home", emoji=":bot:878221621687640074")
         ]
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
-                option = nextcord.SelectOption(label=F"{name} Category [{len(commands)}]", description=description, value=name, emoji=self.emojis.get(name) if self.emojis.get(name) else '⛔')
+                option = discord.SelectOption(label=F"{name} Category [{len(commands)}]", description=description, value=name, emoji=self.emojis.get(name) if self.emojis.get(name) else '⛔')
                 options.append(option)
         super().__init__(placeholder="Choose the module you want to checkout: ", min_values=1, max_values=1, options=options)
 
-    async def callback(self, interaction: nextcord.Interaction):
+    async def callback(self, interaction: discord.Interaction):
         if interaction.user.id != self.help.context.author.id:
             await interaction.response.send_message(F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that.", ephemeral=True)
             return
@@ -28,7 +28,7 @@ class HelpMenu(nextcord.ui.Select):
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             if self.values[0] == name:
-                mbed = nextcord.Embed(
+                mbed = discord.Embed(
                     colour=0x525BC2,
                     title=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]",
                     description=description,
@@ -41,10 +41,10 @@ class HelpMenu(nextcord.ui.Select):
             elif self.values[0] == "Home":
                 try:
                     await interaction.response.edit_message(embed=self.homepage)
-                except nextcord.InteractionResponded:
+                except discord.InteractionResponded:
                     pass
 
-class HelpView(nextcord.ui.View):
+class HelpView(discord.ui.View):
     def __init__(self, help, mapping, homepage, emojis):
         super().__init__()
         self.help = help
@@ -53,8 +53,8 @@ class HelpView(nextcord.ui.View):
         self.emojis = emojis
         self.add_item(HelpMenu(self.help, self.mapping, self.homepage, self.emojis))
 
-    async def on_timeout(self, interaction: nextcord.Interaction):
-        otmbed = nextcord.Embed(
+    async def on_timeout(self, interaction: discord.Interaction):
+        otmbed = discord.Embed(
             colour=0x525BC2,
             title="This command/interaction has been timeouted",
             timestamp=interaction.message.created_at
@@ -85,7 +85,7 @@ class MyHelp(commands.HelpCommand):
     # Help Main
     async def send_bot_help(self, mapping):
         ctx = self.context
-        homepage = nextcord.Embed(
+        homepage = discord.Embed(
             colour=0x525BC2,
             title=F"{ctx.me.display_name} <:bot:878221621687640074> Help",
             description="```py\nThis is a list of all modules in the bot.\nSelect a module for more information.\n[] means the argument is optional.\n<> means the argument is required.\n```",
@@ -109,7 +109,7 @@ class MyHelp(commands.HelpCommand):
     async def send_command_help(self, command):
         ctx = self.context
         signature = self.get_command_signature(command)
-        hcmdmbed = nextcord.Embed(
+        hcmdmbed = discord.Embed(
             colour=0x525BC2,
             title=signature,
             description=command.help or "No help found...",
@@ -132,7 +132,7 @@ class MyHelp(commands.HelpCommand):
     # Help SubCommand Error
     async def subcommand_not_found(self, command, string):
         ctx = self.context
-        hscmdmbed = nextcord.Embed(
+        hscmdmbed = discord.Embed(
             colour=0x525BC2,
             title="Sub Command Not Found",
             description=F"{command} - {string}",
@@ -147,7 +147,7 @@ class MyHelp(commands.HelpCommand):
     async def send_cog_help(self, cog):
         ctx = self.context
         title = F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else ''} {cog.qualified_name}" or "No"
-        hcogmbed = nextcord.Embed(
+        hcogmbed = discord.Embed(
             colour=0x525BC2,
             title=title,
             description=cog.description or "No help found...",
@@ -164,7 +164,7 @@ class MyHelp(commands.HelpCommand):
     async def send_group_help(self, group):
         ctx = self.context
         title = self.get_command_signature(group)
-        hgroupmbed = nextcord.Embed(
+        hgroupmbed = discord.Embed(
             colour=0x525BC2,
             title=title,
             description=group.help or "No help found...",
@@ -182,7 +182,7 @@ class MyHelp(commands.HelpCommand):
         if error == None:
             return
         ctx = self.context
-        herrormbed = nextcord.Embed(
+        herrormbed = discord.Embed(
             colour=0x525BC2,
             title="Help Error",
             description=error,
