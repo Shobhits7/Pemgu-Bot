@@ -22,7 +22,7 @@ class HelpMenu(nextcord.ui.Select):
 
     async def callback(self, interaction: nextcord.Interaction):
         if interaction.user.id != self.help.context.author.id:
-            await interaction.response.send_message(F"<@{interaction.user.id}> - Only the author who did the command can use that", ephemeral=True)
+            await interaction.response.send_message(F"<@{interaction.user.id}> - Only <@{self.help.context.id}> can use that", ephemeral=True)
             return
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
@@ -55,11 +55,6 @@ class HelpView(nextcord.ui.View):
         
     async def on_timeout(self):
         await self.message.edit(view=self)
-
-    # async def interaction_check(self, interaction: nextcord.Interaction):
-    #     if interaction.user.id != self.help.context.author.id:
-    #         await interaction.response.send_message(F"<@{interaction.user.id}> - Only the author who did the command can use that", ephemeral=True)
-    #         return
 
 class MyHelp(commands.HelpCommand):
     def __init__(self):
