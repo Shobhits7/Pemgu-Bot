@@ -53,6 +53,9 @@ class HelpView(nextcord.ui.View):
         self.emojis = emojis
         self.add_item(HelpMenu(self.help, self.mapping, self.homepage, self.emojis))
 
+    async def on_timeout(self):
+        await self.message
+
 class MyHelp(commands.HelpCommand):
     def __init__(self):
         self.emojis = {

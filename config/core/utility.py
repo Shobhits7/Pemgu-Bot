@@ -42,14 +42,14 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     async def banner(self, ctx, user:commands.UserConverter = None):
         await ctx.trigger_typing()
         user = user or ctx.author
-        image = (await self.bot.fetch_user(user.id)).banner.url
+        image = await self.bot.fetch_user(user.id)
         brmbed = nextcord.Embed(
             colour=0x525BC2,
             title="User's Banner",
             timestamp=ctx.message.created_at
         )
-        if image is not None:
-            brmbed.set_image(url=image)
+        if image.banner.url:
+            brmbed.set_image(url=image.banner.url)
         brmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.reply(embed=brmbed)
 
@@ -59,7 +59,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     async def info(self, ctx, *, member:commands.MemberConverter = None):
         await ctx.trigger_typing()
         user = member or ctx.author
-        image = (await self.bot.fetch_user(user.id)).banner.url
+        image = await self.bot.fetch_user(user.id)
         iombed = nextcord.Embed(
             colour=0x525BC2,
             title=F"{user.display_name} Information",
@@ -68,8 +68,8 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         iombed.add_field(name="Joined Date", value=F"{user.mention} joined the server on\n{user.joined_at}")
         iombed.add_field(name="Roles", value=F"User has {len(user.roles)-1} roles")
         iombed.set_thumbnail(url=user.avatar.url)
-        if image is not None:
-            iombed.set_image(url=image)
+        if image.banner.url:
+            iombed.set_image(url=image.banner.url)
         iombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.reply(embed=iombed)
 
@@ -86,7 +86,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         sambed.add_field(name="Members", value=F"{len(ctx.guild.members)} members are in this guild")
         sambed.add_field(name="Channels", value=F"{len(ctx.guild.channels)} channels are in this guild")
         sambed.set_thumbnail(url=ctx.guild.icon.url)
-        if ctx.guild.banner.url is not None:
+        if ctx.guild.banner.url:
             sambed.set_image(url=ctx.guild.banner.url)
         sambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.reply(embed=sambed)
