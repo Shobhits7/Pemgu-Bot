@@ -50,6 +50,21 @@ class HelpView(discord.ui.View):
         self.emojis = emojis
         self.add_item(HelpMenu(self.help, self.mapping, self.homepage, self.emojis))
 
+    async def on_timeout(self, interaction: discord.Interaction):
+        otmbed = discord.Embed(
+            colour=0x525BC2,
+            title="This command/interaction has been timeouted",
+            timestamp=interaction.message.created_at
+        )
+        otmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+        await self.message.edit(embed=otmbed)
+        return
+
+    async def interaction_check(self, interaction: discord.Interaction):
+        if interaction.user.id != self.help.context.author.id:
+            await interaction.response.send_message(F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that.", ephemeral=True)
+            return
+
 class MyHelp(commands.HelpCommand):
     def __init__(self):
         self.emojis = {
