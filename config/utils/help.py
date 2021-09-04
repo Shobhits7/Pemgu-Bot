@@ -21,12 +21,6 @@ class HelpMenu(nextcord.ui.Select):
         super().__init__(placeholder="Choose the module you want to checkout: ", min_values=1, max_values=1, options=options)
 
     async def callback(self, interaction: nextcord.Interaction):
-        if interaction.user.id != self.help.context.author.id:
-            await interaction.response.send_message(F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that.", ephemeral=True)
-            return
-        if self.values[0] == self.options[0]:
-            await interaction.response.send_message(F"<@{interaction.user.id}> - The options is already {self.values[0]} try something else.", ephemeral=True)
-            return
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
@@ -58,6 +52,11 @@ class HelpView(nextcord.ui.View):
         
     async def on_timeout(self):
         await self.message.edit(view=self)
+
+    async def interaction_check(self, interaction: nextcord.Interaction):
+        if interaction.user.id != self.help.context.author.id:
+            await interaction.response.send_message(F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that.", ephemeral=True)
+            return
 
 class MyHelp(commands.HelpCommand):
     def __init__(self):
