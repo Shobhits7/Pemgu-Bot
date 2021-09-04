@@ -92,7 +92,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         await ctx.reply(echo)
 
     # Ping
-    @commands.command(name="ping", aliases=["pi"], help="Will show your latency")
+    @commands.command(name="ping", aliases=["pi"], help="Will show bot's ping")
     async def ping(self, ctx):
         await ctx.trigger_typing()
         unpimbed = nextcord.Embed(

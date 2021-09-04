@@ -79,7 +79,12 @@ class MyHelp(commands.HelpCommand):
         homepage = nextcord.Embed(
             colour=0x525BC2,
             title=F"{ctx.me.display_name} <:bot_tag:878221621687640074> Help",
-            description=F"**Prefix**: `{ctx.clean_prefix}`\nThis is a list of all modules in the bot.\nSelect a module for more information.\n[] means the argument is optional.\n<> means the argument is required",
+            description="""```py
+            This is a list of all modules in the bot.
+            Select a module for more information.
+            [] means the argument is optional.
+            <> means the argument is required
+            ```""",
             timestamp = ctx.message.created_at
         )
         homepage.set_thumbnail(url=ctx.me.avatar.url)
