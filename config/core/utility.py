@@ -90,7 +90,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         if ctx.guild.banner and ctx.guild.banner.url:
             sambed.set_image(url=ctx.guild.banner.url)
         else:
-            sambed.description += "*This guild doesn't have any banner*"
+            sambed.description = "*This guild doesn't have any banner*"
         sambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.reply(embed=sambed)
 
