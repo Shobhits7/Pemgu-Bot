@@ -14,7 +14,7 @@ async def get_prefix_postgresql(bot, message):
         return commands.when_mentioned_or("~b")
     prefix = await bot.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", message.guild.id)
     if len(prefix) == 0:
-        prefix = "~B"
+        prefix = "~b"
     else:
         prefix = prefix[0].get("prefix")
     return prefix

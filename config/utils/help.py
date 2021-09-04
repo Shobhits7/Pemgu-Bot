@@ -55,7 +55,7 @@ class HelpView(nextcord.ui.View):
 
     async def interaction_check(self, interaction: nextcord.Interaction):
         if interaction.user != self.help.context.author:
-            await interaction.response.send_message("Only the author who did the command can use that")
+            await interaction.response.send_message(F"<@{interaction.user.id}> - Only the author who did the command can use that", ephemeral=True)
             return
 
 class MyHelp(commands.HelpCommand):
