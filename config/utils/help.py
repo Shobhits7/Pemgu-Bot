@@ -106,7 +106,6 @@ class MyHelp(commands.HelpCommand):
                 homepage.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]", value=description)
         view = HelpView(self, mapping, homepage, self.emojis)
         view.message = await ctx.send(embed=homepage, view=view)
-        ctx.send()
         return
 
     # Help Command
