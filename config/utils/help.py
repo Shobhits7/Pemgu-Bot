@@ -50,11 +50,6 @@ class HelpView(discord.ui.View):
         self.emojis = emojis
         self.add_item(HelpMenu(self.help, self.mapping, self.homepage, self.emojis))
 
-    async def on_timeout(self, interaction: discord.Interaction):
-        await interaction.delete_original_message()
-        await interaction.response.send_message(F"<@{interaction.user.id}> - This command/interaction is time-outed.", ephemeral=True)
-        return False
-
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
             return True
