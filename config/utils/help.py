@@ -102,7 +102,7 @@ class MyHelp(commands.HelpCommand):
                 description = cog.description if cog else "Commands without category"
                 homepage.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]", value=description)
         view = HelpView(self, mapping, homepage, self.emojis)
-        view.message = await ctx.reply(embed=homepage, view=view)
+        view.message = await ctx.send(embed=homepage, view=view)
         return
 
     # Help Command
@@ -126,7 +126,7 @@ class MyHelp(commands.HelpCommand):
         hcmdmbed.add_field(name="Usable", value=can_run)
         if command._buckets and (cooldown := command._buckets._cooldown):
             hcmdmbed.add_field(name="Cooldown", value=F"{cooldown.rate} per {cooldown.per:.0f} seconds")
-        await ctx.reply(embed=hcmdmbed)
+        await ctx.send(embed=hcmdmbed)
         return
 
     # Help SubCommand Error
@@ -140,7 +140,7 @@ class MyHelp(commands.HelpCommand):
         )
         hscmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         hscmdmbed.set_thumbnail(url=ctx.me.avatar.url)
-        await ctx.reply(embed=hscmdmbed)
+        await ctx.send(embed=hscmdmbed)
         return
 
     # Help Cog
@@ -157,7 +157,7 @@ class MyHelp(commands.HelpCommand):
         hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         for command in cog.get_commands():
             hcogmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
-        await ctx.reply(embed=hcogmbed)
+        await ctx.send(embed=hcogmbed)
         return
 
     # Help Group
@@ -174,7 +174,7 @@ class MyHelp(commands.HelpCommand):
         hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         for command in group.commands:
             hgroupmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
-        await ctx.reply(embed=hgroupmbed)
+        await ctx.send(embed=hgroupmbed)
         return
 
     # Help Error
@@ -190,6 +190,6 @@ class MyHelp(commands.HelpCommand):
         )
         herrormbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         herrormbed.set_thumbnail(url=ctx.me.avatar.url)
-        await ctx.reply(embed=herrormbed)
+        await ctx.send(embed=herrormbed)
         return
 

@@ -22,7 +22,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
             timestamp=ctx.message.created_at
         )
         pfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-        await ctx.reply(embed=pfmbed)
+        await ctx.send(embed=pfmbed)
     # Prefix Change
     @prefix.command(name="change", aliases=["pfc"], help="Will change the prefix for this guild", usage="<prefix>")
     @commands.guild_only()
@@ -37,7 +37,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
             timestamp=ctx.message.created_at
         )
         pfcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-        await ctx.reply(embed=pfcmbed)
+        await ctx.send(embed=pfcmbed)
     # Prefix Reset
     @prefix.command(name="reset", aliases=["pfr"], help="Will reset the prefix for this guild")
     @commands.guild_only()
@@ -52,7 +52,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
             timestamp=ctx.message.created_at
         )
         pfrmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-        await ctx.reply(embed=pfrmbed)
+        await ctx.send(embed=pfrmbed)
 
 def setup(bot):
     bot.add_cog(Setup(bot))

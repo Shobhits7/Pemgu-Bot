@@ -17,7 +17,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             nombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.reply(embed=nombed)
+            await ctx.send(embed=nombed)
         elif isinstance(error, commands.CommandNotFound):
             cmd = ctx.invoked_with
             cmds = [cmd.name for cmd in self.bot.commands]
@@ -37,9 +37,9 @@ class OnError(commands.Cog):
             )
             nmatcnfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
             if len(matches) > 0:
-                await ctx.reply(embed=matcnfmbed)
+                await ctx.send(embed=matcnfmbed)
             else:
-                await ctx.reply(embed=nmatcnfmbed)
+                await ctx.send(embed=nmatcnfmbed)
         elif isinstance(error, commands.MissingPermissions):
             mpmbed = discord.Embed(
                 colour=0x525BC2,
@@ -47,7 +47,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             mpmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.reply(embed=mpmbed)
+            await ctx.send(embed=mpmbed)
         elif isinstance(error, commands.BotMissingPermissions):
             bmpmbed = discord.Embed(
                 colour=0x525BC2,
@@ -55,7 +55,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             bmpmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.reply(embed=bmpmbed)
+            await ctx.send(embed=bmpmbed)
         elif isinstance(error, discord.Forbidden):
             fmbed = discord.Embed(
                 colour=0x525BC2,
@@ -66,7 +66,7 @@ class OnError(commands.Cog):
             fmbed.add_field(name="You are the owner of this server:", value="If you are the owner, and you are trying to use changing command, you can't")
             fmbed.add_field(name="Couldn't send messages to the user", value="The user is not accepting messages from the members in here or just blocked this bot")
             fmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.reply(embed=fmbed)
+            await ctx.send(embed=fmbed)
         elif isinstance(error, commands.MissingRequiredArgument):
             mrambed = discord.Embed(
                 colour=0x525BC2,
@@ -74,7 +74,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             mrambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.reply(embed=mrambed)
+            await ctx.send(embed=mrambed)
         elif isinstance(error, commands.BadArgument):
             bambed = discord.Embed(
                 colour=0x525BC2,
@@ -82,7 +82,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             bambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.reply(embed=bambed)
+            await ctx.send(embed=bambed)
         elif isinstance(error, commands.CommandOnCooldown):
             cocmbed = discord.Embed(
                 colour=0x525BC2,
@@ -90,7 +90,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             cocmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.reply(embed=cocmbed)
+            await ctx.send(embed=cocmbed)
         elif isinstance(error, commands.PrivateMessageOnly):
             pmombed = discord.Embed(
                 colour=0x525BC2,
@@ -98,7 +98,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             pmombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.reply(embed=pmombed)
+            await ctx.send(embed=pmombed)
         elif isinstance(error, commands.NoPrivateMessage):
             npmmbed = discord.Embed(
                 colour=0x525BC2,
@@ -106,7 +106,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             npmmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.reply(embed=npmmbed)
+            await ctx.send(embed=npmmbed)
         elif isinstance(error, commands.UserNotFound):
             unfmbed = discord.Embed(
                 colour=0x525BC2,
@@ -114,7 +114,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             unfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.reply(embed=unfmbed)
+            await ctx.send(embed=unfmbed)
         elif isinstance(error, commands.RoleNotFound):
             rnfmbed = discord.Embed(
                 colour=0x525BC2,
@@ -122,7 +122,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             rnfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.reply(embed=rnfmbed)
+            await ctx.send(embed=rnfmbed)
         elif isinstance(error, commands.CheckFailure):
             await ctx.trigger_typing()
             cfmbed = discord.Embed(
@@ -131,7 +131,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             cfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.reply(embed=cfmbed)
+            await ctx.send(embed=cfmbed)
         elif isinstance(error, commands.CheckAnyFailure):
             await ctx.trigger_typing()
             cafmbed = discord.Embed(
@@ -140,7 +140,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             cafmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.reply(embed=cafmbed)
+            await ctx.send(embed=cafmbed)
         else:
             tbmbed = discord.Embed(
                 colour=0x525BC2,
@@ -149,7 +149,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             tbmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-            await ctx.reply(embed=tbmbed)
+            await ctx.send(embed=tbmbed)
 
 def setup(bot):
     bot.add_cog(OnError(bot))
