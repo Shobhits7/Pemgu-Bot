@@ -53,6 +53,11 @@ class HelpView(nextcord.ui.View):
     async def on_timeout(self):
         await self.message.edit(view=self)
 
+    async def interaction_check(self, interaction: nextcord.Interaction):
+        if interaction.user != self.help.context.author:
+            await interaction.response.send_message("Only the author who did the command can use that")
+            return
+
 class MyHelp(commands.HelpCommand):
     def __init__(self):
         self.emojis = {
