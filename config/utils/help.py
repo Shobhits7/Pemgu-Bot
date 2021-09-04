@@ -139,18 +139,7 @@ class MyHelp(commands.HelpCommand):
     # Help Cog
     async def send_cog_help(self, cog):
         ctx = self.context
-        title = F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else ''} {cog.qualified_name}" or "No"
-        hcogmbed = discord.Embed(
-            colour=0x525BC2,
-            title=title,
-            description=cog.description or "No help found...",
-            timestamp=ctx.message.created_at
-        )
-        hcogmbed.set_thumbnail(url=ctx.me.avatar.url)
-        hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
-        for command in cog.get_commands():
-            hcogmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
-        await ctx.send(embed=hcogmbed)
+        await ctx.send_help()
         return
 
     # Help Group
