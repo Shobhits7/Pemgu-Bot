@@ -27,7 +27,6 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         ubnmbed.add_field(name=F"By:", value=F"{ctx.author.name}")
         ubnmbed.add_field(name=F"For this reason:", value=reason)
         ubnmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-        await user.send(embed=ubnmbed)
         await ctx.guild.ban(user, reason=reason)
         await ctx.send(embed=abnmbed)
 
@@ -52,7 +51,6 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         uunmbed.add_field(name=F"By:", value=F"{ctx.author.name}")
         uunmbed.add_field(name=F"For this reason:", value=reason)
         uunmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-        await user.send(embed=uunmbed)
         await ctx.guild.unban(user)
         await ctx.send(embed=aunmbed)
 
@@ -78,7 +76,6 @@ class Moderation(commands.Cog, description="Was someone being bad"):
         ukcmbed.add_field(name=F"By:", value=F"{ctx.author.name}")
         ukcmbed.add_field(name=F"For this reason:", value=reason)
         ukcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-        await member.send(embed=ukcmbed)
         await ctx.guild.kick(user=member, reason=reason)
         await ctx.send(embed=akcmbed)
 

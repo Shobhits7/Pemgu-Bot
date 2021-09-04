@@ -17,4 +17,3 @@ Shapely
 six
 typing-extensions
 yarl
-youtube_dl
