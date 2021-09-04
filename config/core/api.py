@@ -21,7 +21,7 @@ class API(commands.Cog, description="Some cool API commands"):
             description=session["joke"],
             timestamp=ctx.message.created_at
         )
-        jkmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        jkmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=jkmbed)
 
     # 8Ball
@@ -34,7 +34,7 @@ class API(commands.Cog, description="Some cool API commands"):
             title="Here is your answer",
             timestamp=ctx.message.created_at
         )
-        _8bmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        _8bmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         _8bmbed.add_field(name="Your Question:", value=question)
         _8bmbed.add_field(name="Your Answer:", value=session["response"])
         await ctx.send(embed=_8bmbed)
@@ -51,7 +51,7 @@ class API(commands.Cog, description="Some cool API commands"):
             title="Here is the pixelated for the image",
             timestamp=ctx.message.created_at
         )
-        pxlmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        pxlmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         pxlmbed.set_image(url="attachment://pixel.png")
         await ctx.send(file=discord.File(session, filename="pixel.png"), embed=pxlmbed)
 
@@ -67,7 +67,7 @@ class API(commands.Cog, description="Some cool API commands"):
             title="Here is the colors for the image",
             timestamp=ctx.message.created_at
         )
-        clrsmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        clrsmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         clrsmbed.set_image(url="attachment://colors.png")
         await ctx.send(file=discord.File(session, filename="colors.png"), embed=clrsmbed)
 
@@ -83,7 +83,7 @@ class API(commands.Cog, description="Some cool API commands"):
             title="Here is your tweet's preview",
             timestamp=ctx.message.created_at
         )
-        twmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        twmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         twmbed.set_image(url="attachment://tweet.png")
         await ctx.send(file=discord.File(session, filename="tweet.png"), embed=twmbed)
 
@@ -98,7 +98,7 @@ class API(commands.Cog, description="Some cool API commands"):
             title="Here is your screenshot",
             timestamp=ctx.message.created_at
         )
-        ssmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        ssmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         ssmbed.set_image(url="attachment://screenshot.png")
         await ctx.send(file=discord.File(session, filename="screenshot.png"), embed=ssmbed)
 

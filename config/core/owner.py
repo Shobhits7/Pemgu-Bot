@@ -16,7 +16,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             title="Okay, I'm logging out :wave:",
             timestamp=ctx.message.created_at
         )
-        ltmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        ltmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=ltmbed)
         await self.bot.close()
 
@@ -30,7 +30,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             title="Okay Relogging :eyes:",
             timestamp=ctx.message.created_at
         )
-        rgmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        rgmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=rgmbed)
         await self.bot.close()
         await self.bot.login()
@@ -46,7 +46,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             description=F"{len(self.bot.guilds)} Servers",
             timestamp=ctx.message.created_at
         )
-        gdmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        gdmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=gdmbed)
     
     # Perms
@@ -57,7 +57,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         pmbed = discord.Embed(colour=0x525BC2, title="Bot Permissions", timestamp=ctx.message.created_at)
         pmbed.add_field(name="Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if val))
         pmbed.add_field(name="Not Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if not val))
-        pmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        pmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=pmbed)
 
     # Template
@@ -73,7 +73,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             title="Please check your DM",
             timestamp=ctx.message.created_at
         )
-        tembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        tembed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=tembed)
         temp = await ctx.guild.templates()
         await ctx.author.send(temp)
@@ -88,13 +88,13 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             title="Removed the user from the blacklist",
             timestamp=ctx.message.created_at
         )
-        unblmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        unblmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         doblmbed = discord.Embed(
             colour=0x525BC2,
             title="Added user to the blacklist",
             timestamp=ctx.message.created_at
         )
-        doblmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        doblmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         if user.id in self.bot.blacklisted:
             self.bot.blacklisted.remove(user.id)
             return await ctx.send(embed=unblmbed)
@@ -113,7 +113,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             title="Here is your preview for the code",
             timestamp=ctx.message.created_at
         )
-        cdmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        cdmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         cdmbed.set_image(url="attachment://code.png")
         await ctx.send(file=discord.File(session, filename="code.png"), embed=cdmbed)
 
@@ -128,7 +128,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             description=F"{self.bot.activity} - {self.bot.status}",
             timestamp=ctx.message.created_at
         )
-        stmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        stmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=stmbed)
     # Status Change
     @status.command(name="change", aliases=["stc"], help="Will change the bot's status to the given text", usage="<text>")
@@ -142,7 +142,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             description=text,
             timestamp=ctx.message.created_at
         )
-        stcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        stcmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=stcmbed)
     # Status Reset
     @status.command(name="reset", aliases=["str"], help="Will reset the bot's status")
@@ -155,7 +155,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             title="Resetted the bot's status",
             timestamp=ctx.message.created_at
         )
-        strmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        strmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=strmbed)
 
 def setup(bot):

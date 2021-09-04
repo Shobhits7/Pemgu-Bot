@@ -21,7 +21,7 @@ class OnMessage(commands.Cog):
                 title=F"My Prefix here is `{prefix}`",
                 timestamp=message.created_at
             )
-            ompmbed.set_footer(text=message.author.display_name, icon_url=message.author.avatar.url)
+            ompmbed.set_footer(text=message.author, icon_url=message.author.avatar.url)
             return await message.channel.send(embed=ompmbed)
     
     @commands.Cog.listener()

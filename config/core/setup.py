@@ -21,7 +21,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
             title=F"My Prefix here is `{prefix}`",
             timestamp=ctx.message.created_at
         )
-        pfmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        pfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=pfmbed)
     # Prefix Change
     @prefix.command(name="change", aliases=["pfc"], help="Will change the prefix for this guild", usage="<prefix>")
@@ -36,7 +36,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
             title=F"Changed my prefix to `{prefix}`",
             timestamp=ctx.message.created_at
         )
-        pfcmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        pfcmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=pfcmbed)
     # Prefix Reset
     @prefix.command(name="reset", aliases=["pfr"], help="Will reset the prefix for this guild")
@@ -51,7 +51,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
             title=F"The prefix has been resetted  to `{self.bot.prefix}`",
             timestamp=ctx.message.created_at
         )
-        pfrmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        pfrmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=pfrmbed)
 
 def setup(bot):

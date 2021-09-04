@@ -21,9 +21,6 @@ class HelpMenu(discord.ui.Select):
         super().__init__(placeholder="Choose the module you want to checkout: ", min_values=1, max_values=1, options=options)
 
     async def callback(self, interaction: discord.Interaction):
-        if interaction.user.id != self.help.context.author.id:
-            await interaction.response.send_message(F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that.", ephemeral=True)
-            return
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
@@ -61,6 +58,12 @@ class HelpView(discord.ui.View):
         )
         otmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
         await self.message.edit(embed=otmbed)
+        return
+
+    async def interaction_check(self, interaction: discord.Interaction):
+        if interaction.user.id != self.help.context.author.id:
+            await interaction.response.send_message(F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that.", ephemeral=True)
+            return
 
 class MyHelp(commands.HelpCommand):
     def __init__(self):
@@ -103,6 +106,7 @@ class MyHelp(commands.HelpCommand):
                 homepage.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]", value=description)
         view = HelpView(self, mapping, homepage, self.emojis)
         view.message = await ctx.send(embed=homepage, view=view)
+        ctx.send()
         return
 
     # Help Command

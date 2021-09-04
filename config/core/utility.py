@@ -17,7 +17,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             description=F"[Click here for Commands](https://lvlahraam.gitbook.io/brevity-bot/commands)\n[Click here for FAQ](https://lvlahraam.gitbook.io/brevity-bot)\n[Click here for Adding Bot](https://dsc.gg/brevity-bot)\n[Click here for Joining Support](https://dsc.gg/brevity-support)",
             timestamp=ctx.message.created_at
         )
-        abmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        abmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=abmbed)
 
     # Avatar
@@ -31,7 +31,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             timestamp=ctx.message.created_at
         )
         avmbed.set_image(url=user.avatar.url)
-        avmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        avmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=avmbed)
 
     # Banner
@@ -49,7 +49,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             brmbed.set_image(url=image.banner.url)
         else:
             brmbed.description = "*This user doesn't have any banner*"
-        brmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        brmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=brmbed)
 
     # Info
@@ -71,7 +71,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             iombed.set_image(url=image.banner.url)
         else:
             iombed.description = "*This user doesn't have any banner*"
-        iombed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        iombed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=iombed)
 
     # Stats
@@ -91,7 +91,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             sambed.set_image(url=ctx.guild.banner.url)
         else:
             sambed.description = "*This guild doesn't have any banner*"
-        sambed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        sambed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=sambed)
 
     # Echo
@@ -109,7 +109,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             title="🎾 Pinging...",
             timestamp=ctx.message.created_at
         )
-        unpimbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        unpimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         start = time.perf_counter()
         unpimsg = await ctx.send(embed=unpimbed)
         end = time.perf_counter()
@@ -119,7 +119,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             description=F"Ping! {(end - start) * 1000}ms",
             timestamp=ctx.message.created_at
         )
-        dopimbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        dopimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await unpimsg.edit(embed=dopimbed)
 
     # Invite
@@ -132,7 +132,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             url=discord.utils.oauth_url(client_id=844226171972616205, permissions=discord.Permissions(administrator=True)),
             timestamp=ctx.message.created_at
         )
-        iembed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        iembed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=iembed)
 
     # AFK
@@ -147,14 +147,14 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             title="Your name has been changed to it's original",
             timestamp=ctx.message.created_at
         )
-        unafkmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        unafkmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         doafkmbed = discord.Embed(
             colour=0x525BC2,
             title="Doing AFK",
             description="Your name has been now changed to `AFK`\nAnd now moving you to the afk voice",
             timestamp=ctx.message.created_at
         )
-        doafkmbed.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        doafkmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         if ctx.author.nick == "AFK":
             await ctx.author.edit(nick=None)
             return await ctx.send(embed=unafkmbed)
