@@ -16,7 +16,7 @@ class HelpMenu(nextcord.ui.Select):
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
-                option = nextcord.SelectOption(label=F"{name} Category [{len(commands)}]", description=description, value=name, emoji=self.emojis.get(name) if self.emojis.get(name) else ':help:883519693267279912')
+                option = nextcord.SelectOption(label=F"{name} Category [{len(commands)}]", description=description, value=name, emoji=self.emojis.get(name) if self.emojis.get(name) else '⛔')
                 options.append(option)
         super().__init__(placeholder="Choose the module you want to checkout: ", min_values=1, max_values=1, options=options)
 
@@ -27,7 +27,7 @@ class HelpMenu(nextcord.ui.Select):
             if self.values[0] == name:
                 mbed = nextcord.Embed(
                     colour=0x525BC2,
-                    title=F"{self.emojis.get(name) if self.emojis.get(name) else ':help:883519693267279912'} {name} Category [{len(commands)}]",
+                    title=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]",
                     description=description,
                     timestamp=datetime.datetime.now()
                 )
@@ -69,7 +69,7 @@ class MyHelp(commands.HelpCommand):
             "Setup": "❓",
             "Utility": "⚙",
             "Jishaku": "👀",
-            "No": ":help:883519693267279912"
+            "No": "⛔"
         }
         super().__init__(
             command_attrs={
@@ -100,7 +100,7 @@ Select a module for more information.
                 usable += amount_commands
                 name = cog.qualified_name if cog else "No"
                 description = cog.description if cog else "Commands without category"
-                homepage.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else ':help:883519693267279912'} {name} Category [{len(commands)}]", value=description)
+                homepage.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]", value=description)
         view = HelpView(self, mapping, homepage, self.emojis)
         view.message = await ctx.reply(embed=homepage, view=view)
         return
