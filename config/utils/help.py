@@ -85,7 +85,6 @@ class MyHelp(commands.HelpCommand):
             description="This is a list of all modules in the bot.\nSelect a module for more information",
             timestamp = ctx.message.created_at
         )
-        homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.")
         homepage.set_thumbnail(url=ctx.me.avatar.url)
         homepage.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         usable = 0
@@ -93,8 +92,8 @@ class MyHelp(commands.HelpCommand):
             if filtered_commands := await self.filter_commands(commands, sort=True):
                 amount_commands = len(filtered_commands)
                 usable += amount_commands
-        homepage.add_field(name="Commands:", value=amount_commands)
         homepage.add_field(name="Usable:", value=usable)
+        homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.")
         view = HelpView(self, mapping, homepage, self.emojis)
         view.message = await ctx.send(embed=homepage, view=view)
         return
