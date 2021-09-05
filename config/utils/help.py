@@ -16,7 +16,7 @@ class HelpMenu(discord.ui.Select):
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
-                option = discord.SelectOption(label=F"{name} Category [{len(commands)}]", description=description, value=name, emoji=self.emojis.get(name) if self.emojis.get(name) else '⛔')
+                option = discord.SelectOption(label=F"{name} Category [{len(commands)}]", description=description, value=name, emoji=self.emojis.get(name) if self.emojis.get(name) else '❓')
                 options.append(option)
         super().__init__(placeholder="Choose the module you want to checkout: ", min_values=1, max_values=1, options=options)
 
@@ -27,7 +27,7 @@ class HelpMenu(discord.ui.Select):
             if self.values[0] == name:
                 mbed = discord.Embed(
                     colour=0x525BC2,
-                    title=F"{self.emojis.get(name) if self.emojis.get(name) else '⛔'} {name} Category [{len(commands)}]",
+                    title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
                     description=description,
                     timestamp=datetime.datetime.now()
                 )
@@ -59,15 +59,15 @@ class HelpView(discord.ui.View):
 class MyHelp(commands.HelpCommand):
     def __init__(self):
         self.emojis = {
-            "API": "🌐",
+            "API": "🌎",
             "Database": "📝",
             "Fun": "🤣",
-            "Moderation": "⚔",
+            "Moderation": "💀",
             "Owner": "👑",
-            "Setup": "❓",
-            "Utility": "⚙",
+            "Setup": "🔮",
+            "Utility": "🧰",
             "Jishaku": "👀",
-            "No": "⛔"
+            "No": "❓"
         }
         super().__init__(
             command_attrs={
