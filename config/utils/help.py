@@ -79,15 +79,10 @@ class MyHelp(commands.HelpCommand):
     # Help Main
     async def send_bot_help(self, mapping):
         ctx = self.context
-        prefix = await self.bot.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", ctx.guild.id)
-        if len(prefix) == 0:
-            prefix = ".b"
-        else:
-            prefix = prefix[0].get("prefix")
         homepage = discord.Embed(
             colour=0x525BC2,
             title=F"{ctx.me.display_name} <:bot:878221621687640074> Help",
-            description=F"My prefix here is `{prefix}`.\nThis is a list of all modules in the bot.\nSelect a module for more information",
+            description=F"My prefix here is `{ctx.clean_prefix}`.\nThis is a list of all modules in the bot.\nSelect a module for more information",
             timestamp = ctx.message.created_at
         )
         homepage.set_thumbnail(url=ctx.me.avatar.url)
