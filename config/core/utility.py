@@ -151,7 +151,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         doafkmbed = discord.Embed(
             colour=0x525BC2,
             title="Doing AFK",
-            description="Your name has been now changed to `AFK`\nAnd now moving you to the afk voice",
+            description="Your name has been now changed to `AFK`",
             timestamp=ctx.message.created_at
         )
         doafkmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
@@ -160,7 +160,9 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             return await ctx.send(embed=unafkmbed)
         await ctx.author.edit(nick="AFK")
         await ctx.send(embed=doafkmbed)
-        await ctx.author.move_to(ctx.guild.afk_channel)
-    
+        if ctx.author.voice:
+            doafkmbed.description += "\nNow moving you to AFK voice channel"
+            await ctx.author.move_to(ctx.guild.afk_channel)
+
 def setup(bot):
     bot.add_cog(Utility(bot))
