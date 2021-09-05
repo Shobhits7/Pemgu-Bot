@@ -23,7 +23,7 @@ bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256
 
 bot.prefix = ".b"
 
-bot.activity = discord.Activity(type=discord.ActivityType.watching, name=F"@Brevity for prefix | {bot.prefix} help for help | Made by lvlahraam#8435")
+bot.activity = discord.Game(name=F"@Brevity for prefix | {bot.prefix} help for help | Made by lvlahraam#8435")
 
 bot.status = discord.Status.online
 

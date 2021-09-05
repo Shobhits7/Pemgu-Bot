@@ -135,7 +135,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.is_owner()
     async def status_change(self, ctx, *, text):
         await ctx.trigger_typing()
-        await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=text), status=self.bot.status)
+        await self.bot.change_presence(activity=discord.Game(name=text), status=self.bot.status)
         stcmbed = discord.Embed(
             colour=0x525BC2,
             title=F"Bot's status has been now changed to:",
