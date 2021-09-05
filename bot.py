@@ -14,17 +14,17 @@ async def get_prefix_postgresql(bot, message):
         return ""
     prefix = await bot.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", message.guild.id)
     if len(prefix) == 0:
-        prefix = "~b"
+        prefix = ".b"
     else:
         prefix = prefix[0].get("prefix")
     return prefix
 
-bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False), help_command=MyHelp(), owner_ids={798928603201929306, 494496285676535811}, intents=discord.Intents.all(), status=discord.Status.online, activity=discord.Game(name="@Brevity for prefix | ~b help for help | Made by lvlahraam"))
+bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False), help_command=MyHelp(), owner_ids={798928603201929306, 494496285676535811}, intents=discord.Intents.all(), status=discord.Status.online, activity=discord.Game(name="@Brevity for prefix | .b help for help | Made by lvlahraam"))
 
-bot.activity = discord.Game(name="@Brevity for prefix | ~b help for help | Made by lvlahraam")
+bot.activity = discord.Game(name="@Brevity for prefix | .b help for help | Made by lvlahraam")
 bot.status = discord.Status.online
 
-bot.prefix = "~b"
+bot.prefix = ".b"
 
 bot.blacklisted = []
 

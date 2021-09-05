@@ -13,7 +13,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
         await ctx.trigger_typing()
         prefix = await self.bot.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", ctx.guild.id)
         if len(prefix) == 0:
-            prefix = "~b"
+            prefix = ".b"
         else:
             prefix = prefix[0].get("prefix")
         pfmbed = discord.Embed(
