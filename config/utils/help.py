@@ -82,7 +82,7 @@ class MyHelp(commands.HelpCommand):
         homepage = discord.Embed(
             colour=0x525BC2,
             title=F"{ctx.me.display_name} <:bot:878221621687640074> Help",
-            description="This is a list of all modules in the bot.\nSelect a module for more information",
+            description=F"Prefix = `{self.clean_prefix}`.\nThis is a list of all modules in the bot.\nSelect a module for more information",
             timestamp = ctx.message.created_at
         )
         homepage.set_thumbnail(url=ctx.me.avatar.url)
