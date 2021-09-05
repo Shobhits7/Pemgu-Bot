@@ -144,21 +144,21 @@ class MyHelp(commands.HelpCommand):
         return
 
     # Help Group
-    async def send_group_help(self, group):
-        ctx = self.context
-        title = self.get_command_signature(group)
-        hgroupmbed = discord.Embed(
-            colour=0x525BC2,
-            title=title,
-            description=group.help or "No help found...",
-            timestamp=ctx.message.created_at
-        )
-        hgroupmbed.set_thumbnail(url=ctx.me.avatar.url)
-        hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
-        for command in group.commands:
-            hgroupmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
-        await ctx.send(embed=hgroupmbed)
-        return
+    # async def send_group_help(self, group):
+    #     ctx = self.context
+    #     title = self.get_command_signature(group)
+    #     hgroupmbed = discord.Embed(
+    #         colour=0x525BC2,
+    #         title=title,
+    #         description=group.help or "No help found...",
+    #         timestamp=ctx.message.created_at
+    #     )
+    #     hgroupmbed.set_thumbnail(url=ctx.me.avatar.url)
+    #     hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
+    #     for command in group.commands:
+    #         hgroupmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
+    #     await ctx.send(embed=hgroupmbed)
+    #     return
 
     # Help Error
     async def send_error_message(self, error):
