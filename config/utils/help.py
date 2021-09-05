@@ -109,6 +109,8 @@ class MyHelp(commands.HelpCommand):
         )
         hcmdmbed.set_thumbnail(url=ctx.me.avatar.url)
         hcmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
+        for subcommand in command.parent.commands:
+            hcmdmbed.add_field(name=self.get_command_signature(subcommand), value=subcommand.help or "No help found...")
         if cog := command.cog:
             hcmdmbed.add_field(name="Category", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else ''} {cog.qualified_name}")
         can_run = "No"
