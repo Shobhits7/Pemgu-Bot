@@ -29,7 +29,7 @@ class HelpMenu(discord.ui.Select):
                     colour=0x525BC2,
                     title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
                     description=description,
-                    timestamp=datetime.datetime.now()
+                    timestamp="<t:1624385691:f>"
                 )
                 for command in commands:
                     mbed.add_field(name=self.help.get_command_signature(command), value=command.help or "No help")
@@ -84,7 +84,7 @@ class MyHelp(commands.HelpCommand):
             colour=0x525BC2,
             title=F"{ctx.me.display_name} <:botbrevity:878221621687640074> Help",
             description=F"My prefix here is `{ctx.clean_prefix}`!\nThis is a list of all modules in the bot.\nSelect a module for more information.",
-            timestamp = ctx.message.created_at
+            timestamp="<t:1624385691:f>"
         )
         homepage.set_thumbnail(url=ctx.me.avatar.url)
         homepage.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
@@ -107,7 +107,7 @@ class MyHelp(commands.HelpCommand):
             colour=0x525BC2,
             title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} {len(cog.get_commands())}",
             description=description,
-            timestamp=ctx.message.created_at
+            timestamp="<t:1624385691:f>"
         )
         if filtered_commands := await self.filter_commands(cog.get_commands()):
             for command in filtered_commands:
@@ -125,7 +125,7 @@ class MyHelp(commands.HelpCommand):
             colour=0x525BC2,
             title=signature,
             description=command.help or "No help found...",
-            timestamp=ctx.message.created_at
+            timestamp="<t:1624385691:f>"
         )
         hcmdmbed.set_thumbnail(url=ctx.me.avatar.url)
         hcmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
@@ -149,7 +149,7 @@ class MyHelp(commands.HelpCommand):
             colour=0x525BC2,
             title=self.get_command_signature(group),
             description=group.help or "No help found...",
-            timestamp=ctx.message.created_at
+            timestamp="<t:1624385691:f>"
         )
         hgroupmbed.set_thumbnail(url=ctx.me.avatar.url)
         hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
@@ -173,7 +173,7 @@ class MyHelp(commands.HelpCommand):
             colour=0x525BC2,
             title="Sub Command Not Found",
             description=F"{command} - {string}",
-            timestamp=ctx.message.created_at
+            timestamp="<t:1624385691:f>"
         )
         hscmdmbed.set_thumbnail(url=ctx.me.avatar.url)
         hscmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
@@ -189,7 +189,7 @@ class MyHelp(commands.HelpCommand):
             colour=0x525BC2,
             title="Help Error",
             description=error,
-            timestamp=ctx.message.created_at
+            timestamp="<t:1624385691:f>"
         )
         herrormbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         herrormbed.set_thumbnail(url=ctx.me.avatar.url)
