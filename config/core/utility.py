@@ -129,7 +129,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         iembed = discord.Embed(
             colour=0x525BC2,
             title="Here is the invite link for adding the bot 👈",
-            url=discord.utils.oauth_url(client_id=self.bot.user.id, permissions=discord.Permissions(administrator=True, applicationcommands=True)),
+            url=discord.utils.oauth_url(scopes=("bot", "application.commands"), client_id=self.bot.user.id, permissions=discord.Permissions(administrator=True)),
             timestamp=ctx.message.created_at
         )
         iembed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
