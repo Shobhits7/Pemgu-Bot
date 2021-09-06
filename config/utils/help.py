@@ -114,7 +114,7 @@ class MyHelp(commands.HelpCommand):
                 hcogmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
         hcogmbed.set_thumbnail(url=ctx.me.avatar.url)
         hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send_help()
+        await ctx.send(embed=hcogmbed)
         return
 
     # Help Command
