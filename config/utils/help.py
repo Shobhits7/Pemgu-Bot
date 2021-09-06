@@ -93,7 +93,7 @@ class MyHelp(commands.HelpCommand):
             if filtered_commands := await self.filter_commands(commands, sort=True):
                 usable += len(filtered_commands)
         homepage.add_field(name="Usable:", value=usable)
-        homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.")
+        homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\nDO NOT USE THIS WHEN USING A COMMAND")
         view = HelpView(self, mapping, homepage, self.emojis)
         await ctx.send(embed=homepage, view=view)
         return
