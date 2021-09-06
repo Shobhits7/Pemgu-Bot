@@ -10,7 +10,7 @@ class HelpMenu(discord.ui.Select):
         self.homepage = homepage
         self.emojis = emojis
         options = [
-            discord.SelectOption(label="Home", description="The homepage of this menu", value="Home", emoji=":bot:878221621687640074")
+            discord.SelectOption(label="Home", description="The homepage of this menu", value="Home", emoji=":botbrevity:878221621687640074")
         ]
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
@@ -33,6 +33,7 @@ class HelpMenu(discord.ui.Select):
                 )
                 for command in commands:
                     mbed.add_field(name=self.help.get_command_signature(command), value=command.help or "No help")
+                mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
             elif self.values[0] == "Home":
@@ -81,7 +82,7 @@ class MyHelp(commands.HelpCommand):
         ctx = self.context
         homepage = discord.Embed(
             colour=0x525BC2,
-            title=F"{ctx.me.display_name} <:bot:878221621687640074> Help",
+            title=F"{ctx.me.display_name} <:botbrevity:878221621687640074> Help",
             description=F"My prefix here is `{ctx.clean_prefix}`!\nThis is a list of all modules in the bot.\nSelect a module for more information.",
             timestamp = ctx.message.created_at
         )
@@ -95,6 +96,25 @@ class MyHelp(commands.HelpCommand):
         homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.")
         view = HelpView(self, mapping, homepage, self.emojis)
         await ctx.send(embed=homepage, view=view)
+        return
+
+    # Help Cog
+    async def send_cog_help(self, cog):
+        ctx = self.context
+        name = cog.qualified_name if cog else "No"
+        description = cog.description if cog else "Commands without category"
+        hcogmbed = discord.Embed(
+            colour=0x525BC2,
+            title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} {len(cog.get_command())}",
+            description=description,
+            timestamp=ctx.message.created_at
+        )
+        if filtered_commands := await self.filter_commands(cog.get_commands()):
+            for command in filtered_commands:
+                hcogmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
+        hcogmbed.set_thumbnail(url=ctx.me.avatar.url)
+        hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send_help()
         return
 
     # Help Command
@@ -121,26 +141,6 @@ class MyHelp(commands.HelpCommand):
         await ctx.send(embed=hcmdmbed)
         return
 
-    # Help SubCommand Error
-    async def subcommand_not_found(self, command, string):
-        ctx = self.context
-        hscmdmbed = discord.Embed(
-            colour=0x525BC2,
-            title="Sub Command Not Found",
-            description=F"{command} - {string}",
-            timestamp=ctx.message.created_at
-        )
-        hscmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
-        hscmdmbed.set_thumbnail(url=ctx.me.avatar.url)
-        await ctx.send(embed=hscmdmbed)
-        return
-
-    # Help Cog
-    async def send_cog_help(self, cog):
-        ctx = self.context
-        await ctx.send_help()
-        return
-
     # Help Group
     async def send_group_help(self, group):
         ctx = self.context
@@ -156,7 +156,7 @@ class MyHelp(commands.HelpCommand):
         for command in group.commands:
             hgroupmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
         if cog := command.cog:
-            hgroupmbed.add_field(name="Category", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else ''} {cog.qualified_name}")
+            hgroupmbed.add_field(name="Category", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name}")
         with contextlib.suppress(commands.CommandError):
             if await command.can_run(self.context):
                 can_run = "Yes"
@@ -164,6 +164,20 @@ class MyHelp(commands.HelpCommand):
         if command._buckets and (cooldown := command._buckets._cooldown):
             hgroupmbed.add_field(name="Cooldown", value=F"{cooldown.rate} per {cooldown.per:.0f} seconds")
         await ctx.send(embed=hgroupmbed)
+        return
+
+    # Help SubCommand Error
+    async def subcommand_not_found(self, command, string):
+        ctx = self.context
+        hscmdmbed = discord.Embed(
+            colour=0x525BC2,
+            title="Sub Command Not Found",
+            description=F"{command} - {string}",
+            timestamp=ctx.message.created_at
+        )
+        hscmdmbed.set_thumbnail(url=ctx.me.avatar.url)
+        hscmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=hscmdmbed)
         return
 
     # Help Error
