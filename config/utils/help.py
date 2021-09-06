@@ -65,7 +65,7 @@ class HelpView(discord.ui.View):
         )
         icheckmbed.set_thumbnail(url=self.help.context.me.avatar.url)
         icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
-        await interaction.response.send_message(F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that.", ephemeral=True)
+        await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
 
 class MyHelp(commands.HelpCommand):
     def __init__(self):
