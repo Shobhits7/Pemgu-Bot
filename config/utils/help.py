@@ -51,6 +51,9 @@ class HelpView(discord.ui.View):
         self.emojis = emojis
         self.add_item(HelpMenu(self.help, self.mapping, self.homepage, self.emojis))
 
+    async def on_timeout(self, interaction: discord.Interaction):
+        await interaction.delete_original_message()
+
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
             return True
