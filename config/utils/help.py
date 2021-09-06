@@ -107,7 +107,7 @@ class MyHelp(commands.HelpCommand):
             colour=0x525BC2,
             title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} {len(cog.get_commands())}",
             description=description,
-            timestamp="<t:1624385691:f>"
+            timestamp=ctx.message.created_at
         )
         if filtered_commands := await self.filter_commands(cog.get_commands()):
             for command in filtered_commands:
