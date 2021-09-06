@@ -19,7 +19,7 @@ async def get_prefix_postgresql(bot, message):
         prefix = prefix[0].get("prefix")
     return prefix
 
-bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False), help_command=MyHelp(), owner_ids={798928603201929306, 494496285676535811}, intents=discord.Intents.all())
+bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False), help_command=MyHelp(), intents=discord.Intents.all())
 
 bot.prefix = ".b"
 
