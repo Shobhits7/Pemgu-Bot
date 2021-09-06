@@ -12,7 +12,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     async def about(self, ctx):
         await ctx.trigger_typing()
         abmbed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title="About Bot",
             description=F"[Click here for Commands](https://lvlahraam.gitbook.io/brevity-bot/commands)\n[Click here for FAQ](https://lvlahraam.gitbook.io/brevity-bot)\n[Click here for Adding Bot](https://dsc.gg/brevity-bot)\n[Click here for Joining Support](https://dsc.gg/brevity-support)",
             timestamp=ctx.message.created_at
@@ -26,7 +26,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         await ctx.trigger_typing()
         user = user or ctx.author
         avmbed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title=F"{user} Avatar",
             timestamp=ctx.message.created_at
         )
@@ -41,7 +41,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         user = user or ctx.author
         image = await self.bot.fetch_user(user.id)
         brmbed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title=F"{user} Banner",
             timestamp=ctx.message.created_at
         )
@@ -60,7 +60,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         user = member or ctx.author
         image = await self.bot.fetch_user(user.id)
         iombed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title=F"{user} Information",
             timestamp=ctx.message.created_at
         )
@@ -80,7 +80,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     async def stats(self, ctx):
         await ctx.trigger_typing()
         sambed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title="Stats for this server",
             timestamp=ctx.message.created_at
         )
@@ -105,7 +105,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     async def ping(self, ctx):
         await ctx.trigger_typing()
         unpimbed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title="🎾 Pinging...",
             timestamp=ctx.message.created_at
         )
@@ -114,7 +114,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         unpimsg = await ctx.send(embed=unpimbed)
         end = time.perf_counter()
         dopimbed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title="🏓 Pong:",
             description=F"Ping! {(end - start) * 1000}ms",
             timestamp=ctx.message.created_at
@@ -127,7 +127,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     async def invite(self, ctx):
         await ctx.trigger_typing()
         iembed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title="Here is the invite link for adding the bot",
             url=discord.utils.oauth_url(client_id=self.bot.user.id, scopes=("bot", "applications.commands"), permissions=discord.Permissions(administrator=True)),
             description="Thank you for adding and inviting me!",
@@ -144,13 +144,13 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     async def afk(self, ctx):
         await ctx.trigger_typing()
         unafkmbed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title="Your name has been changed to it's original",
             timestamp=ctx.message.created_at
         )
         unafkmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         doafkmbed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title="Doing AFK",
             description="Your name has been now changed to `AFK`",
             timestamp=ctx.message.created_at

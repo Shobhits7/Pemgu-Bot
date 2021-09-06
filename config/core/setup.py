@@ -17,7 +17,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
         else:
             prefix = prefix[0].get("prefix")
         pfmbed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title=F"My Prefix here is `{prefix}`",
             timestamp=ctx.message.created_at
         )
@@ -36,7 +36,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
         else:
             await self.bot.db.execute("UPDATE prefixes SET prefix = $2 WHERE guild_id = $1", ctx.guild.id, prefix)
         pfcmbed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title=F"Changed my prefix to `{prefix}`",
             timestamp=ctx.message.created_at
         )
@@ -51,7 +51,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
         await ctx.trigger_typing()
         await self.bot.db.execute("UPDATE prefixes SET prefix = $1 WHERE guild_id = $2",self.bot.prefix, ctx.guild.id)
         pfrmbed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title=F"The prefix has been resetted  to `{self.bot.prefix}`",
             timestamp=ctx.message.created_at
         )

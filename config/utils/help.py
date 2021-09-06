@@ -26,7 +26,7 @@ class HelpMenu(discord.ui.Select):
             description = cog.description if cog else "Commands without category"
             if self.values[0] == name:
                 mbed = discord.Embed(
-                    colour=0x525BC2,
+                    colour=0x525BC1,
                     title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
                     description=description,
                     timestamp=self.help.context.message.created_at
@@ -57,7 +57,14 @@ class HelpView(discord.ui.View):
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
             return True
-
+        icheckmbed = discord.Embed(
+            colour=0x525BC1,
+            title="You can't use this",
+            description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that, cause he did the command\nIf you wanted to use the command, do what he did",
+            timestamp=self.help.context.message.created_at
+        )
+        icheckmbed.set_thumbnail(url=self.help.context.me.avatar.url)
+        icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
         await interaction.response.send_message(F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that.", ephemeral=True)
 
 class MyHelp(commands.HelpCommand):
@@ -84,7 +91,7 @@ class MyHelp(commands.HelpCommand):
     async def send_bot_help(self, mapping):
         ctx = self.context
         homepage = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title=F"{ctx.me.display_name} <:botbrevity:878221621687640074> Help",
             description=F"My prefix here is `{ctx.clean_prefix}`!\nThis is a list of all modules in the bot.\nSelect a module for more information.",
             timestamp=ctx.message.created_at
@@ -107,7 +114,7 @@ class MyHelp(commands.HelpCommand):
         name = cog.qualified_name if cog else "No"
         description = cog.description if cog else "Commands without category"
         hcogmbed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(cog.get_commands())}]",
             description=description,
             timestamp=ctx.message.created_at
@@ -125,7 +132,7 @@ class MyHelp(commands.HelpCommand):
         ctx = self.context
         signature = self.get_command_signature(command)
         hcmdmbed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title=signature,
             description=command.help or "No help found...",
             timestamp=ctx.message.created_at
@@ -149,7 +156,7 @@ class MyHelp(commands.HelpCommand):
         ctx = self.context
         can_run = "No"
         hgroupmbed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title=self.get_command_signature(group),
             description=group.help or "No help found...",
             timestamp=ctx.message.created_at
@@ -173,7 +180,7 @@ class MyHelp(commands.HelpCommand):
     async def subcommand_not_found(self, command, string):
         ctx = self.context
         hscmdmbed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title="Sub Command Not Found",
             description=F"{command} - {string}",
             timestamp=ctx.message.created_at
@@ -189,7 +196,7 @@ class MyHelp(commands.HelpCommand):
             return
         ctx = self.context
         herrormbed = discord.Embed(
-            colour=0x525BC2,
+            colour=0x525BC1,
             title="Help Error",
             description=error,
             timestamp=ctx.message.created_at
