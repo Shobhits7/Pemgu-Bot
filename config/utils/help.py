@@ -105,7 +105,7 @@ class MyHelp(commands.HelpCommand):
         description = cog.description if cog else "Commands without category"
         hcogmbed = discord.Embed(
             colour=0x525BC2,
-            title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} {len(cog.get_commands())}",
+            title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} [{len(cog.get_commands())}]",
             description=description,
             timestamp=ctx.message.created_at
         )
