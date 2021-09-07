@@ -1,4 +1,4 @@
-![Logo](https://i.postimg.cc/SQ2ZzSjg/MainLogo.webp)
+<!-- ![Logo](https://i.postimg.cc/SQ2ZzSjg/MainLogo.webp) -->
 ## Information About Whaffle Discord Bot
 This is a Discord Bot made by lvlahraam
 
