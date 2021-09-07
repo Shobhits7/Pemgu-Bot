@@ -32,7 +32,7 @@ class OnError(commands.Cog):
             nmatcnfmbed = discord.Embed(
                 colour=self.bot.color,
                 title=F"There is no `{cmd}` command",
-                description="Use `wh help` command to know what command are there",
+                description="Use `.w help` command to know what command are there",
                 timestamp=ctx.message.created_at
             )
             nmatcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
