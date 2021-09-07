@@ -13,11 +13,11 @@ class OnMessage(commands.Cog):
         if F"<@!{self.bot.user.id}>" == message.content or F"<@{self.bot.user.id}>" == message.content:
             prefix = await self.bot.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", message.guild.id)
             if len(prefix) == 0:
-                prefix = ".b"
+                prefix = "wh"
             else:
                 prefix = prefix[0].get("prefix")
             ompmbed = discord.Embed(
-                colour=0x525BC1,
+                colour=self.bot.color,
                 title=F"My Prefix here is `{prefix}`",
                 timestamp=message.created_at
             )

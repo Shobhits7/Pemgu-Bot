@@ -10,7 +10,7 @@ class Database(commands.Cog, description="Monotoring database with these"):
     async def delete(self, ctx, *, table):
         await ctx.trigger_typing()
         dltmbed = discord.Embed(
-            colour=0x525BC1,
+            colour=self.bot.color,
             title=F"Deleted from {table}",
             timestamp=ctx.message.created_at
         )

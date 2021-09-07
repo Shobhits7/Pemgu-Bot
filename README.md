@@ -1,8 +1,8 @@
 ![Logo](https://i.postimg.cc/SQ2ZzSjg/MainLogo.webp)
-## Information About Brevity Discord Bot
+## Information About Whaffle Discord Bot
 This is a Discord Bot made by lvlahraam
 
-## Why it's called Brevity
+## Why it's called Whaffle
 This name was just happended to come to his mind
 
 ## Why he made this
@@ -13,7 +13,7 @@ So he made his own custom bot so other people can use it
 ## More things
 *You can get the prefix with mentioning the bot*
 
-*The Bot's Main Prefix is `.b` but you can change it with the `prefix` command*
+*The Bot's Main Prefix is `wh` but you can change it with the `prefix` command*
 
 ***The Commands:***
 
@@ -38,4 +38,4 @@ about info avatar icon stats ping invite echo afk help
 **Jishaku:**
 jsk
 
-### [Bot Invite](https://dsc.gg/brevity-bot) | [Bot Support](https://dsc.gg/brevity-support) | [Website](https://lvlahraam.gitbook.io/brevity-bot)
+### [Bot Invite](https://dsc.gg/Whaffle-bot) | [Bot Support](https://dsc.gg/Whaffle-support) | [Website](https://lvlahraam.gitbook.io/Whaffle-bot)

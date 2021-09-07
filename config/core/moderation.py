@@ -13,14 +13,14 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     async def ban(self, ctx, user:commands.UserConverter, *, reason=None):
         await ctx.trigger_typing()
         abnmbed = discord.Embed(
-            colour=0x525BC1,
+            colour=self.bot.color,
             title=F"{user} is now Banned",
             description=F"For reason: {reason}",
             timestamp=ctx.message.created_at
         )
         abnmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         ubnmbed = discord.Embed(
-            colour=0x525BC1,
+            colour=self.bot.color,
             title=F"Dear {user}"
         )
         ubnmbed.add_field(name=F"You were banned from:", value=F"{ctx.guild.id}")
@@ -38,13 +38,13 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     async def unban(self, ctx, user:commands.UserConverter, *, reason):
         await ctx.trigger_typing()
         aunmbed = discord.Embed(
-            colour=0x525BC1,
+            colour=self.bot.color,
             title=F"{user.name} is now Unbanned",
             timestamp=ctx.message.created_at
         )
         aunmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         uunmbed = discord.Embed(
-            colour=0x525BC1,
+            colour=self.bot.color,
             title=F"Dear {user}"
         )
         uunmbed.add_field(name=F"You were unbanned from:", value=F"{ctx.guild.id}")
@@ -62,14 +62,14 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     async def kick(self, ctx, member:commands.MemberConverter, *, reason=None):
         await ctx.trigger_typing()
         akcmbed = discord.Embed(
-            colour=0x525BC1,
+            colour=self.bot.color,
             title=F"{member} is now Kicked",
             description=F"For reason: {reason}",
             timestamp=ctx.message.created_at
         )
         akcmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         ukcmbed = discord.Embed(
-            colour=0x525BC1,
+            colour=self.bot.color,
             title=F"Dear {member}"
         )
         ukcmbed.add_field(name=F"You were banned from:", value=F"{ctx.guild.id}")
@@ -87,13 +87,13 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     async def addrole(self, ctx, member: commands.MemberConverter, role: commands.RoleConverter):
         await ctx.trigger_typing()
         finaembed = discord.Embed(
-            colour=0x525BC1,
+            colour=self.bot.color,
             title=F"Successfully added the {role} role",
             timestamp=ctx.message.created_at
         )
         finaembed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         badaembed = discord.Embed(
-            colour=0x525BC1,
+            colour=self.bot.color,
             title=F"The member already has the {role} role",
             timestamp=ctx.message.created_at
         )
@@ -112,13 +112,13 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     async def removerole(self, ctx, member: commands.MemberConverter, role: commands.RoleConverter):
         await ctx.trigger_typing()
         finrembed = discord.Embed(
-            colour=0x525BC1,
+            colour=self.bot.color,
             title=F"Successfully removed the {role} role",
             timestamp=ctx.message.created_at
         )
         finrembed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         badrembed = discord.Embed(
-            colour=0x525BC1,
+            colour=self.bot.color,
             title=F"The member don't have the {role} role",
             timestamp=ctx.message.created_at
         )
@@ -137,13 +137,13 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     async def purge(self, ctx, amount: int):
         await ctx.trigger_typing()
         finpumbed = discord.Embed(
-            colour=0x525BC1,
+            colour=self.bot.color,
             title=F"Deleted {amount} amount of messages",
             timestamp=ctx.message.created_at
         )
         finpumbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         badpumbed = discord.Embed(
-            colour=0x525BC1,
+            colour=self.bot.color,
             title="Can't clear more than 100 messages",
             timestamp=ctx.message.created_at
         )
