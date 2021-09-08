@@ -16,7 +16,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             title=F"Deleted {amount} of bot messages",
         )
         cumbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.channel.purge(limit=amount, check=lambda m: m.author.id == self.bot.user.id)
+        await ctx.channel.purge(limit=amount+1, check=lambda m: m.author.id == self.bot.user.id)
         await ctx.send(embed=cumbed, delete_after=2.5)
         
     # Logout
