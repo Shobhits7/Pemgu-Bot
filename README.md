@@ -2,12 +2,16 @@
 ## Information About Whaffle Discord Bot
 This is a Discord Bot made by lvlahraam
 
+It's written in Python with Discord.py
+
 ## Why it's called Whaffle
 This name was just happended to come to his mind
 
 ## Why he made this
 He really Liked Python and programming and he was on Discord 24/7
+
 And he saw alot of people are using and making bots
+
 So he made his own custom bot so other people can use it
 
 ## More things
@@ -38,4 +42,4 @@ about info avatar icon stats ping invite echo afk help
 **Jishaku:**
 jsk
 
-### [Bot Invite](https://dsc.gg/Whaffle-bot) | [Bot Support](https://dsc.gg/Whaffle-support) | [Website](https://lvlahraam.gitbook.io/Whaffle-bot)
+### [Bot Invite](https://dsc.gg/whaffle-bot) | [Bot Support](https://dsc.gg/whaffle-support)
