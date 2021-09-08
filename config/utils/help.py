@@ -101,7 +101,7 @@ class MyHelp(commands.HelpCommand):
                 usable += len(filtered_commands)
         homepage.add_field(name="Prefix:", value=ctx.clean_prefix or "In DM you don't need to use prefix")
         homepage.add_field(name="Usable:", value=usable)
-        homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THIS WHEN USING A COMMAND***", inline=False)
+        homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THESE WHEN DOING A COMMAND***", inline=False)
         view = HelpView(self, mapping, homepage, self.emojis)
         await ctx.send(embed=homepage, view=view)
         return
