@@ -7,17 +7,17 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         self.bot = bot
 
     # Delete
-    @commands.command(name="delete", aliases=["del"], help="Will delete bot's messagess")
+    @commands.command(name="cleanup", aliases=["cu"], help="Will delete bot's messagess")
     @commands.is_owner()
     async def delete(self, ctx, amount: int):
         await ctx.trgger_typing()
-        delmbed = discord.Embed(
+        cumbed = discord.Embed(
             colour=self.bot.color,
             title=F"Deleted {amount} of bot messages",
         )
-        delmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        cumbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.channel.purge(limit=amount, check=lambda m: m.author.id == ctx.me.id)
-        await ctx.send(embed=delmbed)
+        await ctx.send(embed=cumbed)
         
     # Logout
     @commands.command(name="logout", aliases=["lt"], help="Will logout the bot")

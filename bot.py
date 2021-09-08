@@ -6,7 +6,7 @@ import os
 import asyncpg
 
 async def create_db_pool():
-    bot.db = await asyncpg.create_pool(dsn=os.getenv("POSTGRESQL"))
+    bot.db = await asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"))
     print("Connection to Postgres was successful")
 
 async def get_prefix_postgresql(bot, message):

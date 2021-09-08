@@ -5,7 +5,7 @@ class Database(commands.Cog, description="Monotoring database with these"):
     def __init__(self, bot):
         self.bot = bot
     
-    @commands.command(name="delete", aliases=["dlt"], help="Will delete a row from db")
+    @commands.command(name="delete", aliases=["del"], help="Will delete a row from db")
     @commands.is_owner()
     async def delete(self, ctx, *, table):
         await ctx.trigger_typing()
