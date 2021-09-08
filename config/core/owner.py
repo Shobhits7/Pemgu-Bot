@@ -10,7 +10,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.command(name="cleanup", aliases=["cu"], help="Will delete bot's messagess")
     @commands.is_owner()
     async def delete(self, ctx, amount: int):
-        await ctx.trgger_typing()
+        await ctx.trigger_typing()
         cumbed = discord.Embed(
             colour=self.bot.color,
             title=F"Deleted {amount} of bot messages",
