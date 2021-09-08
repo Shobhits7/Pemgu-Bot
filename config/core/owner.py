@@ -6,8 +6,21 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     def __init__(self, bot):
         self.bot = bot
 
+    # Delete
+    @commands.command(name="delete", aliases=["del"], help="Will delete bot's messagess")
+    @commands.is_owner()
+    async def delete(self, ctx, amount: int):
+        await ctx.trgger_typing()
+        delmbed = discord.Embed(
+            colour=self.bot.color,
+            title=F"Deleted {amount} of bot messages",
+        )
+        delmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.channel.purge(limit=amount, check=lambda m: m.author.id == ctx.me.id)
+        await ctx.send(embed=delmbed)
+        
     # Logout
-    @commands.command(name="logout", aliases=["lt"], help="Only lvlahraam can use this command")
+    @commands.command(name="logout", aliases=["lt"], help="Will logout the bot")
     @commands.is_owner()
     async def logout(self, ctx):
         await ctx.trigger_typing()
