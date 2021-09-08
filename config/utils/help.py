@@ -90,7 +90,7 @@ class MyHelp(commands.HelpCommand):
         homepage = discord.Embed(
             colour=0xF49B34,
             title=F"{ctx.me.display_name} <:bot_tag:596576775555776522> Help",
-            description=F"My prefix here is {ctx.clean_prefix} !\nThis is a list of all modules in the bot.\nSelect a module for more information.",
+            description=F"This is a list of all modules in the bot.\nSelect a module for more information.",
             timestamp=ctx.message.created_at
         )
         homepage.set_thumbnail(url=ctx.me.avatar.url)
@@ -99,6 +99,7 @@ class MyHelp(commands.HelpCommand):
         for cog, commands in mapping.items():
             if filtered_commands := await self.filter_commands(commands, sort=True):
                 usable += len(filtered_commands)
+        homepage.add_field(name="Prefix here:", value=ctx.clean_prefix)
         homepage.add_field(name="Usable:", value=usable)
         homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THIS WHEN USING A COMMAND***")
         view = HelpView(self, mapping, homepage, self.emojis)
