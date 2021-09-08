@@ -17,7 +17,7 @@ So he made his own custom bot so other people can use it
 ## More things
 *You can get the prefix with mentioning the bot*
 
-*The Bot's Main Prefix is `.w` but you can change it with the `prefix` command*
+*The Bot's Main Prefix is `.w` but you can change it with the `prefix change` command or `prefix reset` to change the prefix to it's original*
 
 ***The Commands:***
 

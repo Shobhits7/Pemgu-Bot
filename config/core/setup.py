@@ -7,6 +7,7 @@ class Setup(commands.Cog, description="For setting up the bot"):
 
     # Prefix
     @commands.group(name="prefix", aliases=["pf"], help="Will tell you the prefix for this guild", invoke_without_command=True)
+    @commands.guild_only()
     async def prefix(self, ctx):
         await ctx.trigger_typing()
         prefix = await self.bot.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", ctx.guild.id)
