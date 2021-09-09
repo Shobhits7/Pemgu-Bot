@@ -1,6 +1,5 @@
-import discord
+import discord, time
 from discord.ext import commands
-import time
 
 class Utility(commands.Cog, description="Useful commands are open to everyone"):
     def __init__(self, bot):

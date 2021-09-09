@@ -1,5 +1,4 @@
-import discord
-import youtube_dl
+import discord, youtube_dl
 
 FFMPEG_OPTIONS = {
     "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",

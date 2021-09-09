@@ -1,9 +1,6 @@
-import discord
-from discord import activity
+import discord, asyncpg, os
 from discord.ext import commands
 from config.utils.help import MyHelp
-import os
-import asyncpg
 
 async def create_db_poll():
     bot.db = await asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"))

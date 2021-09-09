@@ -1,7 +1,5 @@
-import discord
+import discord, contextlib
 from discord.ext import commands
-import datetime
-import contextlib
 
 class HelpMenu(discord.ui.Select):
     def __init__(self, help, mapping, homepage, emojis):

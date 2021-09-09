@@ -1,7 +1,5 @@
-import discord
+import discord, traceback, difflib
 from discord.ext import commands
-import difflib
-import traceback
 
 class OnError(commands.Cog):
     def __init__(self, bot):

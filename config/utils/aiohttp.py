@@ -1,6 +1,4 @@
-import io
-import aiohttp
-import json
+import aiohttp, io, json
 
 async def session_bytes(url, headers=None):
     async with aiohttp.ClientSession() as session:
