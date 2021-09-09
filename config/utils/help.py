@@ -35,7 +35,7 @@ class HelpMenu(discord.ui.Select):
                     mbed.add_field(name=self.help.get_command_signature(command), value=command.help or "No help")
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
-                await interaction.message.edit_message(embed=mbed)
+                await interaction.response.edit_message(embed=mbed)
             elif self.values[0] == "Home":
                 await interaction.response.edit_message(embed=self.homepage)
 
