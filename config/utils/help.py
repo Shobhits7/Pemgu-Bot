@@ -35,10 +35,10 @@ class HelpMenu(discord.ui.Select):
                     mbed.add_field(name=self.help.get_command_signature(command), value=command.help or "No help")
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
-                await interaction.response.edit_message(embed=mbed)
+                await interaction.message.edit(embed=mbed)
             elif self.values[0] == "Home":
                 try:
-                    await interaction.response.edit_message(embed=self.homepage)
+                    await interaction.message.edit(embed=self.homepage)
                 except discord.InteractionResponded:
                     pass
 
