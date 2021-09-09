@@ -51,7 +51,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.BotMissingPermissions):
             bmpmbed = discord.Embed(
                 colour=self.bot.color,
-                title=F"Bot does not have perimssion for {ctx.command}",
+                title=F"Bot does not have permission for {ctx.command}",
                 timestamp=ctx.message.created_at
             )
             bmpmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
