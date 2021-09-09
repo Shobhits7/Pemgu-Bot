@@ -5,7 +5,7 @@ from config.utils.help import MyHelp
 import os
 import asyncpg
 
-async def create_db_pool():
+async def connect_to_db():
     bot.db = await asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"))
     print("Connection to Postgres was successful")
 
@@ -34,7 +34,7 @@ bot.blacklisted = []
 async def blacklisted(ctx):
     if ctx.author.id in bot.blacklisted:
         return False
-    return True 
+    return True
 
 for file in sorted(os.listdir("./config/core/")):
     if file.endswith(".py"):
@@ -44,5 +44,5 @@ bot.load_extension("jishaku")
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
-bot.loop.run_until_complete(create_db_pool())
+bot.loop.run_until_complete(connect_to_db())
 bot.run(os.getenv("TOKEN"))
