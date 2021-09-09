@@ -172,11 +172,11 @@ class MyHelp(commands.HelpCommand):
         hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         for command in group.commands:
             hgroupmbed.add_field(name=self.get_command_signature(command), value=command.help or "No help found...")
-        if cog := command.cog:
-            hgroupmbed.add_field(name="Category", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name}")
-        with contextlib.suppress(commands.CommandError):
-            if await command.can_run(self.context):
-                can_run = "Yes"
+            if cog := command.cog:
+                hgroupmbed.add_field(name="Category", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name}")
+            with contextlib.suppress(commands.CommandError):
+                if await command.can_run(self.context):
+                    can_run = "Yes"
             hgroupmbed.add_field(name="Usable", value=can_run)
         if command._buckets and (cooldown := command._buckets._cooldown):
             hgroupmbed.add_field(name="Cooldown", value=F"{cooldown.rate} per {cooldown.per:.0f} seconds")
