@@ -173,9 +173,9 @@ class MyHelp(commands.HelpCommand):
             hgroupmbed.description += F"`{self.get_command_signature(command)}` - {command.help or 'No help found...'}\n"
         if cog := command.cog:
             hgroupmbed.add_field(name="Category", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name}")
-            with contextlib.suppress(commands.CommandError):
-                if await command.can_run(self.context):
-                    can_run = "Yes"
+        with contextlib.suppress(commands.CommandError):
+            if await command.can_run(self.context):
+                can_run = "Yes"
             hgroupmbed.add_field(name="Usable", value=can_run)
         if command._buckets and (cooldown := command._buckets._cooldown):
             hgroupmbed.add_field(name="Cooldown", value=F"{cooldown.rate} per {cooldown.per:.0f} seconds")
