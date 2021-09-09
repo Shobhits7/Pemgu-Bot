@@ -163,21 +163,19 @@ class MyHelp(commands.HelpCommand):
         can_run = "No"
         hgroupmbed = discord.Embed(
             colour=0xF49B33,
+            title=self.get_command_signature(group),
+            description=F"{group.help or 'No help found...'}\n\n",
             timestamp=ctx.message.created_at
         )
         hgroupmbed.set_thumbnail(url=ctx.me.avatar.url)
         hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         for command in group.commands:
-            pass
+            hgroupmbed.description += F"`{self.get_command_signature(command)}` - {command.help or 'No help found...'}\n"
         if cog := command.cog:
-            hgroupmbed.description = F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name} Category\n\n"
-        hgroupmbed.description += F"`{self.get_command_signature(group)}` - {group.help or 'No help found...'}\n"
-        if filtered_commands := await self.filter_commands(group.commands):
-            for command in filtered_commands:
-                hgroupmbed.description += F"`{self.get_command_signature(command)}` - {command.help or 'No help found...'}\n"
-        with contextlib.suppress(commands.CommandError):
-            if await command.can_run(self.context):
-                can_run = "Yes"
+            hgroupmbed.add_field(name="Category", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name}")
+            with contextlib.suppress(commands.CommandError):
+                if await command.can_run(self.context):
+                    can_run = "Yes"
             hgroupmbed.add_field(name="Usable", value=can_run)
         if command._buckets and (cooldown := command._buckets._cooldown):
             hgroupmbed.add_field(name="Cooldown", value=F"{cooldown.rate} per {cooldown.per:.0f} seconds")
