@@ -139,7 +139,6 @@ class MyHelp(commands.HelpCommand):
         ctx = self.context
         hcmdmbed = discord.Embed(
             colour=0xF49B33,
-            description=command.help or "No help found...",
             timestamp=ctx.message.created_at
         )
         hcmdmbed.set_thumbnail(url=ctx.me.avatar.url)
