@@ -54,8 +54,7 @@ class HelpView(discord.ui.View):
         self.add_item(discord.ui.Button(label="Support Server", style=discord.ButtonStyle.green, url="https://discord.gg/bWnjkjyFRz"))
 
     async def on_timeout(self):
-        print("This command is out dated")
-        if self.message is None:
+        if self.message:
             await self.message.delete()
         else:
             print("On timeout")
