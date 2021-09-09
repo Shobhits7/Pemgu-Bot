@@ -54,6 +54,12 @@ class HelpView(discord.ui.View):
         self.add_item(discord.ui.Button(label="Support Server", style=discord.ButtonStyle.green, url="https://discord.gg/bWnjkjyFRz"))
 
     async def on_timeout(self):
+        ontimeoutmbed = discord.Embed(
+            colour=0xF49B34,
+            title="This message is out dated",
+        )
+        ontimeoutmbed.set_thumbnail(url=self.help.context.me.avatar.url)
+        ontimeoutmbed.set_author(name=self.help.context.author, icon_url=self.help.context.author.avatar.url)
         await self.message.delete()
 
     async def interaction_check(self, interaction: discord.Interaction):
@@ -65,7 +71,7 @@ class HelpView(discord.ui.View):
             description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
             timestamp=self.help.context.message.created_at
         )
-        icheckmbed.set_thumbnail(url=self.help.context.me.avatar.url)
+        icheckmbed.set_thumbnail(url=interaction.user.avatar.url)
         icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
         await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
 
