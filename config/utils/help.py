@@ -55,7 +55,7 @@ class HelpView(discord.ui.View):
 
     async def on_timeout(self):
         print("This command is out dated")
-        if self.message is not None:
+        if self.message is None:
             await self.message.delete()
         else:
             print("On timeout")

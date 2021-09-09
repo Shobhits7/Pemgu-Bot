@@ -6,14 +6,14 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     def __init__(self, bot):
         self.bot = bot
 
-    # Delete
+    # Cleanup
     @commands.command(name="cleanup", aliases=["cu"], help="Will delete bot's messagess")
     @commands.is_owner()
-    async def delete(self, ctx, amount: int):
+    async def cleanup(self, ctx, amount: int):
         await ctx.trigger_typing()
         cumbed = discord.Embed(
             colour=self.bot.color,
-            title=F"Deleted {amount} of bot messages",
+            title=F"Cleaned-up {amount} of bot messages",
         )
         cumbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.channel.purge(limit=amount, check=lambda m: m.author.id == self.bot.user.id)
