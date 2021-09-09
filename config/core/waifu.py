@@ -22,7 +22,7 @@ class Anime(commands.Cog, description="SFW Waifu's and Husbando's chamber"):
     # SFW Waifu
     @sfw.command(name="waifu", aliases=["wa"], help="Will send an random waifu image")
     async def waifu_sfw(self, ctx):
-        await ctx.trgger_typing()
+        await ctx.trigger_typing()
         session = await session_json("https://api.hori.ovh/sfw/waifu/")
         sfwwambed = discord.Embed(
             colour=self.bot.color,
@@ -35,7 +35,7 @@ class Anime(commands.Cog, description="SFW Waifu's and Husbando's chamber"):
     # SFW Husbando
     @sfw.command(name="husbando", aliases=["ha"], help="Will send an random husbando image")
     async def husbando_sfw(self, ctx):
-        await ctx.trgger_typing()
+        await ctx.trigger_typing()
         session = await session_json("https://api.hori.ovh/sfw/husbando/")
         sfwhambed = discord.Embed(
             colour=self.bot.color,
