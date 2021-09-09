@@ -24,7 +24,7 @@ bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256
 bot.prefix = ".w"
 bot.color = 0xF49B34
 
-bot.activity = discord.Game(name=F"@Whaffle for prefix | {bot.prefix} help for help | Made by lvlahraam#8435")
+bot.activity = discord.Game(name=F"@Whaffle for prefix | {bot.prefix} help for help | In {len(bot.guilds)} Guilds | Made by lvlahraam#8435")
 
 bot.status = discord.Status.online
 
