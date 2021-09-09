@@ -51,6 +51,7 @@ class HelpView(discord.ui.View):
         self.emojis = emojis
         self.add_item(HelpMenu(self.help, self.mapping, self.homepage, self.emojis))
         self.add_item(discord.ui.Button(label="Add Me", style=discord.ButtonStyle.green, url=discord.utils.oauth_url(client_id=help.context.me.id, scopes=("bot", "applications.commands"), permissions=discord.Permissions(administrator=True)),))
+        self.add_item(discord.ui.Button(label="Add Me", style=discord.ButtonStyle.green, url="https://discord.gg/bWnjkjyFRz"))
 
     async def on_timeout(self):
         await self.message.delete()
