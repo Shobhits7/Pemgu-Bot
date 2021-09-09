@@ -61,7 +61,7 @@ class HelpView(discord.ui.View):
         )
         ontimeoutmbed.set_thumbnail(url=self.help.context.me.avatar.url)
         ontimeoutmbed.set_author(name=self.help.context.author, icon_url=self.help.context.author.avatar.url)
-        await self.message.delete()
+        await self.message.edit(embed=ontimeoutmbed)
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
