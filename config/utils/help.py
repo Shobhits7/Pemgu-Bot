@@ -60,7 +60,7 @@ class HelpView(discord.ui.View):
         )
         deletebmbed.set_thumbnail(url=self.help.context.me.avatar.url)
         deletebmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
-        await interaction.delete_original_message()
+        await interaction.message.delete()
         await interaction.response.send_message(embed=deletebmbed, ephemeral=True)
 
     async def interaction_check(self, interaction: discord.Interaction):
