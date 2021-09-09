@@ -10,7 +10,7 @@ class HelpMenu(discord.ui.Select):
         self.homepage = homepage
         self.emojis = emojis
         options = [
-            discord.SelectOption(label="Home", description="The homepage of this menu", value="Home", emoji=":bot_tag:596576775555776522")
+            discord.SelectOption(label="Home", description="The homepage of this menu", value="Home", emoji=":bot_tag:885543656206004285")
         ]
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
@@ -105,7 +105,7 @@ class MyHelp(commands.HelpCommand):
         ctx = self.context
         homepage = discord.Embed(
             colour=0xF49B34,
-            title=F"{ctx.me.display_name} <:bot_tag:596576775555776522> Help",
+            title=F"{ctx.me.display_name} <:bot_tag:885543656206004285> Help",
             description=F"This is a list of all modules in the bot.\nSelect a module for more information.",
             timestamp=ctx.message.created_at
         )
