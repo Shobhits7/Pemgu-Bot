@@ -146,7 +146,7 @@ class MyHelp(commands.HelpCommand):
         hcmdmbed.set_thumbnail(url=ctx.me.avatar.url)
         hcmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         if cog := command.cog:
-            hcmdmbed.title = F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else ''} {cog.qualified_name} Category [{len(cog.commands)}]"
+            hcmdmbed.title = F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else ''} {cog.qualified_name} Category"
         can_run = "No"
         with contextlib.suppress(commands.CommandError):
             if await command.can_run(self.context):
