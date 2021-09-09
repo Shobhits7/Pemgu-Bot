@@ -55,10 +55,10 @@ class HelpView(discord.ui.View):
 
     async def on_timeout(self):
         print("This command is out dated")
-        if self.message is None:
-            print("The message is None")
-            return False
-        await self.message.delete()
+        if self.message is not None:
+            await self.message.delete()
+        else:
+            print("On timeout")
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
