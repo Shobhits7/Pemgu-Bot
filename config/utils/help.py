@@ -171,8 +171,8 @@ class MyHelp(commands.HelpCommand):
             if cog := command.cog:
                 hgroupmbed.title = F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name} Category"
                 hgroupmbed.description = F"{cog.description}"
-            hgroupmbed.description += F"`{self.get_command_signature(group)}` - {group.help or 'No help found...'}\n",
             hgroupmbed.description += F"`{self.get_command_signature(command)}` - {command.help or 'No help found...'}\n"
+        hgroupmbed.description += F"`{self.get_command_signature(group)}` - {group.help or 'No help found...'}\n",
         with contextlib.suppress(commands.CommandError):
             if await command.can_run(self.context):
                 can_run = "Yes"
