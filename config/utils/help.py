@@ -28,11 +28,11 @@ class HelpMenu(discord.ui.Select):
                 mbed = discord.Embed(
                     colour=0xF49B33,
                     title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
-                    description=description,
+                    description=F"{description}\n\n",
                     timestamp=self.help.context.message.created_at
                 )
                 for command in commands:
-                    mbed.add_field(name=self.help.get_command_signature(command), value=command.help or "No help")
+                    mbed.description += F"`{self.get_command_signature(command)}` - {command.help or 'No help found...'}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
@@ -123,7 +123,7 @@ class MyHelp(commands.HelpCommand):
         hcogmbed = discord.Embed(
             colour=0xF49B33,
             title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(cog.get_commands())}]",
-            description=F"{description}\n",
+            description=F"{description}\n\n",
             timestamp=ctx.message.created_at
         )
         if filtered_commands := await self.filter_commands(cog.get_commands()):
