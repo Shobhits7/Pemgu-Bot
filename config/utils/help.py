@@ -63,6 +63,9 @@ class HelpView(discord.ui.View):
         await interaction.message.delete()
         await interaction.response.send_message(embed=deletebmbed, ephemeral=True)
 
+    async def on_timeout(self, interaction: discord.Interaction):
+        await interaction.message.delete()
+
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
             return True
