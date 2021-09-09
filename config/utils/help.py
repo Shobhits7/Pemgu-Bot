@@ -65,6 +65,7 @@ class HelpView(discord.ui.View):
 
     async def on_timeout(self, interaction: discord.Interaction):
         await interaction.message.delete()
+        return False
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
