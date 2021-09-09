@@ -140,14 +140,13 @@ class MyHelp(commands.HelpCommand):
         signature = self.get_command_signature(command)
         hcmdmbed = discord.Embed(
             colour=0xF49B33,
-            title=signature,
             description=command.help or "No help found...",
             timestamp=ctx.message.created_at
         )
         hcmdmbed.set_thumbnail(url=ctx.me.avatar.url)
         hcmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         if cog := command.cog:
-            hcmdmbed.add_field(name="Category", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else ''} {cog.qualified_name}")
+            hcmdmbed.title = F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else ''} {cog.qualified_name} Category [{len(cog.commands)}]"
         can_run = "No"
         with contextlib.suppress(commands.CommandError):
             if await command.can_run(self.context):
