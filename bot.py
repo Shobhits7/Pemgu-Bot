@@ -22,9 +22,10 @@ async def get_prefix_postgresql(bot, message):
 bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False), help_command=MyHelp(), intents=discord.Intents.all())
 
 bot.prefix = ".w"
-bot.color = 0xF49B34
+bot.color = 0xF49B33
+guilds = len(bot.guilds)
 
-bot.activity = discord.Game(name=F"@Whaffle for prefix | {bot.prefix} help for help | In {len(bot.guilds)} Guilds | Made by lvlahraam#8435")
+bot.activity = discord.Game(name=F"@Whaffle for prefix | {bot.prefix} help for help | In {guilds} Guilds | I like {bot.color} | Made by lvlahraam#8435")
 
 bot.status = discord.Status.online
 
