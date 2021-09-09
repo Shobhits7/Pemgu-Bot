@@ -137,7 +137,6 @@ class MyHelp(commands.HelpCommand):
     # Help Command
     async def send_command_help(self, command):
         ctx = self.context
-        signature = self.get_command_signature(command)
         hcmdmbed = discord.Embed(
             colour=0xF49B33,
             description=command.help or "No help found...",
@@ -147,6 +146,7 @@ class MyHelp(commands.HelpCommand):
         hcmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         if cog := command.cog:
             hcmdmbed.title = F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else ''} {cog.qualified_name} Category"
+            hcmdmbed.description = F"{cog.description or 'No description found...'}\n\n"
         can_run = "No"
         with contextlib.suppress(commands.CommandError):
             if await command.can_run(self.context):
@@ -154,6 +154,7 @@ class MyHelp(commands.HelpCommand):
         hcmdmbed.add_field(name="Usable", value=can_run)
         if command._buckets and (cooldown := command._buckets._cooldown):
             hcmdmbed.add_field(name="Cooldown", value=F"{cooldown.rate} per {cooldown.per:.0f} seconds")
+        hcmdmbed.description += F"`{self.get_command_signature(command)}` - {command.help or 'No help found...'}"
         await ctx.send(embed=hcmdmbed)
         return
 
