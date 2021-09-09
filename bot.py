@@ -5,7 +5,7 @@ from config.utils.help import MyHelp
 import os
 import asyncpg
 
-async def connect_to_db():
+async def create_db_poll():
     bot.db = await asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"))
     print("Connection to Postgres was successful")
 
@@ -44,5 +44,5 @@ bot.load_extension("jishaku")
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
-bot.loop.run_until_complete(connect_to_db())
+bot.loop.run_until_complete(create_db_poll())
 bot.run(os.getenv("TOKEN"))

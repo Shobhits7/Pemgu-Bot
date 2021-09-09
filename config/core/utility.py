@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from config.utils.help import MyHelp
 import time
 
 class Utility(commands.Cog, description="Useful commands are open to everyone"):
@@ -113,10 +112,12 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         start = time.perf_counter()
         unpimsg = await ctx.send(embed=unpimbed)
         end = time.perf_counter()
+        dpb = time.time()
+        await self.bot.db.fetch("SELECT 1")
         dopimbed = discord.Embed(
             colour=self.bot.color,
             title="🏓 Pong:",
-            description=F"Ping! {(end - start) * 1000}ms",
+            description=F"Websocket: {self.bot.latency * 1000}ms\nTyping: {(end - start) * 1000}ms\nDatabase: {(time.time() - dpb) * 1000}ms",
             timestamp=ctx.message.created_at
         )
         dopimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
