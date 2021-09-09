@@ -57,7 +57,7 @@ class HelpView(discord.ui.View):
         icheckmbed = discord.Embed(
             colour=0xF49B34,
             title="You can't use this",
-            description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that, cause he did the command\nIf you wanted to use the command, do what he did",
+            description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
             timestamp=self.help.context.message.created_at
         )
         icheckmbed.set_thumbnail(url=self.help.context.me.avatar.url)
