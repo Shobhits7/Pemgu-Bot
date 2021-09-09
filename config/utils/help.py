@@ -176,7 +176,7 @@ class MyHelp(commands.HelpCommand):
         with contextlib.suppress(commands.CommandError):
             if await command.can_run(self.context):
                 can_run = "Yes"
-            hgroupmbed.add_field(name="Usable", value=can_run)
+        hgroupmbed.add_field(name="Usable", value=can_run)
         if command._buckets and (cooldown := command._buckets._cooldown):
             hgroupmbed.add_field(name="Cooldown", value=F"{cooldown.rate} per {cooldown.per:.0f} seconds")
         await ctx.send(embed=hgroupmbed)
