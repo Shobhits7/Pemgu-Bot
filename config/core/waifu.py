@@ -13,7 +13,7 @@ class Anime(commands.Cog, description="SFW Waifu's and Husbando's chamber"):
         session = await session_json("https://api.hori.ovh/sfw/all/")
         sfwmbed = discord.Embed(
             colour=self.bot.color,
-            title="Here is your SFW All Image",
+            title="Here is your SFW Image",
             timestamp=ctx.message.created_at
         )
         sfwmbed.set_image(url=session["url"])
@@ -39,7 +39,7 @@ class Anime(commands.Cog, description="SFW Waifu's and Husbando's chamber"):
         session = await session_json("https://api.hori.ovh/sfw/husbando/")
         sfwhambed = discord.Embed(
             colour=self.bot.color,
-            title="Here is your SFW Haifu Image",
+            title="Here is your SFW Husbando Image",
             timestamp=ctx.message.created_at
         )
         sfwhambed.set_image(url=session["url"])
