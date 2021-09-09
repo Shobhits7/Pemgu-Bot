@@ -63,7 +63,7 @@ class HelpView(discord.ui.View):
         await interaction.message.delete()
         await interaction.response.send_message(embed=deletebmbed, ephemeral=True)
 
-    self.add_item(discord.ui.button(label="Add Me", url="https://google.com")
+    self.add_item(discord.ui.button(label="Add Me", url="https://google.com"))
 
     async def on_timeout(self):
         await self.message.delete()
