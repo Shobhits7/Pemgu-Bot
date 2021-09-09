@@ -50,6 +50,7 @@ class HelpView(discord.ui.View):
         self.homepage = homepage
         self.emojis = emojis
         self.add_item(HelpMenu(self.help, self.mapping, self.homepage, self.emojis))
+        self.add_item(discord.ui.button(label="Add Me", url="https://google.com"))
 
     @discord.ui.button(label="Delete", style=discord.ButtonStyle.red)
     async def delete(self, button: discord.ui.Button, interaction: discord.Interaction):
@@ -62,8 +63,6 @@ class HelpView(discord.ui.View):
         deletebmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
         await interaction.message.delete()
         await interaction.response.send_message(embed=deletebmbed, ephemeral=True)
-
-    self.add_item(discord.ui.button(label="Add Me", url="https://google.com"))
 
     async def on_timeout(self):
         await self.message.delete()
