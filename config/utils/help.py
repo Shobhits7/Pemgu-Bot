@@ -54,10 +54,10 @@ class HelpView(discord.ui.View):
         self.add_item(discord.ui.Button(label="Support Server", style=discord.ButtonStyle.green, url="https://discord.gg/bWnjkjyFRz"))
 
     async def on_timeout(self):
-        if self.message:
-            await self.message.delete()
-        else:
+        if not self.message:
             print("On timeout")
+        else:
+            await self.message.delete()
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
