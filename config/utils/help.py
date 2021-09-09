@@ -55,13 +55,10 @@ class HelpView(discord.ui.View):
 
     async def on_timeout(self):
         print("This command is out dated")
-        ontimeoutmbed = discord.Embed(
-            colour=0xF49B34,
-            title="This message is timeout-ed",
-        )
-        ontimeoutmbed.set_thumbnail(url=self.help.context.me.avatar.url)
-        ontimeoutmbed.set_author(name=self.help.context.author, icon_url=self.help.context.author.avatar.url)
-        await self.message.edit(embed=ontimeoutmbed)
+        if self.message is None:
+            print("The message is None")
+            return False
+        await self.message.delete()
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
