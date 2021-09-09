@@ -52,18 +52,6 @@ class HelpView(discord.ui.View):
         self.add_item(HelpMenu(self.help, self.mapping, self.homepage, self.emojis))
         self.add_item(discord.ui.Button(label="Add Me", style=discord.ButtonStyle.green, url=discord.utils.oauth_url(client_id=help.context.me.id, scopes=("bot", "applications.commands"), permissions=discord.Permissions(administrator=True)),))
 
-    @discord.ui.button(label="Delete", style=discord.ButtonStyle.red)
-    async def delete(self, button: discord.ui.Button, interaction: discord.Interaction):
-        deletebmbed = discord.Embed(
-            colour=0xF49B34,
-            title="Deleted the message",
-            timestamp=self.help.context.message.created_at
-        )
-        deletebmbed.set_thumbnail(url=self.help.context.me.avatar.url)
-        deletebmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
-        await interaction.message.delete()
-        await interaction.response.send_message(embed=deletebmbed, ephemeral=True)
-
     async def on_timeout(self):
         await self.message.delete()
 
@@ -79,6 +67,18 @@ class HelpView(discord.ui.View):
         icheckmbed.set_thumbnail(url=self.help.context.me.avatar.url)
         icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
         await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
+
+    @discord.ui.button(label="Delete", style=discord.ButtonStyle.red)
+    async def delete(self, button: discord.ui.Button, interaction: discord.Interaction):
+        deletebmbed = discord.Embed(
+            colour=0xF49B34,
+            title="Deleted the message",
+            timestamp=self.help.context.message.created_at
+        )
+        deletebmbed.set_thumbnail(url=self.help.context.me.avatar.url)
+        deletebmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+        await interaction.message.delete()
+        await interaction.response.send_message(embed=deletebmbed, ephemeral=True)
 
 class MyHelp(commands.HelpCommand):
     def __init__(self):
