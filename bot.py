@@ -42,7 +42,7 @@ async def startup():
     os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
     os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
-    bot.loop.run_until_complete(create_db_poll())
+    bot.loop.run_until_complete((await create_db_poll()))
     async with aiohttp.ClientSession() as session:
         bot.session = session
         await bot.start(os.getenv("TOKEN"))
