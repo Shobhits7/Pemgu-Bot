@@ -1,4 +1,5 @@
 aiohttp
+aiohoripy
 async-timeout
 asyncpg
 attrs
