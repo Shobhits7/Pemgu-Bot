@@ -50,9 +50,9 @@ class HelpView(discord.ui.View):
 
     async def on_timeout(self):
         if not self.message:
-            print("On timeout")
-        else:
             await self.message.delete()
+        else:
+            print("On timeout")
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
