@@ -22,7 +22,7 @@ class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
         await ctx.send(embed=sfwmbed)
 
     # Waifu
-    @commands.command(name="waifu", aliases=["wa"], help="Will send an random sfw waifu image")
+    @commands.command(name="waifu", help="Will send an random sfw waifu image")
     async def waifu_sfw(self, ctx):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.hori.ovh/sfw/waifu/")
