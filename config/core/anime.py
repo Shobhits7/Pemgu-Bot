@@ -7,15 +7,9 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         self.bot = bot
     
     # Quote
-    @commands.command(name="quote", help="Will send an anime quote", usage="[anime] [character]")
-    async def quote(self, ctx, anime:str, character:str):
-        url = "https://animechan.vercel.app/api/"
-        if anime:
-            url += F"quotes/anime?title={anime}"
-        elif character:
-            url += F"character?name={character}"
-        else:
-            url += "random"
+    @commands.command(name="quote", help="Will send an anime quote")
+    async def quote(self, ctx):
+        url = "https://animechan.vercel.app/api/random/"
         session = await session_json(url, headers=None)
         quotembed = discord.Embed(
             colour=self.bot.color,
