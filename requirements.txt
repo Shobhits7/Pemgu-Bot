@@ -1,3 +1,4 @@
+git+https://github.com/lvlahraam/aiohoripy@main
 aiohttp
 async-timeout
 asyncpg
