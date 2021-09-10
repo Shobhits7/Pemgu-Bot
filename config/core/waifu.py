@@ -215,4 +215,4 @@ class Waifu(commands.Cog, description="SFW Waifu's and Husbando's chamber"):
         await ctx.send(embed=uniformmbed)
 
 def setup(bot):
-    bot.add_cog(Anime(bot))
+    bot.add_cog(Waifu(bot))
