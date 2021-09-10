@@ -2,7 +2,7 @@ import discord, os
 from discord.ext import commands
 from config.utils.aiohttp import session_json
 
-class Waifu(commands.Cog, description="SFW Waifu's and Husbando's chamber"):
+class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
     def __init__(self, bot):
         self.bot = bot
 
