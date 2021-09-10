@@ -27,7 +27,7 @@ bot.activity = discord.Game(name=F"@Whaffle for prefix | {bot.prefix} help for h
 bot.status = discord.Status.online
 
 async def connect_to_session():
-    bot.session = aiohttp.ClientSession()
+    bot.session = await aiohttp.ClientSession()
 
 bot.blacklisted = []
 
@@ -46,4 +46,5 @@ os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
 bot.loop.run_until_complete(create_db_poll())
+bot.loop.run_until_complete(connect_to_session())
 bot.run(os.getenv("TOKEN"))
