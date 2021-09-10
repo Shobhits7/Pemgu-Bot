@@ -1,4 +1,3 @@
-git+https://github.com/lvlahraam/aiohoripy@main
 aiohttp
 async-timeout
 asyncpg
@@ -18,3 +17,4 @@ Shapely
 six
 typing-extensions
 yarl
+git+https://github.com/lvlahraam/aiohoripy@main
