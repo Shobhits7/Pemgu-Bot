@@ -16,5 +16,5 @@ PyYAML
 Shapely
 six
 typing-extensions
-git+https://github.com/lvlahraam/aiohoripy@main
 yarl
+git+https://github.com/lvlahraam/aiohoripy@main
