@@ -77,10 +77,11 @@ class MyHelp(commands.HelpCommand):
             "API": "🌎",
             "Database": "📝",
             "Fun": "🤣",
-            "Moderation": "💀",
+            "Moderation": "🎩",
             "Owner": "👑",
             "Setup": "🔮",
             "Utility": "🧰",
+            "Waifu": "🍘",
             "Jishaku": "👀",
             "No": "❓"
         }
