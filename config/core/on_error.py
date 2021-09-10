@@ -23,7 +23,7 @@ class OnError(commands.Cog):
             matcnfmbed = discord.Embed(
                 colour=self.bot.color,
                 title=F"There is no `{cmd}` command",
-                description=F"Maybe you meant `{matches}`",
+                description=F"Maybe you meant ".join(match for match in matches),
                 timestamp=ctx.message.created_at
             )
             matcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
@@ -89,6 +89,13 @@ class OnError(commands.Cog):
             )
             cocmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=cocmbed)
+        elif isinstance(error, commands.NSFWChannelRequired):
+            nsfwcr = discord.Embed(
+                colour=self.bot.color,
+                title=F"`{ctx.command}` is only possible in nsfw channels"
+            )
+            nsfwcr.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+            await ctx.send(embed=nsfwcr)
         elif isinstance(error, commands.PrivateMessageOnly):
             pmombed = discord.Embed(
                 colour=self.bot.color,

@@ -7,7 +7,7 @@ class Anime(commands.Cog, description="SFW Waifu's and Husbando's chamber"):
         self.bot = bot
     
     # SFW
-    @commands.group(name="sfw", help="Will send an random waifu or husbando image if not specified", invoke_without_command=True)
+    @commands.group(name="sfw", help="Will send an random sfw waifu or husbando image if not specified", usage="[waifu|wa|husbando|ha]", invoke_without_command=True)
     async def sfw(self, ctx):
         await ctx.trigger_typing()
         session = await session_json("https://api.hori.ovh/sfw/all/")
@@ -32,19 +32,21 @@ class Anime(commands.Cog, description="SFW Waifu's and Husbando's chamber"):
         sfwwambed.set_image(url=session["url"])
         sfwwambed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=sfwwambed)
-    # SFW Husbando
-    @sfw.command(name="husbando", aliases=["ha"], help="Will send an random husbando image")
-    async def husbando_sfw(self, ctx):
+
+    # NSFW
+    @commands.group(name="nsfw", help="Will send an random nsfw waifu or husbando image if nor specified", usage="[ass|ecchi|ero|hentai|maid|milf|oppai|oral|paizuri|selfies|uniform]", invoke_without_command=True)
+    @commands.is_nsfw()
+    async def nsfw(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.hori.ovh/sfw/husbando/")
-        sfwhambed = discord.Embed(
+        session = await session_json("https://api.hori.ovh/nsfw/ero/")
+        nsfwmbed = discord.Embed(
             colour=self.bot.color,
-            title="Here is your SFW Husbando Image",
+            title="Here is your NSFW Image",
             timestamp=ctx.message.created_at
         )
-        sfwhambed.set_image(url=session["url"])
-        sfwhambed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=sfwhambed)
+        nsfwmbed.set_image(url=session["url"])
+        nsfwmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=nsfwmbed)
 
 def setup(bot):
     bot.add_cog(Anime(bot))
