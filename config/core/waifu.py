@@ -12,6 +12,7 @@ class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.hori.ovh/sfw/all/")
         response = await session.json()
+        await session.close()
         sfwmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your SFW Image",
@@ -27,6 +28,7 @@ class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.hori.ovh/sfw/waifu/")
         response = await session.json()
+        await session.close()
         wambed = discord.Embed(
             colour=self.bot.color,
             title="Here is your SFW Waifu Image",
@@ -43,6 +45,7 @@ class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.hori.ovh/nsfw/ero/")
         response = await session.json()
+        await session.close()
         nsfwmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Image",
@@ -59,6 +62,7 @@ class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.hori.ovh/nsfw/ass/")
         response = await session.json()
+        await session.close()
         assmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Ass Image",
@@ -75,6 +79,7 @@ class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.hori.ovh/nsfw/ecchi/")
         response = await session.json()
+        await session.close()
         ecchimbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Ecchi Image",
@@ -91,6 +96,7 @@ class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.hori.ovh/nsfw/ero/")
         response = await session.json()
+        await session.close()
         erombed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Ero Image",
@@ -107,6 +113,7 @@ class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.hori.ovh/nsfw/hentai/")
         response = await session.json()
+        await session.close()
         hentaimbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Hentai Image",
@@ -123,6 +130,7 @@ class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.hori.ovh/nsfw/maid/")
         response = await session.json()
+        await session.close()
         maidmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Maid Image",
@@ -139,6 +147,7 @@ class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.hori.ovh/nsfw/milf/")
         response = await session.json()
+        await session.close()
         milfmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Milf Image",
@@ -155,6 +164,7 @@ class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.hori.ovh/nsfw/oppai/")
         response = await session.json()
+        await session.close()
         oppaimbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Oppai Image",
@@ -171,6 +181,7 @@ class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.hori.ovh/nsfw/oral/")
         response = await session.json()
+        await session.close()
         oralmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Oral Image",
@@ -187,6 +198,7 @@ class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.hori.ovh/nsfw/paizuri/")
         response = await session.json()
+        await session.close()
         paizurimbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Paizuri Image",
@@ -203,6 +215,7 @@ class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.hori.ovh/nsfw/selfies/")
         response = await session.json()
+        await session.close()
         selfiesmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Selfies Image",
@@ -219,6 +232,7 @@ class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.hori.ovh/nsfw/uniform/")
         response = await session.json()
+        await session.close()
         uniformmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Uniform Image",
