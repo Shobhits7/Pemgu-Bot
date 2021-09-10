@@ -27,7 +27,8 @@ bot.activity = discord.Game(name=F"@Whaffle for prefix | {bot.prefix} help for h
 bot.status = discord.Status.online
 
 async def connect_to_session():
-    bot.session = aiohttp.ClientSession()
+    async with aiohttp.ClientSession() as session:
+        bot.session = session
 
 bot.blacklisted = []
 
