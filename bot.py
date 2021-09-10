@@ -1,4 +1,4 @@
-import discord, asyncpg, os
+import discord, aiohttp, asyncpg, os
 from discord.ext import commands
 from config.utils.help import MyHelp
 
@@ -25,6 +25,8 @@ guilds = len(bot.guilds)
 bot.activity = discord.Game(name=F"@Whaffle for prefix | {bot.prefix} help for help | In {guilds} Guilds | I like {bot.color} | Made by lvlahraam#8435")
 
 bot.status = discord.Status.online
+
+bot.session = aiohttp.ClientSession()
 
 bot.blacklisted = []
 
