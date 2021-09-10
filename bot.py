@@ -28,7 +28,6 @@ bot.status = discord.Status.online
 
 async def connect_to_session():
     bot.session = aiohttp.ClientSession()
-connect_to_session()
 
 bot.blacklisted = []
 
