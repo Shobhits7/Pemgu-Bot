@@ -2,9 +2,9 @@ import discord
 from discord.ext import commands
 from ..utils.aiohttp import session_json
 
-class Anime(commands.Cog, help="Some Weeb shit stuff"):
+class Anime(commands.Cog, description="Some Weeb shit stuff"):
     def __init__(self, bot):
-        self.bot=bot
+        self.bot = bot
     
     # Quote
     @commands.command(name="quote", help="Will send an anime quote", usage="[anime] [character]")
