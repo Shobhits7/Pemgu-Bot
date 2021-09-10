@@ -1,4 +1,4 @@
-import discord, os
+import discord
 from discord.ext import commands
 from config.utils.aiohttp import session_json
 
