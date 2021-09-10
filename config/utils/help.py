@@ -30,7 +30,7 @@ class HelpMenu(discord.ui.Select):
                     timestamp=self.help.context.message.created_at
                 )
                 for command in commands:
-                    mbed.description += F"***{self.help.get_command_signature(command)}*** - {command.help or 'No help found...'}\n"
+                    mbed.description += F"**{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
@@ -127,7 +127,7 @@ class MyHelp(commands.HelpCommand):
         )
         if filtered_commands := await self.filter_commands(cog.get_commands()):
             for command in filtered_commands:
-                hcogmbed.description += F"***{self.get_command_signature(command)}*** - {command.help or 'No help found...'}\n"
+                hcogmbed.description += F"**{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
         hcogmbed.set_thumbnail(url=ctx.me.avatar.url)
         hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=hcogmbed)
@@ -162,7 +162,7 @@ class MyHelp(commands.HelpCommand):
         can_run = "No"
         hgroupmbed = discord.Embed(
             colour=0xF49B33,
-            title=F"***{self.get_command_signature(group)}***",
+            title=F"**{self.get_command_signature(group)}**",
             description=F"{group.help or 'No help found...'}\n\n",
             timestamp=ctx.message.created_at
         )
