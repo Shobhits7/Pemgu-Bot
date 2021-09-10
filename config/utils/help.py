@@ -74,6 +74,7 @@ class HelpView(discord.ui.View):
 class MyHelp(commands.HelpCommand):
     def __init__(self):
         self.emojis = {
+            "Anime": "🍙",
             "API": "🌎",
             "Database": "📝",
             "Fun": "🤣",
