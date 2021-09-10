@@ -18,7 +18,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         )
         quotembed.add_field(name="Quote:", value=session["quote"])
         quotembed.add_field(name="Character:", value=session["character"])
-        quotembed.add_field(name="Anime:", value=session["anime"])
+        quotembed.add_field(name="Series:", value=session["anime"])
         quotembed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=quotembed)
 
