@@ -1,6 +1,6 @@
 import discord, os
 from discord.ext import commands
-from config.utils.aiohttp import session_json, session_text, session_bytes
+from ..utils.aiohttp import session_json, session_text, session_bytes
 
 class API(commands.Cog, description="Some cool API commands"):
     def __init__(self, bot):

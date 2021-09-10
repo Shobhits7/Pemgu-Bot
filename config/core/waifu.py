@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from config.utils.aiohttp import session_json
+from ..utils.aiohttp import session_json
 
 class Waifu(commands.Cog, description="Waifu's and Husbando's chamber"):
     def __init__(self, bot):

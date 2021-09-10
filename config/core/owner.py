@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from config.utils.aiohttp import session_bytes
+from ..utils.aiohttp import session_bytes
 
 class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     def __init__(self, bot):
