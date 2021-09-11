@@ -67,6 +67,7 @@ class HelpView(discord.ui.View):
         icheckmbed.set_thumbnail(url=self.help.context.me.avatar.url)
         icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
         await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
+        return False
 
     @discord.ui.button(label="Delete", style=discord.ButtonStyle.red)
     async def delete(self, button: discord.ui.Button, interaction: discord.Interaction):
