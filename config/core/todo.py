@@ -13,10 +13,11 @@ class Todo(commands.Cog, description="Lazy people use these"):
         if len(todo) == 0:
             await ctx.send("You don't have a todo list\nTry to make one with `todo add` command")
         else:
-            embed = discord.Embed(
+            todombed = discord.Embed(
                 title="Here is your todo list",
             )
-            embed.description = "\n".join("{position}: {task}".format(**_) for _ in todo)
+            todombed.description = "\n".join("{position}: {task}".format(**_) for _ in todo)
+            await ctx.send(embed=todombed)
     
     # Add
     @todo.command(name="add", help="Will add the given task", usage="<task>")
