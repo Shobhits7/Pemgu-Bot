@@ -39,7 +39,7 @@ class HelpMenu(discord.ui.Select):
 
 class HelpView(discord.ui.View):
     def __init__(self, help, mapping, homepage, emojis):
-        super().__init__(timeout=10)
+        super().__init__(timeout=20)
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
@@ -51,7 +51,7 @@ class HelpView(discord.ui.View):
     async def on_timeout(self):
         for item in self.children:
             if isinstance(item, discord.SelectMenu):
-                item.placeholder.edit("This help command is disabled now...")
+                item.placeholder = "This help command is disabled now..."
             item.disabled = True
         await self.message.edit(view=self)
 
