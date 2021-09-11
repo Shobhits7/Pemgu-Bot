@@ -26,7 +26,7 @@ class OnError(commands.Cog):
                 description=F"Maybe you meant:\n\n",
                 timestamp=ctx.message.created_at
             )
-            matcnfmbed.description("\n".join(match for match in matches))
+            matcnfmbed.description += (" - ".join(match for match in matches))
             matcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             nmatcnfmbed = discord.Embed(
                 colour=self.bot.color,
