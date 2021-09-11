@@ -20,7 +20,7 @@ class Database(commands.Cog, description="Monotoring database with these"):
     
     @commands.command(name="delete_todo", help="Will delete a row from db")
     @commands.is_owner()
-    async def delete_todo(self, ctx, *, user):
+    async def delete_todo(self, ctx, *, user:int):
         await ctx.trigger_typing()
         dltmbed = discord.Embed(
             colour=self.bot.color,

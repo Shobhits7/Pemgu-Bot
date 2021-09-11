@@ -9,8 +9,8 @@ class Todo(commands.Cog, description="Lazy people use these"):
     @commands.group(name="todo", help="Will tell you, your todo list", invoke_without_command=True)
     async def todo(self, ctx):
         await ctx.trigger_typing()
-        todo = await self.bot.db.fetch("SELECT task FROM todos WHERE user_id = $1", ctx.author.id)
-        if len(todo) == 0:
+        tasks = await self.bot.db.fetch("SELECT task FROM todos WHERE user_id = $1", ctx.author.id)
+        if len(tasks) == 0:
             await ctx.send("You don't have a todo list\nTry to make one with `todo add` command")
         else:
             todombed = discord.Embed(
