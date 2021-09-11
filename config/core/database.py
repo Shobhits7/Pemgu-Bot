@@ -15,7 +15,7 @@ class Database(commands.Cog, description="Monotoring database with these"):
             timestamp=ctx.message.created_at
         )
         dltmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await self.bot.db.execute(F"DELETE FROM preffixes WHERE guild_id = $1", guild)
+        await self.bot.db.execute(F"DELETE FROM prefixes WHERE guild_id = $1", guild)
         await ctx.send(embed=dltmbed)
     
     @commands.command(name="delete_todo", help="Will delete a row from db")
