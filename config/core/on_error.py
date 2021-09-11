@@ -23,7 +23,7 @@ class OnError(commands.Cog):
             matcnfmbed = discord.Embed(
                 colour=self.bot.color,
                 title=F"There is no `{cmd}` command",
-                description=F"Maybe you meant ".join(match for match in matches),
+                description=F"Maybe you meant:\n".join(match for match in matches),
                 timestamp=ctx.message.created_at
             )
             matcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
