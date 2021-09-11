@@ -30,7 +30,7 @@ class Todo(commands.Cog, description="Lazy people use these"):
     @todo.command(name="remove", help="Will remove the given task", usage="<task>")
     async def remove(self, ctx, *, text):
         await ctx.trigger_typing()
-        task = await self.bot.db.fetch(F"SELECT {text} FROM todos WHERE user_id = $1", ctx.author.id)
+        task = await self.bot.db.fetch(F"SELECT task FROM todos WHERE user_id = $1 AND task = $2", ctx.author.id, text)
         if len(task) == 0:
             await ctx.send(F"You don't have {text} in your list")
         else:
