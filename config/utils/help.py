@@ -51,7 +51,7 @@ class HelpView(discord.ui.View):
     async def on_timeout(self):
         for item in self.children:
             if isinstance(item, discord.SelectMenu):
-                item.placeholder = "This help command is disabled now..."
+                item.placeholder.edit("This help command is disabled now...")
             item.disabled = True
         await self.message.edit(view=self)
 
