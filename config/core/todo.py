@@ -6,7 +6,7 @@ class Todo(commands.Cog, description="Lazy people use these"):
         self.bot = bot
 
     # Todo
-    @commands.group(name="todo", help="Will tell you, your todo list")
+    @commands.group(name="todo", help="Will tell you, your todo list", invoke_without_command=True)
     async def todo(self, ctx):
         await ctx.trigger_typing()
         tasks = await self.bot.db.fetch("SELECT task FROM todos WHERE user_id = $1", ctx.author.id)
@@ -18,7 +18,7 @@ class Todo(commands.Cog, description="Lazy people use these"):
             )
             todombed.description = "\n".join(f"{i+1} {task['task']}" for i, task in enumerate(tasks))
             await ctx.send(embed=todombed)
-    
+
     # Add
     @todo.command(name="add", help="Will add the given task", usage="<task>")
     async def add(self, ctx, *, task):
