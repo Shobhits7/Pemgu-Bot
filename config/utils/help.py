@@ -39,7 +39,7 @@ class HelpMenu(discord.ui.Select):
 
 class HelpView(discord.ui.View):
     def __init__(self, help, mapping, homepage, emojis):
-        super().__init__()
+        super().__init__(timeout=10)
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
