@@ -16,7 +16,7 @@ class HelpMenu(discord.ui.Select):
             if not name.startswith("On"):
                 option = discord.SelectOption(label=F"{name} Category [{len(commands)}]", description=description, value=name, emoji=self.emojis.get(name) if self.emojis.get(name) else '❓')
                 options.append(option)
-        super().__init__(placeholder="Choose the module you want to see: ", min_values=1, max_values=1, options=options)
+        super().__init__(placeholder="Where do you want to go:...", min_values=1, max_values=1, options=options)
 
     async def callback(self, interaction: discord.Interaction):
         for cog, commands in self.mapping.items():
@@ -52,7 +52,7 @@ class HelpView(discord.ui.View):
         try:
             for item in self.children:
                 if isinstance(item, discord.ui.Select):
-                    item.placeholder = "Command disabled due to timeout."
+                    item.placeholder = "Disabled due to timeout..."
                 item.disabled = True
             await self.message.edit(view=self)
         except discord.NotFound:
