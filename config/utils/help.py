@@ -49,14 +49,11 @@ class HelpView(discord.ui.View):
         self.add_item(discord.ui.Button(label="Support Server", style=discord.ButtonStyle.green, url="https://discord.gg/bWnjkjyFRz"))
 
     async def on_timeout(self):
-        try:
-            for item in self.children:
-                if isinstance(item, discord.ui.Select):
-                    item.placeholder = "Command disabled due to timeout."
-                item.disabled = True
-            await self.message.edit(view=self)
-        except commands.MessageNotFound:
-            pass
+        for item in self.children:
+            if isinstance(item, discord.ui.Select):
+                item.placeholder = "Command disabled due to timeout."
+            item.disabled = True
+        await self.message.edit(view=self)
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
@@ -75,6 +72,7 @@ class HelpView(discord.ui.View):
     @discord.ui.button(label="Delete", style=discord.ButtonStyle.red)
     async def delete(self, button: discord.ui.Button, interaction: discord.Interaction):
         await interaction.message.delete()
+        return
 
 class MyHelp(commands.HelpCommand):
     def __init__(self):
