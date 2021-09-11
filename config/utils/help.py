@@ -55,8 +55,9 @@ class HelpView(discord.ui.View):
                     item.placeholder = "This help command is disabled now..."
                 item.disabled = True
             await self.message.edit(view=self)
-        else:
-            return
+            return False
+        elif not self.message:
+            return False
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
