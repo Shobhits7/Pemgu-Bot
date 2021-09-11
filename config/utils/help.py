@@ -52,7 +52,7 @@ class HelpView(discord.ui.View):
         try:
             for item in self.children:
                 if isinstance(item, discord.ui.Select):
-                    item.placeholder = "This help command is disabled now..."
+                    item.placeholder = "Command disabled due to timeout."
                 item.disabled = True
             await self.message.edit(view=self)
         except commands.MessageNotFound:
