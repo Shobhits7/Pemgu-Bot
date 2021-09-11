@@ -16,8 +16,10 @@ class Todo(commands.Cog, description="Lazy people use these"):
             todombed = discord.Embed(
                 colour=self.bot.color,
                 title="Here is your todo list",
+                timestamp=ctx.message.created_at
             )
             todombed.description = "\n".join(f"{i+1} {task['task']}" for i, task in enumerate(tasks))
+            todombed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=todombed)
 
     # Add
