@@ -49,10 +49,11 @@ class HelpView(discord.ui.View):
         self.add_item(discord.ui.Button(label="Support Server", style=discord.ButtonStyle.green, url="https://discord.gg/bWnjkjyFRz"))
 
     async def on_timeout(self):
-        if not self.message:
-            await self.message.delete()
-        else:
-            print("On timeout")
+        for item in self.children:
+            if isinstance(item, discord.ui.SelectMenu):
+                item.placeholder = "This help command is disabled now..."
+            item.disabled = True
+        await self.message.edit(view=self)
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
