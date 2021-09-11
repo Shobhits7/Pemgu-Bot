@@ -28,7 +28,7 @@ class Database(commands.Cog, description="Monotoring database with these"):
             timestamp=ctx.message.created_at
         )
         dltmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await self.bot.db.execute(F"DELETE FROM todo WHERE user_id = $1", user)
+        await self.bot.db.execute(F"DELETE FROM todos WHERE user_id = $1", user)
         await ctx.send(embed=dltmbed)
 
 def setup(bot):
