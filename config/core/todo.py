@@ -6,7 +6,7 @@ class Todo(commands.Cog, description="Lazy people use these"):
         self.bot = bot
 
     # Todo
-    @commands.group(name="todo", help="Will tell you, your todo list", invoke_without_command=True)
+    @commands.group(name="todo", help="Will show your todo list", invoke_without_command=True)
     async def todo(self, ctx):
         await ctx.trigger_typing()
         tasks = await self.bot.db.fetch("SELECT task FROM todos WHERE user_id = $1", ctx.author.id)
@@ -22,10 +22,10 @@ class Todo(commands.Cog, description="Lazy people use these"):
 
     # Add
     @todo.command(name="add", help="Will add the given task", usage="<task>")
-    async def add(self, ctx, *, task):
+    async def add(self, ctx, *, text):
         await ctx.trigger_typing()
-        await self.bot.db.execute("INSERT INTO todos(user_id, task) VALUES($1, $2)", ctx.author.id, task)
-        await ctx.send("Your task has been now added")
+        await self.bot.db.execute("INSERT INTO todos(user_id, task) VALUES($1, $2)", ctx.author.id, text)
+        await ctx.send(F"`{text}` has been added")
 
     # Remove
     @todo.command(name="remove", help="Will remove the given task", usage="<task>")
@@ -36,7 +36,7 @@ class Todo(commands.Cog, description="Lazy people use these"):
             await ctx.send(F"You don't have `{text}` in your list")
         else:
             await self.bot.db.execute("DELETE FROM todos WHERE user_id = $1 AND task = $2", ctx.author.id, text)
-            await ctx.send(F"`{text}` has been now removed from your list")
+            await ctx.send(F"`{text}` has been removed")
 
 def setup(bot):
     bot.add_cog(Todo(bot))
