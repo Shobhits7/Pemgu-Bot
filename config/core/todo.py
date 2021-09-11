@@ -28,14 +28,14 @@ class Todo(commands.Cog, description="Lazy people use these"):
 
     # Remove
     @commands.command(name="todo remove", help="Will remove the given task", usage="<task>")
-    async def todo_remove(self, ctx, *, task):
+    async def todo_remove(self, ctx, *, text):
         await ctx.trigger_typing()
-        task = await self.bot.db.fetch(F"SELECT {task} FROM todos WHERE user_id = $1", ctx.author.id)
+        task = await self.bot.db.fetch(F"SELECT {text} FROM todos WHERE user_id = $1", ctx.author.id)
         if len(task) == 0:
-            await ctx.send(F"You don't have {task} in your list")
+            await ctx.send(F"You don't have {text} in your list")
         else:
-            await self.bot.db.execute("DELETE FROM todos WHERE user_id = $1 AND task = $2", ctx.author.id, task)
-            await ctx.send(F"{task} has been now removed from your list")
+            await self.bot.db.execute("DELETE FROM todos WHERE user_id = $1 AND task = $2", ctx.author.id, text)
+            await ctx.send(F"{text} has been now removed from your list")
 
 def setup(bot):
     bot.add_cog(Todo(bot))
