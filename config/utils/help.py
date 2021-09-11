@@ -53,7 +53,7 @@ class HelpView(discord.ui.View):
             if isinstance(item, discord.ui.Select):
                 item.placeholder = "Command disabled due to timeout."
             item.disabled = True
-        await self.message.edit(view=self)
+        # await self.message.edit(view=self)
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
