@@ -2,8 +2,7 @@ import discord, contextlib
 from discord.ext import commands
 
 class HelpMenu(discord.ui.Select):
-    def __init__(self, view, help, mapping, homepage, emojis):
-        self.view = view
+    def __init__(self, help, mapping, homepage, emojis):
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
@@ -34,19 +33,18 @@ class HelpMenu(discord.ui.Select):
                     mbed.description += F"**{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
-                await self.view.message.edit(embed=mbed)
+                await interaction.response.edit_message(embed=mbed)
         if self.values[0] == "Home":
-            await self.view.message.edit(embed=self.homepage)
+            await interaction.response.edit_message(embed=self.homepage)
 
 class HelpView(discord.ui.View):
     def __init__(self, help, mapping, homepage, emojis):
         super().__init__(timeout=20)
-        self.view = self
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
         self.emojis = emojis
-        self.add_item(HelpMenu(self.view, self.help, self.mapping, self.homepage, self.emojis))
+        self.add_item(HelpMenu(self.help, self.mapping, self.homepage, self.emojis))
         self.add_item(discord.ui.Button(label="🧇Add Me", style=discord.ButtonStyle.green, url=discord.utils.oauth_url(client_id=help.context.me.id, scopes=("bot", "applications.commands"), permissions=discord.Permissions(administrator=True)),))
         self.add_item(discord.ui.Button(label="🍩Support Server", style=discord.ButtonStyle.green, url="https://discord.gg/bWnjkjyFRz"))
 
@@ -74,7 +72,6 @@ class HelpView(discord.ui.View):
     @discord.ui.button(label="❌Delete", style=discord.ButtonStyle.red)
     async def delete(self, button: discord.ui.Button, interaction: discord.Interaction):
         await interaction.message.delete()
-        return
 
 class MyHelp(commands.HelpCommand):
     def __init__(self):
