@@ -14,6 +14,7 @@ class Todo(commands.Cog, description="Lazy people use these"):
             await ctx.send("You don't have a todo list\nTry to make one with `todo add` command")
         else:
             todombed = discord.Embed(
+                colour=self.bot.color,
                 title="Here is your todo list",
             )
             todombed.description = "\n".join(f"{i+1} {task['task']}" for i, task in enumerate(tasks))
@@ -32,10 +33,10 @@ class Todo(commands.Cog, description="Lazy people use these"):
         await ctx.trigger_typing()
         task = await self.bot.db.fetch(F"SELECT task FROM todos WHERE user_id = $1 AND task = $2", ctx.author.id, text)
         if len(task) == 0:
-            await ctx.send(F"You don't have {text} in your list")
+            await ctx.send(F"You don't have `{text}` in your list")
         else:
             await self.bot.db.execute("DELETE FROM todos WHERE user_id = $1 AND task = $2", ctx.author.id, text)
-            await ctx.send(F"{text} has been now removed from your list")
+            await ctx.send(F"`{text}` has been now removed from your list")
 
 def setup(bot):
     bot.add_cog(Todo(bot))
