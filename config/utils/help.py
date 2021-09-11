@@ -41,11 +41,12 @@ class HelpMenu(discord.ui.Select):
 class HelpView(discord.ui.View):
     def __init__(self, help, mapping, homepage, emojis):
         super().__init__(timeout=20)
+        self.view = self
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
         self.emojis = emojis
-        self.add_item(HelpMenu(self, self.help, self.mapping, self.homepage, self.emojis))
+        self.add_item(HelpMenu(self.view, self.help, self.mapping, self.homepage, self.emojis))
         self.add_item(discord.ui.Button(label="🧇Add Me", style=discord.ButtonStyle.green, url=discord.utils.oauth_url(client_id=help.context.me.id, scopes=("bot", "applications.commands"), permissions=discord.Permissions(administrator=True)),))
         self.add_item(discord.ui.Button(label="🍩Support Server", style=discord.ButtonStyle.green, url="https://discord.gg/bWnjkjyFRz"))
 
