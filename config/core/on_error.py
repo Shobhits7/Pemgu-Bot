@@ -22,15 +22,14 @@ class OnError(commands.Cog):
             matches = difflib.get_close_matches(cmd, cmds)
             matcnfmbed = discord.Embed(
                 colour=self.bot.color,
-                title=F"There is no `{cmd}` command",
-                description=F"Maybe you meant:\n\n",
+                title=F"Couldn't find {cmd} command.",
+                description=F"Maybe you meant:\n{matches}",
                 timestamp=ctx.message.created_at
             )
-            matcnfmbed.description += (" - ".join(match for match in matches))
             matcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             nmatcnfmbed = discord.Embed(
                 colour=self.bot.color,
-                title=F"There is no `{cmd}` command",
+                title=F"Couldn't find {cmd} command",
                 description="Use `.w help` command to know what command are there",
                 timestamp=ctx.message.created_at
             )
@@ -42,7 +41,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.MissingPermissions):
             mpmbed = discord.Embed(
                 colour=self.bot.color,
-                title=F"You don't have permission for {ctx.command}",
+                title=F"You don't have permission for {ctx.invoked_with}",
                 timestamp=ctx.message.created_at
             )
             mpmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
@@ -50,7 +49,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.BotMissingPermissions):
             bmpmbed = discord.Embed(
                 colour=self.bot.color,
-                title=F"Bot does not have permission for {ctx.command}",
+                title=F"Bot does not have permission for {ctx.invoked_with}",
                 timestamp=ctx.message.created_at
             )
             bmpmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
@@ -85,7 +84,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.CommandOnCooldown):
             cocmbed = discord.Embed(
                 colour=self.bot.color,
-                title=F"Command {ctx.command} on Cooldown",
+                title=F"Command {ctx.invoked_with} on Cooldown",
                 timestamp=ctx.message.created_at
             )
             cocmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
@@ -93,14 +92,14 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.NSFWChannelRequired):
             nsfwcr = discord.Embed(
                 colour=self.bot.color,
-                title=F"`{ctx.command}` is only possible in nsfw channels"
+                title=F"`{ctx.invoked_with}` is only possible in nsfw channels"
             )
             nsfwcr.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=nsfwcr)
         elif isinstance(error, commands.PrivateMessageOnly):
             pmombed = discord.Embed(
                 colour=self.bot.color,
-                title=F"{ctx.command} can only be used in DMs",
+                title=F"{ctx.invoked_with} can only be used in DMs",
                 timestamp=ctx.message.created_at
             )
             pmombed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
@@ -108,7 +107,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.NoPrivateMessage):
             npmmbed = discord.Embed(
                 colour=self.bot.color,
-                title=F"Can't use {ctx.command} in DMs",
+                title=F"Can't use {ctx.invoked_with} in DMs",
                 timestamp=ctx.message.created_at
             )
             npmmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
