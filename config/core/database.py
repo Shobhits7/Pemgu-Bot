@@ -7,7 +7,7 @@ class Database(commands.Cog, description="Monotoring database with these"):
     
     @commands.command(name="delete_prefix", help="Will delete a row from db")
     @commands.is_owner()
-    async def delete_prefix(self, ctx, *, guild):
+    async def delete_prefix(self, ctx, *, guild:int):
         await ctx.trigger_typing()
         dltmbed = discord.Embed(
             colour=self.bot.color,
