@@ -1,11 +1,10 @@
-git+https://github.com/lvlahraam/aiohoripy@main
-git+https://github.com/Gnome-py/enhanced-discord.py@2.0
 aiohttp
 async-timeout
 asyncpg
 attrs
 cffi
 chardet
+git+https://github.com/Gnome-py/enhanced-discord.py@2.0
 idna
 jishaku
 multidict
