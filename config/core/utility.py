@@ -51,7 +51,7 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         await ctx.send(embed=brmbed)
 
     # Info
-    @commands.command(name="info", aliases=["io"], help="Will show member info", usage="[user]", hidden=True)
+    @commands.command(name="info", aliases=["io"], help="Will show member info", usage="[user]")
     @commands.guild_only()
     async def info(self, ctx, *, member:commands.MemberConverter = None):
         await ctx.trigger_typing()

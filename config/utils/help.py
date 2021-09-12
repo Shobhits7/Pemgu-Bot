@@ -133,7 +133,7 @@ class MyHelp(commands.HelpCommand):
             description=F"{description}\n\n",
             timestamp=ctx.message.created_at
         )
-        if filtered_commands := await self.filter_commands(sorted(cog.get_commands())):
+        if filtered_commands := await self.filter_commands(cog.get_commands()):
             for command in filtered_commands:
                 hcogmbed.description += F"**{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
         hcogmbed.set_thumbnail(url=ctx.me.avatar.url)
@@ -176,7 +176,7 @@ class MyHelp(commands.HelpCommand):
         )
         hgroupmbed.set_thumbnail(url=ctx.me.avatar.url)
         hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
-        for command in group.commands:
+        for command in sorted(group.commands):
             hgroupmbed.description += F"**{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
         if cog := command.cog:
             hgroupmbed.add_field(name="Category", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name}")
