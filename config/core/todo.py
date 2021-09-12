@@ -6,7 +6,7 @@ class Todo(commands.Cog, description="Lazy people use these"):
         self.bot = bot
 
     # Todo
-    @commands.group(name="todo", help="Please use subcommand with this", invoke_without_command=True, hidden=True)
+    @commands.group(name="todo", help="Please use subcommand with this", invoke_without_command=True)
     async def todo(self, ctx):
         await ctx.trigger_typing()
         await ctx.send_help("Todo")
