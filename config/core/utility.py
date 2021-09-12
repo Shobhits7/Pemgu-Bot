@@ -84,11 +84,16 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
         )
         sambed.add_field(name="Members", value=F"{len(ctx.guild.members)} members are in this guild")
         sambed.add_field(name="Channels", value=F"{len(ctx.guild.channels)} channels are in this guild")
-        sambed.set_thumbnail(url=ctx.guild.icon.url)
+        if ctx.guild.icon and ctx.guild.icon.url:
+            sambed.add_field(name="Icon:", value=F"True")
+            sambed.set_thumbnail(url=ctx.guild.icon.url)
+        else:
+            sambed.add_field(name="Icon:", value=F"False")
         if ctx.guild.banner and ctx.guild.banner.url:
+            sambed.add_field(name="Banner:", value=F"True")
             sambed.set_image(url=ctx.guild.banner.url)
         else:
-            sambed.description = "*This guild doesn't have any banner*"
+            sambed.add_field(name="Banner:", value=F"False")
         sambed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=sambed)
 
