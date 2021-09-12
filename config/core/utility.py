@@ -9,7 +9,6 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     @commands.command(name="about", aliases=["ab"], help="Will show the bot's information")
     async def about(self, ctx):
         await ctx.trigger_typing()
-        .w jsk py ```py
         guild = bot.get_guild(804380398296498256)
         abmbed = discord.Embed(
             colour=self.bot.color,
