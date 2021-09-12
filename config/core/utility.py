@@ -9,10 +9,12 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
     @commands.command(name="about", aliases=["ab"], help="Will show the bot's information")
     async def about(self, ctx):
         await ctx.trigger_typing()
+        .w jsk py ```py
+        guild = bot.get_guild(804380398296498256)
         abmbed = discord.Embed(
             colour=self.bot.color,
             title="About Bot",
-            description=F"[Click here for Adding Bot](https://dsc.gg/bot-brevity)\n[Click here for Joining Support](https://dsc.gg/support-brevity)",
+            description=F"[Click here for Adding Bot]({discord.utils.oauth_url(client_id=help.context.me.id, scopes=("bot", "applications.commands"), permissions=discord.Permissions(administrator=True))})\n[Click here for Joining Support]({str(await guild.text_channels[0].create_invite())})",
             timestamp=ctx.message.created_at
         )
         abmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
