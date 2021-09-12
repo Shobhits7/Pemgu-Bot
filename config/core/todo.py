@@ -6,8 +6,14 @@ class Todo(commands.Cog, description="Lazy people use these"):
         self.bot = bot
 
     # Todo
-    @commands.group(name="todo", help="Will show your todo list", invoke_without_command=True)
+    @commands.group(name="todo", help="Please use subcommand with this", invoke_without_command=True, hidden=True)
     async def todo(self, ctx):
+        await ctx.trigger_typing()
+        await ctx.send_help(entity="Todo")
+
+    # List
+    @todo.command(name="list", help="Will show your list")
+    async def list(self, ctx):
         await ctx.trigger_typing()
         tasks = await self.bot.db.fetch("SELECT task FROM todos WHERE user_id = $1", ctx.author.id)
         if len(tasks) == 0:
