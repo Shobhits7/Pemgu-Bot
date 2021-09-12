@@ -9,7 +9,7 @@ class Todo(commands.Cog, description="Lazy people use these"):
     @commands.group(name="todo", help="Please use subcommand with this", invoke_without_command=True, hidden=True)
     async def todo(self, ctx):
         await ctx.trigger_typing()
-        await ctx.send_help(entity="Todo")
+        await ctx.send_help("Todo")
 
     # List
     @todo.command(name="list", help="Will show your list")
