@@ -133,7 +133,7 @@ class MyHelp(commands.HelpCommand):
             description=F"{description}\n\n",
             timestamp=ctx.message.created_at
         )
-        if filtered_commands := await self.filter_commands(cog.get_commands()):
+        if filtered_commands := await self.filter_commands(sorted(cog.get_commands())):
             for command in filtered_commands:
                 hcogmbed.description += F"**{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
         hcogmbed.set_thumbnail(url=ctx.me.avatar.url)
