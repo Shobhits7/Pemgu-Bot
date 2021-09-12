@@ -82,8 +82,8 @@ class Utility(commands.Cog, description="Useful commands are open to everyone"):
             title="Stats for this server",
             timestamp=ctx.message.created_at
         )
-        sambed.add_field(name="Members", value=F"{len(ctx.guild.members)} members are in this guild")
-        sambed.add_field(name="Channels", value=F"{len(ctx.guild.channels)} channels are in this guild")
+        sambed.add_field(name="Members", value=F"{len(ctx.guild.members)}")
+        sambed.add_field(name="Channels", value=F"{len(ctx.guild.channels)}")
         if ctx.guild.icon and ctx.guild.icon.url:
             sambed.add_field(name="Icon:", value=F"True")
             sambed.set_thumbnail(url=ctx.guild.icon.url)
