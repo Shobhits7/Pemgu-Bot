@@ -13,7 +13,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         session = await session_json("https://animechan.vercel.app/api/random/", headers=None)
         quotembed = discord.Embed(
             colour=self.bot.color,
-            title="Here is your quoute",
+            title="Here is your quote",
             timestamp=ctx.message.created_at
         )
         quotembed.add_field(name="Quote:", value=session["quote"])
