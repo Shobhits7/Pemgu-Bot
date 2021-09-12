@@ -176,7 +176,7 @@ class MyHelp(commands.HelpCommand):
         )
         hgroupmbed.set_thumbnail(url=ctx.me.avatar.url)
         hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
-        for command in sorted(group.commands):
+        for command in group.commands:
             hgroupmbed.description += F"**{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
         if cog := command.cog:
             hgroupmbed.add_field(name="Category", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name}")
