@@ -31,6 +31,7 @@ class HelpMenu(discord.ui.Select):
                 )
                 for command in commands:
                     mbed.description += F"**{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
+                mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
         if self.values[0] == "Home":
@@ -66,6 +67,7 @@ class HelpView(discord.ui.View):
             description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
             timestamp=self.help.context.message.created_at
         )
+        icheckmbed.set_thumbnail(url=self.help.context.me.avatar.url)
         icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
         await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
         return False
@@ -107,6 +109,7 @@ class MyHelp(commands.HelpCommand):
             description=F"This is a list of all modules in the bot.\nSelect a module for more information.",
             timestamp=ctx.message.created_at
         )
+        homepage.set_thumbnail(url=ctx.me.avatar.url)
         homepage.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         usable = 0
         for cog, commands in mapping.items():
@@ -133,6 +136,7 @@ class MyHelp(commands.HelpCommand):
         if filtered_commands := await self.filter_commands(cog.get_commands()):
             for command in filtered_commands:
                 hcogmbed.description += F"**{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
+        hcogmbed.set_thumbnail(url=ctx.me.avatar.url)
         hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=hcogmbed)
         return
@@ -146,6 +150,7 @@ class MyHelp(commands.HelpCommand):
             description=command.help or "No help found...",
             timestamp=ctx.message.created_at
         )
+        hcmdmbed.set_thumbnail(url=ctx.me.avatar.url)
         hcmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         if cog := command.cog:
             hcmdmbed.add_field(name="Category:", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name}")
@@ -169,6 +174,7 @@ class MyHelp(commands.HelpCommand):
             description=F"{group.help or 'No help found...'}\n\n",
             timestamp=ctx.message.created_at
         )
+        hgroupmbed.set_thumbnail(url=ctx.me.avatar.url)
         hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         for command in group.commands:
             hgroupmbed.description += F"**{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
@@ -192,6 +198,7 @@ class MyHelp(commands.HelpCommand):
             description=F"{command} - {string}",
             timestamp=ctx.message.created_at
         )
+        hscmdmbed.set_thumbnail(url=ctx.me.avatar.url)
         hscmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=hscmdmbed)
         return
@@ -207,6 +214,7 @@ class MyHelp(commands.HelpCommand):
             description=error,
             timestamp=ctx.message.created_at
         )
+        herrormbed.set_thumbnail(url=ctx.me.avatar.url)
         herrormbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=herrormbed)
         return
