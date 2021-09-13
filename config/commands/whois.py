@@ -1,21 +1,13 @@
 import discord
 from discord.ext import commands
 
-class WhoIsView(discord.ui.View):
-    def __init__(self, query):
-        super().__init__()
-
-        url = f'https://www.discord.com/users/{query}'
-
-        self.add_item(discord.ui.Button(label='Click Here for Profile', url=url))
-
-class WhoIs(commands.Cog):
+class whoistest(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
     @commands.command()
     @commands.command()
-    async def whois(self, ctx, member : discord.Member=None):
+    async def whoistest(self, ctx, member : discord.Member=None):
         '''
         Shows Breif Detailed Whois of Member
         '''
@@ -130,7 +122,7 @@ Banner: {banner}
         if fetchedMember.banner:
             embed.set_image(url=fetchedMember.banner.url)
         query = member.id
-        await ctx.reply(embed=embed,mention_author=False,view=WhoIsView(query))
+        await ctx.replsend(embed=embed)
 
 def setup(bot):
-    bot.add_cog(WhoIs(bot))
+    bot.add_cog(whoistest(bot))
