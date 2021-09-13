@@ -1,11 +1,10 @@
 import discord
 from discord.ext import commands
 
-class whoistest(commands.Cog):
+class WhoIs(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @commands.command()
     @commands.command()
     async def whoistest(self, ctx, member : discord.Member=None):
         '''
@@ -122,7 +121,7 @@ Banner: {banner}
         if fetchedMember.banner:
             embed.set_image(url=fetchedMember.banner.url)
         query = member.id
-        await ctx.replsend(embed=embed)
+        await ctx.reply(embed=embed)
 
 def setup(bot):
-    bot.add_cog(whoistest(bot))
+    bot.add_cog(WhoIs(bot))
