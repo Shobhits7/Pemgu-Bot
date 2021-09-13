@@ -31,7 +31,7 @@ class MyHelp(commands.HelpCommand):
             colour=ctx.bot.color,
             title=F"{ctx.me.display_name} Help",
             description=F"This is a list of all modules in the bot.\nSelect a module for more information.",
-            timestamp=discord.utils.format_dt(ctx.message.created_at, style="R")
+            timestamp=ctx.message.created_at
         )
         homepage.set_thumbnail(url=ctx.me.avatar.url)
         homepage.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
@@ -55,7 +55,7 @@ class MyHelp(commands.HelpCommand):
             colour=ctx.bot.color,
             title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(cog.get_commands())}]",
             description=F"{description}\n\n",
-            timestamp=discord.utils.format_dt(ctx.message.created_at, style="R")
+            timestamp=ctx.message.created_at
         )
         if filtered_commands := await self.filter_commands(cog.get_commands()):
             for command in filtered_commands:
@@ -72,7 +72,7 @@ class MyHelp(commands.HelpCommand):
             colour=ctx.bot.color,
             title=F"**{self.get_command_signature(command)}**",
             description=command.help or "No help found...",
-            timestamp=discord.utils.format_dt(ctx.message.created_at, style="R")
+            timestamp=ctx.message.created_at
         )
         hcmdmbed.set_thumbnail(url=ctx.me.avatar.url)
         hcmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
@@ -96,7 +96,7 @@ class MyHelp(commands.HelpCommand):
             colour=ctx.bot.color,
             title=F"**{self.get_command_signature(group)}**",
             description=F"{group.help or 'No help found...'}\n\n",
-            timestamp=discord.utils.format_dt(ctx.message.created_at, style="R")
+            timestamp=ctx.message.created_at
         )
         hgroupmbed.set_thumbnail(url=ctx.me.avatar.url)
         hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
@@ -120,7 +120,7 @@ class MyHelp(commands.HelpCommand):
             colour=ctx.bot.color,
             title="Sub Command Not Found",
             description=F"{command} - {string}",
-            timestamp=discord.utils.format_dt(ctx.message.created_at, style="R")
+            timestamp=ctx.message.created_at
         )
         hscmdmbed.set_thumbnail(url=ctx.me.avatar.url)
         hscmdmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
@@ -136,7 +136,7 @@ class MyHelp(commands.HelpCommand):
             colour=ctx.bot.color,
             title="Help Error",
             description=error,
-            timestamp=discord.utils.format_dt(ctx.message.created_at, style="R")
+            timestamp=ctx.message.created_at
         )
         herrormbed.set_thumbnail(url=ctx.me.avatar.url)
         herrormbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
