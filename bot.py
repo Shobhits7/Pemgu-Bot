@@ -33,9 +33,11 @@ async def blacklisted(ctx):
         return False
     return True
 
-for file in sorted(os.listdir("./config/core/")):
-    if file.endswith(".py"):
-        bot.load_extension(F"config.core.{file[:-3]}")
+for folder in os.listdir("./config/"):
+    if folder == "commands" or folder == "events":
+        for file in folder:
+            if file.endswith(".py"):
+                bot.load_extension(F"config.{folder}.{file[:-3]}")
 
 bot.load_extension("jishaku")
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
