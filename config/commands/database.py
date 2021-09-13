@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class Database(commands.Cog, description="Monitor database with these"):
+class Database(commands.Cog, description="Managing database with these"):
     def __init__(self, bot):
         self.bot = bot
     
