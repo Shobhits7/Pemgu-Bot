@@ -10,7 +10,7 @@ class MyHelp(commands.HelpCommand):
             "Database": "📝",
             "Game": "🎮",
             "Moderation": "🎩",
-            "Owner": "👑",
+            "Owner": "<:kazumanice:812417200719396934>",
             "Setup": "🔮",
             "Utility": "🧰",
             "Waifu": "🍘",
