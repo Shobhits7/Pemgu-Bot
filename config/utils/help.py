@@ -5,17 +5,17 @@ from config.views.help_dropdown import HelpView
 class MyHelp(commands.HelpCommand):
     def __init__(self):
         self.emojis = {
-            "Anime": "<:senkohi:812289667050635264>",
-            "API": "<:megugremlin:812290412281724949>",
-            "Database": "<:jackpeek:812302631174144010>",
-            "Game": "<a:meguexplosion:812291794649219152>",
-            "Moderation": "<:senkogun:812289756288253972>",
-            "Owner": "<:kazumanice:812417200719396934>",
-            "Setup": "<:remnoice:812293214790615062>",
-            "Utility": "<:ramnoice:812418324855259178>",
-            "Waifu": "<:megulove:812290226819039232>",
-            "Jishaku": "<:meguayaya:812291298576826479>",
-            "No": "<a:emiliapanick:812309537041154048>"
+            "Anime": "🍙",
+            "API": "🌎",
+            "Database": "📝",
+            "Game": "🎮",
+            "Moderation": "🎩",
+            "Owner": "👑",
+            "Setup": "🔮",
+            "Utility": "🧰",
+            "Waifu": "🍘",
+            "Jishaku": "👀",
+            "No": "❓"
         }
         super().__init__(
             command_attrs={
@@ -59,7 +59,7 @@ class MyHelp(commands.HelpCommand):
         )
         if filtered_commands := await self.filter_commands(cog.get_commands()):
             for command in filtered_commands:
-                hcogmbed.description += F"<:paimonkill:812299113223422012> **{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
+                hcogmbed.description += F"**{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
         hcogmbed.set_thumbnail(url=ctx.me.avatar.url)
         hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=hcogmbed)
@@ -101,7 +101,7 @@ class MyHelp(commands.HelpCommand):
         hgroupmbed.set_thumbnail(url=ctx.me.avatar.url)
         hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         for command in group.commands:
-            hgroupmbed.description += F"<:paimonkill:812299113223422012> **{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
+            hgroupmbed.description += F"**{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
         if cog := command.cog:
             hgroupmbed.add_field(name="Category", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name}")
             with contextlib.suppress(commands.CommandError):
