@@ -42,8 +42,8 @@ class MyHelp(commands.HelpCommand):
         for cog, commands in mapping.items():
             if filtered_commands := await self.filter_commands(commands, sort=True):
                 usable += len(filtered_commands)
-        homepage.add_field(name="Prefix:", value=ctx.clean_prefix or "In DM you don't need to use prefix")
-        homepage.add_field(name="Usable:", value=usable)
+        homepage.add_field(name="Prefix:", value=ctx.clean_prefix or "In DM you don't need to use prefix", inline=False)
+        homepage.add_field(name="Usable:", value=usable, inline=False)
         homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THESE WHEN DOING A COMMAND***", inline=False)
         view = HelpView(self, mapping, homepage, self.emojis)
         view.message = await ctx.send(embed=homepage, view=view)

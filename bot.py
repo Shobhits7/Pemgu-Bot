@@ -35,7 +35,7 @@ async def blacklisted(ctx):
 
 for folder in os.listdir("./config/"):
     if folder == "commands" or folder == "events":
-        for file in os.listdir(F"./config/{folder}/"):
+        for file in sorted(os.listdir(F"./config/{folder}/")):
             if file.endswith(".py"):
                 bot.load_extension(F"config.{folder}.{file[:-3]}")
 
