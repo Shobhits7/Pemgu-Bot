@@ -27,7 +27,7 @@ class HelpMenu(discord.ui.Select):
                     colour=self.help.context.bot.color,
                     title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
                     description=F"{description}\n\n",
-                    timestamp=self.help.context.message.created_at
+                    timestamp=discord.utils.format_dt(self.help.context.message.created_at, style="R")
                 )
                 for command in commands:
                     mbed.description += F"**{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
@@ -65,7 +65,7 @@ class HelpView(discord.ui.View):
             colour=self.help.context.bot.color,
             title="You can't use this",
             description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
-            timestamp=self.help.context.message.created_at
+            timestamp=discord.utils.format_dt(self.help.context.message.created_at, style="R")
         )
         icheckmbed.set_thumbnail(url=self.help.context.me.avatar.url)
         icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)

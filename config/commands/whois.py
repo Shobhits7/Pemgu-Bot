@@ -6,6 +6,7 @@ class WhoIs(commands.Cog):
         self.bot = bot
     
     @commands.command()
+    @commands.is_owner()
     async def whoistest(self, ctx, member : discord.Member=None):
         '''
         Shows Breif Detailed Whois of Member
