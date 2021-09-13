@@ -30,7 +30,7 @@ class HelpMenu(discord.ui.Select):
                     timestamp=self.help.context.message.created_at
                 )
                 for command in commands:
-                    mbed.description += F"<:ramnoice:812418324855259178> **{self.help.get_command_signature(command)}** - {command.help or 'No help found...'} <:remnoice:812293214790615062>\n"
+                    mbed.description += F"<:paimonkill:812299113223422012> **{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
