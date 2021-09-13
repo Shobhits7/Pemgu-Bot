@@ -84,6 +84,7 @@ class MyHelp(commands.HelpCommand):
             "Database": "📝",
             "Economy": "💰",
             "Fun": "🤣",
+            "Game": "🎮",
             "Moderation": "🎩",
             "Owner": "👑",
             "Setup": "🔮",
