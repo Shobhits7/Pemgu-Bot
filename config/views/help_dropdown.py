@@ -8,7 +8,7 @@ class HelpMenu(discord.ui.Select):
         self.homepage = homepage
         self.emojis = emojis
         options = [
-            discord.SelectOption(label="Home", description="The homepage of this menu", value="Home", emoji="🏠")
+            discord.SelectOption(label="Home", description="The homepage of this menu", value="Home", emoji="<:senkoez:812289811376766987>")
         ]
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"

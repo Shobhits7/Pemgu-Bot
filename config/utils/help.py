@@ -5,17 +5,17 @@ from config.views.help_dropdown import HelpView
 class MyHelp(commands.HelpCommand):
     def __init__(self):
         self.emojis = {
-            "Anime": "🍙",
-            "API": "🌎",
-            "Database": "📝",
-            "Game": "🎮",
-            "Moderation": "🎩",
+            "Anime": "<:senkohi:812289667050635264>",
+            "API": "<:megugremlin:812290412281724949>",
+            "Database": "<:jackpeek:812302631174144010>",
+            "Game": "<a:meguexplosion:812291794649219152>",
+            "Moderation": "<:senkogun:812289756288253972>",
             "Owner": "<:kazumanice:812417200719396934>",
-            "Setup": "🔮",
-            "Utility": "🧰",
-            "Waifu": "🍘",
-            "Jishaku": "👀",
-            "No": "❓"
+            "Setup": "<:remnoice:812293214790615062>",
+            "Utility": "<:ramnoice:812418324855259178>",
+            "Waifu": "<:megulove:812290226819039232>",
+            "Jishaku": "<:meguayaya:812291298576826479>",
+            "No": "<a:emiliapanick:812309537041154048>"
         }
         super().__init__(
             command_attrs={
