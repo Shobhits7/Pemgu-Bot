@@ -13,7 +13,7 @@ class WhoIs(commands.Cog):
         if member == None:
             member = ctx.author
 
-        fetchedMember = await self.client.fetch_user(member.id)
+        fetchedMember = await self.bot.fetch_user(member.id)
 
         if member.bot == True:
             botText = "<:toggle_on:876407676513443871>"
@@ -50,7 +50,7 @@ class WhoIs(commands.Cog):
             text1 = f"[PNG]({member.avatar.replace(format='png', size=2048).url}) | [JPG]({member.avatar.replace(format='jpg', size=2048).url}) | [JPEG]({member.avatar.replace(format='jpeg', size=2048).url}) | [WEBP]({member.avatar.replace(format='webp', size=2048).url})"
             avatar = text1.replace("cdn.discordapp.com", "media.discordapp.net")
 
-        fetchedMember = await self.client.fetch_user(member.id)
+        fetchedMember = await self.bot.fetch_user(member.id)
 
         if fetchedMember.banner:
             if fetchedMember.banner.is_animated() == True:
@@ -105,7 +105,7 @@ class WhoIs(commands.Cog):
 <a:boosting:886308446968881222> Boosting: {premiumText}
 <:idle:886311520374497320> Current status: {str(member.status).title()}
 :video_game: Current activity: {str(member.activity.type).split('.')[-1].title() if member.activity else 'Not playing'} {member.activity.name if member.activity else ''}
-<a:discord:886308080260894751> Client: {desktopStatus} **|** {webStatus} **|** {mobileStatus}
+<a:discord:886308080260894751> bot: {desktopStatus} **|** {webStatus} **|** {mobileStatus}
 <:greactionrole:876407797569433600> Top Role: {member.top_role.mention}
 <:greactionrole:876407797569433600> Roles: {roles}
 :rainbow: Top Role Color: {member.color}
