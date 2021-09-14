@@ -31,7 +31,7 @@ class CounterView(discord.ui.View):
             colour=self.client.color,
             title=F"Score: **{self.clicks}** between Pluses and Minuses",
         )
-        if len(self.clickers) != 0 and self.clicks != 0:
+        if len(self.clickers) != 0 or self.clicks != 0:
             ontimeoutmbed.description = "People who clicked:\n"
             for clicker in self.clickers:
                 ontimeoutmbed.description += F"{clicker}"
