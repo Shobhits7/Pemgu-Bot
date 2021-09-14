@@ -13,7 +13,7 @@ class HelpButtons(discord.ui.Button):
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
-            if self.label == name:
+            if self.custom_id == name:
                 callbackmbed = discord.Embed(
                     colour=self.help.context.bot.color,
                     title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
@@ -25,9 +25,9 @@ class HelpButtons(discord.ui.Button):
                 callbackmbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 callbackmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=callbackmbed)
-        if self.label == "Home":
+        if self.custom_id == "Home":
             await interaction.response.edit_message(embed=self.homepage)
-        if self.label == "Delete":
+        if self.custom_id == "Delete":
             deletembed = discord.Embed(
                 colour=self.help.context.bot.color,
                 title="Deleted the message",
@@ -46,15 +46,15 @@ class HelpView(discord.ui.View):
         self.mapping = mapping
         self.homepage = homepage
         self.emojis = emojis
-        self.add_item(item=HelpButtons(emoji="🏠", label="Home", style=discord.ButtonStyle.green, view=self))
+        self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
+        self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
+        self.add_item(item=HelpButtons(emoji="🏠", label="Home", style=discord.ButtonStyle.green, custom_id="Home", view=self))
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
-                self.add_item(item=HelpButtons(emoji=self.emojis.get(name) if self.emojis.get(name) else '❓' , label=name, style=discord.ButtonStyle.blurple, view=self))
-        self.add_item(item=HelpButtons(emoji="💣",label="Delete", style=discord.ButtonStyle.red, view=self))
-        self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
-        self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
+                self.add_item(item=HelpButtons(emoji=self.emojis.get(name) if self.emojis.get(name) else '❓' , label=F"{name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
+        self.add_item(item=HelpButtons(emoji="💣",label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))
 
     async def on_timeout(self):
         try:
