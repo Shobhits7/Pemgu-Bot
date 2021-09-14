@@ -2,12 +2,12 @@ import discord
 from discord.ext import commands
 
 class HelpButtons(discord.ui.Button):
-    def __init__(self, **kwargs):
+    def __init__(self, view, **kwargs):
         super().__init__(**kwargs)
-        self.help = self.view.help
-        self.mapping = self.view.mapping
-        self.homepage = self.view.homepage
-        self.emojis = self.view.emojis
+        self.help = view.help
+        self.mapping = view.mapping
+        self.homepage = view.homepage
+        self.emojis = view.emojis
 
     async def callback(self, interaction: discord.Interaction):
         print("Something was pressed")
@@ -37,12 +37,12 @@ class HelpView(discord.ui.View):
         self.mapping = mapping
         self.homepage = homepage
         self.emojis = emojis
-        self.add_item(item=HelpButtons(label="🏠Home", style=discord.ButtonStyle.green, custom_id="Home"))
+        self.add_item(item=HelpButtons(label="🏠Home", style=discord.ButtonStyle.green, custom_id="Home", view=self))
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
-                self.add_item(item=HelpButtons(label=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name))
+                self.add_item(item=HelpButtons(label=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
 
     async def on_timeout(self):
         try:
