@@ -24,7 +24,7 @@ class HelpButtons(discord.ui.Button):
                     callbackmbed.description += F"<:paimonkill:812299113223422012> **{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
                 callbackmbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 callbackmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
-                await interaction.response.send_message(embed=callbackmbed, ephemeral=True)
+                await interaction.response.edit_message(embed=callbackmbed)
         if self.label == "Home":
             await interaction.response.edit_message(embed=self.homepage)
         if self.label == "Delete":
@@ -46,13 +46,13 @@ class HelpView(discord.ui.View):
         self.mapping = mapping
         self.homepage = homepage
         self.emojis = emojis
-        self.add_item(item=HelpButtons(emoji="💣",label="Delete", style=discord.ButtonStyle.red, view=self))
         self.add_item(item=HelpButtons(emoji="🏠", label="Home", style=discord.ButtonStyle.green, view=self))
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
                 self.add_item(item=HelpButtons(emoji=self.emojis.get(name) if self.emojis.get(name) else '❓' , label=name, style=discord.ButtonStyle.blurple, view=self))
+        self.add_item(item=HelpButtons(emoji="💣",label="Delete", style=discord.ButtonStyle.red, view=self))
         self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
 
