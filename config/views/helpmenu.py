@@ -45,8 +45,8 @@ class HelpView(discord.ui.View):
         self.homepage = homepage
         self.emojis = emojis
         self.add_item(HelpMenu(self.help, self.mapping, self.homepage, self.emojis))
-        self.add_item(discord.ui.Button(label="🧇Add Me", style=discord.ButtonStyle.green, url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
-        self.add_item(discord.ui.Button(label="🍩Support Server", style=discord.ButtonStyle.green, url="https://discord.gg/bWnjkjyFRz"))
+        self.add_item(discord.ui.Button(label="🧇Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
+        self.add_item(discord.ui.Button(label="🍩Support Server", url="https://discord.gg/bWnjkjyFRz"))
 
     async def on_timeout(self):
         try:
