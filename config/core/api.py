@@ -101,5 +101,21 @@ class API(commands.Cog, description="Some cool API commands"):
         ssmbed.set_image(url="attachment://screenshot.png")
         await ctx.send(file=discord.File(session, filename="screenshot.png"), embed=ssmbed)
 
+    # Pypi
+    @commands.command(name="pypi", help="Will give information about the given lib in pypi")
+    async def pypi(self, ctx, *, lib):
+        await ctx.trigger_typing()
+        session = await session_json(F"https://pypi.org/pypi/{lib}/json")
+        pypimbed = discord.Embed(
+            colour=self.bot.color,
+            url=session['info']['package_url'],
+            title=session['info']['name'],
+            descrition=session['info']['description']
+        )
+        pypimbed.add_field(name="Author Info:", value=F"Name: {session['info']['author']}\nEmail:{session['info']['author_email']}")
+        pypimbed.add_field(name="Package Info:", value=F"Download URL: {session['info']['download_url']}\nDocumentation URL: {session['info']['docs_url']}\nHome Page: {session['info']['home_page']}\nKeywords: {session['info']['keywords']}\nLicense: {session['info']['license']}")
+        pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=pypimbed)
+
 def setup(bot):
     bot.add_cog(API(bot))
