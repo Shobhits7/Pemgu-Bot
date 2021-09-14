@@ -2,12 +2,13 @@ import discord
 from discord.ext import commands
 
 class HelpButtons(discord.ui.Button):
-    def __init__(self, help, mapping, homepage, emojis):
-        self.help = help
-        self.mapping = mapping
-        self.homepage = homepage
-        self.emojis = emojis
-    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.help = self.view.help
+        self.mapping = self.view.mapping
+        self.homepage = self.view.homepage
+        self.emojis = self.view.emojis
+
     async def callback(self, interaction: discord.Interaction):
         print("Something was pressed")
         for cog, commands in self.mapping.items():
