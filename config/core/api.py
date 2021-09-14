@@ -121,7 +121,7 @@ class API(commands.Cog, description="Some cool API commands"):
 **Yanked:** {session['info']['yanked']} - {session['info']['yanked_reason']}
 **Keywords:** {session['info']['keywords']}
 **License:** {session['info']['license']}
-**Classifiers:** {', '.join(classifier for classifier in session['info']['classifiers'])}""", inline=False)
+**Classifiers:** {'     \n'.join(classifier for classifier in session['info']['classifiers'])}""", inline=False)
         pypimbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/873478114183880704/887470965188091944/pypilogo.png")
         pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=pypimbed)
