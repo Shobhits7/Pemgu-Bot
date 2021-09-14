@@ -7,15 +7,6 @@ class CounterView(discord.ui.View):
         self.clicks = 0
         self.client = client
 
-    async def on_timeout(self):
-        for item in self.children:
-            item.disabled = True
-        ontimeoutmbed = discord.Embed(
-            colour=self.client.color,
-            title=F"Button was clicked {self.clicks} times"
-        )
-        await self.message.edit(embed=ontimeoutmbed, view=self)
-
     @discord.ui.button(label="➕1", style=discord.ButtonStyle.blurple)
     async def Plus1(self, button: discord.ui.Button, interaction: discord.Interaction):
         print("Plus 1 was pressed")
@@ -25,3 +16,12 @@ class CounterView(discord.ui.View):
     async def Minus1(self, button: discord.ui.Button, interaction: discord.Interaction):
         print("Minus 1 was pressed")
         self.clicks - 1
+
+    async def on_timeout(self):
+        for item in self.children:
+            item.disabled = True
+        ontimeoutmbed = discord.Embed(
+            colour=self.client.color,
+            title=F"Button was clicked {self.clicks} times"
+        )
+        await self.message.edit(embed=ontimeoutmbed, view=self)
