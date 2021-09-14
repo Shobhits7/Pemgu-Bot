@@ -9,7 +9,7 @@ class CounterView(discord.ui.View):
 
     async def on_timeout(self):
         ontimeoutmbed = discord.Embed(
-            colour=self.client.colors,
+            colour=self.client.color,
             title=F"Button was clicked {self.clicks} times"
         )
         await self.message.edit(embed=ontimeoutmbed, view=self)
