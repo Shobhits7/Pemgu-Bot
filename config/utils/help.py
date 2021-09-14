@@ -8,6 +8,7 @@ class MyHelp(commands.HelpCommand):
             "Anime": "🍙",
             "API": "🌎",
             "Database": "📝",
+            "Fun": "🤣",
             "Game": "🎮",
             "Moderation": "🎩",
             "Owner": "👑",
