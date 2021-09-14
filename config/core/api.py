@@ -112,8 +112,9 @@ class API(commands.Cog, description="Some cool API commands"):
             title=session['info']['name'],
             description=session['info']['summary']
         )
-        pypimbed.add_field(name="Author Info:", value=F"Name: {session['info']['author']}\nEmail:{session['info']['author_email']}")
-        pypimbed.add_field(name="Package Info:", value=F"Version: {session['info']['version']}\nDownload URL: {session['info']['download_url']}\nDocumentation URL: {session['info']['docs_url']}\nHome Page: {session['info']['home_page']}\nKeywords: {session['info']['keywords']}\nLicense: {session['info']['license']}")
+        pypimbed.add_field(name="Author Info:", value=F"Name: {session['info']['author']}\nEmail:{session['info']['author_email']}", inline=False)
+        pypimbed.add_field(name="Maintainer Info:", value=F"Name: {session['info']['maintainer']}\nEmail:{session['maintainer_email']}")
+        pypimbed.add_field(name="Package Info:", value=F"Version: {session['info']['version']}\nDownload URL: {session['info']['download_url']}\nDocumentation URL: {session['info']['docs_url']}\nHome Page: {session['info']['home_page']}\nYanked: {session['info']['yanked']} - {session['info']['yanked_reason']}\nKeywords: {session['info']['keywords']}\nLicense: {session['info']['license']}\nClassifiers: {', '.join(classifier for classifier in session['info']['classifiers'])}", inline=False)
         pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=pypimbed)
 
