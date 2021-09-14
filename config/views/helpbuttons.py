@@ -13,7 +13,7 @@ class HelpButtons(discord.ui.Button):
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No Category"
             description = cog.description if cog else "Commands without category"
-            if self.label == F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} [{len(commands)}]":
+            if self.custom_id == name:
                 mbed = discord.Embed(
                     colour=self.help.context.bot.color,
                     title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
@@ -25,7 +25,7 @@ class HelpButtons(discord.ui.Button):
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.message.edit(embed=mbed)
-        if self.label == "🏠Home":
+        if self.custom_id == "Home":
             await interaction.message.edit(embed=self.homepage)
 
 
@@ -36,12 +36,12 @@ class HelpView(discord.ui.View):
         self.mapping = mapping
         self.homepage = homepage
         self.emojis = emojis
-        self.add_item(discord.ui.Button(label="🏠Home", style=discord.ButtonStyle.green))
+        self.add_item(discord.ui.Button(label="🏠Home", style=discord.ButtonStyle.green, custom_id="Home"))
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No Category"
             description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
-                self.add_item(item=discord.ui.Button(label=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} [{len(commands)}]", style=discord.ButtonStyle.blurple))
+                self.add_item(item=discord.ui.Button(label=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name))
 
     async def on_timeout(self):
         try:
