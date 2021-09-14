@@ -6,7 +6,7 @@ class Fun(commands.Cog, description="For people who can't go out because vidcon-
     def __init__(self, bot):
         self.bot = bot
     
-    @commands.command(name="counter", aliases="ctr", help="Will start an counter")
+    @commands.command(name="counter", aliases=["ctr"], help="Will start an counter")
     async def counter(self, ctx):
         await ctx.trigger_typing()
         ctrmbed = discord.Embed(
