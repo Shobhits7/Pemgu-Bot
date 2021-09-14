@@ -110,7 +110,7 @@ class API(commands.Cog, description="Some cool API commands"):
             colour=self.bot.color,
             url=session['info']['package_url'],
             title=session['info']['name'],
-            descrition=session['info']['description']
+            description=session['info']['description']
         )
         pypimbed.add_field(name="Author Info:", value=F"Name: {session['info']['author']}\nEmail:{session['info']['author_email']}")
         pypimbed.add_field(name="Package Info:", value=F"Download URL: {session['info']['download_url']}\nDocumentation URL: {session['info']['docs_url']}\nHome Page: {session['info']['home_page']}\nKeywords: {session['info']['keywords']}\nLicense: {session['info']['license']}")
