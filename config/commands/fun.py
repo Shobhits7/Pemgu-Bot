@@ -13,7 +13,8 @@ class Fun(commands.Cog, description="For people who can't go out because vidcon-
             colour=self.bot.color,
             title="Click the button for counting"
         )
-        await ctx.send(embed=ctrmbed, view=CounterView(client=self.bot))
+        view = CounterView(client=self.bot)
+        view.message = await ctx.send(embed=ctrmbed, view=view)
 
 def setup(bot):
     bot.add_cog(Fun(bot))
