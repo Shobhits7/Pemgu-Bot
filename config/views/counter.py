@@ -26,6 +26,8 @@ class CounterView(discord.ui.View):
         ontimeoutmbed = discord.Embed(
             colour=self.client.color,
             title=F"Button was clicked {self.clicks} times",
-            description=", \n".join(clicker for clicker in self.clickers)
+            description="People who clicked:\n"
         )
+        for clicker in self.clickers:
+            ontimeoutmbed.description += F"{clicker}, \n"
         await self.message.edit(embed=ontimeoutmbed, view=self)
