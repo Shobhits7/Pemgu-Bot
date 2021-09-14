@@ -130,46 +130,5 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         cdmbed.set_image(url="attachment://code.png")
         await ctx.send(file=discord.File(session, filename="code.png"), embed=cdmbed)
 
-    # Status
-    @commands.group(name="status", aliases=["st"], help="Will show the bot's current status", invoke_without_command=True)
-    @commands.is_owner()
-    async def status(self, ctx):
-        await ctx.trigger_typing()
-        stmbed = discord.Embed(
-            colour=self.bot.color,
-            title=F"Bot's current status is",
-            description=F"{self.bot.activity} - {self.bot.status}",
-            timestamp=ctx.message.created_at
-        )
-        stmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=stmbed)
-    # Status Change
-    @status.command(name="change", aliases=["stc"], help="Will change the bot's status to the given text", usage="<text>")
-    @commands.is_owner()
-    async def status_change(self, ctx, *, text):
-        await ctx.trigger_typing()
-        await self.bot.change_presence(activity=discord.Game(name=text), status=self.bot.status)
-        stcmbed = discord.Embed(
-            colour=self.bot.color,
-            title=F"Bot's status has been now changed to:",
-            description=text,
-            timestamp=ctx.message.created_at
-        )
-        stcmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=stcmbed)
-    # Status Reset
-    @status.command(name="reset", aliases=["str"], help="Will reset the bot's status")
-    @commands.is_owner()
-    async def status_reset(self, ctx):
-        await ctx.trigger_typing()
-        await self.bot.change_presence(activity=self.bot.activity, status=self.bot.status)
-        strmbed = discord.Embed(
-            colour=self.bot.color,
-            title="Resetted the bot's status",
-            timestamp=ctx.message.created_at
-        )
-        strmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=strmbed)
-
 def setup(bot):
     bot.add_cog(Owner(bot))
