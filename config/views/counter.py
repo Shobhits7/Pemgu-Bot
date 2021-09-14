@@ -8,16 +8,16 @@ class CounterView(discord.ui.View):
         self.clickers = ""
         self.client = client
 
-    @discord.ui.button(label="➕1", style=discord.ButtonStyle.blurple)
+    @discord.ui.button(label="➕1", style=discord.ButtonStyle.green)
     async def Plus1(self, button: discord.ui.Button, interaction: discord.Interaction):
         print("Plus 1 was pressed")
-        self.clickers += F"<@{interaction.user.id}> Plused\n"
+        self.clickers += F"**{interaction.user.name}** Plused\n"
         self.clicks += 1
     
     @discord.ui.button(label="➖1", style=discord.ButtonStyle.red)
     async def Minus1(self, button: discord.ui.Button, interaction: discord.Interaction):
         print("Minus 1 was pressed")
-        self.clickers += F"<@{interaction.user.id}> Minused\n"
+        self.clickers += F"**{interaction.user.name}** Minused\n"
         self.clicks += 1
 
     async def on_timeout(self):
