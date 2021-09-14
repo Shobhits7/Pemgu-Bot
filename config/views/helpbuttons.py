@@ -37,14 +37,17 @@ class HelpView(discord.ui.View):
         self.mapping = mapping
         self.homepage = homepage
         self.emojis = emojis
-        self.add_item(item=HelpButtons(label="🏠Home", style=discord.ButtonStyle.green, custom_id="Home", view=self))
+        self.add_item(item=HelpButtons(emoji="🏠", label="Home", style=discord.ButtonStyle.green, custom_id="Home", view=self))
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
-                self.add_item(item=HelpButtons(label=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
+                self.add_item(item=HelpButtons(emoji={self.emojis.get(name) if self.emojis.get(name) else '❓'} , label=F"{name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
 
-    @discord.ui.button(label="💣Delete", style=discord.ButtonStyle.red)
+        self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
+        self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
+
+    @discord.ui.button(emoji="💣",label="Delete", style=discord.ButtonStyle.red)
     async def delete(self, button: discord.ui.Button, interaction: discord.Interaction):
         await interaction.message.delete()
 
@@ -53,8 +56,7 @@ class HelpView(discord.ui.View):
             for buttons in self.children:
                 if isinstance(buttons, discord.ui.Button):
                     self.clear_items()
-                    self.add_item(discord.ui.Button(label="❌Timeouted", style=discord.ButtonStyle.red, disabled = True))
-                buttons.disabled = True
+                    self.add_item(discord.ui.Button(emoji="❌", label="Timed-out", style=discord.ButtonStyle.red, disabled = True))
             await self.message.edit(view=self)
         except discord.NotFound:
             return

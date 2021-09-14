@@ -45,14 +45,17 @@ class HelpView(discord.ui.View):
         self.homepage = homepage
         self.emojis = emojis
         self.add_item(HelpMenu(self.help, self.mapping, self.homepage, self.emojis))
-        self.add_item(discord.ui.Button(label="🧇Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
-        self.add_item(discord.ui.Button(label="🍩Support Server", url="https://discord.gg/bWnjkjyFRz"))
+        self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
+        self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
 
     async def on_timeout(self):
         try:
             for item in self.children:
                 if isinstance(item, discord.ui.Select):
                     item.placeholder = "Disabled due to timeout..."
+                if isinstance(item, discord.ui.Button):
+                    self.clear_items()
+                    self.add_item(discord.ui.Button(emoji="❌", label="Timed-out", style=discord.ButtonStyle.red, disabled = True))
                 item.disabled = True
             await self.message.edit(view=self)
         except discord.NotFound:
@@ -72,6 +75,6 @@ class HelpView(discord.ui.View):
         await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
         return False
 
-    @discord.ui.button(label="💣Delete", style=discord.ButtonStyle.red)
+    @discord.ui.button(emoji="💣", label="Delete", style=discord.ButtonStyle.red)
     async def delete(self, button: discord.ui.Button, interaction: discord.Interaction):
         await interaction.message.delete()

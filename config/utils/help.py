@@ -1,6 +1,6 @@
 import discord, contextlib
 from discord.ext import commands
-from config.views import helpmenu
+from config.views import helpbuttons
 
 class MyHelp(commands.HelpCommand):
     def __init__(self):
