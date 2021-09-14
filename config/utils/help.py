@@ -1,6 +1,6 @@
 import discord, contextlib
 from discord.ext import commands
-from config.views.help_dropdown import HelpView
+from config.views import helpmenu
 
 class MyHelp(commands.HelpCommand):
     def __init__(self):
@@ -43,7 +43,7 @@ class MyHelp(commands.HelpCommand):
         homepage.add_field(name="Prefix:", value=ctx.clean_prefix or "In DM you don't need to use prefix", inline=False)
         homepage.add_field(name="Usable:", value=usable, inline=False)
         homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THESE WHEN DOING A COMMAND***", inline=False)
-        view = HelpView(self, mapping, homepage, self.emojis)
+        view = helpmenu.HelpView(self, mapping, homepage, self.emojis)
         view.message = await ctx.send(embed=homepage, view=view)
         return
 
