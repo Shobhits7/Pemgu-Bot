@@ -9,8 +9,9 @@ class HelpButtons(discord.ui.Button):
         self.emojis = emojis
     
     async def callback(self, interaction: discord.Interaction):
+        print("Something was pressed")
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
+            name = cog.qualified_name if cog else "No Category"
             description = cog.description if cog else "Commands without category"
             if self.label == F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} [{len(commands)}]":
                 mbed = discord.Embed(
@@ -37,7 +38,7 @@ class HelpView(discord.ui.View):
         self.emojis = emojis
         self.add_item(discord.ui.Button(label="🏠Home", style=discord.ButtonStyle.green))
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
+            name = cog.qualified_name if cog else "No Category"
             description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
                 self.add_item(item=discord.ui.Button(label=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} [{len(commands)}]", style=discord.ButtonStyle.blurple))
