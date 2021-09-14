@@ -10,9 +10,8 @@ class CounterView(discord.ui.View):
         self.minus = 0
         self.client = client
 
-    @discord.ui.button(label="➕", style=discord.ButtonStyle.blurple)
+    @discord.ui.button(label="➕", style=discord.ButtonStyle.green)
     async def Plus1(self, button: discord.ui.Button, interaction: discord.Interaction):
-        print("Plus 1 was pressed")
         self.clickers += F"**{interaction.user.name}** Plused\n"
         self.clicks += 1
         self.plus += 1
@@ -20,7 +19,6 @@ class CounterView(discord.ui.View):
     
     @discord.ui.button(label="➖", style=discord.ButtonStyle.red)
     async def Minus1(self, button: discord.ui.Button, interaction: discord.Interaction):
-        print("Minus 1 was pressed")
         self.clickers += F"**{interaction.user.name}** Minused\n"
         self.clicks -= 1
         self.minus += 1
