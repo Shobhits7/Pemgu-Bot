@@ -23,9 +23,9 @@ class HelpButtons(discord.ui.Button):
                     mbed.description += F"<:paimonkill:812299113223422012> **{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
-                await interaction.response.edit_message(embed=mbed)
+                await interaction.message.edit(embed=mbed)
         if self.label == "🏠Home":
-            await interaction.response.edit_message(embed=self.homepage)
+            await interaction.message.edit(embed=self.homepage)
 
 
 class HelpView(discord.ui.View):
