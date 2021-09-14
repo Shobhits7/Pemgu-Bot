@@ -30,7 +30,8 @@ class HelpButtons(discord.ui.Button):
         if self.label == "Delete":
             deletembed = discord.Embed(
                 colour=self.help.context.bot.color,
-                title="Deleted the message"
+                title="Deleted the message",
+                timestamp=self.help.context.message.created_at
             )
             deletembed.set_thumbnail(url=self.help.context.me.avatar.url)
             deletembed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
