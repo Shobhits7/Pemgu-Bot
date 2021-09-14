@@ -12,7 +12,7 @@ class HelpButtons(discord.ui.Button):
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
-            if self.values[0] == name:
+            if self.label[0] == F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} [{len(commands)}]":
                 mbed = discord.Embed(
                     colour=self.help.context.bot.color,
                     title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
@@ -24,7 +24,7 @@ class HelpButtons(discord.ui.Button):
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
-        if self.values[0] == "🏠Home":
+        if self.label[0] == "🏠Home":
             await interaction.response.edit_message(embed=self.homepage)
 
 
