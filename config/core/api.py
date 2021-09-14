@@ -114,7 +114,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         pypimbed.add_field(name="Author Info:", value=F"Name: {session['info']['author']}\nEmail:{session['info']['author_email']}", inline=False)
         # pypimbed.add_field(name="Maintainer Info:", value=F"Name: {session['info']['maintainer']}\nEmail: {session['maintainer_email']}")
-        pypimbed.add_field(name="Package Info:", value=F"**Version:** {session['info']['version']}\n**Download URL:** {session['info']['download_url']}\n**Documentation URL:** {session['info']['docs_url']}\n**Home Page:** {session['info']['home_page']}\n**Yanked:** {session['info']['yanked']} - {session['info']['yanked_reason']}\n**Keywords:** {session['info']['keywords']}\n**License:** {session['info']['license']}\n**Classifiers:** {'**,**'.join(classifier for classifier in session['info']['classifiers'])}", inline=False)
+        pypimbed.add_field(name="Package Info:", value=F"**Version:** {session['info']['version']}\n**Download URL:** {session['info']['download_url']}\n**Documentation URL:** {session['info']['docs_url']}\n**Home Page:** {session['info']['home_page']}\n**Yanked:** {session['info']['yanked']} - {session['info']['yanked_reason']}\n**Keywords:** {session['info']['keywords']}\n**License:** {session['info']['license']}\n**Classifiers:** \n{'    **,**\n'.join(classifier for classifier in session['info']['classifiers'])}")
         pypimbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/873478114183880704/887470965188091944/pypilogo.png")
         pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=pypimbed)
