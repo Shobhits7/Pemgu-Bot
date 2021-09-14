@@ -11,13 +11,13 @@ class CounterView(discord.ui.View):
     @discord.ui.button(label="➕1", style=discord.ButtonStyle.blurple)
     async def Plus1(self, button: discord.ui.Button, interaction: discord.Interaction):
         print("Plus 1 was pressed")
-        self.clickers += F"{interaction.user} pressed +1"
+        self.clickers += F"{interaction.user} pressed +1\n"
         self.clicks += 1
     
     @discord.ui.button(label="➖1", style=discord.ButtonStyle.red)
     async def Minus1(self, button: discord.ui.Button, interaction: discord.Interaction):
         print("Minus 1 was pressed")
-        self.clickers += F"{interaction.user} pressed -1"
+        self.clickers += F"{interaction.user} pressed -1\n"
         self.clicks += 1
 
     async def on_timeout(self):
@@ -29,5 +29,5 @@ class CounterView(discord.ui.View):
             description="People who clicked:\n"
         )
         for clicker in self.clickers:
-            ontimeoutmbed.description += F"{clicker}, \n"
+            ontimeoutmbed.description += F"{clicker}"
         await self.message.edit(embed=ontimeoutmbed, view=self)
