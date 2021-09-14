@@ -72,6 +72,6 @@ class HelpView(discord.ui.View):
         await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
         return False
 
-    @discord.ui.button(label="❌💣🗑Delete", style=discord.ButtonStyle.red)
+    @discord.ui.button(label="💣Delete", style=discord.ButtonStyle.red)
     async def delete(self, button: discord.ui.Button, interaction: discord.Interaction):
         await interaction.message.delete()
