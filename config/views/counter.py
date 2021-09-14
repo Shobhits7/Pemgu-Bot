@@ -10,12 +10,12 @@ class CounterView(discord.ui.View):
     @discord.ui.button(label="➕1", style=discord.ButtonStyle.blurple)
     async def Plus1(self, button: discord.ui.Button, interaction: discord.Interaction):
         print("Plus 1 was pressed")
-        self.clicks + 1
+        self.clicks += 1
     
     @discord.ui.button(label="➖1", style=discord.ButtonStyle.red)
     async def Minus1(self, button: discord.ui.Button, interaction: discord.Interaction):
         print("Minus 1 was pressed")
-        self.clicks - 1
+        self.clicks += 1
 
     async def on_timeout(self):
         for item in self.children:
