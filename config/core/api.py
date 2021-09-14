@@ -106,7 +106,7 @@ class API(commands.Cog, description="Some cool API commands"):
     async def pypi(self, ctx, *, lib):
         await ctx.trigger_typing()
         session = await session_json(F"https://pypi.org/pypi/{lib}/json")
-        if session.status == 200:
+        if session['info']:
             finpypimbed = discord.Embed(
                 colour=self.bot.color,
                 url=session['info']['package_url'],
