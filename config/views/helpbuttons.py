@@ -35,19 +35,19 @@ class HelpView(discord.ui.View):
         self.mapping = mapping
         self.homepage = homepage
         self.emojis = emojis
-        self.add_item(discord.ui.Button(label="🏠Home"))
+        self.add_item(discord.ui.Button(label="🏠Home", style=discord.ButtonStyle.green))
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
-                self.add_item(item=discord.ui.Button(label=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]", style=discord.ButtonStyle.blurple))
+                self.add_item(item=discord.ui.Button(label=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} [{len(commands)}]", style=discord.ButtonStyle.blurple))
 
     async def on_timeout(self):
         try:
             for buttons in self.children:
                 if isinstance(buttons, discord.ui.Button):
                     buttons.label = "❌Timeouted"
-                    buttons.style = discord.ButtonStyle.danger
+                    buttons.style = discord.ButtonStyle.red
                 buttons.disabled = True
             await self.message.edit(view=self)
         except discord.NotFound:

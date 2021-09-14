@@ -7,7 +7,6 @@ class MyHelp(commands.HelpCommand):
         self.emojis = {
             "Anime": "🍙",
             "API": "🌎",
-            "Database": "📝",
             "Fun": "🤣",
             "Game": "🎮",
             "Moderation": "🎩",
