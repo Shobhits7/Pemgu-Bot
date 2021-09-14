@@ -11,7 +11,7 @@ class HelpButtons(discord.ui.Button):
     async def callback(self, interaction: discord.Interaction):
         print("Something was pressed")
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No Category"
+            name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             if self.custom_id == name:
                 mbed = discord.Embed(
@@ -38,10 +38,10 @@ class HelpView(discord.ui.View):
         self.emojis = emojis
         self.add_item(discord.ui.Button(label="🏠Home", style=discord.ButtonStyle.green, custom_id="Home"))
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No Category"
+            name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
-                self.add_item(item=discord.ui.Button(label=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name))
+                self.add_item(item=discord.ui.Button(label=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name))
 
     async def on_timeout(self):
         try:
