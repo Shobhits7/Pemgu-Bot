@@ -14,7 +14,7 @@ class CounterView(discord.ui.View):
         self.clickers += F"**{interaction.user.name}** Plused\n"
         self.clicks += 1
     
-    @discord.ui.button(label="➖1", style=discord.ButtonStyle.red)
+    @discord.ui.button(label="➖1", style=discord.ButtonStyle.danger)
     async def Minus1(self, button: discord.ui.Button, interaction: discord.Interaction):
         print("Minus 1 was pressed")
         self.clickers += F"**{interaction.user.name}** Minused\n"
@@ -26,7 +26,7 @@ class CounterView(discord.ui.View):
         ontimeoutmbed = discord.Embed(
             colour=self.client.color,
             title=F"Button was clicked {self.clicks} times",
-            description="People who clicked:\n\n"
+            description="People who clicked:\n"
         )
         for clicker in self.clickers:
             ontimeoutmbed.description += F"{clicker}"
