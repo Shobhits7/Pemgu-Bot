@@ -13,7 +13,7 @@ class HelpButtons(discord.ui.Button):
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
-            if self.custom_id == name:
+            if self.label == name:
                 mbed = discord.Embed(
                     colour=self.help.context.bot.color,
                     title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
@@ -25,8 +25,17 @@ class HelpButtons(discord.ui.Button):
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
-        if self.custom_id == "Home":
+        if self.label == "Home":
             await interaction.response.edit_message(embed=self.homepage)
+        if self.label == "Delete":
+            deletembed = discord.Embed(
+                colour=self.help.context.bot.color,
+                title="Deleted the message"
+            )
+            deletembed.set_thumbnail(url=self.help.context.me.avatar.url)
+            deletembed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+            await interaction.message.delete()
+            await interaction.response.send_message(embed=deletembed, ephemeral=True)
 
 
 class HelpView(discord.ui.View):
@@ -36,19 +45,15 @@ class HelpView(discord.ui.View):
         self.mapping = mapping
         self.homepage = homepage
         self.emojis = emojis
-        self.add_item(item=HelpButtons(emoji="🏠", label="Home", style=discord.ButtonStyle.green, custom_id="Home", view=self))
+        self.add_item(item=HelpButtons(emoji="💣",label="Delete", style=discord.ButtonStyle.red, view=self))
+        self.add_item(item=HelpButtons(emoji="🏠", label="Home", style=discord.ButtonStyle.green, view=self))
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
-                self.add_item(item=HelpButtons(emoji=self.emojis.get(name) if self.emojis.get(name) else '❓' , label=name, style=discord.ButtonStyle.blurple, custom_id=name, view=self))
-
+                self.add_item(item=HelpButtons(emoji=self.emojis.get(name) if self.emojis.get(name) else '❓' , label=name, style=discord.ButtonStyle.blurple, view=self))
         self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
-
-    @discord.ui.button(emoji="💣",label="Delete", style=discord.ButtonStyle.red)
-    async def delete(self, button: discord.ui.Button, interaction: discord.Interaction):
-        await interaction.message.delete()
 
     async def on_timeout(self):
         try:
