@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from ..utils.aiohttp import session_json
+from config.utils.aiohttp import session_json
 
 class Anime(commands.Cog, description="Some Weeb shit stuff"):
     def __init__(self, bot):
@@ -26,7 +26,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.command(name="sfw", help="Will send a random sfw waifu or husbando image if not specified")
     async def sfw(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.hori.ovh/sfw/all/")
+        session = await session_json("https://api.waifu.im/sfw/all/")
         sfwmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your SFW Image",
@@ -40,7 +40,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.command(name="waifu", help="Will send a random sfw waifu image")
     async def waifu_sfw(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.hori.ovh/sfw/waifu/")
+        session = await session_json("https://api.waifu.im/sfw/waifu/")
         wambed = discord.Embed(
             colour=self.bot.color,
             title="Here is your SFW Waifu Image",
@@ -55,7 +55,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def nsfw(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.hori.ovh/nsfw/ero/")
+        session = await session_json("https://api.waifu.im/nsfw/ero/")
         nsfwmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Image",
@@ -70,7 +70,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def ass(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.hori.ovh/nsfw/ass/")
+        session = await session_json("https://api.waifu.im/nsfw/ass/")
         assmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Ass Image",
@@ -85,7 +85,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def ecchi(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.hori.ovh/nsfw/ecchi/")
+        session = await session_json("https://api.waifu.im/nsfw/ecchi/")
         ecchimbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Ecchi Image",
@@ -100,7 +100,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def ero(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.hori.ovh/nsfw/ero/")
+        session = await session_json("https://api.waifu.im/nsfw/ero/")
         erombed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Ero Image",
@@ -115,7 +115,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def hentai(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.hori.ovh/nsfw/hentai/")
+        session = await session_json("https://api.waifu.im/nsfw/hentai/")
         hentaimbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Hentai Image",
@@ -130,7 +130,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def maid(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.hori.ovh/nsfw/maid/")
+        session = await session_json("https://api.waifu.im/nsfw/maid/")
         maidmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Maid Image",
@@ -145,7 +145,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def milf(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.hori.ovh/nsfw/milf/")
+        session = await session_json("https://api.waifu.im/nsfw/milf/")
         milfmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Milf Image",
@@ -160,7 +160,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def oppai(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.hori.ovh/nsfw/oppai/")
+        session = await session_json("https://api.waifu.im/nsfw/oppai/")
         oppaimbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Oppai Image",
@@ -175,7 +175,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def oral(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.hori.ovh/nsfw/oral/")
+        session = await session_json("https://api.waifu.im/nsfw/oral/")
         oralmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Oral Image",
@@ -190,7 +190,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def paizuri(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.hori.ovh/nsfw/paizuri/")
+        session = await session_json("https://api.waifu.im/nsfw/paizuri/")
         paizurimbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Paizuri Image",
@@ -205,7 +205,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def selfies(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.hori.ovh/nsfw/selfies/")
+        session = await session_json("https://api.waifu.im/nsfw/selfies/")
         selfiesmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Selfies Image",
@@ -220,7 +220,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def uniform(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.hori.ovh/nsfw/uniform/")
+        session = await session_json("https://api.waifu.im/nsfw/uniform/")
         uniformmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Uniform Image",
