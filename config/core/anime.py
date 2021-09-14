@@ -7,7 +7,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         self.bot = bot
     
     # Quote
-    @commands.command(name="quote", help="Will send an anime quote")
+    @commands.command(name="quote", help="Will send a anime quote")
     async def quote(self, ctx):
         await ctx.trigger_typing()
         session = await session_json("https://animechan.vercel.app/api/random/", headers=None)
@@ -23,7 +23,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         await ctx.send(embed=quotembed)
 
     # SFW
-    @commands.command(name="sfw", help="Will send an random sfw waifu or husbando image if not specified")
+    @commands.command(name="sfw", help="Will send a random sfw waifu or husbando image if not specified")
     async def sfw(self, ctx):
         await ctx.trigger_typing()
         session = await session_json("https://api.hori.ovh/sfw/all/")
@@ -37,7 +37,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         await ctx.send(embed=sfwmbed)
 
     # Waifu
-    @commands.command(name="waifu", help="Will send an random sfw waifu image")
+    @commands.command(name="waifu", help="Will send a random sfw waifu image")
     async def waifu_sfw(self, ctx):
         await ctx.trigger_typing()
         session = await session_json("https://api.hori.ovh/sfw/waifu/")
@@ -51,7 +51,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         await ctx.send(embed=wambed)
 
     # NSFW
-    @commands.command(name="nsfw", help="Will send an random nsfw waifu or husbando image if nor specified")
+    @commands.command(name="nsfw", help="Will send a random nsfw waifu or husbando image if nor specified")
     @commands.is_nsfw()
     async def nsfw(self, ctx):
         await ctx.trigger_typing()
@@ -66,7 +66,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         await ctx.send(embed=nsfwmbed)
 
     # Ass
-    @commands.command(name="ass", help="Will send an random nsfw ass image")
+    @commands.command(name="ass", help="Will send a random nsfw ass image")
     @commands.is_nsfw()
     async def ass(self, ctx):
         await ctx.trigger_typing()
@@ -81,7 +81,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         await ctx.send(embed=assmbed)
 
     # Ecchi
-    @commands.command(name="ecchi", help="Will send an random nsfw ecchi image")
+    @commands.command(name="ecchi", help="Will send a random nsfw ecchi image")
     @commands.is_nsfw()
     async def ecchi(self, ctx):
         await ctx.trigger_typing()
@@ -96,7 +96,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         await ctx.send(embed=ecchimbed)
 
     # Ero
-    @commands.command(name="ero", help="Will send an an random nsfw ero image")
+    @commands.command(name="ero", help="Will send a random nsfw ero image")
     @commands.is_nsfw()
     async def ero(self, ctx):
         await ctx.trigger_typing()
@@ -111,7 +111,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         await ctx.send(embed=erombed)
 
     # Hentai
-    @commands.command(name="hentai", help="Will send an random nsfw hentai image")
+    @commands.command(name="hentai", help="Will send a random nsfw hentai image")
     @commands.is_nsfw()
     async def hentai(self, ctx):
         await ctx.trigger_typing()
@@ -126,7 +126,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         await ctx.send(embed=hentaimbed)
 
     # Maid
-    @commands.command(name="maid", help="Will send an random nsfw maid image")
+    @commands.command(name="maid", help="Will send a random nsfw maid image")
     @commands.is_nsfw()
     async def maid(self, ctx):
         await ctx.trigger_typing()
@@ -141,7 +141,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         await ctx.send(embed=maidmbed)
 
     # Milf
-    @commands.command(name="milf", help="Will send an random nsfw milf image")
+    @commands.command(name="milf", help="Will send a random nsfw milf image")
     @commands.is_nsfw()
     async def milf(self, ctx):
         await ctx.trigger_typing()
@@ -156,7 +156,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         await ctx.send(embed=milfmbed)
 
     # Oppai
-    @commands.command(name="oppai", help="Will send an random nsfw oppai image")
+    @commands.command(name="oppai", help="Will send a random nsfw oppai image")
     @commands.is_nsfw()
     async def oppai(self, ctx):
         await ctx.trigger_typing()
@@ -171,7 +171,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         await ctx.send(embed=oppaimbed)
 
     # Oral
-    @commands.command(name="oral", help="Will send an random nsfw oral image")
+    @commands.command(name="oral", help="Will send a random nsfw oral image")
     @commands.is_nsfw()
     async def oral(self, ctx):
         await ctx.trigger_typing()
@@ -186,7 +186,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         await ctx.send(embed=oralmbed)
 
     # Paizuri
-    @commands.command(name="paizuri", help="Will send an random nsfw paizuri image")
+    @commands.command(name="paizuri", help="Will send a random nsfw paizuri image")
     @commands.is_nsfw()
     async def paizuri(self, ctx):
         await ctx.trigger_typing()
@@ -201,7 +201,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         await ctx.send(embed=paizurimbed)
 
     # Selfies
-    @commands.command(name="selfies", help="Will send an random nsfw selfies image")
+    @commands.command(name="selfies", help="Will send a random nsfw selfies image")
     @commands.is_nsfw()
     async def selfies(self, ctx):
         await ctx.trigger_typing()
@@ -216,7 +216,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         await ctx.send(embed=selfiesmbed)
 
     # Uniform
-    @commands.command(name="uniform", help="Will send an random nsfw uniform image")
+    @commands.command(name="uniform", help="Will send a random nsfw uniform image")
     @commands.is_nsfw()
     async def uniform(self, ctx):
         await ctx.trigger_typing()

@@ -10,7 +10,6 @@ class HelpButtons(discord.ui.Button):
         self.emojis = view.emojis
 
     async def callback(self, interaction: discord.Interaction):
-        print("Something was pressed")
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
@@ -42,7 +41,7 @@ class HelpView(discord.ui.View):
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
-                self.add_item(item=HelpButtons(emoji=self.emojis.get(name) if self.emojis.get(name) else '❓' , label=F"{name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
+                self.add_item(item=HelpButtons(emoji=self.emojis.get(name) if self.emojis.get(name) else '❓' , label=name, style=discord.ButtonStyle.blurple, custom_id=name, view=self))
 
         self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
