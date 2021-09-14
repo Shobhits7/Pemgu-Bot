@@ -113,7 +113,7 @@ class API(commands.Cog, description="Some cool API commands"):
             description=session['info']['summary']
         )
         pypimbed.add_field(name="Author Info:", value=F"Name: {session['info']['author']}\nEmail:{session['info']['author_email']}", inline=False)
-        pypimbed.add_field(name="Maintainer Info:", value=F"Name: {session['info']['maintainer']}\nEmail: {session['maintainer_email']}")
+        # pypimbed.add_field(name="Maintainer Info:", value=F"Name: {session['info']['maintainer']}\nEmail: {session['maintainer_email']}")
         pypimbed.add_field(name="Package Info:", value=F"""Version: {session['info']['version']}
 Download URL: {session['info']['download_url']}
 Documentation URL: {session['info']['docs_url']}
