@@ -59,7 +59,7 @@ class MyHelp(commands.HelpCommand):
         )
         if filtered_commands := await self.filter_commands(cog.get_commands()):
             for command in filtered_commands:
-                hcogmbed.description += F"**{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
+                hcogmbed.description += F"• **{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
         hcogmbed.set_thumbnail(url=ctx.me.avatar.url)
         hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=hcogmbed)
@@ -101,7 +101,7 @@ class MyHelp(commands.HelpCommand):
         hgroupmbed.set_thumbnail(url=ctx.me.avatar.url)
         hgroupmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         for command in group.commands:
-            hgroupmbed.description += F"**{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
+            hgroupmbed.description += F"• **{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
         if cog := command.cog:
             hgroupmbed.add_field(name="Category", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name}")
             with contextlib.suppress(commands.CommandError):
