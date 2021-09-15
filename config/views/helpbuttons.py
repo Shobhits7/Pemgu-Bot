@@ -21,7 +21,7 @@ class HelpButtons(discord.ui.Button):
                     timestamp=self.help.context.message.created_at
                 )
                 for command in commands:
-                    callbackmbed.description += F"<status_idle:596576773488115722> **{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
+                    callbackmbed.description += F"**{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
                 callbackmbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 callbackmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=callbackmbed)
@@ -58,10 +58,7 @@ class HelpView(discord.ui.View):
 
     async def on_timeout(self):
         try:
-            for buttons in self.children:
-                if isinstance(buttons, discord.ui.Button):
-                    self.clear_items()
-                    self.add_item(discord.ui.Button(emoji="❌", label="Timed-out", style=discord.ButtonStyle.red, disabled = True))
+            self.clear_items()
             await self.message.edit(view=self)
         except discord.NotFound:
             return
