@@ -2,11 +2,11 @@ import discord
 from discord.ext import commands
 
 class HelpMenu(discord.ui.Select):
-    def __init__(self, help, mapping, homepage, emojis):
-        self.help = help
-        self.mapping = mapping
-        self.homepage = homepage
-        self.emojis = emojis
+    def __init__(self, view):
+        self.help = view.help
+        self.mapping = view.mapping
+        self.homepage = view.homepage
+        self.emojis = view.emojis
         options = [
             discord.SelectOption(label="Home", description="The homepage of this menu", value="Home", emoji="🏠")
         ]
@@ -46,7 +46,7 @@ class HelpView(discord.ui.View):
         self.emojis = emojis
         self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
-        self.add_item(HelpMenu(self.help, self.mapping, self.homepage, self.emojis))
+        self.add_item(HelpMenu(self))
 
     async def on_timeout(self):
         try:

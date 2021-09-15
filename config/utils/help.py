@@ -9,7 +9,7 @@ class MyHelp(commands.HelpCommand):
             "API": "🌎",
             "Fun": "🤣",
             "Game": "🎮",
-            "Mod": "🎩",
+            "Moderation": "🎩",
             "Owner": "👑",
             "Setup": "🔮",
             "Utility": "🧰",

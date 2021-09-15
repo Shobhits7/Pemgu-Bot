@@ -29,7 +29,7 @@ class CounterView(discord.ui.View):
             item.disabled = True
         ontimeoutmbed = discord.Embed(
             colour=self.client.color,
-            title=F"Score: **{self.clicks}** between Pluses and Minuses",
+            title=F"Score: **{self.clicks}** between Pluses vs Minuses",
         )
         if len(self.clickers) != 0 or self.clicks != 0:
             ontimeoutmbed.description = "People who clicked:\n"
