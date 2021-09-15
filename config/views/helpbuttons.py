@@ -60,9 +60,10 @@ class HelpView(discord.ui.View):
         try:
             for item in self.children:
                 if isinstance(item, discord.ui.Button):
-                    item.emoji = "❌"
-                    item.style = discord.ButtonStyle.red
+                    item.disabled = True
+                    print("IF STATEMENT")
                 item.disabled = True
+                print("NOT IF STATEMENT")
             await self.message.edit(view=self)
         except discord.NotFound:
             return
