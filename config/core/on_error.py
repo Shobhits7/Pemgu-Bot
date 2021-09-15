@@ -92,7 +92,7 @@ class OnError(commands.Cog):
         elif isinstance(error, commands.NSFWChannelRequired):
             nsfwcr = discord.Embed(
                 colour=self.bot.color,
-                title=F"`{ctx.invoked_with}` is only possible in nsfw channels"
+                title=F"{ctx.invoked_with} is only possible in NSFW channels"
             )
             nsfwcr.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=nsfwcr)
