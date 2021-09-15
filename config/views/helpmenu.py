@@ -51,7 +51,7 @@ class HelpView(discord.ui.View):
     async def on_timeout(self):
         try:
             for items in self.children:
-                print(item, isinstance(item, discord.ui.Select), isinstance(item, HelpMenu), isinstance(item, discord.SelectMenu))
+                print(items, isinstance(items, discord.ui.Select), isinstance(items, HelpMenu), isinstance(items, discord.SelectMenu))
                 if isinstance(items, (discord.ui.Select, HelpMenu)):
                     items.placeholder = "Disabled due to timeout..."
                     items.disabled = True
