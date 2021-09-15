@@ -21,11 +21,11 @@ class HelpButtons(discord.ui.Button):
                     timestamp=self.help.context.message.created_at
                 )
                 for command in commands:
-                    callbackmbed.description += F"<:paimonkill:812299113223422012> **{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
+                    callbackmbed.description += F"**{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
                 callbackmbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 callbackmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=callbackmbed)
-        if self.custom_id == "Home Page":
+        if self.custom_id == "Home":
             await interaction.response.edit_message(embed=self.homepage)
         if self.custom_id == "Delete":
             deletembed = discord.Embed(
@@ -46,7 +46,7 @@ class HelpView(discord.ui.View):
         self.mapping = mapping
         self.homepage = homepage
         self.emojis = emojis
-        self.add_item(item=HelpButtons(emoji="🏠", label="Home", style=discord.ButtonStyle.green, custom_id="Home Page", view=self))
+        self.add_item(item=HelpButtons(emoji="🏠", label="Home", style=discord.ButtonStyle.green, custom_id="Home", view=self))
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
