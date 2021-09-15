@@ -39,7 +39,7 @@ class HelpMenu(discord.ui.Select):
 
 class HelpView(discord.ui.View):
     def __init__(self, help, mapping, homepage, emojis):
-        super().__init__(timeout=20)
+        super().__init__(timeout=10)
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
@@ -54,7 +54,7 @@ class HelpView(discord.ui.View):
                 if isinstance(items, discord.ui.Select):
                     items.placeholder = "Disabled due to timeout..."
                     items.disabled = True
-                else: self.remove_item(item)
+                else: self.remove_item(items)
             await self.message.edit(view=self)
         except discord.NotFound:
             return
