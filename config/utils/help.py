@@ -57,8 +57,8 @@ class MyHelp(commands.HelpCommand):
             timestamp=ctx.message.created_at
         )
         # if filtered_commands := await self.filter_commands(cog.walk_commands()):
-        for subcommand in cog.walk_commands():
-            hcogmbed.description += F"• **{self.get_command_signature(subcommand)}** - {subcommand.help or 'No help found...'}\n"
+        for command in cog.walk_commands():
+            hcogmbed.description += F"• **{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
         hcogmbed.set_thumbnail(url=ctx.me.avatar.url)
         hcogmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=hcogmbed)
@@ -112,8 +112,8 @@ class MyHelp(commands.HelpCommand):
         await ctx.send(embed=hgroupmbed)
         return
 
-    # Help SubCommand Error
-    async def subcommand_not_found(self, command, string):
+    # Help command Error
+    async def command_not_found(self, command, string):
         ctx = self.context
         hscmdmbed = discord.Embed(
             colour=ctx.bot.color,
