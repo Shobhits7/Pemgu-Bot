@@ -30,8 +30,6 @@ class HelpMenu(discord.ui.Select):
                     description=F"{description}\n\n",
                     timestamp=self.help.context.message.created_at
                 )
-                for command in commands:
-                    mbed.description += F"• **{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
                 for subcommand in cog.walk_commands():
                     mbed.description += F"• **{self.help.get_command_signature(subcommand)}** - {subcommand.help or 'No help found...'}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
