@@ -13,7 +13,6 @@ class MyHelp(commands.HelpCommand):
             "Owner": "👑",
             "Setup": "🔮",
             "Utility": "🧰",
-            "Waifu": "🍘",
             "Jishaku": "👀",
             "No": "❓"
         }
