@@ -38,7 +38,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
 
     # Waifu
     @commands.command(name="waifu", help="Will send a random sfw waifu image")
-    async def waifu_sfw(self, ctx):
+    async def waifu(self, ctx):
         await ctx.trigger_typing()
         session = await session_json("https://api.waifu.im/sfw/waifu/")
         wambed = discord.Embed(
@@ -49,9 +49,23 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         wambed.set_image(url=session["url"])
         wambed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=wambed)
+    
+    # SMaid
+    @commands.command(name="smaid", help="Will send a random sfw maid image")
+    async def smaid(self, ctx):
+        await ctx.trigger_typing()
+        session = await session_json("https://api.waifu.im/sfw/maid/")
+        smaidmbed = discord.Embed(
+            colour=self.bot.color,
+            title="Here is your SFW Maid Image",
+            timestamp=ctx.message.created_at
+        )
+        smaidmbed.set_image(url=session["url"])
+        smaidmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=smaidmbed)
 
     # NSFW
-    @commands.command(name="nsfw", help="Will send a random nsfw waifu or husbando image if nor specified")
+    @commands.command(name="nsfw", help="Will send a random nsfw waifu image")
     @commands.is_nsfw()
     async def nsfw(self, ctx):
         await ctx.trigger_typing()
@@ -125,20 +139,20 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         hentaimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=hentaimbed)
 
-    # Maid
-    @commands.command(name="maid", help="Will send a random nsfw maid image")
+    # NMaid
+    @commands.command(name="nmaid", help="Will send a random nsfw maid image")
     @commands.is_nsfw()
-    async def maid(self, ctx):
+    async def nmaid(self, ctx):
         await ctx.trigger_typing()
         session = await session_json("https://api.waifu.im/nsfw/maid/")
-        maidmbed = discord.Embed(
+        nmaidmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Maid Image",
             timestamp=ctx.message.created_at
         )
-        maidmbed.set_image(url=session["url"])
-        maidmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=maidmbed)
+        nmaidmbed.set_image(url=session["url"])
+        nmaidmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=nmaidmbed)
 
     # Milf
     @commands.command(name="milf", help="Will send a random nsfw milf image")
