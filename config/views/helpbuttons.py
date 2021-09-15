@@ -41,7 +41,7 @@ class HelpButtons(discord.ui.Button):
 
 class HelpView(discord.ui.View):
     def __init__(self, help, mapping, homepage, emojis):
-        super().__init__(timeout=15)
+        super().__init__(timeout=10)
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
