@@ -70,7 +70,7 @@ class MyHelp(commands.HelpCommand):
         ctx = self.context
         hcmdmbed = discord.Embed(
             colour=ctx.bot.color,
-            title=F"**{self.get_command_signature(command)}**",
+            title=self.get_command_signature(command),
             description=command.help or "No help found...",
             timestamp=ctx.message.created_at
         )
@@ -94,7 +94,7 @@ class MyHelp(commands.HelpCommand):
         can_run = "No"
         hgroupmbed = discord.Embed(
             colour=ctx.bot.color,
-            title=F"**{self.get_command_signature(group)}**",
+            title=self.get_command_signature(group),
             description=F"{group.help or 'No help found...'}\n\n",
             timestamp=ctx.message.created_at
         )
