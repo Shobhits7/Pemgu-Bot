@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class Moderation(commands.Cog, description="Was someone being bad"):
+class Mod(commands.Cog, description="Was someone being bad"):
     def __init__(self, bot):
         self.bot = bot
 
