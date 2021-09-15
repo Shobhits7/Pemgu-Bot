@@ -52,10 +52,10 @@ class HelpView(discord.ui.View):
         try:
             for items in self.children:
                 print(items, type(items))
+                self.clear_items()
                 if isinstance(items, discord.ui.Select):
-                    items.placeholder = "Disabled due to timeout..."
+                    items.placeholder += "Disabled due to timeout..."
                 items.disabled = True
-                #else: self.remove_item(items)
             await self.message.edit(view=self)
         except discord.NotFound:
             return
