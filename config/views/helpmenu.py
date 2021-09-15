@@ -8,7 +8,8 @@ class HelpMenu(discord.ui.Select):
         self.homepage = view.homepage
         self.emojis = view.emojis
         options = [
-            discord.SelectOption(label="Home", description="The homepage of this menu", value="Home", emoji="🏠")
+            discord.SelectOption(emoji="🏠", label="Home", description="The homepage of this menu", value="Home"),
+            discord.SelectOption(emoji="💣", label="Delete", description="Will delete this message", value="Delete")
         ]
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
@@ -36,6 +37,16 @@ class HelpMenu(discord.ui.Select):
                 await interaction.response.edit_message(embed=mbed)
         if self.values[0] == "Home":
             await interaction.response.edit_message(embed=self.homepage)
+        if self.values[0] == "Delete":
+            deletembed = discord.Embed(
+                colour=self.help.context.bot.color,
+                title="Deleted the message",
+                timestamp=self.help.context.message.created_at
+            )
+            deletembed.set_thumbnail(url=self.help.context.me.avatar.url)
+            deletembed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+            await interaction.message.delete()
+            await interaction.response.send_message(embed=deletembed, ephemeral=True)
 
 class HelpView(discord.ui.View):
     def __init__(self, help, mapping, homepage, emojis):
@@ -72,15 +83,3 @@ class HelpView(discord.ui.View):
         icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
         await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
         return False
-
-    @discord.ui.button(emoji="💣", label="Delete", style=discord.ButtonStyle.red)
-    async def delete(self, button: discord.ui.Button, interaction: discord.Interaction):
-        deletembed = discord.Embed(
-            colour=self.help.context.bot.color,
-            title="Deleted the message",
-            timestamp=self.help.context.message.created_at
-        )
-        deletembed.set_thumbnail(url=self.help.context.me.avatar.url)
-        deletembed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
-        await interaction.message.delete()
-        await interaction.response.send_message(embed=deletembed, ephemeral=True)
