@@ -154,7 +154,6 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             tbmbed.description += F"{''.join(traceback.format_exception(type(error), error,  error.__traceback__))}\n```"
-            tbmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=tbmbed)
 
 def setup(bot):
