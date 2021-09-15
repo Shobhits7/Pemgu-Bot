@@ -7,6 +7,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
         self.bot = bot
     
     @commands.command(name="tictactoe", aliases=["ttt"], help="Will start an tic-tac-toe game")
+    @commands.is_owner()
     async def tictactoe(self, ctx):
         await ctx.send('Tic Tac Toe: X goes first', view=tictactoe.TicTacToeView())
 
