@@ -58,7 +58,8 @@ class HelpView(discord.ui.View):
 
     async def on_timeout(self):
         try:
-            self.clear_items()
+            for item in self.children:
+                item.disabled = True
             await self.message.edit(view=self)
         except discord.NotFound:
             return
