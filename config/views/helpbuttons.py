@@ -62,8 +62,8 @@ class HelpView(discord.ui.View):
                 if isinstance(item, discord.ui.Button):
                     item.disabled = True
                     print("IF STATEMENT")
-                item.disabled = True
-                print("NOT IF STATEMENT")
+                # item.disabled = True
+                # print("NOT IF STATEMENT")
             await self.message.edit(view=self)
         except discord.NotFound:
             return
