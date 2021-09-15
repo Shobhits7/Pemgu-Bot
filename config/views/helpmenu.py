@@ -54,7 +54,7 @@ class HelpView(discord.ui.View):
                 if isinstance(item, discord.ui.Select):
                     item.placeholder = "Disabled due to timeout..."
                 elif isinstance(item, discord.ui.Button):
-                    item.emoji = "❌"
+                    self.clear_items()
                 item.disabled = True
             await self.message.edit(view=self)
         except discord.NotFound:
