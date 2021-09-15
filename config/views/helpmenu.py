@@ -30,7 +30,7 @@ class HelpMenu(discord.ui.Select):
                     timestamp=self.help.context.message.created_at
                 )
                 for command in commands:
-                    mbed.description += F"**{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
+                    mbed.description += F"• **{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
@@ -50,12 +50,13 @@ class HelpView(discord.ui.View):
 
     async def on_timeout(self):
         try:
-            for item in self.children:
-                if isinstance(item, discord.ui.Select):
-                    item.placeholder = "Disabled due to timeout..."
-                elif isinstance(item, discord.ui.Button):
-                    self.remove_item(item=item)
-                item.disabled = True
+            for items in self.children:
+                if isinstance(items, discord.ui.Select):
+                    items.placeholder = "Disabled due to timeout..."
+                    items.disabled = True
+                elif isinstance(items, discord.ui.Button):
+                    for buttons in items:
+                        self.remove_item(item=buttons)
             await self.message.edit(view=self)
         except discord.NotFound:
             return
