@@ -61,7 +61,6 @@ class HelpView(discord.ui.View):
             for items in self.children:
                 if isinstance(items, discord.ui.Button):
                     items.style = discord.ButtonStyle.red
-                    items.emoji = "❌"
                     items.disabled = True
                     print("IF STATEMENT")
             await self.message.edit(view=self)
