@@ -61,8 +61,7 @@ class HelpView(discord.ui.View):
             for buttons in self.children:
                 if isinstance(buttons, discord.ui.Button):
                     self.clear_items()
-                    self.add_item(discord.ui.Button(emoji="❌", label="Timed-out", style=discord.ButtonStyle.red))
-                buttons.disabled = True
+                    self.add_item(discord.ui.Button(emoji="❌", label="Timed-out", style=discord.ButtonStyle.red, disabled=True))
             await self.message.edit(view=self)
         except discord.NotFound:
             return
