@@ -8,8 +8,7 @@ class HelpMenu(discord.ui.Select):
         self.homepage = view.homepage
         self.emojis = view.emojis
         options = [
-            discord.SelectOption(emoji="🏠", label="Home", description="The homepage of this menu", value="Home"),
-            discord.SelectOption(emoji="💣", label="Delete", description="Will delete this message", value="Delete")
+            discord.SelectOption(emoji="🏠", label="Home", description="The homepage of this menu", value="Home")
         ]
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
@@ -17,6 +16,7 @@ class HelpMenu(discord.ui.Select):
             if not name.startswith("On"):
                 option = discord.SelectOption(label=F"{name} Category [{len(commands)}]", description=description, value=name, emoji=self.emojis.get(name) if self.emojis.get(name) else '❓')
                 options.append(option)
+        options.append(discord.SelectOption(emoji="💣", label="Delete", description="Will delete this message", value="Delete"))
         super().__init__(placeholder="Where do you want to go...", min_values=1, max_values=1, options=options)
 
     async def callback(self, interaction: discord.Interaction):
@@ -64,7 +64,7 @@ class HelpView(discord.ui.View):
             for items in self.children:
                 print(items, isinstance(items, discord.ui.Select), isinstance(items, HelpMenu), isinstance(items, discord.SelectMenu))
                 if isinstance(items, (discord.ui.Select, HelpMenu)): items.placeholder = "Disabled due to timeout..."
-                else: self.remove_item(item=items)
+                # else: self.remove_item(item=items)
                 items.disabled = True
             await self.message.edit(view=self)
         except discord.NotFound:
