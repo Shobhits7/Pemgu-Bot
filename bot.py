@@ -16,7 +16,7 @@ async def get_prefix_postgresql(bot, message):
         prefix = prefix[0].get("prefix")
     return commands.when_mentioned_or(prefix)(bot, message)
 
-bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False), intents=discord.Intents.all())
+bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, help_command=MyHelp(), intents=discord.Intents.all(), allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False))
 
 bot.prefix = ".w"
 bot.color = 0x2F3136
