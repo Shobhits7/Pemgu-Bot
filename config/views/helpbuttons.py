@@ -48,10 +48,9 @@ class HelpView(discord.ui.View):
         self.emojis = emojis
         self.add_item(item=HelpButtons(emoji="🏠", label="Home Page", style=discord.ButtonStyle.green, custom_id="Home", view=self))
         for cog, commands in self.mapping.items():
-            name = getattr(cog, "qualified_name", "No")
             description = getattr(cog, "description", "Commands without category")
             if not name.startswith("On"):
-                self.add_item(item=HelpButtons(emoji=self.emojis.get(name), label=F"{name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
+                self.add_item(item=HelpButtons(emoji=self.emojis.get(cog.qualified_name), label=F"{cog.qualified_name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=cog.qualified_name, view=self))
         self.add_item(item=HelpButtons(emoji="💣",label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))
         self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
