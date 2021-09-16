@@ -35,7 +35,7 @@ class HelpMenu(discord.ui.Select):
                     mbed.description += F"**{gts(command=command)}** - {command.help or 'No help found...'}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
-                await interaction.message.edit(embed=mbed)
+            await interaction.message.edit(embed=mbed)
         if self.values[0] == "Home":
             await interaction.response.edit_message(embed=self.homepage)
         if self.values[0] == "Delete":
