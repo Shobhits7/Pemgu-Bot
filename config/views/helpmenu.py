@@ -21,7 +21,7 @@ class HelpMenu(discord.ui.Select):
 
     async def callback(self, interaction: discord.Interaction):
         def gts(self, command):
-            return F"{self.clean_prefix}{command.qualified_name} {command.signature}"
+            return F"{self.help.context.clean_prefix}{command.qualified_name} {command.signature}"
         if self.values[0] in self.help.context.bot.cogs:
             for cog, commands in self.mapping.items():
                 name = cog.qualified_name if cog else "No"
