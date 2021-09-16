@@ -20,10 +20,12 @@ class HelpMenu(discord.ui.Select):
         super().__init__(placeholder="Where do you want to go...", min_values=1, max_values=1, options=options)
 
     async def callback(self, interaction: discord.Interaction):
-        for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
-            description = cog.description if cog else "Commands without category"
-            if self.values[0] == name:
+        def gts(self, command):
+            return F"{self.clean_prefix}{command.qualified_name} {command.signature}"
+        if self.values[0] in self.help.context.bot.cogs:
+            for cog, commands in self.mapping.items():
+                name = cog.qualified_name if cog else "No"
+                description = cog.description if cog else "Commands without category"
                 mbed = discord.Embed(
                     colour=self.help.context.bot.color,
                     title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
@@ -31,7 +33,7 @@ class HelpMenu(discord.ui.Select):
                     timestamp=self.help.context.message.created_at
                 )
                 for command in cog.get_commands():
-                    mbed.description += F"**{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
+                    mbed.description += F"**{self.help.gts(command)}** - {command.help or 'No help found...'}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
