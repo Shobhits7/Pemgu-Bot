@@ -11,8 +11,11 @@ class HelpMenu(discord.ui.Select):
             discord.SelectOption(emoji="🏠", label="Home", description="The homepage of this menu", value="Home")
         ]
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
-            description = cog.description if cog else "Commands without category"
+            if cog:
+                name = cog.qualified_name
+                description = cog.description 
+            else:
+                pass
             if not name.startswith("On"):
                 option = discord.SelectOption(label=F"{name} Category [{len(commands)}]", description=description, value=name, emoji=self.emojis.get(name) if self.emojis.get(name) else '❓')
                 options.append(option)
@@ -23,8 +26,11 @@ class HelpMenu(discord.ui.Select):
         def gts(command):
             return F"{self.help.context.clean_prefix}{command.qualified_name} {command.signature}"
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
-            description = cog.description if cog else "Commands without category"
+            if cog:
+                name = cog.qualified_name
+                description = cog.description 
+            else:
+                pass
             if self.values[0] == name:
                 mbed = discord.Embed(
                     colour=self.help.context.bot.color,
