@@ -11,24 +11,22 @@ class HelpButtons(discord.ui.Button):
 
     async def callback(self, interaction: discord.Interaction):
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
-            description = cog.description if cog else "Commands without category"
-            if self.custom_id == name:
-                mbed = discord.Embed(
-                    colour=self.help.context.bot.color,
-                    title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
-                    description=F"{description}\n\n",
-                    timestamp=self.help.context.message.created_at
-                )
-                if cog:
+            if not cog: pass
+            else:
+                name = cog.qualified_name
+                description = cog.description
+                if self.custom_id == name:
+                    mbed = discord.Embed(
+                        colour=self.help.context.bot.color,
+                        title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
+                        description=F"{description}\n\n",
+                        timestamp=self.help.context.message.created_at
+                    )
                     for subcommand in cog.walk_commands():
-                        mbed.description += F"• **{self.help.get_command_signature(subcommand)}** - {subcommand.help or 'No help found...'}\n"
-                else: 
-                    for command in cog.get_commands():
                         mbed.description += F"• **{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
-                mbed.set_thumbnail(url=self.help.context.me.avatar.url)
-                mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
-                await interaction.response.edit_message(embed=mbed)
+                    mbed.set_thumbnail(url=self.help.context.me.avatar.url)
+                    mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+                    await interaction.response.edit_message(embed=mbed)
         if self.custom_id == "Home":
             await interaction.response.edit_message(embed=self.homepage)
         if self.custom_id == "Delete":
@@ -52,10 +50,12 @@ class HelpView(discord.ui.View):
         self.emojis = emojis
         self.add_item(item=HelpButtons(emoji="🏠", label="Home Page", style=discord.ButtonStyle.green, custom_id="Home", view=self))
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
-            description = cog.description if cog else "Commands without category"
-            if not name.startswith("On"):
-                self.add_item(item=HelpButtons(emoji=self.emojis.get(name), label=F"{name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
+            if not cog: pass
+            else:
+                name = cog.qualified_name
+                description = cog.description
+                if not name.startswith("On"):
+                    self.add_item(item=HelpButtons(emoji=self.emojis.get(name), label=F"{name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
         self.add_item(item=HelpButtons(emoji="💣",label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))
         self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
