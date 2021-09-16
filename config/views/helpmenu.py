@@ -18,10 +18,9 @@ class HelpMenu(discord.ui.Select):
                 options.append(option)
         options.append(discord.SelectOption(emoji="💣", label="Delete", description="Will delete this message", value="Delete"))
         super().__init__(placeholder="Where do you want to go...", min_values=1, max_values=1, options=options)
-
-    async def callback(self, interaction: discord.Interaction):
-        def gts(self, command):
+    def gts(self, command):
             return F"{self.help.context.clean_prefix}{command.qualified_name} {command.signature}"
+    async def callback(self, interaction: discord.Interaction):
         if self.values[0] in self.help.context.bot.cogs:
             for cog, commands in self.mapping.items():
                 name = cog.qualified_name if cog else "No"
