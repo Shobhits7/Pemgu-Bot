@@ -18,24 +18,25 @@ class HelpMenu(discord.ui.Select):
                 options.append(option)
         options.append(discord.SelectOption(emoji="💣", label="Delete", description="Will delete this message", value="Delete"))
         super().__init__(placeholder="Where do you want to go...", min_values=1, max_values=1, options=options)
+
     async def callback(self, interaction: discord.Interaction):
         def gts(command):
             return F"{self.help.context.clean_prefix}{command.qualified_name} {command.signature}"
-        if self.values[0] in self.help.context.bot.cogs:
-            for cog, commands in self.mapping.items():
-                name = cog.qualified_name if cog else "No"
-                description = cog.description if cog else "Commands without category"
+        for cog, commands in self.mapping.items():
+            name = cog.qualified_name if cog else "No"
+            description = cog.description if cog else "Commands without category"
+            if self.values[0] == name:
                 mbed = discord.Embed(
                     colour=self.help.context.bot.color,
                     title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
                     description=F"{description}\n\n",
                     timestamp=self.help.context.message.created_at
                 )
-                for command in cog.get_commands():
-                    mbed.description += F"**{gts(command=command)}** - {command.help or 'No help found...'}\n"
+                for command in cog.walk_commands():
+                    mbed.description += F"• **{gts(command)}** - {command.help or 'No help found...'}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
-            await interaction.message.edit(embed=mbed)
+                await interaction.response.edit_message(embed=mbed)
         if self.values[0] == "Home":
             await interaction.response.edit_message(embed=self.homepage)
         if self.values[0] == "Delete":
