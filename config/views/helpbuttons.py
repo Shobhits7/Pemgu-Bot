@@ -49,7 +49,7 @@ class HelpView(discord.ui.View):
         self.add_item(item=HelpButtons(emoji="🏠", label="Home Page", style=discord.ButtonStyle.green, custom_id="Home", view=self))
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
-            description = cog.description if cog else "Commands without category")
+            description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
                 self.add_item(item=HelpButtons(emoji=self.emojis.get(name), label=F"{cog.qualified_name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
         self.add_item(item=HelpButtons(emoji="💣",label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))
