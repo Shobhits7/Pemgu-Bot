@@ -50,13 +50,12 @@ class HelpView(discord.ui.View):
         self.homepage = homepage
         self.emojis = emojis
         self.add_item(item=HelpButtons(emoji="🏠", label="Home Page", style=discord.ButtonStyle.green, custom_id="Home", view=self))
-        for cog, commands in self.mapping.items():
-            if not cog: pass
-            else:
-                name = cog.qualified_name
-                description = cog.description
-                if not name.startswith("On"):
-                    self.add_item(item=HelpButtons(emoji=self.emojis.get(name), label=F"{name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
+        for cog in self.mapping.items():
+            name = cog.qualified_name if cog else "No"
+            description = cog.description if cog else "Commands without category"
+            commands = cog.walk_commands() if cog else commands in self.mapping.items()
+            if not name.startswith("On"):
+                self.add_item(item=HelpButtons(emoji=self.emojis.get(name), label=F"{name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
         self.add_item(item=HelpButtons(emoji="💣",label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))
         self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
