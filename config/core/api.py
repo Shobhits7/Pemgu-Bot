@@ -14,6 +14,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.dagpi.xyz/data/joke", headers=self.dagpi_headers)
         response = await session.json()
+        await self.bot.aiosession.close()
         jkmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is a random joke",
@@ -29,6 +30,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.dagpi.xyz/data/8ball", headers=self.dagpi_headers)
         response = await session.json()
+        await self.bot.aiosession.close()
         _8bmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your answer",
@@ -47,6 +49,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         user = user or ctx.author
         session = await self.bot.aiosession.get(F"https://api.dagpi.xyz/image/pixel/?url={user.avatar.with_static_format('png').with_size(1024)}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
+        await self.bot.aiosession.close()
         pxlmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is the pixelated for the image",
@@ -64,6 +67,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         user = user or ctx.author
         session = await self.bot.aiosession.get(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.with_static_format('png').with_size(1024)}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
+        await self.bot.aiosession.close()
         clrsmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is the colors for the image",
@@ -81,6 +85,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         user = user or ctx.author
         session = await self.bot.aiosession.get(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_static_format('png').with_size(1024)}&username={ctx.author.name}&text={text}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
+        await self.bot.aiosession.close()
         twmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your tweet's preview",
@@ -97,6 +102,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get(F"https://api.screenshotmachine.com?key=a95edd&url={website}&dimension=1024x768")
         response = io.BytesIO(await session.read())
+        await self.bot.aiosession.close()
         ssmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your screenshot",
@@ -115,6 +121,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             await ctx.send("Couldn't find this library in PYPI")
             return
         response = await session.json()
+        await self.bot.aiosession.close()
         pypimbed = discord.Embed(
             colour=self.bot.color,
             url=response['info']['package_url'],
