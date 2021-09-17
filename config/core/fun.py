@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from config.views import counter
 
-class Fun(commands.Cog, description="For people who can't go out because vidcon-19"):
+class Fun(commands.Cog, description="For just having an great fun time"):
     def __init__(self, bot):
         self.bot = bot
     

@@ -1,7 +1,7 @@
 import discord, os, io
 from discord.ext import commands
 
-class API(commands.Cog, description="Some cool API commands"):
+class API(commands.Cog, description="Some cool commands that uses internet"):
     def __init__(self, bot):
         self.bot = bot
         headers=self.dagpi_headers = {
