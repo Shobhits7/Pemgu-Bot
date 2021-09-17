@@ -22,15 +22,15 @@ class OnError(commands.Cog):
             matches = difflib.get_close_matches(cmd, cmds)
             matcnfmbed = discord.Embed(
                 colour=self.bot.color,
-                title=F"Couldn't find command called: `{cmd}`.",
-                description=F"Maybe you meant:\n`{' - '.join([match for match in matches])}`",
+                title=F"Couldn't find command called: {cmd}.",
+                description=F"Maybe you meant:\n{' - '.join([match for match in matches])}",
                 timestamp=ctx.message.created_at
             )
             matcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             nmatcnfmbed = discord.Embed(
                 colour=self.bot.color,
-                title=F"Couldn't find command called: `{cmd}`.",
-                description=F"Use `help` command to know what command you're looking for",
+                title=F"Couldn't find command called: {cmd}.",
+                description=F"Use help command to know what command you're looking for",
                 timestamp=ctx.message.created_at
             )
             nmatcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)

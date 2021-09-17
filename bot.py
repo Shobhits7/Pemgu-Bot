@@ -29,14 +29,6 @@ bot.activity = discord.Game(name=F"@Whaffle for prefix | {bot.prefix} help for h
 
 bot.status = discord.Status.online
 
-bot.blacklisted = []
-
-@bot.check
-async def blacklisted(ctx):
-    if ctx.author.id in bot.blacklisted:
-        raise CheckAnyFailure
-    return True
-
 for cog in sorted(os.listdir("./config/core/")):
     if cog.endswith(".py"):
         bot.load_extension(F"config.core.{cog[:-3]}")

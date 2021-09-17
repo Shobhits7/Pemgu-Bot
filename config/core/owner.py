@@ -5,6 +5,23 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     def __init__(self, bot):
         self.bot = bot
 
+    # Blacklist
+    @commands.command(name="blacklist", aliases=["bl"], help="Will add the given user to the blacklist")
+    @commands.is_owner()
+    async def blacklist(self, ctx, user:commands.UserConverter):
+        await ctx.trigger_typing()
+        blacklist = await self.bot.db.fetch("SELECT * FROM blacklist WHERE user_id = $1", user.id)
+        blmbed = discord.Embed(
+            colour=self.bot.color,
+        )
+        if len(blacklist) == 0:
+            await self.bot.db.execute("INSERT INTO blacklist(user_id) VALUES($1)", user.id)
+            blmbed.title = F"Added {user.name} to the blacklist"
+        else:
+            await self.bot.db.execute("DELETE FROM blacklist WHERE user_id = $1", user.id)
+            blmbed.title = F"Removed {user.name} to the blacklist"
+        await ctx.send(embed=blmbed)
+
     # Cleanup
     @commands.command(name="cleanup", aliases=["cu"], help="Will delete bot's messagess")
     @commands.is_owner()
