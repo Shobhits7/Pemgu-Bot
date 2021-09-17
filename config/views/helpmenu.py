@@ -13,7 +13,7 @@ class HelpMenu(discord.ui.Select):
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category..."
-            if not name.startswith("On") or not name.startswith("No"):
+            if not name.startswith("O") or not name.startswith("N"):
                 option = discord.SelectOption(label=F"{name} Category [{len(commands)}]", description=description, value=name, emoji=self.emojis.get(name) if self.emojis.get(name) else '❓')
                 options.append(option)
         options.append(discord.SelectOption(emoji="💣", label="Delete", description="Will delete this message", value="Delete"))
