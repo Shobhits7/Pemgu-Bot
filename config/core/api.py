@@ -1,6 +1,5 @@
 import discord, os, io
 from discord.ext import commands
-from ..utils.aiohttp import session_json, session_text, session_bytes
 
 class API(commands.Cog, description="Some cool API commands"):
     def __init__(self, bot):
@@ -13,11 +12,12 @@ class API(commands.Cog, description="Some cool API commands"):
     @commands.command(name="joke", aliases=["jk"], help="Will tell you a random joke")
     async def joke(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.dagpi.xyz/data/joke", self.dagpi_headers)
+        session = await self.bot.session.get("https://api.dagpi.xyz/data/joke", self.dagpi_headers)
+        response = await session.json()
         jkmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is a random joke",
-            description=session["joke"],
+            description=response["joke"],
             timestamp=ctx.message.created_at
         )
         jkmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
@@ -27,7 +27,8 @@ class API(commands.Cog, description="Some cool API commands"):
     @commands.command(name="8ball", aliases=["8b"], help="Will give you a random answer", usage="<question>")
     async def _8ball(self, ctx, *, question):
         await ctx.trigger_typing()
-        session = await session_json("https://api.dagpi.xyz/data/8ball", self.dagpi_headers)
+        session = await self.bot.session.get("https://api.dagpi.xyz/data/8ball", self.dagpi_headers)
+        response = await session.json()
         _8bmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your answer",
@@ -35,7 +36,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         _8bmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         _8bmbed.add_field(name="Your Question:", value=question)
-        _8bmbed.add_field(name="Your Answer:", value=session["response"])
+        _8bmbed.add_field(name="Your Answer:", value=response["response"])
         await ctx.send(embed=_8bmbed)
 
     # Pixel
@@ -44,7 +45,8 @@ class API(commands.Cog, description="Some cool API commands"):
     async def pixel(self, ctx, user:commands.UserConverter = None):
         await ctx.trigger_typing()
         user = user or ctx.author
-        session = await session_bytes(F"https://api.dagpi.xyz/image/pixel/?url={user.avatar.with_static_format('png').with_size(1024)}", self.dagpi_headers)
+        session = await self.bot.session.get(F"https://api.dagpi.xyz/image/pixel/?url={user.avatar.with_static_format('png').with_size(1024)}", self.dagpi_headers)
+        response = io.BytesIO(await session.read())
         pxlmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is the pixelated for the image",
@@ -52,7 +54,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         pxlmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         pxlmbed.set_image(url="attachment://pixel.png")
-        await ctx.send(file=discord.File(session, filename="pixel.png"), embed=pxlmbed)
+        await ctx.send(file=discord.File(response, filename="pixel.png"), embed=pxlmbed)
 
     # Colors
     @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image", usage="[user]")
@@ -60,7 +62,8 @@ class API(commands.Cog, description="Some cool API commands"):
     async def colors(self, ctx, user:commands.UserConverter = None):
         await ctx.trigger_typing()
         user = user or ctx.author
-        session = await session_bytes(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.with_static_format('png').with_size(1024)}", self.dagpi_headers)
+        session = await self.bot.session.get(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.with_static_format('png').with_size(1024)}", self.dagpi_headers)
+        response = io.BytesIO(await session.read())
         clrsmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is the colors for the image",
@@ -68,7 +71,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         clrsmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         clrsmbed.set_image(url="attachment://colors.png")
-        await ctx.send(file=discord.File(session, filename="colors.png"), embed=clrsmbed)
+        await ctx.send(file=discord.File(response, filename="colors.png"), embed=clrsmbed)
 
     # Tweet
     @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet", usage="<username> <text>")
@@ -76,7 +79,8 @@ class API(commands.Cog, description="Some cool API commands"):
     async def tweet(self, ctx, *, text, user:commands.UserConverter = None):
         await ctx.trigger_typing()
         user = user or ctx.author
-        session = await session_bytes(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_static_format('png').with_size(1024)}&username={ctx.author.name}&text={text}", self.dagpi_headers)
+        session = await self.bot.session.get(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_static_format('png').with_size(1024)}&username={ctx.author.name}&text={text}", self.dagpi_headers)
+        response = io.BytesIO(await session.read())
         twmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your tweet's preview",
@@ -84,7 +88,7 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         twmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         twmbed.set_image(url="attachment://tweet.png")
-        await ctx.send(file=discord.File(session, filename="tweet.png"), embed=twmbed)
+        await ctx.send(file=discord.File(response, filename="tweet.png"), embed=twmbed)
 
     # Screenshot
     @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website", usage="<website>")
@@ -108,7 +112,8 @@ class API(commands.Cog, description="Some cool API commands"):
         await ctx.trigger_typing()
         session = await self.bot.session.get(F"https://pypi.org/pypi/{lib}/json")
         if session.status != 200:
-            return await ctx.send("Couldn't find this library in PYPI")
+            await ctx.send("Couldn't find this library in PYPI")
+            return
         response = await session.json()
         pypimbed = discord.Embed(
             colour=self.bot.color,
@@ -118,7 +123,13 @@ class API(commands.Cog, description="Some cool API commands"):
             timestamp=ctx.message.created_at
         )
         pypimbed.add_field(name="Author Info:", value=F"Name: {response['info']['author']}\nEmail:{response['info']['author_email']}", inline=False)
-        pypimbed.add_field(name="Package Info:", value=F"**Version:** {response['info']['version']}\n**Download URL:** {response['info']['download_url']}\n**Documentation URL:** {response['info']['docs_url']}\n**Home Page:** {response['info']['home_page']}\n**Yanked:** {response['info']['yanked']} - {response['info']['yanked_reason']}\n**Keywords:** {response['info']['keywords']}\n**License:** {response['info']['license']}", inline=False)
+        pypimbed.add_field(name="Package Info:", value=F"""**Version:** {response['info']['version']}
+            **Download URL:** {response['info']['download_url']}
+            **Documentation URL:** {response['info']['docs_url']}
+            **Home Page:** {response['info']['home_page']}
+            **Yanked:** {response['info']['yanked']} - {response['info']['yanked_reason']}
+            **Keywords:** {response['info']['keywords']}
+            **License:** {response['info']['license']}""", inline=False)
         pypimbed.add_field(name="Classifiers:", value=",\n    ".join(classifier for classifier in response['info']['classifiers']), inline=False)
         pypimbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/873478114183880704/887470965188091944/pypilogo.png")
         pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
