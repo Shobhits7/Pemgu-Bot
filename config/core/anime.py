@@ -6,7 +6,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         self.bot = bot
     
     # Quote
-    @commands.command(name="quote", help="Will send a anime quote")
+    @commands.command(name="quote", help="Will send a anime quote", invoke_without_command=True)
     async def quote(self, ctx):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://animechan.vercel.app/api/random/")
@@ -68,7 +68,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         await ctx.send(embed=smaidmbed)
 
     # NSFW
-    @commands.group(name="nsfw", help="Will send a random nsfw waifu image")
+    @commands.group(name="nsfw", help="Will send a random nsfw waifu image", invoke_without_command=True)
     @commands.is_nsfw()
     async def nsfw(self, ctx):
         await ctx.trigger_typing()
