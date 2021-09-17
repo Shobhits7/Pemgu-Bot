@@ -1,4 +1,4 @@
-import discord, asyncpg, os
+import discord, aiohttp, asyncpg, os
 from discord.ext import commands
 from config.utils.help import MyHelp
 
@@ -17,6 +17,8 @@ async def get_prefix_postgresql(bot, message):
     return commands.when_mentioned_or(prefix)(bot, message)
 
 bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, help_command=MyHelp(), intents=discord.Intents.all(), allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False))
+
+bot.session = aiohttp.ClientSession()
 
 bot.prefix = ".w"
 bot.color = 0x2F3136
