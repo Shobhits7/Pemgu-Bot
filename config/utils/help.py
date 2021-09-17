@@ -25,6 +25,7 @@ class MyHelp(commands.HelpCommand):
 
     # Help Main
     async def send_bot_help(self, mapping):
+        
         ctx = self.context
         homepage = discord.Embed(
             colour=ctx.bot.color,
