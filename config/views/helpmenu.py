@@ -20,10 +20,10 @@ class HelpMenu(discord.ui.Select):
     async def callback(self, interaction: discord.Interaction):
         def gts(command):
             return F"{self.help.context.clean_prefix}{command.qualified_name} {command.signature}"
-        for cog in self.mapping.items():
+        for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
-            commands = cog.walk_commands() if cog else commands in self.mapping.items()
+            cmds = cog.walk_commands() if cog else commands in self.mapping.items()
             if self.values[0] == name:
                 mbed = discord.Embed(
                     colour=self.help.context.bot.color,
@@ -31,7 +31,7 @@ class HelpMenu(discord.ui.Select):
                     description=F"{description}\n\n",
                     timestamp=self.help.context.message.created_at
                 )
-                for command in commands:
+                for command in cmds:
                     mbed.description += F"• **{gts(command)}** - {command.help or 'No help found...'}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
