@@ -16,9 +16,7 @@ class HelpMenu(discord.ui.Select):
             if not name.startswith("On"):
                 option = discord.SelectOption(label=F"{name} Category [{len(commands)}]", description=description, value=name, emoji=self.emojis.get(name) if self.emojis.get(name) else '❓')
                 options.append(option)
-        options.append(discord.SelectOption(emoji="💣", label="Delete", description="Will delete this message", value="Delete"))
         super().__init__(placeholder="Where do you want to go...", min_values=1, max_values=1, options=options)
-
     async def callback(self, interaction: discord.Interaction):
         def gts(command):
             return F"{self.help.context.clean_prefix}{command.qualified_name} {command.signature}"
@@ -32,23 +30,17 @@ class HelpMenu(discord.ui.Select):
                     description=F"{description}\n\n",
                     timestamp=self.help.context.message.created_at
                 )
-                for command in cog.get_commands():
-                    mbed.description += F"• **{gts(command)}** - {command.help or 'No help found...'}\n"
+                if cog:
+                    for subcommand in cog.walk_commands():
+                        mbed.description += F"• **{gts(subcommand)}** - {subcommand.help or 'No help found...'}\n"
+                else:
+                    for command in commands:
+                        mbed.description += F"• **{gts(command)}** - {command.help or 'No help found...'}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
         if self.values[0] == "Home":
             await interaction.response.edit_message(embed=self.homepage)
-        if self.values[0] == "Delete":
-            deletembed = discord.Embed(
-                colour=self.help.context.bot.color,
-                title="Deleted the message",
-                timestamp=self.help.context.message.created_at
-            )
-            deletembed.set_thumbnail(url=self.help.context.me.avatar.url)
-            deletembed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
-            await interaction.message.delete()
-            await interaction.response.send_message(embed=deletembed, ephemeral=True)
 
 class HelpView(discord.ui.View):
     def __init__(self, help, mapping, homepage, emojis):
@@ -60,6 +52,18 @@ class HelpView(discord.ui.View):
         self.add_item(HelpMenu(self))
         self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
+
+    @discord.ui.button(emoji="💣", label="Delete", description="Will delete this message")
+    async def delete(self, button: discord.ui.Button, interaction: discord.Interaction):
+        deletembed = discord.Embed(
+            colour=self.help.context.bot.color,
+            title="Deleted the message",
+            timestamp=self.help.context.message.created_at
+        )
+        deletembed.set_thumbnail(url=self.help.context.me.avatar.url)
+        deletembed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+        await interaction.message.delete()
+        await interaction.response.send_message(embed=deletembed, ephemeral=True)
 
     async def on_timeout(self):
         try:
