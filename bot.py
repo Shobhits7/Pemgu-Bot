@@ -12,7 +12,7 @@ async def get_prefix_postgresql(bot, message):
         return ""
     prefix = await bot.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", message.guild.id)
     if len(prefix) == 0:
-        prefix = ",w"
+        prefix = "[w]"
     else:
         prefix = prefix[0].get("prefix")
     return commands.when_mentioned_or(prefix)(bot, message)
@@ -22,7 +22,7 @@ bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256
 async def aiohttp_session():
     bot.session = aiohttp.ClientSession()
 
-bot.prefix = ",w"
+bot.prefix = "[w]"
 bot.color = 0x2F3136
 
 bot.activity = discord.Game(name=F"@Whaffle for prefix | {bot.prefix} help for help | Made by lvlahraam#8435")
