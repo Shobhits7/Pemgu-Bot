@@ -1,4 +1,3 @@
-<!-- ![Logo](https://i.postimg.cc/SQ2ZzSjg/MainLogo.webp) -->
 ## Information About Whaffle Discord Bot
 This is a Discord Bot made by lvlahraam
 
@@ -21,25 +20,6 @@ So he made his own custom bot so other people can use it
 
 ***The Commands:***
 
-**API:**
-joke 8ball pixel colors tweet screenshot
-
-**Database:**
-delete
-
-**Moderation:**
-ban unban kick addrole removerole purge
-
-**Owner:**
-logout relog guilds perms template blacklist code
-
-**Setup:**
-prefix(change, reset
-
-**Utility:**
-about info avatar icon stats ping invite echo afk help
-
-**Jishaku:**
-jsk
+![Commands](https://cdn.discordapp.com/attachments/873478114183880704/888448940872187904/unknown.png)
 
 ### [Bot Invite](https://dsc.gg/whaffle-bot) | [Bot Support](https://dsc.gg/whaffle-support)
