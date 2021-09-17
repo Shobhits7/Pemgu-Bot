@@ -132,7 +132,7 @@ class OnError(commands.Cog):
             await ctx.trigger_typing()
             cfmbed = discord.Embed(
                 colour=self.bot.color,
-                title="You are blacklisted, stop using the commands",
+                title="You are blacklisted, stop using the commands **IDIOT**",
                 timestamp=ctx.message.created_at
             )
             cfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
@@ -141,7 +141,7 @@ class OnError(commands.Cog):
             await ctx.trigger_typing()
             cafmbed = discord.Embed(
                 colour=self.bot.color,
-                title="You are blacklisted, stop using the commands",
+                title="You are blacklisted, stop using the commands **IDIOT**",
                 timestamp=ctx.message.created_at
             )
             cafmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
