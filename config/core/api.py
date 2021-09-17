@@ -14,7 +14,6 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.dagpi.xyz/data/joke", headers=self.dagpi_headers)
         response = await session.json()
-        await session.close()
         jkmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is a random joke",
@@ -30,7 +29,6 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.dagpi.xyz/data/8ball", headers=self.dagpi_headers)
         response = await session.json()
-        await session.close()
         _8bmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your answer",
@@ -117,7 +115,6 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             await ctx.send("Couldn't find this library in PYPI")
             return
         response = await session.json()
-        await session.close()
         pypimbed = discord.Embed(
             colour=self.bot.color,
             url=response['info']['package_url'],
