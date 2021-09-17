@@ -1,4 +1,4 @@
-import discord, os
+import discord, os, io
 from discord.ext import commands
 from ..utils.aiohttp import session_json, session_text, session_bytes
 
@@ -91,7 +91,8 @@ class API(commands.Cog, description="Some cool API commands"):
     @commands.bot_has_guild_permissions(attach_files=True)
     async def screenshot(self, ctx, *, website):
         await ctx.trigger_typing()
-        session = await session_bytes(F"https://api.screenshotmachine.com?key=a95edd&url={website}&dimension=1024x768")
+        session = await self.bot.session.get(F"https://api.screenshotmachine.com?key=a95edd&url={website}&dimension=1024x768")
+        response = io.BytesIO(await session.read())
         ssmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your screenshot",
@@ -99,24 +100,26 @@ class API(commands.Cog, description="Some cool API commands"):
         )
         ssmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         ssmbed.set_image(url="attachment://screenshot.png")
-        await ctx.send(file=discord.File(session, filename="screenshot.png"), embed=ssmbed)
+        await ctx.send(file=discord.File(response, filename="screenshot.png"), embed=ssmbed)
 
     # Pypi
     @commands.command(name="pypi", help="Will give information about the given lib in pypi")
-    @commands.is_owner()
     async def pypi(self, ctx, *, lib):
         await ctx.trigger_typing()
-        session = await session_json(F"https://pypi.org/pypi/{lib}/json")
+        session = await self.bot.session.get(F"https://pypi.org/pypi/{lib}/json")
+        if session.status != 200:
+            return await ctx.send("Couldn't find this library in PYPI")
+        response = await session.json()
         pypimbed = discord.Embed(
             colour=self.bot.color,
-            url=session['info']['package_url'],
-            title=session['info']['name'],
-            description=session['info']['summary'],
+            url=response['info']['package_url'],
+            title=response['info']['name'],
+            description=response['info']['summary'],
             timestamp=ctx.message.created_at
         )
-        pypimbed.add_field(name="Author Info:", value=F"Name: {session['info']['author']}\nEmail:{session['info']['author_email']}", inline=False)
-        pypimbed.add_field(name="Package Info:", value=F"**Version:** {session['info']['version']}\n**Download URL:** {session['info']['download_url']}\n**Documentation URL:** {session['info']['docs_url']}\n**Home Page:** {session['info']['home_page']}\n**Yanked:** {session['info']['yanked']} - {session['info']['yanked_reason']}\n**Keywords:** {session['info']['keywords']}\n**License:** {session['info']['license']}", inline=False)
-        pypimbed.add_field(name="Classifiers:", value=",\n    ".join(classifier for classifier in session['info']['classifiers']), inline=False)
+        pypimbed.add_field(name="Author Info:", value=F"Name: {response['info']['author']}\nEmail:{response['info']['author_email']}", inline=False)
+        pypimbed.add_field(name="Package Info:", value=F"**Version:** {response['info']['version']}\n**Download URL:** {response['info']['download_url']}\n**Documentation URL:** {response['info']['docs_url']}\n**Home Page:** {response['info']['home_page']}\n**Yanked:** {response['info']['yanked']} - {response['info']['yanked_reason']}\n**Keywords:** {response['info']['keywords']}\n**License:** {response['info']['license']}", inline=False)
+        pypimbed.add_field(name="Classifiers:", value=",\n    ".join(classifier for classifier in response['info']['classifiers']), inline=False)
         pypimbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/873478114183880704/887470965188091944/pypilogo.png")
         pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=pypimbed)

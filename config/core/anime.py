@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from config.utils.aiohttp import session_json
 
 class Anime(commands.Cog, description="Some Weeb shit stuff"):
     def __init__(self, bot):
@@ -10,17 +9,16 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.command(name="quote", help="Will send a anime quote")
     async def quote(self, ctx):
         await ctx.trigger_typing()
-        async with self.bot.session as session:
-            async with session.get("https://animechan.vercel.app/api/random/") as r:
-                await r.json()
+        session = await self.bot.session.get("https://animechan.vercel.app/api/random/")
+        response = await session.json()
         quotembed = discord.Embed(
             colour=self.bot.color,
             title="Here is your quote",
             timestamp=ctx.message.created_at
         )
-        quotembed.add_field(name="Quote:", value=r["quote"])
-        quotembed.add_field(name="Character:", value=r["character"])
-        quotembed.add_field(name="Series:", value=r["anime"])
+        quotembed.add_field(name="Quote:", value=response["quote"])
+        quotembed.add_field(name="Character:", value=response["character"])
+        quotembed.add_field(name="Series:", value=response["anime"])
         quotembed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=quotembed)
 
@@ -28,13 +26,14 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.command(name="sfw", help="Will send a random sfw waifu or husbando image if not specified")
     async def sfw(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.waifu.im/sfw/all/")
+        session = await self.bot.session.get("https://api.waifu.im/sfw/all/")
+        response = await session.json()
         sfwmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your SFW Image",
             timestamp=ctx.message.created_at
         )
-        sfwmbed.set_image(url=session["url"])
+        sfwmbed.set_image(url=response["url"])
         sfwmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=sfwmbed)
 
@@ -42,13 +41,14 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.command(name="waifu", help="Will send a random sfw waifu image")
     async def waifu(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.waifu.im/sfw/waifu/")
+        session = await self.bot.session.get("https://api.waifu.im/sfw/waifu/")
+        response = await session.json()
         wambed = discord.Embed(
             colour=self.bot.color,
             title="Here is your SFW Waifu Image",
             timestamp=ctx.message.created_at
         )
-        wambed.set_image(url=session["url"])
+        wambed.set_image(url=response["url"])
         wambed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=wambed)
     
@@ -56,13 +56,14 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.command(name="smaid", help="Will send a random sfw maid image")
     async def smaid(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.waifu.im/sfw/maid/")
+        session = await self.bot.session.get("https://api.waifu.im/sfw/maid/")
+        response = await session.json()
         smaidmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your SFW Maid Image",
             timestamp=ctx.message.created_at
         )
-        smaidmbed.set_image(url=session["url"])
+        smaidmbed.set_image(url=response["url"])
         smaidmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=smaidmbed)
 
@@ -71,13 +72,14 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def nsfw(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.waifu.im/nsfw/ero/")
+        session = await self.bot.session.get("https://api.waifu.im/nsfw/ero/")
+        response = await session.json()
         nsfwmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Image",
             timestamp=ctx.message.created_at
         )
-        nsfwmbed.set_image(url=session["url"])
+        nsfwmbed.set_image(url=response["url"])
         nsfwmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=nsfwmbed)
 
@@ -86,13 +88,14 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def ass(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.waifu.im/nsfw/ass/")
+        session = await self.bot.session.get("https://api.waifu.im/nsfw/ass/")
+        response = await session.json()
         assmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Ass Image",
             timestamp=ctx.message.created_at
         )
-        assmbed.set_image(url=session["url"])
+        assmbed.set_image(url=response["url"])
         assmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=assmbed)
 
@@ -101,13 +104,14 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def ecchi(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.waifu.im/nsfw/ecchi/")
+        session = await self.bot.session.get("https://api.waifu.im/nsfw/ecchi/")
+        response = await session.json()
         ecchimbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Ecchi Image",
             timestamp=ctx.message.created_at
         )
-        ecchimbed.set_image(url=session["url"])
+        ecchimbed.set_image(url=response["url"])
         ecchimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=ecchimbed)
 
@@ -116,13 +120,14 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def ero(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.waifu.im/nsfw/ero/")
+        session = await self.bot.session.get("https://api.waifu.im/nsfw/ero/")
+        response = await session.json()
         erombed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Ero Image",
             timestamp=ctx.message.created_at
         )
-        erombed.set_image(url=session["url"])
+        erombed.set_image(url=response["url"])
         erombed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=erombed)
 
@@ -131,13 +136,14 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def hentai(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.waifu.im/nsfw/hentai/")
+        session = await self.bot.session.get("https://api.waifu.im/nsfw/hentai/")
+        response = await session.json()
         hentaimbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Hentai Image",
             timestamp=ctx.message.created_at
         )
-        hentaimbed.set_image(url=session["url"])
+        hentaimbed.set_image(url=response["url"])
         hentaimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=hentaimbed)
 
@@ -146,13 +152,14 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def nmaid(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.waifu.im/nsfw/maid/")
+        session = await self.bot.session.get("https://api.waifu.im/nsfw/maid/")
+        response = await session.json()
         nmaidmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Maid Image",
             timestamp=ctx.message.created_at
         )
-        nmaidmbed.set_image(url=session["url"])
+        nmaidmbed.set_image(url=response["url"])
         nmaidmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=nmaidmbed)
 
@@ -161,13 +168,14 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def milf(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.waifu.im/nsfw/milf/")
+        session = await self.bot.session.get("https://api.waifu.im/nsfw/milf/")
+        response = await session.json()
         milfmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Milf Image",
             timestamp=ctx.message.created_at
         )
-        milfmbed.set_image(url=session["url"])
+        milfmbed.set_image(url=response["url"])
         milfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=milfmbed)
 
@@ -176,13 +184,14 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def oppai(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.waifu.im/nsfw/oppai/")
+        session = await self.bot.session.get("https://api.waifu.im/nsfw/ero/")
+        response = await session.json()
         oppaimbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Oppai Image",
             timestamp=ctx.message.created_at
         )
-        oppaimbed.set_image(url=session["url"])
+        oppaimbed.set_image(url=response["url"])
         oppaimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=oppaimbed)
 
@@ -191,13 +200,14 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def oral(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.waifu.im/nsfw/oral/")
+        session = await self.bot.session.get("https://api.waifu.im/nsfw/oral/")
+        response = await session.json()
         oralmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Oral Image",
             timestamp=ctx.message.created_at
         )
-        oralmbed.set_image(url=session["url"])
+        oralmbed.set_image(url=response["url"])
         oralmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=oralmbed)
 
@@ -206,13 +216,14 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def paizuri(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.waifu.im/nsfw/paizuri/")
+        session = await self.bot.session.get("https://api.waifu.im/nsfw/paizuri/")
+        response = await session.json()
         paizurimbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Paizuri Image",
             timestamp=ctx.message.created_at
         )
-        paizurimbed.set_image(url=session["url"])
+        paizurimbed.set_image(url=response["url"])
         paizurimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=paizurimbed)
 
@@ -221,13 +232,14 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def selfies(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.waifu.im/nsfw/selfies/")
+        session = await self.bot.session.get("https://api.waifu.im/nsfw/selfies/")
+        response = await session.json()
         selfiesmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Selfies Image",
             timestamp=ctx.message.created_at
         )
-        selfiesmbed.set_image(url=session["url"])
+        selfiesmbed.set_image(url=response["url"])
         selfiesmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=selfiesmbed)
 
@@ -236,13 +248,14 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     @commands.is_nsfw()
     async def uniform(self, ctx):
         await ctx.trigger_typing()
-        session = await session_json("https://api.waifu.im/nsfw/uniform/")
+        session = await self.bot.session.get("https://api.waifu.im/nsfw/uniform/")
+        response = await session.json()
         uniformmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Uniform Image",
             timestamp=ctx.message.created_at
         )
-        uniformmbed.set_image(url=session["url"])
+        uniformmbed.set_image(url=response["url"])
         uniformmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=uniformmbed)
 
