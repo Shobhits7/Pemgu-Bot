@@ -19,6 +19,7 @@ So he made his own custom bot so other people can use it
 *The Bot's Main Prefix is `.w` but you can change it with the `prefix change` command or `prefix reset` to change the prefix to it's original*
 
 ***The Commands:***
+
 ![Commands](https://cdn.discordapp.com/attachments/873478114183880704/888448940872187904/unknown.png)
 
 ### [Bot Invite](https://dsc.gg/whaffle-bot) | [Bot Support](https://dsc.gg/whaffle-support)
