@@ -53,7 +53,7 @@ class HelpView(discord.ui.View):
         self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
 
-    @discord.ui.button(emoji="💣", label="Delete", description="Will delete this message")
+    @discord.ui.button(emoji="💣", label="Delete", style=discord.ButtonStyle.red)
     async def delete(self, button: discord.ui.Button, interaction: discord.Interaction):
         deletembed = discord.Embed(
             colour=self.help.context.bot.color,
