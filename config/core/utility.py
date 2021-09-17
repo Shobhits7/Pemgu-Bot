@@ -47,7 +47,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         if image.banner and image.banner.url:
             brmbed.set_image(url=image.banner.url)
         else:
-            brmbed.set_image(url=image.accent_colour)
+            brmbed.colour = image.accent_colour
         brmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=brmbed)
 
