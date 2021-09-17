@@ -23,7 +23,7 @@ class HelpMenu(discord.ui.Select):
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
-            cmds = cog.walk_commands() if cog else commands in self.mapping.items()
+            cmds = cog.walk_commands() if cog else commands
             if self.values[0] == name:
                 mbed = discord.Embed(
                     colour=self.help.context.bot.color,
