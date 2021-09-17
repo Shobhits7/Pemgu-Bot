@@ -20,7 +20,7 @@ async def get_prefix_postgresql(bot, message):
 bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, help_command=MyHelp(), intents=discord.Intents.all(), allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False))
 
 async def aiohttp_session():
-    bot.session = aiohttp.ClientSession()
+    bot.aiosession = aiohttp.ClientSession()
 
 bot.prefix = "[w]"
 bot.color = 0x2F3136
