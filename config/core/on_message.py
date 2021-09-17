@@ -7,7 +7,7 @@ class OnMessage(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        blacklist = self.bot.db.fetch("SELECT * FROM blacklist WHERE user_id = $1", message.user.id)
+        blacklist = self.bot.db.fetch("SELECT * FROM blacklist WHERE user_id = $1", message.author.id)
         if message.author.bot or len(blacklist) != 0:
             return
 
