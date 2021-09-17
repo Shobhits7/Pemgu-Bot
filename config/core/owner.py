@@ -106,29 +106,6 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         await ctx.send(embed=tembed)
         temp = await ctx.guild.templates()
         await ctx.author.send(temp)
-    
-    # Blacklist
-    @commands.command(name="blacklist", aliases=["bl"], help="Will put the given user to blaclist")
-    @commands.is_owner()
-    async def blacklist(self, ctx, user:commands.UserConverter):
-        await ctx.trigger_typing()
-        unblmbed = discord.Embed(
-            colour=self.bot.color,
-            title="Removed the user from the blacklist",
-            timestamp=ctx.message.created_at
-        )
-        unblmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        doblmbed = discord.Embed(
-            colour=self.bot.color,
-            title="Added user to the blacklist",
-            timestamp=ctx.message.created_at
-        )
-        doblmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        if user.id in self.bot.blacklisted:
-            self.bot.blacklisted.remove(user.id)
-            return await ctx.send(embed=unblmbed)
-        self.bot.blacklisted.append(user.id)
-        await ctx.send(embed=doblmbed)
 
     # Code
     @commands.command(name="code", aliases=["cd"], help="Will give you a preview from your code", usage="<code>")
