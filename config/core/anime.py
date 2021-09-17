@@ -54,18 +54,18 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     
     # SMaid
     @sfw.command(name="maid", help="Will send a random sfw maid image")
-    async def maid(self, ctx):
+    async def smaid(self, ctx):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/sfw/maid/")
         response = await session.json()
-        maidmbed = discord.Embed(
+        smaidmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your SFW Maid Image",
             timestamp=ctx.message.created_at
         )
-        maidmbed.set_image(url=response["url"])
-        maidmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=maidmbed)
+        smaidmbed.set_image(url=response["url"])
+        smaidmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=smaidmbed)
 
     # NSFW
     @commands.group(name="nsfw", help="Will send a random nsfw waifu image")
@@ -150,18 +150,18 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
     # NMaid
     @nsfw.command(name="maid", help="Will send a random nsfw maid image")
     @commands.is_nsfw()
-    async def maid(self, ctx):
+    async def nmaid(self, ctx):
         await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/nsfw/maid/")
         response = await session.json()
-        maidmbed = discord.Embed(
+        nmaidmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Maid Image",
             timestamp=ctx.message.created_at
         )
-        maidmbed.set_image(url=response["url"])
-        maidmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=maidmbed)
+        nmaidmbed.set_image(url=response["url"])
+        nmaidmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=nmaidmbed)
 
     # Milf
     @nsfw.command(name="milf", help="Will send a random nsfw milf image")

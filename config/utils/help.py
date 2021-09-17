@@ -111,8 +111,8 @@ class MyHelp(commands.HelpCommand):
         await ctx.send(embed=hgroupmbed)
         return
 
-    # Help command Error
-    async def command_not_found(self, command, string):
+    # Help Subcommand Error
+    async def subcommand_not_found(self, command, string):
         ctx = self.context
         hscmdmbed = discord.Embed(
             colour=ctx.bot.color,
@@ -125,10 +125,22 @@ class MyHelp(commands.HelpCommand):
         await ctx.send(embed=hscmdmbed)
         return
 
+    # Help Command Error
+    async def command_not_found(self, string):
+        ctx = self.context
+        hcnfmbed = discord.Embed(
+            colour=ctx.bot.color,
+            title="Command Not Found",
+            description=string,
+            timestamp=ctx.message.created_at
+        )
+        hcnfmbed.set_thumbnail(url=ctx.me.avatar.url)
+        hcnfmbed.set_author(name=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=hcnfmbed)
+        return
+
     # Help Error
     async def send_error_message(self, error):
-        if error == None:
-            return
         ctx = self.context
         herrormbed = discord.Embed(
             colour=ctx.bot.color,
