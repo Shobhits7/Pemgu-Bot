@@ -11,7 +11,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://animechan.vercel.app/api/random/")
         response = await session.json()
-        await self.bot.aiosession.close()
+        await session.close()
         quotembed = discord.Embed(
             colour=self.bot.color,
             title="Here is your quote",
@@ -29,7 +29,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.waifu.im/sfw/all/")
         response = await session.json()
-        await self.bot.aiosession.close()
+        await session.close()
         sfwmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your SFW Image",
@@ -45,7 +45,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.waifu.im/sfw/waifu/")
         response = await session.json()
-        await self.bot.aiosession.close()
+        await session.close()
         wambed = discord.Embed(
             colour=self.bot.color,
             title="Here is your SFW Waifu Image",
@@ -61,7 +61,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.waifu.im/sfw/maid/")
         response = await session.json()
-        await self.bot.aiosession.close()
+        await session.close()
         smaidmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your SFW Maid Image",
@@ -78,7 +78,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.waifu.im/nsfw/ero/")
         response = await session.json()
-        await self.bot.aiosession.close()
+        await session.close()
         nsfwmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Image",
@@ -95,7 +95,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.waifu.im/nsfw/ass/")
         response = await session.json()
-        await self.bot.aiosession.close()
+        await session.close()
         assmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Ass Image",
@@ -112,7 +112,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.waifu.im/nsfw/ecchi/")
         response = await session.json()
-        await self.bot.aiosession.close()
+        await session.close()
         ecchimbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Ecchi Image",
@@ -129,7 +129,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.waifu.im/nsfw/ero/")
         response = await session.json()
-        await self.bot.aiosession.close()
+        await session.close()
         erombed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Ero Image",
@@ -146,7 +146,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.waifu.im/nsfw/hentai/")
         response = await session.json()
-        await self.bot.aiosession.close()
+        await session.close()
         hentaimbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Hentai Image",
@@ -163,7 +163,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.waifu.im/nsfw/maid/")
         response = await session.json()
-        await self.bot.aiosession.close()
+        await session.close()
         nmaidmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Maid Image",
@@ -180,7 +180,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.waifu.im/nsfw/milf/")
         response = await session.json()
-        await self.bot.aiosession.close()
+        await session.close()
         milfmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Milf Image",
@@ -197,7 +197,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.waifu.im/nsfw/ero/")
         response = await session.json()
-        await self.bot.aiosession.close()
+        await session.close()
         oppaimbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Oppai Image",
@@ -214,7 +214,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.waifu.im/nsfw/oral/")
         response = await session.json()
-        await self.bot.aiosession.close()
+        await session.close()
         oralmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Oral Image",
@@ -231,7 +231,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.waifu.im/nsfw/paizuri/")
         response = await session.json()
-        await self.bot.aiosession.close()
+        await session.close()
         paizurimbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Paizuri Image",
@@ -248,7 +248,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.waifu.im/nsfw/selfies/")
         response = await session.json()
-        await self.bot.aiosession.close()
+        await session.close()
         selfiesmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Selfies Image",
@@ -265,7 +265,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get("https://api.waifu.im/nsfw/uniform/")
         response = await session.json()
-        await self.bot.aiosession.close()
+        await session.close()
         uniformmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your NSFW Uniform Image",

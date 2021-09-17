@@ -115,7 +115,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         await ctx.trigger_typing()
         session = await self.bot.aiosession.get(F"https://carbonnowsh.herokuapp.com/?code={code}&paddingVertical=56px&paddingHorizontal=56px&backgroundImage=none&backgroundImageSelection=none&backgroundMode=color&backgroundColor=rgba(88, 89, 185, 100)&dropShadow=true&dropShadowOffsetY=20px&dropShadowBlurRadius=68px&theme=seti&windowTheme=none&language=auto&fontFamily=Hack&fontSize=16px&lineHeight=133%&windowControls=true&widthAdjustment=true&lineNumbers=true&firstLineNumber=0&exportSize=2x&watermark=false&squaredImage=false&hiddenCharacters=false&name=Hello World&width=680")
         response = io.BytesIO(await session.read())
-        await self.bot.aiosession.close()
+        await session.close()
         cdmbed = discord.Embed(
             colour=self.bot.color,
             title="Here is your preview for the code",
