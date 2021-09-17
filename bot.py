@@ -21,8 +21,7 @@ bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256
 
 async def aiohttp_session():
     bot.aiosession = aiohttp.ClientSession()
-    print(type(bot.aiosession))
-    await bot.aiosession.close()
+    print("Making a ClientSession was successful")
 
 bot.prefix = "[w]"
 bot.color = 0x2F3136
