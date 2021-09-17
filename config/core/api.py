@@ -4,7 +4,7 @@ from discord.ext import commands
 class API(commands.Cog, description="Some cool API commands"):
     def __init__(self, bot):
         self.bot = bot
-        self.dagpi_headers = {
+        headers=self.dagpi_headers = {
             "Authorization": os.getenv("DAGPI")
         }
     
@@ -12,7 +12,7 @@ class API(commands.Cog, description="Some cool API commands"):
     @commands.command(name="joke", aliases=["jk"], help="Will tell you a random joke")
     async def joke(self, ctx):
         await ctx.trigger_typing()
-        session = await self.bot.session.get("https://api.dagpi.xyz/data/joke", self.dagpi_headers)
+        session = await self.bot.session.get("https://api.dagpi.xyz/data/joke", headers=self.dagpi_headers)
         response = await session.json()
         jkmbed = discord.Embed(
             colour=self.bot.color,
@@ -27,7 +27,7 @@ class API(commands.Cog, description="Some cool API commands"):
     @commands.command(name="8ball", aliases=["8b"], help="Will give you a random answer", usage="<question>")
     async def _8ball(self, ctx, *, question):
         await ctx.trigger_typing()
-        session = await self.bot.session.get("https://api.dagpi.xyz/data/8ball", self.dagpi_headers)
+        session = await self.bot.session.get("https://api.dagpi.xyz/data/8ball", headers=self.dagpi_headers)
         response = await session.json()
         _8bmbed = discord.Embed(
             colour=self.bot.color,
@@ -45,7 +45,7 @@ class API(commands.Cog, description="Some cool API commands"):
     async def pixel(self, ctx, user:commands.UserConverter = None):
         await ctx.trigger_typing()
         user = user or ctx.author
-        session = await self.bot.session.get(F"https://api.dagpi.xyz/image/pixel/?url={user.avatar.with_static_format('png').with_size(1024)}", self.dagpi_headers)
+        session = await self.bot.session.get(F"https://api.dagpi.xyz/image/pixel/?url={user.avatar.with_static_format('png').with_size(1024)}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
         pxlmbed = discord.Embed(
             colour=self.bot.color,
@@ -62,7 +62,7 @@ class API(commands.Cog, description="Some cool API commands"):
     async def colors(self, ctx, user:commands.UserConverter = None):
         await ctx.trigger_typing()
         user = user or ctx.author
-        session = await self.bot.session.get(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.with_static_format('png').with_size(1024)}", self.dagpi_headers)
+        session = await self.bot.session.get(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.with_static_format('png').with_size(1024)}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
         clrsmbed = discord.Embed(
             colour=self.bot.color,
@@ -79,7 +79,7 @@ class API(commands.Cog, description="Some cool API commands"):
     async def tweet(self, ctx, *, text, user:commands.UserConverter = None):
         await ctx.trigger_typing()
         user = user or ctx.author
-        session = await self.bot.session.get(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_static_format('png').with_size(1024)}&username={ctx.author.name}&text={text}", self.dagpi_headers)
+        session = await self.bot.session.get(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_static_format('png').with_size(1024)}&username={ctx.author.name}&text={text}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
         twmbed = discord.Embed(
             colour=self.bot.color,
