@@ -12,7 +12,7 @@ class Anime(commands.Cog, description="Some Weeb shit stuff"):
         await ctx.trigger_typing()
         async with self.bot.session as session:
             async with session.get("https://animechan.vercel.app/api/random/") as r:
-                r.json()
+                await r.json()
         quotembed = discord.Embed(
             colour=self.bot.color,
             title="Here is your quote",
