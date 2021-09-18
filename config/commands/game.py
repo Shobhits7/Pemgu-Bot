@@ -22,7 +22,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
         )
         gsmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         view = guess.GuessView(client=self.bot)
-        view.message = await ctx.send(view=view)
+        view.message = await ctx.send(embed=gsmbed, view=view)
 
 def setup(bot):
     bot.add_cog(Game(bot))
