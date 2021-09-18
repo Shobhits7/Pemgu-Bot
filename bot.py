@@ -22,16 +22,11 @@ bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256
 class HTTPSession(aiohttp.ClientSession):
     def __init__(self, loop=None):
         super().__init__(loop=loop or asyncio.get_event_loop())
-    async def closed(self):
+    async def close(self):
         if not self.closed:
             await self.close()
-            print("first wit-if")
-        print("first non-if")
-    # async def close(self):
-    #     if not self.closed:
-    #         await self.close()
-    #         print("second wit-if")
-    #     print("second non-if")
+            print("second wit-if")
+        print("second non-if")
 
 async def httpsession():
     bot.session = HTTPSession()
