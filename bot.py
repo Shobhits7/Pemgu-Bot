@@ -32,7 +32,7 @@ bot.status = discord.Status.online
 
 for folder in sorted(os.listdir("./config/")):
     if folder in ("commands", "events"):
-        for cog in sorted(os.lisrdir(F"./config/{folder}/")):
+        for cog in sorted(os.listdir(F"./config/{folder}/")):
             if cog.endswith(".py"):
                 bot.load_extension(F"config.{folder}.{cog[:-3]}")
 
