@@ -4,6 +4,7 @@ from discord.ext import commands
 class HelpButtons(discord.ui.Button):
     def __init__(self, view, **kwargs):
         super().__init__(**kwargs)
+        self.view = view
         self.bot = view.bot
         self.choose = view.choose
         self.number = view.number
@@ -11,7 +12,7 @@ class HelpButtons(discord.ui.Button):
     async def callback(self, interaction: discord.Interaction):
         if self.label == self.number:
             self.choose = True
-        if self.label != self.number:
+        elif self.label != self.number:
             self.choose = False
         if self.choose == True:
             truembed = discord.Embed(
@@ -20,14 +21,16 @@ class HelpButtons(discord.ui.Button):
                 description=F"The number was {self.number}"
             )
             truembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
+            self.view.clear_items()
             await interaction.response.edit_message(embed=truembed)
-        if self.choose == False:
+        elif self.choose == False:
             falsembed = discord.Embed(
                 colour=self.bot.color,
                 title="You guessed incorrectly",
                 description=F"The correct answer was {self.number}"
             )
             falsembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
+            self.view.clear_items()
             await interaction.response.edit_message(embed=falsembed)
 
 class GuessView(discord.ui.View):
