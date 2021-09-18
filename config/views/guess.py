@@ -5,9 +5,9 @@ class HelpButtons(discord.ui.Button):
     def __init__(self, view, **kwargs):
         super().__init__(**kwargs)
         self.view = view
-        self.bot = view.bot
-        self.choose = view.choose
-        self.number = view.number
+        self.bot = self.view.bot
+        self.choose = self.view.choose
+        self.number = self.view.number
     
     async def callback(self, interaction: discord.Interaction):
         if self.label == self.number:
