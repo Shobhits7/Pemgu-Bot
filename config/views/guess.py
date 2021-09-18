@@ -48,14 +48,18 @@ class GuessView(discord.ui.View):
             await self.message.edit(view=self)
 
     async def interaction_check(self, interaction: discord.Interaction):
+        if self.choose:
+            self.clear_items()
+
         if interaction.user.id == self.ctx.author.id:
             return True
-        icheckmbed = discord.Embed(
+        else:
+            icheckmbed = discord.Embed(
             colour=self.bot.color,
             title=F"You can't use this",
             description=F"<@{interaction.user.id}> - Only <@{self.ctx.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
             timestamp=interaction.message.created_at
         )
-        icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
-        await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
-        return False
+            icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+            await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
+            return False
