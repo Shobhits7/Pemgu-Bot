@@ -4,7 +4,7 @@ from discord.ext import commands
 class HelpButtons(discord.ui.Button):
     def __init__(self, view, **kwargs):
         super().__init__(**kwargs)
-        self.client = view.client
+        self.bot = view.bot
         self.choose = view.choose
         self.number = view.number
     
@@ -17,14 +17,14 @@ class HelpButtons(discord.ui.Button):
             await interaction.response.edit_message("self.choose has a problem")
         if self.choose == True:
             truembed = discord.Embed(
-                colour=self.client.color,
+                colour=self.bot.color,
                 title="You guessed correctly"
             )
             truembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
             await interaction.response.edit_message(embed=truembed)
         if self.choose == False:
             falsembed = discord.Embed(
-                colour=self.client.color,
+                colour=self.bot.color,
                 title="You guessed incorrectly"
             )
             falsembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
@@ -33,9 +33,10 @@ class HelpButtons(discord.ui.Button):
             await interaction.response.edit_message("second self.choose has a problem")
 
 class GuessView(discord.ui.View):
-    def __init__(self, client):
+    def __init__(self, bot, ctx):
         super().__init__(timeout=5)
-        self.client = client
+        self.bot = bot
+        self.ctx = ctx
         self.choose = None
         self.number = random.randint(1, 5)
         for i in range(1, 6):
@@ -52,12 +53,11 @@ class GuessView(discord.ui.View):
         if interaction.user.id == self.help.context.author.id:
             return True
         icheckmbed = discord.Embed(
-            colour=self.help.context.bot.color,
-            title="You can't use this",
-            description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
-            timestamp=self.help.context.message.created_at
+            colour=self.bot.color,
+            title=F"You can't use this",
+            description=F"<@{interaction.user.id}> - Only <@{self.ctx.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
+            timestamp=interaction.message.created_at
         )
-        icheckmbed.set_thumbnail(url=self.help.context.me.avatar.url)
         icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
         await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
         return False
