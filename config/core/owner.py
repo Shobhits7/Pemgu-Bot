@@ -107,22 +107,22 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         temp = await ctx.guild.templates()
         await ctx.author.send(temp)
 
-    # # Code
-    # @commands.command(name="code", aliases=["cd"], help="Will give you a preview from your code", usage="<code>")
-    # @commands.is_owner()
-    # @commands.bot_has_guild_permissions(attach_files=True)
-    # async def code(self, ctx, *code):
-    #     await ctx.trigger_typing()
-    #     session = await self.bot.aiosession.get(F"https://carbonnowsh.herokuapp.com/?code={code}&paddingVertical=56px&paddingHorizontal=56px&backgroundImage=none&backgroundImageSelection=none&backgroundMode=color&backgroundColor=rgba(88, 89, 185, 100)&dropShadow=true&dropShadowOffsetY=20px&dropShadowBlurRadius=68px&theme=seti&windowTheme=none&language=auto&fontFamily=Hack&fontSize=16px&lineHeight=133%&windowControls=true&widthAdjustment=true&lineNumbers=true&firstLineNumber=0&exportSize=2x&watermark=false&squaredImage=false&hiddenCharacters=false&name=Hello World&width=680")
-    #     response = io.BytesIO(await session.read())
-    #     cdmbed = discord.Embed(
-    #         colour=self.bot.color,
-    #         title="Here is your preview for the code",
-    #         timestamp=ctx.message.created_at
-    #     )
-    #     cdmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-    #     cdmbed.set_image(url="attachment://code.png")
-    #     await ctx.send(file=discord.File(response, filename="code.png"), embed=cdmbed)
+    # Code
+    @commands.command(name="code", aliases=["cd"], help="Will give you a preview from your code", usage="<code>")
+    @commands.is_owner()
+    @commands.bot_has_guild_permissions(attach_files=True)
+    async def code(self, ctx, *code):
+        await ctx.trigger_typing()
+        async with self.bot.aiosession.get(F"https://carbonnowsh.herokuapp.com/?code={code}&paddingVertical=56px&paddingHorizontal=56px&backgroundImage=none&backgroundImageSelection=none&backgroundMode=color&backgroundColor=rgba(88, 89, 185, 100)&dropShadow=true&dropShadowOffsetY=20px&dropShadowBlurRadius=68px&theme=seti&windowTheme=none&language=auto&fontFamily=Hack&fontSize=16px&lineHeight=133%&windowControls=true&widthAdjustment=true&lineNumbers=true&firstLineNumber=0&exportSize=2x&watermark=false&squaredImage=false&hiddenCharacters=false&name=Hello World&width=680") as response: 
+            response = io.BytesIO(await response.read())
+        cdmbed = discord.Embed(
+            colour=self.bot.color,
+            title="Here is your preview for the code",
+            timestamp=ctx.message.created_at
+        )
+        cdmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        cdmbed.set_image(url="attachment://code.png")
+        await ctx.send(file=discord.File(response, filename="code.png"), embed=cdmbed)
 
 def setup(bot):
     bot.add_cog(Owner(bot))
