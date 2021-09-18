@@ -18,14 +18,16 @@ class HelpButtons(discord.ui.Button):
         if self.choose == True:
             truembed = discord.Embed(
                 colour=self.bot.color,
-                title="You guessed correctly"
+                title="You guessed correctly",
+                description=F"The number was {self.number}"
             )
             truembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
             await interaction.response.edit_message(embed=truembed)
         if self.choose == False:
             falsembed = discord.Embed(
                 colour=self.bot.color,
-                title="You guessed incorrectly"
+                title="You guessed incorrectly",
+                description=F"The correct answer was {self.number}"
             )
             falsembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
             await interaction.response.edit_message(embed=falsembed)
