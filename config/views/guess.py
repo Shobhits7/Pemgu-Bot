@@ -32,6 +32,7 @@ class HelpButtons(discord.ui.Button):
 class GuessView(discord.ui.View):
     def __init__(self, client):
         self.client = client
+        self.message = self.message
         self.choose = bool
         self.number = random.randint(1, 5)
         for _ in range(1, 6):
