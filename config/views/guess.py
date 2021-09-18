@@ -39,7 +39,7 @@ class GuessView(discord.ui.View):
         self.bot = bot
         self.ctx = ctx
         self.choose = None
-        self.number = 1 #random.randint(1, 5)
+        self.number = random.randint(1, 5)
         for i in range(1, 6):
             self.add_item(item=HelpButtons(label=i, style=discord.ButtonStyle.green, view=self))
     
