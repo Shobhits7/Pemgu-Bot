@@ -50,7 +50,7 @@ class GuessView(discord.ui.View):
             await self.message.edit(view=self)
 
     async def interaction_check(self, interaction: discord.Interaction):
-        if interaction.user.id == self.help.context.author.id:
+        if interaction.user.id == self.ctx.author.id:
             return True
         icheckmbed = discord.Embed(
             colour=self.bot.color,
