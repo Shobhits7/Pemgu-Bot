@@ -14,7 +14,7 @@ class Fun(commands.Cog, description="For just having an great fun time"):
             colour=self.bot.color,
             title="Click the button for counting"
         )
-        ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.url)
+        ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         view = counter.CounterView(client=self.bot)
         view.message = await ctx.send(embed=ctrmbed, view=view)
 
