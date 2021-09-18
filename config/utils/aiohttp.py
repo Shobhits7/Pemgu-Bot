@@ -1,5 +1,11 @@
 import aiohttp, io, json
 
+async def r_json(session, error=str, url=str, headers=None):
+    async with session.get(url) as r:
+        if r.status != 200:
+            return error
+        return await r.json()
+
 async def session_bytes(url, headers=None):
     async with aiohttp.ClientSession() as session:
         async with session.get(url, headers=headers) as r:
