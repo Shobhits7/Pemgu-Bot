@@ -20,7 +20,8 @@ class HelpButtons(discord.ui.Button):
                 description=F"The number was {self.number}"
             )
             truembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
-            await interaction.response.edit_message(embed=truembed)
+            self.view.clear_items()
+            await interaction.response.edit_message(embed=truembed, view=self.view)
         if self.choose == False:
             falsembed = discord.Embed(
                 colour=self.bot.color,
@@ -28,8 +29,8 @@ class HelpButtons(discord.ui.Button):
                 description=F"The correct answer was {self.number}"
             )
             falsembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
-            
-            await interaction.response.edit_message(embed=falsembed)
+            self.view.clear_items()
+            await interaction.response.edit_message(embed=falsembed, view=self.view)
 
 class GuessView(discord.ui.View):
     def __init__(self, bot, ctx):
