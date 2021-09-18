@@ -33,7 +33,9 @@ class HTTPSession(aiohttp.ClientSession):
     #         print("second wit-if")
     #     print("second non-if")
 
-bot.session = HTTPSession()
+async def httpsession():
+    bot.session = HTTPSession()
+    print("Making a Session was successful")
 
 bot.prefix = ";w"
 bot.color = 0x2F3136
@@ -53,4 +55,5 @@ os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
 bot.loop.run_until_complete(create_db_poll())
+bot.loop.run_until_complete(httpsession())
 bot.run(os.getenv("TOKEN"))
