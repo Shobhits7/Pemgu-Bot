@@ -7,7 +7,6 @@ class HelpButtons(discord.ui.Button):
         self.client = view.client
         self.choose = view.choose
         self.number = view.number
-        self.message = view.message
     
     async def callback(self, interaction: discord.Interaction):
         if self.custom_id == self.number:
@@ -20,19 +19,18 @@ class HelpButtons(discord.ui.Button):
                 title="You guessed correctly"
             )
             truembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
-            self.message.edit(embed=truembed)
+            await interaction.response.edit_message(embed=truembed)
         else:
             falsembed = discord.Embed(
                 colour=self.client.color,
                 title="You guessed incorrectly"
             )
             falsembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
-            self.message.edit(embed=falsembed)
+            await interaction.response.edit_message(embed=falsembed)
 
 class GuessView(discord.ui.View):
     def __init__(self, client):
         self.client = client
-        self.message = self.message
         self.choose = bool
         self.number = random.randint(1, 5)
         for _ in range(1, 6):
