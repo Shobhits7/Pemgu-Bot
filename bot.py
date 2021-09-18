@@ -26,9 +26,7 @@ class HTTPSession(aiohttp.ClientSession):
         if not self.closed:
             self.close()
 
-async def aiohttp_session():
-    bot.session = HTTPSession()
-    print("Making a ClientSession was successful")
+bot.session = HTTPSession()
 
 bot.prefix = ";w"
 bot.color = 0x2F3136
@@ -48,5 +46,4 @@ os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
 bot.loop.run_until_complete(create_db_poll())
-bot.loop.create_task(aiohttp_session())
 bot.run(os.getenv("TOKEN"))

@@ -48,9 +48,6 @@ class GuessView(discord.ui.View):
             await self.message.edit(view=self)
 
     async def interaction_check(self, interaction: discord.Interaction):
-        if self.choose:
-            self.clear_items()
-
         if interaction.user.id == self.ctx.author.id:
             return True
         else:
