@@ -37,16 +37,10 @@ class GuessView(discord.ui.View):
             self.add_item(item=HelpButtons(label=_, style=discord.ButtonStyle.blurple, custom_id=_, view=self))
     
     async def on_timeout(self):
-        try:
-            ontimeoutmbed = discord.Embed(
-                colour=self.client.color,
-                title="You took so long to answer",
-                description="Disabled due to timeout..."
-            )
-            self.clear_items()
-            await self.message.edit(embed=ontimeoutmbed, view=self)
-        except discord.NotFound:
-            return
+        self.clear_items()
+        self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...", style=discord.ButtonStyle.blurple, disabled=True))
+        self.add_item(discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
+        await self.message.edit(view=self)
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
