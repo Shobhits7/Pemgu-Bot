@@ -11,7 +11,7 @@ class OnConnect(commands.Cog):
     
     @commands.Cog.listener()
     async def on_disconnect(self):
-        await self.bot.aiosession.close()
+        await self.bot.session.close()
 
 def setup(bot):
     bot.add_cog(OnConnect(bot))
