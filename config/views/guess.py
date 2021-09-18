@@ -9,10 +9,12 @@ class HelpButtons(discord.ui.Button):
         self.number = view.number
     
     async def callback(self, interaction: discord.Interaction):
-        if self.custom_id == self.number:
+        if self.label == self.number:
             self.choose = True
-        else:
+        if self.label != self.number:
             self.choose = False
+        else:
+            await interaction.response.edit_message("self.choose has a problem")
         if self.choose == True:
             truembed = discord.Embed(
                 colour=self.client.color,
@@ -20,22 +22,24 @@ class HelpButtons(discord.ui.Button):
             )
             truembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
             await interaction.response.edit_message(embed=truembed)
-        else:
+        if self.choose == False:
             falsembed = discord.Embed(
                 colour=self.client.color,
                 title="You guessed incorrectly"
             )
             falsembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
             await interaction.response.edit_message(embed=falsembed)
+        else:
+            await interaction.response.edit_message("second self.choose has a problem")
 
 class GuessView(discord.ui.View):
     def __init__(self, client):
         super().__init__(timeout=5)
         self.client = client
-        self.choose = bool
+        self.choose = None
         self.number = random.randint(1, 5)
-        for _ in range(1, 6):
-            self.add_item(item=HelpButtons(label=_, style=discord.ButtonStyle.blurple, custom_id=_, view=self))
+        for i in range(1, 6):
+            self.add_item(item=HelpButtons(label=i, style=discord.ButtonStyle.blurple, view=self))
     
     async def on_timeout(self):
         for item in self.children:
