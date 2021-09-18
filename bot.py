@@ -17,37 +17,27 @@ async def get_prefix_postgresql(bot, message):
         prefix = prefix[0].get("prefix")
     return commands.when_mentioned_or(prefix)(bot, message)
 
-bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, help_command=MyHelp(), intents=discord.Intents.all(), allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False))
-
-class HTTPSession(aiohttp.ClientSession):
-    def __init__(self, loop=None):
-        super().__init__(loop=loop or asyncio.get_event_loop())
+class BotBase(commands.Bot):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.prefix = ";w"
+        self.color = 0x2F3136
+        self.load_extension("jishaku")
+        os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
+        os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
+        for folder in sorted(os.listdir("./config/")):
+            if folder in ("commands", "events"):
+                for cog in sorted(os.listdir(F"./config/{folder}/")):
+                    if cog.endswith(".py"):
+                        self.load_extension(F"config.{folder}.{cog[:-3]}")
     async def close(self):
-        if not self.closed:
-            await self.close()
-            print("second wit-if")
-        print("second non-if")
+        if not self.session.closed:
+            await self.session.close()
+
+bot = BotBase(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, help_command=MyHelp(), intents=discord.Intents.all(), allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False))
 
 async def httpsession():
-    bot.session = HTTPSession()
-    print("Making a Session was successful")
-
-bot.prefix = ";w"
-bot.color = 0x2F3136
-
-bot.activity = discord.Game(name=F"@Whaffle for prefix | {bot.prefix} help for help | Made by lvlahraam#8435")
-
-bot.status = discord.Status.online
-
-for folder in sorted(os.listdir("./config/")):
-    if folder in ("commands", "events"):
-        for cog in sorted(os.listdir(F"./config/{folder}/")):
-            if cog.endswith(".py"):
-                bot.load_extension(F"config.{folder}.{cog[:-3]}")
-
-bot.load_extension("jishaku")
-os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
-os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
+    bot.session = aiohttp.ClienSession()
 
 bot.loop.run_until_complete(create_db_poll())
 bot.loop.run_until_complete(httpsession())
