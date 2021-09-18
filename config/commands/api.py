@@ -118,7 +118,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         await ctx.trigger_typing()
         session = await self.bot.session.get(F"https://pypi.org/pypi/{lib}/json")
         if session.status != 200:
-            await ctx.send("Couldn't find this library in PYPI")
+            await ctx.send("Couldn't find that library in PYPI")
             return
         response = await session.json()
         session.close()
