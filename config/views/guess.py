@@ -13,8 +13,6 @@ class HelpButtons(discord.ui.Button):
             self.choose = True
         if self.label != self.number:
             self.choose = False
-        else:
-            await interaction.response.edit_message("self.choose has a problem")
         if self.choose == True:
             truembed = discord.Embed(
                 colour=self.bot.color,
@@ -31,8 +29,6 @@ class HelpButtons(discord.ui.Button):
             )
             falsembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
             await interaction.response.edit_message(embed=falsembed)
-        else:
-            await interaction.response.edit_message("second self.choose has a problem")
 
 class GuessView(discord.ui.View):
     def __init__(self, bot, ctx):
