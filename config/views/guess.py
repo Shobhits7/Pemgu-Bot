@@ -23,7 +23,7 @@ class HelpButtons(discord.ui.Button):
             truembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
             self.view.clear_items()
             await interaction.response.edit_message(embed=truembed)
-        elif self.choose == False:
+        if self.choose == False:
             falsembed = discord.Embed(
                 colour=self.bot.color,
                 title="You guessed incorrectly",
