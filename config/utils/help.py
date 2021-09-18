@@ -35,7 +35,7 @@ class MyHelp(commands.HelpCommand):
         homepage.set_author(name=self.context.author, icon_url=self.context.author.avatar.url)
         usable = 0
         for cog, commands in mapping.items():
-            if filtered_commands := await self.filter_commands(cog.walk_commands(), sort=True):
+            if filtered_commands := await self.filter_commands(commands, sort=True):
                 usable += len(filtered_commands)
         homepage.add_field(name="Prefix:", value=self.context.prefix or "In DM you don't need to use prefix", inline=False)
         homepage.add_field(name="Usable:", value=usable, inline=False)
