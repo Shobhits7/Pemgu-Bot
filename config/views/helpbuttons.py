@@ -5,21 +5,20 @@ class HelpButtons(discord.ui.Button):
     def __init__(self, view, **kwargs):
         super().__init__(**kwargs)
         self.help = view.help
-        self.mapping = view.mapping
         self.homepage = view.homepage
         self.emojis = view.emojis
 
     async def callback(self, interaction: discord.Interaction):
         def gts(command):
             return F"{self.help.context.clean_prefix}{command.qualified_name} {command.signature}"
-        for cog, commands in self.mapping.items():
+        for cog, commands in self.help.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             cmds = cog.walk_commands() if cog else commands
             if self.custom_id == name:
                 mbed = discord.Embed(
                     colour=self.help.context.bot.color,
-                    title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
+                    title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category",
                     description=F"{description}\n\n",
                     timestamp=self.help.context.message.created_at
                 )
@@ -43,14 +42,13 @@ class HelpButtons(discord.ui.Button):
 
 
 class HelpView(discord.ui.View):
-    def __init__(self, help, mapping, homepage, emojis):
+    def __init__(self, help, homepage, emojis):
         super().__init__(timeout=10)
         self.help = help
-        self.mapping = mapping
         self.homepage = homepage
         self.emojis = emojis
         self.add_item(item=HelpButtons(emoji="🏠", label="Home Page", style=discord.ButtonStyle.green, custom_id="Home", view=self))
-        for cog, commands in self.mapping.items():
+        for cog, commands in self.help.mapping.items():
             name = cog.qualified_name if cog else "No"
             if not name.startswith("On"):
                 self.add_item(item=HelpButtons(emoji=self.emojis.get(name), label=F"{name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
