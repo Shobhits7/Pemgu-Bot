@@ -4,10 +4,10 @@ from discord.ext import commands
 class HelpButtons(discord.ui.Button):
     def __init__(self, view, **kwargs):
         super().__init__(**kwargs)
-        self.view = view
-        self.bot = self.view.bot
-        self.choose = self.view.choose
-        self.number = self.view.number
+        self.clear_items = view.clear_items()
+        self.bot = view.bot
+        self.choose = view.choose
+        self.number = view.number
     
     async def callback(self, interaction: discord.Interaction):
         if self.label == self.number:
@@ -21,7 +21,7 @@ class HelpButtons(discord.ui.Button):
                 description=F"The number was {self.number}"
             )
             truembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
-            self.view.clear_items()
+            self.clear_items
             await interaction.response.edit_message(embed=truembed)
         if self.choose == False:
             falsembed = discord.Embed(
@@ -30,7 +30,7 @@ class HelpButtons(discord.ui.Button):
                 description=F"The correct answer was {self.number}"
             )
             falsembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
-            self.view.clear_items()
+            self.clear_items
             await interaction.response.edit_message(embed=falsembed)
 
 class GuessView(discord.ui.View):
@@ -44,11 +44,12 @@ class GuessView(discord.ui.View):
             self.add_item(item=HelpButtons(label=i, style=discord.ButtonStyle.green, view=self))
     
     async def on_timeout(self):
-        for item in self.children:
-            self.clear_items()
-            self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...", style=discord.ButtonStyle.blurple, disabled=True))
-            self.add_item(discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
-            await self.message.edit(view=self)
+        if self.children:
+            for item in self.children:
+                self.clear_items()
+                self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...", style=discord.ButtonStyle.blurple, disabled=True))
+                self.add_item(discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
+                await self.message.edit(view=self)
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.ctx.author.id:
