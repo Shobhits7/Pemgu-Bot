@@ -150,10 +150,10 @@ class OnError(commands.Cog):
             tbmbed = discord.Embed(
                 colour=self.bot.color,
                 title=F"Error in {ctx.command}",
-                description="```py\n",
                 timestamp=ctx.message.created_at
             )
-            tbmbed.description += F"{''.join(traceback.format_exception(type(error), error,  error.__traceback__))}\n```"
+            # tbmbed.description += F"{''.join(traceback.format_exception(type(error), error,  error.__traceback__))}\n```"
+            print(traceback.format_exception(type(error), error,  error.__traceback__))
             await ctx.send(embed=tbmbed)
 
 def setup(bot):
