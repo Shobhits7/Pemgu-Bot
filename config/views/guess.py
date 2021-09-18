@@ -6,12 +6,14 @@ class HelpButtons(discord.ui.Button):
         super().__init__(**kwargs)
         self.client = view.client
         self.choose = view.choose
-        self.button = view.button
         self.number = view.number
         self.message = view.message
     
     async def callback(self, interaction: discord.Interaction):
-        self.choose = True if self.custom_id == self.number else self.choose = False
+        if self.custom_id == self.number:
+            self.choose = True
+        else:
+            self.choose = False
         if self.choose == True:
             truembed = discord.Embed(
                 colour=self.client.color,
@@ -30,8 +32,7 @@ class HelpButtons(discord.ui.Button):
 class GuessView(discord.ui.View):
     def __init__(self, client):
         self.client = client
-        self.choose = None
-        self.button = None
+        self.choose = bool
         self.number = random.randint(1, 5)
         for _ in range(1, 6):
             self.add_item(item=HelpButtons(label=_, style=discord.ButtonStyle.blurple, custom_id=_, view=self))
