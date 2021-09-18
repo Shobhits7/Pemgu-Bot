@@ -9,8 +9,8 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     @commands.command(name="quote", help="Will send a anime quote", invoke_without_command=True)
     async def quote(self, ctx):
         await ctx.trigger_typing()
-        session = await self.bot.aiosession.get("https://animechan.vercel.app/api/random/")
-        response = await session.json()
+        async with self.bot.session.get("https://animechan.vercel.app/api/random/") as response:
+            response = await response.json()
         session.close()
         quotembed = discord.Embed(
             colour=self.bot.color,
