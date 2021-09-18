@@ -19,7 +19,21 @@ async def get_prefix_postgresql(bot, message):
 
 bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, help_command=MyHelp(), intents=discord.Intents.all(), allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False))
 
-bot.session = aiohttp.ClientSession()
+class HTTPSession(aiohttp.ClientSession):
+    def __init__(self, loop=None):
+        super().__init__(loop=loop or asyncio.get_event_loop())
+    async def closed(self):
+        if not self.closed:
+            await self.close()
+            print("first wit-if")
+        print("first non-if")
+    # async def close(self):
+    #     if not self.closed:
+    #         await self.close()
+    #         print("second wit-if")
+    #     print("second non-if")
+
+bot.session = HTTPSession()
 
 bot.prefix = ";w"
 bot.color = 0x2F3136

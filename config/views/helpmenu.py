@@ -4,12 +4,13 @@ from discord.ext import commands
 class HelpMenu(discord.ui.Select):
     def __init__(self, view):
         self.help = view.help
+        self.mapping = view.mapping
         self.homepage = view.homepage
         self.emojis = view.emojis
         options = [
             discord.SelectOption(emoji="🏠", label="Home", description="The homepage of this menu", value="Home")
         ]
-        for cog, commands in self.help.mapping.items():
+        for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category..."
             if not name.startswith("On"):
@@ -19,7 +20,7 @@ class HelpMenu(discord.ui.Select):
     async def callback(self, interaction: discord.Interaction):
         def gts(command):
             return F"{self.help.context.clean_prefix}{command.qualified_name} {command.signature}"
-        for cog, commands in self.help.mapping.items():
+        for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             cmds = cog.walk_commands() if cog else commands
@@ -39,9 +40,10 @@ class HelpMenu(discord.ui.Select):
             await interaction.response.edit_message(embed=self.homepage)
 
 class HelpView(discord.ui.View):
-    def __init__(self, help, homepage, emojis):
+    def __init__(self, help, mapping, homepage, emojis):
         super().__init__(timeout=10)
         self.help = help
+        self.mapping = mapping
         self.homepage = homepage
         self.emojis = emojis
         self.add_item(HelpMenu(self))
