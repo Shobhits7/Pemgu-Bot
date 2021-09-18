@@ -27,7 +27,7 @@ class HelpMenu(discord.ui.Select):
             if self.values[0] == name:
                 mbed = discord.Embed(
                     colour=self.help.context.bot.color,
-                    title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
+                    title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(cmds)}]",
                     description=F"{description}\n\n",
                     timestamp=self.help.context.message.created_at
                 )
