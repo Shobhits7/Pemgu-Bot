@@ -28,6 +28,7 @@ class HelpButtons(discord.ui.Button):
                 description=F"The correct answer was {self.number}"
             )
             falsembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
+            
             await interaction.response.edit_message(embed=falsembed)
 
 class GuessView(discord.ui.View):
@@ -41,11 +42,12 @@ class GuessView(discord.ui.View):
             self.add_item(item=HelpButtons(label=i, style=discord.ButtonStyle.green, view=self))
     
     async def on_timeout(self):
-        for item in self.children:
-            self.clear_items()
-            self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...", style=discord.ButtonStyle.blurple, disabled=True))
-            self.add_item(discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
-            await self.message.edit(view=self)
+        if self.children:
+            for item in self.children:
+                self.clear_items()
+                self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...", style=discord.ButtonStyle.blurple, disabled=True))
+                self.add_item(discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
+                await self.message.edit(view=self)
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.ctx.author.id:

@@ -19,16 +19,7 @@ async def get_prefix_postgresql(bot, message):
 
 bot = commands.Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, help_command=MyHelp(), intents=discord.Intents.all(), allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False))
 
-class HTTPSession(aiohttp.ClientSession):
-    def __init__(self, loop=None):
-        super().__init__(loop=loop or asyncio.get_event_loop())
-    def __del__(self):
-        if not self.closed:
-            self.close()
-
-async def aiohttp_session():
-    bot.session = HTTPSession()
-    print("Making a ClientSession was successful")
+bot.session = aiohttp.ClientSession()
 
 bot.prefix = ";w"
 bot.color = 0x2F3136
@@ -48,5 +39,4 @@ os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
 bot.loop.run_until_complete(create_db_poll())
-bot.run(aiohttp_session())
 bot.run(os.getenv("TOKEN"))
