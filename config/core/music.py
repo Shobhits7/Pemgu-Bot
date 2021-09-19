@@ -1,5 +1,29 @@
-import discord, youtube_dl
+import discord, youtube_dl, asyncio
 from discord.ext import commands
+
+FFMPEG_OPTIONS = {"before_option": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5", "options": "-vn"}
+YDL_OPTIONS = {"format": "bestaudio"}
+
+ytdl = youtube_dl.YoutubeDL(YDL_OPTIONS)
+class YTDLSource(discord.PCMVolumeTransformer):
+    def __init__(self, source, *, data, volume=0.5):
+        super().__init__(source, volume)
+
+        self.data = data
+
+        self.title = data.get('title')
+        self.url = data.get('url')
+
+    @classmethod
+    async def from_url(cls, url, *, loop=None, stream=False):
+        loop = loop or asyncio.get_event_loop()
+        data = await loop.run_in_executor(None, lambda: ytdl.extract_info(url, download=not stream))
+
+        if 'entries' in data:
+            data = data['entries'][0]
+
+        filename = data['url'] if stream else ytdl.prepare_filename(data)
+        return cls(discord.FFmpegPCMAudio(filename, **FFMPEG_OPTIONS), data=data)
 
 class Music(commands.Cog, description="Jam out with these without needing to go to a party"):
     def __init__(self, bot):
@@ -26,18 +50,11 @@ class Music(commands.Cog, description="Jam out with these without needing to go 
 
     @commands.command(name="play", aliases=["pl"], help="Will play the given song")
     async def play(self, ctx, *, url):
-        FFMPEG_OPTIONS = {"before_option": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5", "options": "-vn"}
-        YDL_OPTIONS = {"format": "bestaudio"}
         if ctx.voice_client:
             ctx.voice_client.stop()
-            with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
-                info = ydl.extract_info(url, download=False)
-                print(info)
-                url2 = info["format"][0]["url"]
-                print(url2)
-                source = await discord.FFmpegOpusAudio.from_probe(url2, **FFMPEG_OPTIONS)
-                print(source)
-                ctx.voice_client.play(source)
+            player = await YTDLSource.from_url(url, self.bot.loop)
+            ctx.voice_client.play(player, after=lambda e: print("Player Error: %s" %e) if e else None)
+            await ctx.send(F"Now playing: {player.title}")
 
     @commands.command(name="pause", aliases=["pa"], help="Will pause the current song")
     async def pause(self, ctx):
