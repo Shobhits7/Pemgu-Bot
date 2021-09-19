@@ -41,5 +41,4 @@ os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
 bot.loop.run_until_complete(create_db_poll())
-bot.loop.run_until_complete(httpsession())
 bot.run(os.getenv("TOKEN"))
