@@ -7,7 +7,7 @@ class CounterView(discord.ui.View):
         self.clickers = ""
         self.client = client
 
-    @discord.ui.button(emoji="🍏", style=discord.ButtonStyle.green)
+    @discord.ui.button(emoji="🍘🍙", style=discord.ButtonStyle.green)
     async def click(self, button: discord.ui.Button, interaction: discord.Interaction):
         self.clicks += 1
         if str(interaction.user) in self.clickers:
