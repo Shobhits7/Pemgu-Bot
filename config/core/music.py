@@ -1,0 +1,54 @@
+import discord, youtube_dl
+from discord.ext import commands
+
+class Music(commands.Cog, description="Jazzing out with these without going to a party"):
+    def __init__(self, bot):
+        self.bot = bot
+    
+    @commands.command(name="connect", aliases=["join", "con"], help="Will join the bot to your voice")
+    async def connect(self, ctx):
+        if not ctx.author.voice:
+            await ctx.send("You are not in a voice channel")
+        if not ctx.voice_client:
+            await ctx.author.voice.channel.connect()
+        else:
+            await ctx.voice_client.move_to(ctx.author.voice.channel)
+
+    @commands.command(name="disconnect", aliases=["dc"], help="Will disconnect the bot from voice channel")
+    async def disconnect(self, ctx):
+        if ctx.voice_client:
+            await ctx.voice_client.disconnect()
+            await ctx.send("Disconnected from the voice channel")
+        else:
+            await ctx.send("I'm not in any voice channel")
+
+    @commands.command(name="play", aliases=["pl"], help="Will play the given song")
+    async def play(self, ctx, url):
+        if ctx.voice_client:
+            ctx.voice_client.stop()
+            FFMPEG_OPTIONS = {"before_option": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5", "options": "-vn"}
+            YDL_OPTIONS = {"format": "bestaudio"}
+            with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
+                info = ydl.extract_info(url, download=False)
+                url2 = info["format"][0]["url"]
+                source = await discord.FFmpegOpusAudio.from_probe(url2, **FFMPEG_OPTIONS)
+                ctx.voice_client.play(source)
+
+    @commands.command(name="pause", aliases=["pa"], help="Will pause the current song")
+    async def pause(self, ctx):
+        if ctx.voice_client:
+            await ctx.voice_client.pause()
+            await ctx.send("Paused the song")
+        else:
+            await ctx.send("I'm not in any voice channel")
+
+    @commands.command(name="resume", aliases=["res"], help="Will resume the paused song")
+    async def resume(self, ctx):
+        if ctx.voice_client:
+            await ctx.voice_client.resume()
+            await ctx.send("Resuming the song")
+        else:
+            await ctx.send("I'm not in any voice channel")
+        
+def setup(bot):
+    bot.add_cog(Music(bot))
