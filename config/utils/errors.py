@@ -18,7 +18,7 @@ async def handler(bot, ctx, error):
         matcnfmbed = discord.Embed(
             colour=bot.color,
             title=F"Couldn't find command called: {cmd}.",
-            description=F"Maybe you meant:\n{' - '.join([match for match in matches])}\nClick on the buttons for execution",
+            description=F"Maybe you meant:\n{' - '.join([match for match in matches])}",
             timestamp=ctx.message.created_at
         )
         matcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
