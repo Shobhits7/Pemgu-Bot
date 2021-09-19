@@ -24,7 +24,6 @@ class CounterView(discord.ui.View):
         )
         if len(self.clickers) != 0 or self.clicks != 0:
             ontimeoutmbed.description = "People who clicked:\n"
-            for clicker in self.clickers:
-                ontimeoutmbed.description += F"{clicker}\n"
+            ontimeoutmbed.description += F",\n".join(clicker for clicker in self.clickers)
         else: ontimeoutmbed.description = "Nobody clicked the buttons"
         await self.message.edit(embed=ontimeoutmbed, view=self)
