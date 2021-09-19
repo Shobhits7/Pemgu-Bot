@@ -19,6 +19,29 @@ async def get_prefix_postgresql(bot, message):
 class Bot(commands.Bot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
+    async def on_connect(self):
+        print(F"---------------------------------------------------\nLogged in as: {self.user} - {self.user.id}\nMain prefix is: {self.prefix}\nGuilds bot is in: {len(self.guilds)}\nThe Bot is online now\n---------------------------------------------------")
+
+    async def on_message(self, message):
+        if message.author.bot: return
+        if F"<@!{self.user.id}>" == message.content or F"<@{self.user.id}>" == message.content:
+            prefix = await self.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", message.guild.id)
+            if len(prefix) == 0:
+                prefix = "w,"
+            else:
+                prefix = prefix[0].get("prefix")
+            ompmbed = discord.Embed(
+                colour=self.color,
+                title=F"My Prefix here is `{prefix}`",
+                timestamp=message.created_at
+            )
+            ompmbed.set_footer(text=message.author, icon_url=message.author.avatar.url)
+            return await message.channel.send(embed=ompmbed)
+
+    async def on_message_edit(self, old, new):
+        await self.process_commands(new)
+
     async def close(self):
         if not self.session.closed:
             await self.session.close()

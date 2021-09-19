@@ -1,7 +1,7 @@
 import discord, traceback, difflib
 from discord.ext import commands
 
-class OnError(commands.Cog):
+class Errors(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -139,4 +139,4 @@ class OnError(commands.Cog):
             await ctx.send(embed=tbmbed)
 
 def setup(bot):
-    bot.add_cog(OnError(bot))
+    bot.add_cog(Errors(bot))
