@@ -1,6 +1,6 @@
 import discord, aiohttp, asyncpg, os
 from discord.ext import commands
-from config.utils import error, help
+from config.utils import errors, help
 
 async def create_db_poll():
     bot.db = await asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"))
@@ -45,7 +45,7 @@ class Bot(commands.Bot):
         await self.process_commands(new)
 
     async def on_command_error(self, ctx, error):
-        await error.handler(bot=self, ctx=ctx, error=error)
+        await errors.handler(bot=self, ctx=ctx, error=error)
 
     async def close(self):
         if not self.session.closed:
