@@ -45,7 +45,7 @@ bot.lava_nodes = [
         "password": "whaffle-node",
         "port": 80,
         "identifier": "WHAFFLE",
-        "region": "germany"
+        "region": "singapore"
     }
 ]
 
