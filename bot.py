@@ -23,6 +23,10 @@ class Bot(commands.Bot):
     async def on_connect(self):
         print(F"---------------------------------------------------\nLogged in as: {self.user} - {self.user.id}\nMain prefix is: {self.prefix}\nGuilds bot is in: {len(self.guilds)}\nThe Bot is online now\n---------------------------------------------------")
 
+    async def on_interaction(self, interaction: discord.Interaction):
+        print(F"Interaction.message: {interaction.message}")
+        if interaction.user.bot: return
+
     async def on_message(self, message):
         if message.author.bot: return
         if F"<@!{self.user.id}>" == message.content or F"<@{self.user.id}>" == message.content:
@@ -40,10 +44,6 @@ class Bot(commands.Bot):
             return await message.channel.send(embed=ompmbed)
         else:
             await self.process_commands(message)
-
-    async def on_interaction(self, interaction: discord.Interaction):
-        print(F"Interaction.message: {interaction.message}")
-        if interaction.user.bot: return
 
     async def on_message_edit(self, old, new):
         await self.process_commands(new)
