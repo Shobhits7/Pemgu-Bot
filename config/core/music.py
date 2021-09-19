@@ -9,10 +9,11 @@ class Music(commands.Cog, description="Jam out with these without needing to go 
     async def connect(self, ctx):
         if not ctx.author.voice:
             await ctx.send("You are not in a voice channel")
-            return
         elif not ctx.voice_client:
+            await ctx.send("Connected to your voice channel")
             await ctx.author.voice.channel.connect()
         else:
+            await ctx.send("Connected to your voice channel")
             await ctx.voice_client.move_to(ctx.author.voice.channel)
 
     @commands.command(name="disconnect", aliases=["dc"], help="Will disconnect the bot from voice channel")
