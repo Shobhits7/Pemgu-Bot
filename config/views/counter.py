@@ -1,17 +1,19 @@
 import discord
 from discord.ext import commands
+from collections import Counter
 
 class CounterView(discord.ui.View):
     def __init__(self, client):
         super().__init__(timeout=5)
         self.clicks = 0
-        self.clickers = ""
+        self.clickers = Counter()
         self.client = client
 
     @discord.ui.button(emoji="🍏", style=discord.ButtonStyle.green)
     async def click(self, button: discord.ui.Button, interaction: discord.Interaction):
         self.clicks += 1
-        self.clickers += F"**{interaction.user.name}** Clicked\n"
+        self.clickers[interaction.user.name] += 1
+        dict(self.clickers)
         button.label = self.clicks
 
     async def on_timeout(self):
