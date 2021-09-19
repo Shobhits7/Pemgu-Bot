@@ -43,7 +43,6 @@ class Bot(commands.Bot):
 
     async def on_interaction(self, interaction: discord.Interaction):
         print(F"Interaction.message: {interaction.message}")
-        print(F"Interaction.userMessage: {interaction.user.message}")
         if interaction.user.bot: return
 
     async def on_message_edit(self, old, new):
