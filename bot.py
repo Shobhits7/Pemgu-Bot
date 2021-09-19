@@ -42,7 +42,7 @@ class Bot(commands.Bot):
             await self.process_commands(message)
 
     async def on_interaction(self, interaction: discord.Interaction):
-        pritn(F"Interaction.message: {interaction.message}")
+        print(F"Interaction.message: {interaction.message}")
         print(F"Interaction.userMessage: {interaction.user.message}")
         if interaction.user.bot: return
 
