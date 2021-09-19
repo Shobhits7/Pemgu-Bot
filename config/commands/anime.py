@@ -6,7 +6,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         self.bot = bot
     
     # Quote
-    @commands.command(name="quote", help="Will send a anime quote", invoke_without_command=True)
+    @commands.command(name="quote", help="Will send a anime quote")
     async def quote(self, ctx):
         session = await self.bot.session.get("https://animechan.vercel.app/api/random/")
         response = await session.json()
@@ -23,7 +23,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.send(embed=quotembed)
 
     # SFW
-    @commands.group(name="sfw", help="Will send a random sfw waifu or husbando image if not specified")
+    @commands.group(name="sfw", help="Will send a random sfw waifu or husbando image if not specified", invoke_without_command=True)
     async def sfw(self, ctx):
         session = await self.bot.session.get("https://api.waifu.im/sfw/all/")
         response = await session.json()
