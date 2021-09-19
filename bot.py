@@ -44,9 +44,6 @@ class Bot(commands.Bot):
     async def on_message_edit(self, old, new):
         await self.process_commands(new)
 
-    async def on_error(self, ctx, error):
-        await ctx.send(errors.errors(bot=self, ctx=ctx, error=error))
-
     async def close(self):
         if not self.session.closed:
             await self.session.close()
