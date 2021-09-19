@@ -9,7 +9,8 @@ class Music(commands.Cog, description="Jam out with these without needing to go 
     async def connect(self, ctx):
         if not ctx.author.voice:
             await ctx.send("You are not in a voice channel")
-        if not ctx.voice_client:
+            return
+        elif not ctx.voice_client:
             await ctx.author.voice.channel.connect()
         else:
             await ctx.voice_client.move_to(ctx.author.voice.channel)
