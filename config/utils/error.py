@@ -1,4 +1,4 @@
-import discord, difflab, traceback
+import discord, difflib, traceback
 from discord.ext import commands
 
 async def handler(bot, ctx, error):
