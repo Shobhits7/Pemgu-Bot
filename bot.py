@@ -45,7 +45,8 @@ class Bot(commands.Bot):
         await self.process_commands(new)
 
     async def on_error(self):
-        return errors.Errors(bot=self)
+        errs = errors.Errors(bot=self)
+        return errs.errors()
 
     async def close(self):
         if not self.session.closed:
