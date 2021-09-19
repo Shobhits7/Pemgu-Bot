@@ -4,6 +4,7 @@ class DYMButtons(discord.ui.Button):
     def __init__(self, view, **kwargs):
         super().__init__(**kwargs)
         self.bot = view.bot
+        self.ctx = view.ctx
         self.matches = view.matches
 
     async def callback(self, interaction: discord.Interaction):
@@ -13,11 +14,10 @@ class DYMButtons(discord.ui.Button):
                 await self.bot.process_commands(match)
         if self.label == "Delete":
             deletembed = discord.Embed(
-                colour=self.help.context.bot.color,
+                colour=self.bot.color,
                 title="Deleted the message",
-                timestamp=self.help.context.message.created_at
+                timestamp=interaction.message.created_at
             )
-            deletembed.set_thumbnail(url=self.help.context.me.avatar.url)
             deletembed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
             await interaction.message.delete()
             await interaction.response.send_message(embed=deletembed, ephemeral=True)
