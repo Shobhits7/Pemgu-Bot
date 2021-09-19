@@ -38,8 +38,6 @@ for folder in sorted(os.listdir("./config/")):
             if cog.endswith(".py"):
                 bot.load_extension(F"config.{folder}.{cog[:-3]}")
 
-bot.load_extension("dismusic")
-
 bot.load_extension("jishaku")
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
