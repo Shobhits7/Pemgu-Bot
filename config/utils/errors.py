@@ -30,7 +30,7 @@ async def handler(bot, ctx, error):
         )
         nmatcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         if len(matches) > 0:
-            view = dymview.DYMView(bot=bot, ctx=ctx.message, matches=matches)
+            view = dymview.DYMView(bot=bot, ctx=ctx, matches=matches)
             view.message = await ctx.send(embed=matcnfmbed, view=view)
         else:
             await ctx.send(embed=nmatcnfmbed)
