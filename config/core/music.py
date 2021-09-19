@@ -61,10 +61,10 @@ class Music(commands.Cog, description="Jam out with these without needing to go 
             await ctx.send("I'm not in any voice channel")
 
     @commands.command(name="play", aliases=["pl"], help="Will play the given song")
-    async def play(self, ctx, *, link):
+    async def play(self, ctx, link):
         if ctx.voice_client:
             ctx.voice_client.stop()
-            player = await YTDLSource.from_url()
+            player = await YTDLSource.from_url(url=link, loop=self.bot.loop)
             ctx.voice_client.play(player, after=lambda e: print("Player Error: %s" %e) if e else None)
             await ctx.send(F"Now playing: {player.title}")
 
