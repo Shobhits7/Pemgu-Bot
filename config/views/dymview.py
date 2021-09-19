@@ -33,12 +33,15 @@ class DYMView(discord.ui.View):
         self.add_item(item=DYMButtons(emoji="💣",label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))
     
     async def on_timeout(self):
-        if self.children:
-            for item in self.children:
-                self.clear_items()
-                self.add_item(discord.ui.Button(emoji="❌", label="You took so long to answer...", style=discord.ButtonStyle.blurple, disabled=True))
-                self.add_item(discord.ui.Button(emoji="💣", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
-                await self.message.edit(view=self)
+        try:
+            if self.children:
+                for item in self.children:
+                    self.clear_items()
+                    self.add_item(discord.ui.Button(emoji="❌", label="You took so long to answer...", style=discord.ButtonStyle.blurple, disabled=True))
+                    self.add_item(discord.ui.Button(emoji="💣", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
+                    await self.message.edit(view=self)
+        except discord.NotFound:
+            pass
 
     async def interaction_check(self, interaction: discord.Interaction):
         if interaction.user.id == self.ctx.author.id:
