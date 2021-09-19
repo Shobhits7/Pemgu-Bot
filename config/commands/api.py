@@ -12,7 +12,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     @commands.command(name="roast", aliases=["rst"], help="Will roast you or the given user")
     async def roast(self, ctx, user:commands.UserConverter = None):
         user = user or ctx.author
-        session = await self.bot.session.get("https://api.dagpi.xyz/data/joke", headers=self.dagpi_headers)
+        session = await self.bot.session.get("https://api.dagpi.xyz/data/roast", headers=self.dagpi_headers)
         response = await session.json()
         session.close()
         rstmbed = discord.Embed(
