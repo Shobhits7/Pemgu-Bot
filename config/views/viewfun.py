@@ -16,7 +16,7 @@ class CounterView(discord.ui.View):
 
     async def on_timeout(self):
         for item in self.children:
-            self.view.clear_items()
+            self.clear_items()
         ontimeoutmbed = discord.Embed(
             colour=self.client.color,
             title=F"Button was clicked: {self.clicks} times",

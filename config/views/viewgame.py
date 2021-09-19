@@ -96,7 +96,7 @@ class TicTacToeView(discord.ui.View):
 
         return None
         
-class HelpButtons(discord.ui.Button):
+class GuessButtons(discord.ui.Button):
     def __init__(self, view, **kwargs):
         super().__init__(**kwargs)
         self.bot = view.bot
@@ -135,7 +135,7 @@ class GuessView(discord.ui.View):
         self.choose = None
         self.number = random.randint(1, 5)
         for i in range(1, 6):
-            self.add_item(item=HelpButtons(label=i, style=discord.ButtonStyle.green, view=self))
+            self.add_item(item=GuessButtons(label=i, style=discord.ButtonStyle.green, view=self))
     
     async def on_timeout(self):
         if self.children:
