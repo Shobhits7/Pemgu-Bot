@@ -23,9 +23,10 @@ class DYMButtons(discord.ui.Button):
             await interaction.response.send_message(embed=deletembed, ephemeral=True)
 
 class DYMView(discord.ui.View):
-    def __init__(self, bot, matches):
+    def __init__(self, bot, ctx, matches):
         super().__init__(timeout=10)
         self.bot = bot
+        self.ctx = ctx
         self.matches = matches
         for match in self.matches:
             self.add_item(item=DYMButtons(label=match, style=discord.ButtonStyle.green, view=self))
