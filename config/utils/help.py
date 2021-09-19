@@ -10,6 +10,7 @@ class MyHelp(commands.HelpCommand):
             "Fun": "🤣",
             "Game": "🎮",
             "Moderation": "🎩",
+            "Music": "🎵",
             "Owner": "👑",
             "Setup": "🔮",
             "Utility": "🧰",

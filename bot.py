@@ -38,6 +38,18 @@ for folder in sorted(os.listdir("./config/")):
             if cog.endswith(".py"):
                 bot.load_extension(F"config.{folder}.{cog[:-3]}")
 
+bot.load_extension("dismusic")
+bot.lava_nodes = [
+    {
+        "host": "lava.link",
+        "password": "whaffle-node",
+        "port": 80,
+        "rest_url": "https://lava.link:80",
+        "identifier": "WHAFFLE",
+        "region": "germany"
+    }
+]
+
 bot.load_extension("jishaku")
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
