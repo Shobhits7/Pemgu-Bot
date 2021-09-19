@@ -1,4 +1,4 @@
-import discord, collections
+import discord
 
 class CounterView(discord.ui.View):
     def __init__(self, client):
@@ -13,11 +13,10 @@ class CounterView(discord.ui.View):
         if str(interaction.user) in self.clickers:
             pass
         else: self.clickers += F"{str(interaction.user)}\n"
-        button.label = self.clicks
 
     async def on_timeout(self):
         for item in self.children:
-            item.disabled = True
+            self.view.clear_items()
         ontimeoutmbed = discord.Embed(
             colour=self.client.color,
             title=F"Button was clicked: {self.clicks} times",
