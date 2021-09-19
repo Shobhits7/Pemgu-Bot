@@ -31,9 +31,12 @@ class Music(commands.Cog, description="Jam out with these without needing to go 
         if ctx.voice_client:
             ctx.voice_client.stop()
             with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
-                info = ydl.extract_info(url, download=False)
+                info = ydl.(url, download=False)
+                print(info)
                 url2 = info["format"][0]["url"]
+                print(url2)
                 source = await discord.FFmpegOpusAudio.from_probe(url2, **FFMPEG_OPTIONS)
+                print(source)
                 ctx.voice_client.play(source)
 
     @commands.command(name="pause", aliases=["pa"], help="Will pause the current song")
