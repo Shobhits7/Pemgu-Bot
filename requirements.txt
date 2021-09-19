@@ -5,7 +5,6 @@ attrs
 cffi
 chardet
 git+https://github.com/iDevision/enhanced-discord.py
-dismusic
 idna
 jishaku
 multidict
