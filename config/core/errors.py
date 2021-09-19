@@ -1,11 +1,12 @@
 import discord, difflib, traceback
 from discord.ext import commands
 
-class Errors(commands.Cog):
+class OnError(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    async def on_error(self, ctx, error):
+    @commands.Cog.listener()
+    async def on_command_error(self, ctx, error):
         if isinstance(error, commands.NotOwner):
             nombed = discord.Embed(
                 colour=self.bot.color,
@@ -138,4 +139,4 @@ class Errors(commands.Cog):
             await ctx.send(embed=tbmbed)
 
 def setup(bot):
-    bot.add_cog(Errors(bot))
+    bot.add_cog(OnError(bot))
