@@ -12,7 +12,7 @@ class CounterView(discord.ui.View):
         self.clicks += 1
         if str(interaction.user) in self.clickers:
             pass
-        else: self.clickers += str(interaction.user)
+        else: self.clickers += F"{str(interaction.user)}\n"
         button.label = self.clicks
 
     async def on_timeout(self):
@@ -24,6 +24,6 @@ class CounterView(discord.ui.View):
         )
         if len(self.clickers) != 0 or self.clicks != 0:
             ontimeoutmbed.description = "People who clicked:\n"
-            ontimeoutmbed.description += F",\n".join(clicker for clicker in self.clickers)
+            ontimeoutmbed.description += self.clickers
         else: ontimeoutmbed.description = "Nobody clicked the buttons"
         await self.message.edit(embed=ontimeoutmbed, view=self)
