@@ -65,7 +65,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         session.close()
         pxlmbed = discord.Embed(
             colour=self.bot.color,
-            title="Here is the pixelated for the image",
+            title=F"{user} 's pixelated image",
             timestamp=ctx.message.created_at
         )
         pxlmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
@@ -82,7 +82,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         session.close()
         clrsmbed = discord.Embed(
             colour=self.bot.color,
-            title="Here is the colors for the image",
+            title=F"{user} 's image colors",
             timestamp=ctx.message.created_at
         )
         clrsmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
@@ -99,7 +99,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         session.close()
         twmbed = discord.Embed(
             colour=self.bot.color,
-            title="Here is your tweet's preview",
+            title=F"{user} 's tweet",
             timestamp=ctx.message.created_at
         )
         twmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
