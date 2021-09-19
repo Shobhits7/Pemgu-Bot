@@ -9,9 +9,6 @@ class OnMessage(commands.Cog):
     async def on_message(self, message):
         if message.author.bot: return
 
-        blacklist = await self.bot.db.fetch("SELECT * FROM blacklist WHERE user_id = $1", message.author.id)
-        if len(blacklist) != 0: return
-
         if F"<@!{self.bot.user.id}>" == message.content or F"<@{self.bot.user.id}>" == message.content:
             prefix = await self.bot.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", message.guild.id)
             if len(prefix) == 0:
