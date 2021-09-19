@@ -1,8 +1,20 @@
 import discord, youtube_dl, asyncio
 from discord.ext import commands
 
-FFMPEG_OPTIONS = {"before_option": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5", "options": "-vn"}
-YDL_OPTIONS = {"format": "bestaudio"}
+YDL_OPTIONS = {
+    'format': 'bestaudio/best',
+    'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
+    'restrictfilenames': True,
+    'noplaylist': True,
+    'nocheckcertificate': True,
+    'ignoreerrors': False,
+    'logtostderr': False,
+    'quiet': True,
+    'no_warnings': True,
+    'default_search': 'auto',
+    'source_address': '0.0.0.0'
+}
+FFMPEG_OPTIONS = {'options': '-vn'}
 
 ytdl = youtube_dl.YoutubeDL(YDL_OPTIONS)
 class YTDLSource(discord.PCMVolumeTransformer):
@@ -49,10 +61,10 @@ class Music(commands.Cog, description="Jam out with these without needing to go 
             await ctx.send("I'm not in any voice channel")
 
     @commands.command(name="play", aliases=["pl"], help="Will play the given song")
-    async def play(self, ctx, *, url):
+    async def play(self, ctx, *, link):
         if ctx.voice_client:
             ctx.voice_client.stop()
-            player = await YTDLSource.from_url(url, self.bot.loop)
+            player = await YTDLSource.from_url()
             ctx.voice_client.play(player, after=lambda e: print("Player Error: %s" %e) if e else None)
             await ctx.send(F"Now playing: {player.title}")
 
