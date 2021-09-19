@@ -17,5 +17,4 @@ PyYAML
 Shapely
 six
 typing-extensions
-wavelink
 yarl
