@@ -10,9 +10,9 @@ class CounterView(discord.ui.View):
     @discord.ui.button(emoji="🍏", style=discord.ButtonStyle.green)
     async def click(self, button: discord.ui.Button, interaction: discord.Interaction):
         self.clicks += 1
-        if interaction.user not in self.clickers:
-            self.clickers += F"{str(interaction.user)}"
-        else: pass
+        if str(interaction.user) in self.clickers:
+            pass
+        else: self.clickers += str(interaction.user)
         button.label = self.clicks
 
     async def on_timeout(self):
