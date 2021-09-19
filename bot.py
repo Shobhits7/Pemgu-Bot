@@ -44,9 +44,9 @@ bot.lava_nodes = [
         "host": "lava.link",
         "port": 80,
         "rest_url": "https://lava.link:80",
-        "identifier": "WHAFFLE",
+        "identifier": "MAIN",
         "password": "whaffle-node",
-        "region": "singapore"
+        "region": "germany"
     }
 ]
 
