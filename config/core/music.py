@@ -24,14 +24,16 @@ class Music(commands.Cog, description="Jam out with these without needing to go 
             await ctx.send("I'm not in any voice channel")
 
     @commands.command(name="play", aliases=["pl"], help="Will play the given song")
-    async def play(self, ctx, *, url):
+    async def play(self, ctx, url):
         FFMPEG_OPTIONS = {"before_option": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5", "options": "-vn"}
         YDL_OPTIONS = {"format": "bestaudio"}
         if ctx.voice_client:
             ctx.voice_client.stop()
-            player = await youtube_dl.YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
-            ctx.voice_client.play(player, after=lambda e: print("Player error: %s" % e) if e else None)
-            await ctx.send(F"Now playing: {player.title}")
+            # player = await youtube_dl.YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
+            with youtube_dl.YoutubeDL() as ydl:
+                source = ydl.download(url)
+            ctx.voice_client.play(source, after=lambda e: print("Player error: %s" % e) if e else None)
+            await ctx.send(F"Now playing: {source.title}")
 
     @commands.command(name="pause", aliases=["pa"], help="Will pause the current song")
     async def pause(self, ctx):
