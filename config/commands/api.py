@@ -7,11 +7,26 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         headers=self.dagpi_headers = {
             "Authorization": os.getenv("DAGPI")
         }
-    
+
+    # Roast
+    @commands.command(name="roast", aliases=["rst"], help="Will roast you or the given user")
+    async def roast(self, ctx, user:commands.UserConverter = None):
+        user = user or ctx.author
+        session = await self.bot.session.get("https://api.dagpi.xyz/data/joke", headers=self.dagpi_headers)
+        response = await session.json()
+        session.close()
+        rstmbed = discord.Embed(
+            colour=self.bot.color,
+            title=F"Roasting {user}",
+            description=response['roast'],
+            timestamp=ctx.message.created_at
+        )
+        rstmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=rstmbed)
+
     # Joke
     @commands.command(name="joke", aliases=["jk"], help="Will tell you a random joke")
     async def joke(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.dagpi.xyz/data/joke", headers=self.dagpi_headers)
         response = await session.json()
         session.close()
@@ -27,7 +42,6 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     # 8Ball
     @commands.command(name="8ball", aliases=["8b"], help="Will give you a random answer", usage="<question>")
     async def _8ball(self, ctx, *, question):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.dagpi.xyz/data/8ball", headers=self.dagpi_headers)
         response = await session.json()
         session.close()
@@ -45,7 +59,6 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     @commands.command(name="pixel", aliases=["pxl"], help="Will make the given image pixelated", usage="[user]")
     @commands.bot_has_guild_permissions(attach_files=True)
     async def pixel(self, ctx, user:commands.UserConverter = None):
-        await ctx.trigger_typing()
         user = user or ctx.author
         session = await self.bot.session.get(F"https://api.dagpi.xyz/image/pixel/?url={user.avatar.with_static_format('png').with_size(1024)}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
@@ -63,7 +76,6 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image", usage="[user]")
     @commands.bot_has_guild_permissions(attach_files=True)
     async def colors(self, ctx, user:commands.UserConverter = None):
-        await ctx.trigger_typing()
         user = user or ctx.author
         session = await self.bot.session.get(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.with_static_format('png').with_size(1024)}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
@@ -81,7 +93,6 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet", usage="<username> <text>")
     @commands.bot_has_guild_permissions(attach_files=True)
     async def tweet(self, ctx, *, text, user:commands.UserConverter = None):
-        await ctx.trigger_typing()
         user = user or ctx.author
         session = await self.bot.session.get(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_static_format('png').with_size(1024)}&username={ctx.author.name}&text={text}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
@@ -99,7 +110,6 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website", usage="<website>")
     @commands.bot_has_guild_permissions(attach_files=True)
     async def screenshot(self, ctx, *, website):
-        await ctx.trigger_typing()
         session = await self.bot.session.get(F"https://api.screenshotmachine.com?key=a95edd&url={website}&dimension=1024x768")
         response = io.BytesIO(await session.read())
         session.close()
@@ -115,7 +125,6 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     # Pypi
     @commands.command(name="pypi", help="Will give information about the given lib in pypi")
     async def pypi(self, ctx, *, lib):
-        await ctx.trigger_typing()
         session = await self.bot.session.get(F"https://pypi.org/pypi/{lib}/json")
         if session.status != 200:
             await ctx.send("Couldn't find that library in PYPI")

@@ -9,7 +9,6 @@ class Setup(commands.Cog, description="For setting up the bot"):
     @commands.group(name="prefix", aliases=["pf"], help="Will tell you the prefix for this guild", invoke_without_command=True)
     @commands.guild_only()
     async def prefix(self, ctx):
-        await ctx.trigger_typing()
         prefix = await self.bot.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", ctx.guild.id)
         if len(prefix) == 0:
             prefix = self.bot.prefix
@@ -28,7 +27,6 @@ class Setup(commands.Cog, description="For setting up the bot"):
     @commands.has_guild_permissions(administrator=True)
     @commands.cooldown(1, 5, commands.BucketType.guild)
     async def prefix_change(self, ctx, prefix):
-        await ctx.trigger_typing()
         row = await self.bot.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", ctx.guild.id)
         if len(row) == 0:
             await self.bot.db.execute("INSERT INTO prefixes(guild_id, prefix) VALUES ($1, $2)", ctx.guild.id, prefix)
@@ -47,7 +45,6 @@ class Setup(commands.Cog, description="For setting up the bot"):
     @commands.has_guild_permissions(administrator=True)
     @commands.cooldown(1, 5, commands.BucketType.guild)
     async def prefix_reset(self, ctx):
-        await ctx.trigger_typing()
         await self.bot.db.execute("UPDATE prefixes SET prefix = $1 WHERE guild_id = $2",self.bot.prefix, ctx.guild.id)
         pfrmbed = discord.Embed(
             colour=self.bot.color,

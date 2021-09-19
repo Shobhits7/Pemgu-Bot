@@ -9,7 +9,6 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.command(name="blacklist", aliases=["bl"], help="Will add the given user to the blacklist")
     @commands.is_owner()
     async def blacklist(self, ctx, user:commands.UserConverter):
-        await ctx.trigger_typing()
         blacklist = await self.bot.db.fetch("SELECT * FROM blacklist WHERE user_id = $1", user.id)
         blmbed = discord.Embed(
             colour=self.bot.color,
@@ -26,7 +25,6 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.command(name="cleanup", aliases=["cu"], help="Will delete bot's messagess")
     @commands.is_owner()
     async def cleanup(self, ctx, amount: int):
-        await ctx.trigger_typing()
         cumbed = discord.Embed(
             colour=self.bot.color,
             title=F"Cleaned-up {amount} of bot messages",
@@ -39,7 +37,6 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.command(name="logout", aliases=["lt"], help="Will logout the bot")
     @commands.is_owner()
     async def logout(self, ctx):
-        await ctx.trigger_typing()
         ltmbed = discord.Embed(
             colour=self.bot.color,
             title="Okay, I'm logging out :wave:",
@@ -53,7 +50,6 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.command(name="relog", aliases=["rg"], help="Will Relog the bot")
     @commands.is_owner()
     async def relog(self, ctx):
-        await ctx.trigger_typing()
         rgmbed = discord.Embed(
             colour=self.bot.color,
             title="Okay Relogging :eyes:",
@@ -68,7 +64,6 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.command(name="guilds", aliases=["gd"], help="Will tell the guilds that my bot is joined in")
     @commands.is_owner()
     async def guild(self, ctx):
-        await ctx.trigger_typing()
         gdmbed = discord.Embed(
             colour=self.bot.color,
             title="This bot is joined in: ",
@@ -82,7 +77,6 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.command(name="perms", aliases=["pm"], help="Will show the perms that the bot has in this guild")
     @commands.is_owner()
     async def perms(self, ctx):
-        await ctx.trigger_typing()
         pmbed = discord.Embed(colour=self.bot.color, title="Bot Permissions", timestamp=ctx.message.created_at)
         pmbed.add_field(name="Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if val))
         pmbed.add_field(name="Not Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if not val))
@@ -96,7 +90,6 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.has_guild_permissions(manage_guild=True)
     @commands.bot_has_guild_permissions(manage_guild=True)
     async def template(self, ctx):
-        await ctx.trigger_typing()
         tembed = discord.Embed(
             colour=self.bot.color,
             title="Please check your DM",

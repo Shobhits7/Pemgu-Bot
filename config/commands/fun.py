@@ -9,7 +9,6 @@ class Fun(commands.Cog, description="For just having an great fun time"):
     @commands.command(name="counter", aliases=["ctr"], help="Will start an counter")
     @commands.is_owner()
     async def counter(self, ctx):
-        await ctx.trigger_typing()
         ctrmbed = discord.Embed(
             colour=self.bot.color,
             title="Click the button for counting"

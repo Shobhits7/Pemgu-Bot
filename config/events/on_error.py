@@ -7,7 +7,7 @@ class OnError(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        await ctx.trigger_typing()
+        
         if isinstance(error, commands.NotOwner):
             nombed = discord.Embed(
                 colour=self.bot.color,
@@ -129,7 +129,7 @@ class OnError(commands.Cog):
             rnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=rnfmbed)
         elif isinstance(error, commands.CheckFailure):
-            await ctx.trigger_typing()
+            
             cfmbed = discord.Embed(
                 colour=self.bot.color,
                 title="You are blacklisted, stop using the commands **IDIOT**",
@@ -138,7 +138,7 @@ class OnError(commands.Cog):
             cfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=cfmbed)
         elif isinstance(error, commands.CheckAnyFailure):
-            await ctx.trigger_typing()
+            
             cafmbed = discord.Embed(
                 colour=self.bot.color,
                 title="You are blacklisted, stop using the commands **IDIOT**",

@@ -11,7 +11,6 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     @commands.has_guild_permissions(ban_members=True)
     @commands.bot_has_guild_permissions(ban_members=True)
     async def ban(self, ctx, user:commands.UserConverter, *, reason=None):
-        await ctx.trigger_typing()
         abnmbed = discord.Embed(
             colour=self.bot.color,
             title=F"{user} is now Banned",
@@ -36,7 +35,6 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     @commands.has_guild_permissions(ban_members=True)
     @commands.bot_has_guild_permissions(ban_members=True)
     async def unban(self, ctx, user:commands.UserConverter, *, reason):
-        await ctx.trigger_typing()
         aunmbed = discord.Embed(
             colour=self.bot.color,
             title=F"{user.name} is now Unbanned",
@@ -60,7 +58,6 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     @commands.has_guild_permissions(kick_members=True)
     @commands.bot_has_guild_permissions(kick_members=True)
     async def kick(self, ctx, member:commands.MemberConverter, *, reason=None):
-        await ctx.trigger_typing()
         akcmbed = discord.Embed(
             colour=self.bot.color,
             title=F"{member} is now Kicked",
@@ -85,7 +82,6 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
     async def addrole(self, ctx, member: commands.MemberConverter, role: commands.RoleConverter):
-        await ctx.trigger_typing()
         finaembed = discord.Embed(
             colour=self.bot.color,
             title=F"Successfully added the {role} role",
@@ -110,7 +106,6 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
     async def removerole(self, ctx, member: commands.MemberConverter, role: commands.RoleConverter):
-        await ctx.trigger_typing()
         finrembed = discord.Embed(
             colour=self.bot.color,
             title=F"Successfully removed the {role} role",
@@ -135,7 +130,6 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     @commands.has_guild_permissions(manage_messages=True)
     @commands.bot_has_guild_permissions(manage_messages=True)
     async def purge(self, ctx, amount: int):
-        await ctx.trigger_typing()
         finpumbed = discord.Embed(
             colour=self.bot.color,
             title=F"Deleted {amount} amount of messages",

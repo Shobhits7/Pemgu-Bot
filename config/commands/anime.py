@@ -8,9 +8,9 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # Quote
     @commands.command(name="quote", help="Will send a anime quote", invoke_without_command=True)
     async def quote(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://animechan.vercel.app/api/random/")
         response = await session.json()
+        session.close()
         quotembed = discord.Embed(
             colour=self.bot.color,
             title="Here is your quote",
@@ -25,7 +25,6 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # SFW
     @commands.group(name="sfw", help="Will send a random sfw waifu or husbando image if not specified")
     async def sfw(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/sfw/all/")
         response = await session.json()
         session.close()
@@ -42,7 +41,6 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # Waifu
     @sfw.command(name="waifu", help="Will send a random sfw waifu image")
     async def waifu(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/sfw/waifu/")
         response = await session.json()
         session.close()
@@ -59,7 +57,6 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # SMaid
     @sfw.command(name="maid", help="Will send a random sfw maid image")
     async def smaid(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/sfw/maid/")
         response = await session.json()
         session.close()
@@ -77,7 +74,6 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     @commands.group(name="nsfw", help="Will send a random nsfw waifu image", invoke_without_command=True)
     @commands.is_nsfw()
     async def nsfw(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/nsfw/ero/")
         response = await session.json()
         session.close()
@@ -95,7 +91,6 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     @nsfw.command(name="ass", help="Will send a random nsfw ass image")
     @commands.is_nsfw()
     async def ass(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/nsfw/ass/")
         response = await session.json()
         session.close()
@@ -113,7 +108,6 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     @nsfw.command(name="ecchi", help="Will send a random nsfw ecchi image")
     @commands.is_nsfw()
     async def ecchi(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/nsfw/ecchi/")
         response = await session.json()
         session.close()
@@ -131,7 +125,6 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     @nsfw.command(name="ero", help="Will send a random nsfw ero image")
     @commands.is_nsfw()
     async def ero(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/nsfw/ero/")
         response = await session.json()
         session.close()
@@ -149,7 +142,6 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     @nsfw.command(name="hentai", help="Will send a random nsfw hentai image")
     @commands.is_nsfw()
     async def hentai(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/nsfw/hentai/")
         response = await session.json()
         session.close()
@@ -167,7 +159,6 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     @nsfw.command(name="maid", help="Will send a random nsfw maid image")
     @commands.is_nsfw()
     async def nmaid(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/nsfw/maid/")
         response = await session.json()
         session.close()
@@ -185,7 +176,6 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     @nsfw.command(name="milf", help="Will send a random nsfw milf image")
     @commands.is_nsfw()
     async def milf(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/nsfw/milf/")
         response = await session.json()
         session.close()
@@ -203,7 +193,6 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     @nsfw.command(name="oppai", help="Will send a random nsfw oppai image")
     @commands.is_nsfw()
     async def oppai(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/nsfw/ero/")
         response = await session.json()
         session.close()
@@ -221,7 +210,6 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     @nsfw.command(name="oral", help="Will send a random nsfw oral image")
     @commands.is_nsfw()
     async def oral(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/nsfw/oral/")
         response = await session.json()
         session.close()
@@ -239,7 +227,6 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     @nsfw.command(name="paizuri", help="Will send a random nsfw paizuri image")
     @commands.is_nsfw()
     async def paizuri(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/nsfw/paizuri/")
         response = await session.json()
         session.close()
@@ -257,7 +244,6 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     @nsfw.command(name="selfies", help="Will send a random nsfw selfies image")
     @commands.is_nsfw()
     async def selfies(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/nsfw/selfies/")
         response = await session.json()
         session.close()
@@ -275,7 +261,6 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     @nsfw.command(name="uniform", help="Will send a random nsfw uniform image")
     @commands.is_nsfw()
     async def uniform(self, ctx):
-        await ctx.trigger_typing()
         session = await self.bot.session.get("https://api.waifu.im/nsfw/uniform/")
         response = await session.json()
         session.close()
