@@ -1,6 +1,6 @@
 import discord, aiohttp, asyncpg, os
 from discord.ext import commands
-from config.utils import errors, help
+from config.utils import help
 
 async def create_db_poll():
     bot.db = await asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"))
