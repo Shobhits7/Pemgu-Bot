@@ -5,10 +5,8 @@ attrs
 cffi
 chardet
 git+https://github.com/iDevision/enhanced-discord.py
-dismusic
 idna
 jishaku
-lavalink
 multidict
 pycparser
 pymunk
@@ -18,5 +16,5 @@ PyYAML
 Shapely
 six
 typing-extensions
-wavelink
 yarl
+youtube_dl

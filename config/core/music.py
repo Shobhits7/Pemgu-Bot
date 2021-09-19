@@ -1,7 +1,7 @@
 import discord, youtube_dl
 from discord.ext import commands
 
-class Music(commands.Cog, description="Jazzing out with these without going to a party"):
+class Music(commands.Cog, description="Jam out with these without needing to go to a party"):
     def __init__(self, bot):
         self.bot = bot
     
