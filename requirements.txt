@@ -5,7 +5,7 @@ attrs
 cffi
 chardet
 git+https://github.com/iDevision/enhanced-discord.py
-discmusic
+dismusic
 idna
 jishaku
 lavalink
