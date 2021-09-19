@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import config.views.viewfun as vf
+import config.views.funview as vf
 
 class Fun(commands.Cog, description="For just having an great fun time"):
     def __init__(self, bot):

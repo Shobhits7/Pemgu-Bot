@@ -1,5 +1,6 @@
 import discord, difflib, traceback
 from discord.ext import commands
+from config.views import dymview
 
 async def handler(bot, ctx, error):
     if isinstance(error, commands.NotOwner):
@@ -17,7 +18,7 @@ async def handler(bot, ctx, error):
         matcnfmbed = discord.Embed(
             colour=bot.color,
             title=F"Couldn't find command called: {cmd}.",
-            description=F"Maybe you meant:\n{' - '.join([match for match in matches])}",
+            description=F"Maybe you meant:\n{' - '.join([match for match in matches])}\nClick on the buttons for execution",
             timestamp=ctx.message.created_at
         )
         matcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
@@ -29,7 +30,7 @@ async def handler(bot, ctx, error):
         )
         nmatcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         if len(matches) > 0:
-            await ctx.send(embed=matcnfmbed)
+            await ctx.send(embed=matcnfmbed, view=dymview.DYMView(bot=bot, matches=matches))
         else:
             await ctx.send(embed=nmatcnfmbed)
     elif isinstance(error, commands.MissingPermissions):
