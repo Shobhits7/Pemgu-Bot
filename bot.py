@@ -40,7 +40,12 @@ class Bot(commands.Bot):
             return await message.channel.send(embed=ompmbed)
         else:
             await self.process_commands(message)
-            
+
+    async def on_interaction(self, interaction: discord.Interaction):
+        pritn(F"Interaction.message: {interaction.message}")
+        print(F"Interaction.userMessage: {interaction.user.message}")
+        if interaction.user.bot: return
+
     async def on_message_edit(self, old, new):
         await self.process_commands(new)
 
