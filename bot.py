@@ -38,7 +38,9 @@ class Bot(commands.Bot):
             )
             ompmbed.set_footer(text=message.author, icon_url=message.author.avatar.url)
             return await message.channel.send(embed=ompmbed)
-
+        else:
+            await self.process_commands(message)
+            
     async def on_message_edit(self, old, new):
         await self.process_commands(new)
 
