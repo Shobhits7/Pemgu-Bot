@@ -128,24 +128,6 @@ class OnError(commands.Cog):
             )
             rnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=rnfmbed)
-        elif isinstance(error, commands.CheckFailure):
-            
-            cfmbed = discord.Embed(
-                colour=self.bot.color,
-                title="You are blacklisted, stop using the commands **IDIOT**",
-                timestamp=ctx.message.created_at
-            )
-            cfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=cfmbed)
-        elif isinstance(error, commands.CheckAnyFailure):
-            
-            cafmbed = discord.Embed(
-                colour=self.bot.color,
-                title="You are blacklisted, stop using the commands **IDIOT**",
-                timestamp=ctx.message.created_at
-            )
-            cafmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=cafmbed)
         else:
             tbmbed = discord.Embed(
                 colour=self.bot.color,
