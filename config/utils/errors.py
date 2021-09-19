@@ -1,13 +1,11 @@
-import discord, traceback, difflib
+import discord, difflib, traceback
 from discord.ext import commands
 
-class Errors(commands.Cog):
+class Errors():
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
-        
+    async def errors(self, ctx, error):
         if isinstance(error, commands.NotOwner):
             nombed = discord.Embed(
                 colour=self.bot.color,
@@ -137,6 +135,3 @@ class Errors(commands.Cog):
             )
             tbmbed.description += F"{''.join(traceback.format_exception(type(error), error,  error.__traceback__))}\n```"
             await ctx.send(embed=tbmbed)
-
-def setup(bot):
-    bot.add_cog(Errors(bot))

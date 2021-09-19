@@ -1,6 +1,6 @@
 import discord, aiohttp, asyncpg, os
 from discord.ext import commands
-from config.utils.help import MyHelp
+from config.utils import errors, help
 
 async def create_db_poll():
     bot.db = await asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"))
@@ -44,11 +44,14 @@ class Bot(commands.Bot):
     async def on_message_edit(self, old, new):
         await self.process_commands(new)
 
+    async def on_error(self):
+        errors.Errors.errors(self)
+
     async def close(self):
         if not self.session.closed:
             await self.session.close()
 
-bot = Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, help_command=MyHelp(), intents=discord.Intents.all(), allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False))
+bot = Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, help_command=help.MyHelp(), intents=discord.Intents.all(), allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False))
 
 bot.prefix = ";w"
 bot.color = 0x2F3136
