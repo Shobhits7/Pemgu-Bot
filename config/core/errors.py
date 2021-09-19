@@ -134,4 +134,8 @@ class Errors(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             tbmbed.description += F"{''.join(traceback.format_exception(type(error), error,  error.__traceback__))}\n```"
+            
             await ctx.send(embed=tbmbed)
+
+def setup(bot):
+    bot.add_cog(Errors(bot))
