@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from config.views import viwefun
+import config.views.viewfun as vf
 
 class Fun(commands.Cog, description="For just having an great fun time"):
     def __init__(self, bot):
@@ -13,7 +13,7 @@ class Fun(commands.Cog, description="For just having an great fun time"):
             title="Click the button for counting"
         )
         ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        view = viwefun.CounterView(client=self.bot)
+        view = vf.CounterView(client=self.bot)
         view.message = await ctx.send(embed=ctrmbed, view=view)
 
 def setup(bot):

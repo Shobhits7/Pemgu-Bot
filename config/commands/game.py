@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from config.views import viewgame
+import config.views.viewgame as vg
 
 class Game(commands.Cog, description="If you are bored... use these"):
     def __init__(self, bot):
@@ -9,7 +9,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
     @commands.command(name="tictactoe", aliases=["ttt"], help="Will start an tic-tac-toe game")
     @commands.is_owner()
     async def tictactoe(self, ctx):
-        await ctx.send('Tic Tac Toe: X goes first', view=viewgame.TicTacToeView())
+        await ctx.send('Tic Tac Toe: X goes first', view=vg.TicTacToeView())
     
     @commands.command(name="guess", aliases=["gs"], help="Will start an guessing game")
     async def guess(self, ctx):
@@ -19,7 +19,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
             description="Try to guess now"
         )
         gsmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        view = viewgame.GuessView(bot=self.bot, ctx=ctx)
+        view = vg.GuessView(bot=self.bot, ctx=ctx)
         view.message = await ctx.send(embed=gsmbed, view=view)
 
 def setup(bot):
