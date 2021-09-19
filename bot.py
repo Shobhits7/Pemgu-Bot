@@ -36,6 +36,18 @@ for cog in sorted(os.listdir("./config/core/")):
     if cog.endswith(".py"):
         bot.load_extension(F"config.core.{cog[:-3]}")
 
+bot.lava_nodes = [
+    {
+        "host": "lava.link",
+        "port": 80,
+        "rest_url": "https://lava.link:80",
+        "identifier": "MAIN",
+        "password": "anything",
+        "region": "germany"
+    }
+]
+bot.load_extension("dismusic")
+
 bot.load_extension("jishaku")
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
