@@ -16,7 +16,7 @@ async def get_prefix_postgresql(bot, message):
         prefix = prefix[0].get("prefix")
     return commands.when_mentioned_or(prefix)(bot, message)
 
-class Bot(commands.Bot):
+class Bot(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
