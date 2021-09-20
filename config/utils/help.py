@@ -24,6 +24,7 @@ class CustomHelp(commands.HelpCommand):
             "Fun": "🤣",
             "Game": "🎮",
             "Moderation": "🎩",
+            "Music": "🎻",
             "Owner": "👑",
             "Setup": "🔮",
             "Utility": "🧰",
