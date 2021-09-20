@@ -24,7 +24,6 @@ class Bot(commands.Bot):
         print(F"---------------------------------------------------\nLogged in as: {self.user} - {self.user.id}\nMain prefix is: {self.prefix}\nGuilds bot is in: {len(self.guilds)}\nThe Bot is online now\n---------------------------------------------------")
 
     async def on_interaction(self, interaction: discord.Interaction):
-        print(F"Interaction.message: {interaction.message}")
         if interaction.user.bot: return
 
     async def on_message(self, message):
