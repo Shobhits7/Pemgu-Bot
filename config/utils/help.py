@@ -4,10 +4,18 @@ from config.views import helpmenu, helpbuttons
 
 class MinimalHelp(commands.MinimalHelpCommand):
     async def send_pages(self):
-        destination = self.get_destination()
+        mhmbed = discord.Embed(
+            colour=self.context.bot.color,
+            title=F"{self.context.me.name}'s Help",
+            timestamp=self.context.message.created_at
+        )
+        mhmbed.set_thumbnail(url=self.context.me.avatar.url)
+        mhmbed.set_author(name=self.context.author, icon_url=self.context.author.avatar.url)
+        mhmbed.add_field(name="Prefix:", value=self.context.prefix or "In DM you don't need to use prefix", inline=False)
+        mhmbed.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THESE WHEN DOING A COMMAND***", inline=False)
         for page in self.paginator.pages:
-            emby = discord.Embed(description=page)
-            await destination.send(embed=emby)
+            mhmbed.description = page
+            await self.context.send(embed=mhmbed)
 
 class CustomHelp(commands.HelpCommand):
     def __init__(self):
@@ -34,7 +42,7 @@ class CustomHelp(commands.HelpCommand):
     async def send_bot_help(self, mapping):
         homepage = discord.Embed(
             colour=self.context.bot.color,
-            title=F"{self.context.me.display_name} Help",
+            title=F"{self.context.me.name}'s Help",
             description=F"This is a list of all modules in the bot.\nSelect a module for more information.",
             timestamp=self.context.message.created_at
         )
