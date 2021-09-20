@@ -11,7 +11,7 @@ class MinimalHelp(commands.MinimalHelpCommand):
         )
         mhmbed.set_thumbnail(url=self.context.me.avatar.url)
         mhmbed.set_author(name=self.context.author, icon_url=self.context.author.avatar.url)
-        mhmbed.set_footer(text="[] means the argument is optional. | <> means the argument is required.", icon_url=None)
+        mhmbed.set_footer(text="[] means the argument is optional. | <> means the argument is required.")
         for page in self.paginator.pages:
             mhmbed.description = page
             await self.context.send(embed=mhmbed)
