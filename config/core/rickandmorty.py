@@ -11,17 +11,17 @@ class Rick_and_Morty(commands.Cog, name="Rick and Morty", description="Wubba Lub
     
     # Character
     @ram.command(name="character", aliases=["char"], help="Will show information about the given character", usage="<character's name>")
-    async def character(self, ctx, *, character):
+    async def character(self, ctx, *, character: str):
         pass
 
     # Location
     @ram.command(name="location", aliases=["loc"], help="Will show information about the given location", usage="<location's name>")
-    async def location(self, ctx, *, location):
+    async def location(self, ctx, *, location: str):
         pass
 
     # Episode
     @ram.command(name="episode", aliases=["ep"], help="Will show information about the given episode", usage="<episode's number>")
-    async def episode(self, ctx, *, episode):
+    async def episode(self, ctx, *, episode: int):
         pass
 
 def setup(bot):
