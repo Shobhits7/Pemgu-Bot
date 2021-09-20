@@ -1,6 +1,5 @@
 import discord, time
 from discord.ext import commands
-from config.utils.help import MyHelp
 
 class Utility(commands.Cog, description="Useful commands that are open to everyone"):
     def __init__(self, bot):
