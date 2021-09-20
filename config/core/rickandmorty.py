@@ -5,7 +5,7 @@ class Rick_and_Morty(commands.Cog, name="Rick and Morty", description="Wubba Lub
     def __init__(self, bot):
         self.bot = bot
     
-    @commands.group(name="ram", description="Some Rick and Morty commands", invoke_without_command=True)
+    @commands.group(name="ram", help="Some Rick and Morty commands", invoke_without_command=True)
     async def ram(self, ctx):
         await ctx.send_help(ctx.command.cog)
     
