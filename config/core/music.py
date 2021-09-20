@@ -53,6 +53,7 @@ class Music(commands.Cog, description="Jam out with these without going to a par
         self.bot = bot
 
     @commands.command()
+    @commands.is_owner()
     async def join(self, ctx, *, channel: discord.VoiceChannel):
         """Joins a voice channel"""
 
@@ -62,6 +63,7 @@ class Music(commands.Cog, description="Jam out with these without going to a par
         await channel.connect()
 
     @commands.command()
+    @commands.is_owner()
     async def play(self, ctx, *, query):
         """Plays a file from the local filesystem"""
 
@@ -71,6 +73,7 @@ class Music(commands.Cog, description="Jam out with these without going to a par
         await ctx.send(f'Now playing: {query}')
 
     @commands.command()
+    @commands.is_owner()
     async def yt(self, ctx, *, url):
         """Plays from a url (almost anything youtube_dl supports)"""
 
@@ -81,6 +84,7 @@ class Music(commands.Cog, description="Jam out with these without going to a par
         await ctx.send(f'Now playing: {player.title}')
 
     @commands.command()
+    @commands.is_owner()
     async def stream(self, ctx, *, url):
         """Streams from a url (same as yt, but doesn't predownload)"""
 
@@ -91,6 +95,7 @@ class Music(commands.Cog, description="Jam out with these without going to a par
         await ctx.send(f'Now playing: {player.title}')
 
     @commands.command()
+    @commands.is_owner()
     async def volume(self, ctx, volume: int):
         """Changes the player's volume"""
 
@@ -101,6 +106,7 @@ class Music(commands.Cog, description="Jam out with these without going to a par
         await ctx.send(f"Changed volume to {volume}%")
 
     @commands.command()
+    @commands.is_owner()
     async def stop(self, ctx):
         """Stops and disconnects the bot from voice"""
 
