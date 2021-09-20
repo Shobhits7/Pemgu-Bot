@@ -11,8 +11,7 @@ class MinimalHelp(commands.MinimalHelpCommand):
         )
         mhmbed.set_thumbnail(url=self.context.me.avatar.url)
         mhmbed.set_author(name=self.context.author, icon_url=self.context.author.avatar.url)
-        mhmbed.add_field(name="Prefix:", value=self.context.prefix or "In DM you don't need to use prefix", inline=False)
-        mhmbed.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THESE WHEN DOING A COMMAND***", inline=False)
+        mhmbed.set_footer(text="[] means the argument is optional. | <> means the argument is required.", icon_url=None)
         for page in self.paginator.pages:
             mhmbed.description = page
             await self.context.send(embed=mhmbed)
