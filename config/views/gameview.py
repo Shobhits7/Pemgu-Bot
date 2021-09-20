@@ -135,7 +135,7 @@ class GuessView(discord.ui.View):
         self.choose = None
         self.number = random.randint(1, 5)
         for i in range(1, 6):
-            self.add_item(item=GuessButtons(label=i, style=discord.ButtonStyle.green, row=2, view=self))
+            self.add_item(item=GuessButtons(label=i, style=discord.ButtonStyle.green, row=1, view=self))
     
     async def on_timeout(self):
         if self.children:
