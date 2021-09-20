@@ -5,22 +5,22 @@ class Rick_and_Morty(commands.Cog, name="Rick and Morty", description="Wubba Lub
     def __init__(self, bot):
         self.bot = bot
     
-    @commands.group(name="ram", help="Some Rick and Morty commands, use subcommands", invoke_without_command=True)
-    async def ram(self, ctx):
+    @commands.group(name="rickandmorty", aliases=["ram"], help="Some Rick and Morty commands, use subcommands", invoke_without_command=True)
+    async def rickandmorty(self, ctx):
         await ctx.send_help(ctx.command.cog)
     
     # Character
-    @ram.command(name="character", aliases=["char"], help="Will show information about the given character", usage="<character's name>")
+    @rickandmorty.command(name="character", aliases=["char"], help="Will show information about the given character", usage="<character's name>")
     async def character(self, ctx, *, character: str):
         pass
 
     # Location
-    @ram.command(name="location", aliases=["loc"], help="Will show information about the given location", usage="<location's name>")
+    @rickandmorty.command(name="location", aliases=["loc"], help="Will show information about the given location", usage="<location's name>")
     async def location(self, ctx, *, location: str):
         pass
 
     # Episode
-    @ram.command(name="episode", aliases=["ep"], help="Will show information about the given episode", usage="<episode's number>")
+    @rickandmorty.command(name="episode", aliases=["ep"], help="Will show information about the given episode", usage="<episode's number>")
     async def episode(self, ctx, *, episode: int):
         pass
 
