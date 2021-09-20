@@ -7,7 +7,6 @@ class HelpButtons(discord.ui.Button):
         self.help = view.help
         self.mapping = view.mapping
         self.homepage = view.homepage
-        self.emojis = view.emojis
 
     async def callback(self, interaction: discord.Interaction):
         for cog, commands in self.mapping.items():
@@ -17,7 +16,7 @@ class HelpButtons(discord.ui.Button):
             if self.custom_id == name:
                 mbed = discord.Embed(
                     colour=self.help.context.bot.color,
-                    title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category",
+                    title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
                     description=F"{description}\n\n",
                     timestamp=self.help.context.message.created_at
                 )
@@ -41,17 +40,16 @@ class HelpButtons(discord.ui.Button):
 
 
 class HelpView(discord.ui.View):
-    def __init__(self, help, mapping, homepage, emojis):
+    def __init__(self, help, mapping, homepage):
         super().__init__(timeout=10)
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
-        self.emojis = emojis
         self.add_item(item=HelpButtons(emoji="🏠", label="Home", style=discord.ButtonStyle.green, custom_id="Home", view=self))
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             if not name.startswith("On"):
-                self.add_item(item=HelpButtons(emoji=self.emojis.get(name), label=F"{name}", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
+                self.add_item(item=HelpButtons(emoji=self.help.emojis.get(name), label=F"{name}", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
         self.add_item(item=HelpButtons(emoji="💣",label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))
         self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
