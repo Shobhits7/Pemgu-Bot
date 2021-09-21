@@ -24,9 +24,6 @@ class Bot(commands.AutoShardedBot):
         print(F"---------------------------------------------------\nLogged in as: {self.user} - {self.user.id}\nMain prefix is: {self.prefix}\nGuilds bot is in: {len(self.guilds)}\nThe Bot is online now\n---------------------------------------------------")
         await self.change_presence(activity=discord.Game(name="@ieM for prefix | .m help for help | made by lvlahraam#8435"))
 
-    async def on_interaction(self, interaction: discord.Interaction):
-        if interaction.user.bot: return
-
     async def on_message(self, message):
         if message.author.bot: return
         if F"<@!{self.user.id}>" == message.content or F"<@{self.user.id}>" == message.content:
