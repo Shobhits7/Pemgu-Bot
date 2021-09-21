@@ -1,4 +1,5 @@
-## Information About Mei Discord Bot
+![Logo](https://cdn.discordapp.com/avatars/844226171972616205/4386a40d6b10f55c1b77b195913f6600.png?size=1024)
+## Information About ieM Discord Bot
 This is a Discord Bot made by lvlahraam
 
 It's written in Python with Discord.py
@@ -20,6 +21,6 @@ So he made his own custom bot so other people can use it
 
 ***The Commands:***
 
-![Commands](https://cdn.discordapp.com/attachments/873478114183880704/889736704221659156/unknown.png)
+![Commands](https://cdn.discordapp.com/attachments/381963689470984203/889768423603724368/unknown.png)
 
-## [Add-It](https://discord.com/oauth2/authorize?client_id=844226171972616205&scope=bot+applications.commands&permissions=8) | [Join-Support](https://discord.gg/bWnjkjyFRz)
+# [Add-It](https://discord.com/oauth2/authorize?client_id=844226171972616205&scope=bot+applications.commands&permissions=8) | [Join-Support](https://discord.gg/bWnjkjyFRz)

@@ -1,7 +1,6 @@
 import discord
 
-class Colors():
-    colors = [
+colors = [
         discord.Colour.default(),
         discord.Colour.teal(),
         discord.Colour.dark_teal(),
@@ -25,4 +24,4 @@ class Colors():
         discord.Colour.lighter_grey(),
         discord.Colour.dark_grey(),
         discord.Colour.darker_grey(),
-    ]
+]
