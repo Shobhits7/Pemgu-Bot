@@ -55,7 +55,7 @@ class Bot(commands.AutoShardedBot):
 bot = Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, help_command=help.CustomHelp(), intents=discord.Intents.all(), allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False))
 
 bot.prefix = ".m"
-bot.colour = 0xE5A0AD
+bot.colour = 0x2F3136
 
 async def httpsession():
     bot.session = aiohttp.ClientSession()
