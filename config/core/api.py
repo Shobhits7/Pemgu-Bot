@@ -166,14 +166,14 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             timestamp=ctx.message.created_at,
         )
         ramchmbed.set_image(url=response['results'][0]['image'])
-        ramchmbed.add_field(name="Stauts:", value=response['results'][0]['status'])
-        ramchmbed.add_field(name="Species:", value=response['results'][0]['species'])
-        ramchmbed.add_field(name="Type:", value="Unknown" if not response['results'][0]['type'] else response['results'][0]['type'])
-        ramchmbed.add_field(name="Gender:", value=response['results'][0]['gender'])
-        ramchmbed.add_field(name="Origin:", value=response['results'][0]['origin'])
-        ramchmbed.add_field(name="Location:", value=response['results'][0]['location']['name'])
-        ramchmbed.add_field(name="Created:", value=response['results'][0]['created'])
-        ramchmbed.add_field(name="URL:", value=response['results'][0]['url'])
+        ramchmbed.add_field(name="Stauts:", value=response['results'][0]['status'], inline=False)
+        ramchmbed.add_field(name="Species:", value=response['results'][0]['species'], inline=False)
+        ramchmbed.add_field(name="Type:", value="Unknown" if not response['results'][0]['type'] else response['results'][0]['type'], inline=False)
+        ramchmbed.add_field(name="Gender:", value=response['results'][0]['gender'], inline=False)
+        ramchmbed.add_field(name="Origin:", value=response['results'][0]['origin']['name'], inline=False)
+        ramchmbed.add_field(name="Location:", value=response['results'][0]['location']['name'], inline=False)
+        ramchmbed.add_field(name="Created:", value=response['results'][0]['created'], inline=False)
+        ramchmbed.add_field(name="URL:", value=response['results'][0]['url'], inline=False)
         await ctx.send(embed=ramchmbed)
 
     # Location
