@@ -174,6 +174,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         ramchmbed.add_field(name="Location:", value=response['results'][0]['location']['name'])
         ramchmbed.add_field(name="Created:", value=response['results'][0]['created'])
         ramchmbed.add_field(name="URL:", value=response['results'][0]['url'])
+        await ctx.send(embed=ramchmbed)
 
     # Location
     @rickandmorty.command(name="location", aliases=["loc"], help="Will show information about the given location", usage="<location's name>")
