@@ -7,8 +7,10 @@ chardet
 git+https://github.com/iDevision/enhanced-discord.py
 idna
 jishaku
+motor
 multidict
 pycparser
+pymongo
 pymunk
 PyNaCl
 pytiled-parser

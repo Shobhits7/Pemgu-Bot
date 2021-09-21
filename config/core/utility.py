@@ -110,7 +110,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         unpimsg = await ctx.send(embed=unpimbed)
         end = time.perf_counter()
         dpb = time.time()
-        await self.bot.db.fetch("SELECT 1")
+        await self.bot.postgresql.fetch("SELECT 1")
         dopimbed = discord.Embed(
             colour=self.bot.colour,
             title="🏓 Pong:",
