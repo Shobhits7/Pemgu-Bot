@@ -28,7 +28,7 @@ async def get_prefix_mongodb(bot, message):
     if (await prefixes.count_documents({}) == 0):
         prefix = bot.prefix
     else:
-        prefix = await prefixes.find_one({'_id': message.guild.id})
+        prefix = await prefixes.find_one({'_id': str(message.guild.id)})
     return commands.when_mentioned_or(prefix)(bot, message)
 
 async def aiohttpsession():
