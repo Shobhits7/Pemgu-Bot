@@ -20,6 +20,6 @@ So he made his own custom bot so other people can use it
 
 ***The Commands:***
 
-![Commands](https://cdn.discordapp.com/attachments/873478114183880704/889736704221659156/unknown.png)
+![Commands](https://cdn.discordapp.com/attachments/381963689470984203/889768423603724368/unknown.png)
 
 ## [Add-It](https://discord.com/oauth2/authorize?client_id=844226171972616205&scope=bot+applications.commands&permissions=8) | [Join-Support](https://discord.gg/bWnjkjyFRz)
