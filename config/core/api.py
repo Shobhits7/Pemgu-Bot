@@ -162,7 +162,6 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         response = await session.json()
         ramchmbed = discord.Embed(
             colour=self.bot.colour,
-            url=response['results']['url'],
             title=F"{response['results']['name']} 's Information",
         )
         ramchmbed.set_image(url=response['results']['image'])
@@ -173,6 +172,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         ramchmbed.add_field(name="Origin:", value='\n'.join([origin.name for origin in response['results']['origin']]))
         ramchmbed.add_field(name="Location:", value='\n'.join([location.name for location in response['results']['location']]))
         ramchmbed.add_field(name="Created:", value=response['results']['created'])
+        ramchmbed.add_field(name="URL:", value=response['results']['url'])
 
     # Location
     @rickandmorty.command(name="location", aliases=["loc"], help="Will show information about the given location", usage="<location's name>")
