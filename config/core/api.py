@@ -162,17 +162,19 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         response = await session.json()
         ramchmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{response['results']['name']} 's Information",
+            timestamp=ctx.message.created_at,
         )
-        ramchmbed.set_image(url=response['results']['image'])
-        ramchmbed.add_field(name="Stauts:", value=response['results']['status'])
-        ramchmbed.add_field(name="Species:", value=response['results']['species'])
-        ramchmbed.add_field(name="Type:", value="Unknown" if not response['results']['type'] else response['results']['type'])
-        ramchmbed.add_field(name="Gender:", value=response['results']['gender'])
-        ramchmbed.add_field(name="Origin:", value='\n'.join([origin.name for origin in response['results']['origin']]))
-        ramchmbed.add_field(name="Location:", value='\n'.join([location.name for location in response['results']['location']]))
-        ramchmbed.add_field(name="Created:", value=response['results']['created'])
-        ramchmbed.add_field(name="URL:", value=response['results']['url'])
+        for x in response['results']:
+            ramchmbed.title= F"{x['name']} 's Information"
+            ramchmbed.set_image(url=x['image'])
+            ramchmbed.add_field(name="Stauts:", value=x['status'])
+            ramchmbed.add_field(name="Species:", value=x['species'])
+            ramchmbed.add_field(name="Type:", value="Unknown" if not x['type'] else x['type'])
+            ramchmbed.add_field(name="Gender:", value=x['gender'])
+            ramchmbed.add_field(name="Origin:", value='\n'.join([origin.name for origin in x['origin']]))
+            ramchmbed.add_field(name="Location:", value='\n'.join([location.name for location in x['location']]))
+            ramchmbed.add_field(name="Created:", value=x['created'])
+            ramchmbed.add_field(name="URL:", value=x['url'])
 
     # Location
     @rickandmorty.command(name="location", aliases=["loc"], help="Will show information about the given location", usage="<location's name>")
