@@ -41,7 +41,7 @@ class Bot(commands.AutoShardedBot):
 
     async def on_connect(self):
         print(F"---------------------------------------------------\nLogged in as: {self.user} - {self.user.id}\nMain prefix is: {self.prefix}\nGuilds bot is in: {len(self.guilds)}\nThe Bot is online now\n---------------------------------------------------")
-        await self.change_presence(activity=discord.Game(name=F"@{self.user.name} for prefix | {self.prefix} help for help | made by lvlahraam#8435"))
+        await self.change_presence(activity=discord.Game(name=F"@{self.user.name} for prefix | {self.prefix} help for help"))
 
     async def on_message(self, message):
         if message.author.bot: return
