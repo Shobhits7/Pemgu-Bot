@@ -23,11 +23,11 @@ class CustomHelp(commands.HelpCommand):
             "API": "🌎",
             "Fun": "🤣",
             "Game": "🎮",
-            "Moderation": "🎓",
+            "Moderation": "🎩",
             "Music": "🎻",
             "Owner": "👑",
             "Rick and Morty": "🥒",
-            "Setup": "🔮",
+            "Setup": "🔧",
             "Utility": "🧰",
             "Jishaku": "👀",
             "No": "❓"
