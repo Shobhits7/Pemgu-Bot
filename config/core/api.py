@@ -162,19 +162,18 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         response = await session.json()
         ramchmbed = discord.Embed(
             colour=self.bot.colour,
+            title=F"{response['results'][0]['name']} 's Information",
             timestamp=ctx.message.created_at,
         )
-        for x in response['results'][0]:
-            ramchmbed.title= F"{x['name']} 's Information"
-            ramchmbed.set_image(url=x['image'])
-            ramchmbed.add_field(name="Stauts:", value=x['status'])
-            ramchmbed.add_field(name="Species:", value=x['species'])
-            ramchmbed.add_field(name="Type:", value="Unknown" if not x['type'] else x['type'])
-            ramchmbed.add_field(name="Gender:", value=x['gender'])
-            ramchmbed.add_field(name="Origin:", value='\n'.join([origin.name for origin in x['origin']]))
-            ramchmbed.add_field(name="Location:", value='\n'.join([location.name for location in x['location']]))
-            ramchmbed.add_field(name="Created:", value=x['created'])
-            ramchmbed.add_field(name="URL:", value=x['url'])
+        ramchmbed.set_image(url=response['results'][0]['image'])
+        ramchmbed.add_field(name="Stauts:", value=response['results'][0]['status'])
+        ramchmbed.add_field(name="Species:", value=response['results'][0]['species'])
+        ramchmbed.add_field(name="Type:", value="Unknown" if not response['results'][0]['type'] else response['results'][0]['type'])
+        ramchmbed.add_field(name="Gender:", value=response['results'][0]['gender'])
+        ramchmbed.add_field(name="Origin:", value='\n'.join([origin.name for origin in response['results'][0]['origin']]))
+        ramchmbed.add_field(name="Location:", value='\n'.join([location.name for location in response['results'][0]['location']]))
+        ramchmbed.add_field(name="Created:", value=response['results'][0]['created'])
+        ramchmbed.add_field(name="URL:", value=response['results'][0]['url'])
 
     # Location
     @rickandmorty.command(name="location", aliases=["loc"], help="Will show information about the given location", usage="<location's name>")
