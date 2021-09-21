@@ -164,7 +164,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             colour=self.bot.colour,
             timestamp=ctx.message.created_at,
         )
-        for x in response['results']:
+        for x in response['results'][0]:
             ramchmbed.title= F"{x['name']} 's Information"
             ramchmbed.set_image(url=x['image'])
             ramchmbed.add_field(name="Stauts:", value=x['status'])
