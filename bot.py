@@ -22,7 +22,7 @@ class Bot(commands.AutoShardedBot):
 
     async def on_connect(self):
         print(F"---------------------------------------------------\nLogged in as: {self.user} - {self.user.id}\nMain prefix is: {self.prefix}\nGuilds bot is in: {len(self.guilds)}\nThe Bot is online now\n---------------------------------------------------")
-        await self.change_presence(activity=discord.Game(name="@ieM for prefix | ;m help for help | made by lvlahraam#8435"))
+        await self.change_presence(activity=discord.Game(name="@ieM for prefix | .m help for help | made by lvlahraam#8435"))
 
     async def on_interaction(self, interaction: discord.Interaction):
         if interaction.user.bot: return
@@ -57,7 +57,7 @@ class Bot(commands.AutoShardedBot):
 
 bot = Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, help_command=help.CustomHelp(), intents=discord.Intents.all(), allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False))
 
-bot.prefix = ";m"
+bot.prefix = ".m"
 bot.color = 0x2F3136
 
 async def httpsession():
