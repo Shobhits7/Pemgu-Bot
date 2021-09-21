@@ -62,8 +62,9 @@ class HelpView(discord.ui.View):
     async def on_timeout(self):
         try:
             for items in self.children:
-                self.clear_items()
-                self.add_item(discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
+                if isinstance(items, discord.ui.Select):
+                    items.placeholder += "Disabled due to timeout..."
+                items.disabled = True
             await self.message.edit(view=self)
         except discord.NotFound:
             return
