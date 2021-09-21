@@ -1,9 +1,9 @@
-## Information About ieM Discord Bot
+## Information About Mei Discord Bot
 This is a Discord Bot made by lvlahraam
 
 It's written in Python with Discord.py
 
-## Why it's called ieM
+## Why it's called Mei
 This name was just happended to come to his mind
 
 ## Why he made this

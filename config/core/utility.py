@@ -136,7 +136,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     # Source
     @commands.command(name="source", aliases=["src"], help="Will show the bots source", usage="[module]")
     async def source(self, ctx, *, command: str = None):
-        source_url = "https://github.com/lvlahraam/ieM-Bot"
+        source_url = "https://github.com/lvlahraam/Mei-Bot"
         branch = "main"
         if command is None:
             return await ctx.send(source_url)
@@ -158,7 +158,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             location = os.path.relpath(filename).replace("\\", "/")
         else:
             location = module.replace(".", "/") + ".py"
-            source_url = "https://github.com/lvlahraam/ieM-Bot"
+            source_url = "https://github.com/lvlahraam/Mei-Bot"
             branch = "main"
 
         final_url = F"<{source_url}/blob/{branch}/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}>"
