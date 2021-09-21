@@ -29,7 +29,7 @@ async def get_prefix_mongodb(bot, message):
         prefix = bot.prefix
     else:
         prefix = await prefixes.find_one({'_id': message.guild.id})
-    return prefix
+    return commands.when_mentioned_or(prefix)(bot, message)
 
 async def aiohttpsession():
     bot.session = aiohttp.ClientSession()
