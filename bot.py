@@ -61,9 +61,6 @@ class Bot(commands.AutoShardedBot):
         else:
             await self.process_commands(message)
 
-    async def on_message_edit(self, old, new):
-        await self.process_commands(new)
-
     async def on_command_error(self, ctx, error):
         await errors.handler(bot=self, ctx=ctx, error=error)
 
@@ -71,7 +68,7 @@ class Bot(commands.AutoShardedBot):
         if not self.session.closed:
             await self.session.close()
 
-bot = Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_mongodb, strip_after_prefix=True, case_insensitive=True, help_command=help.CustomHelp(), intents=discord.Intents.all(), allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False))
+bot = Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgresql, strip_after_prefix=True, case_insensitive=True, help_command=help.CustomHelp(), intents=discord.Intents.all(), allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False))
 
 bot.prefix = ".m"
 bot.colour = 0x2F3136
@@ -85,6 +82,5 @@ os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
 bot.loop.run_until_complete(create_postgresql_pool())
-bot.loop.run_until_complete(connect_mongodb_cluster())
 bot.loop.create_task(aiohttpsession())
 bot.run(os.getenv("TOKEN"))
