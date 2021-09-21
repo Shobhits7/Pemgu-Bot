@@ -31,6 +31,10 @@ async def get_prefix_mongodb(bot, message):
         prefix = await prefixes.find_one({'_id': message.guild.id})
     return prefix
 
+async def aiohttpsession():
+    bot.session = aiohttp.ClientSession()
+    print("Making a Session was successful")
+
 class Bot(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -72,10 +76,6 @@ bot = Bot(slash_commands=True, slash_command_guilds=[804380398296498256], comman
 bot.prefix = ".m"
 bot.colour = 0x2F3136
 
-async def httpsession():
-    bot.session = aiohttp.ClientSession()
-    print("Making a Session was successful")
-
 for cog in sorted(os.listdir("./config/core/")):
     if cog.endswith(".py"):
         bot.load_extension(F"config.core.{cog[:-3]}")
@@ -85,5 +85,6 @@ os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
 bot.loop.run_until_complete(create_postgresql_pool())
-bot.loop.create_task(httpsession())
+bot.loop.run_until_complete(connect_mongodb_cluster())
+bot.loop.create_task(aiohttpsession())
 bot.run(os.getenv("TOKEN"))
