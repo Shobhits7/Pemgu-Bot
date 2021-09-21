@@ -34,7 +34,7 @@ class CustomHelp(commands.HelpCommand):
         }
         super().__init__(
             command_attrs={
-                "help": "The help command for the bot",
+                "help": "The help command for this bot",
                 "aliases": ["h", "commands"]
             }
         )
