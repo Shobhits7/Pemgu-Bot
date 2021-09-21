@@ -162,6 +162,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         response = await session.json()
         ramchmbed = discord.Embed(
             colour=self.bot.colour,
+            url=response['results'][0]['url'],
             title=F"{response['results'][0]['name']} 's Information",
             timestamp=ctx.message.created_at,
         )
@@ -173,7 +174,6 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         ramchmbed.add_field(name="Origin:", value=response['results'][0]['origin']['name'], inline=False)
         ramchmbed.add_field(name="Location:", value=response['results'][0]['location']['name'], inline=False)
         ramchmbed.add_field(name="Created:", value=response['results'][0]['created'], inline=False)
-        ramchmbed.add_field(name="URL:", value=response['results'][0]['url'], inline=False)
         await ctx.send(embed=ramchmbed)
 
     # Location
