@@ -1,3 +1,4 @@
+![Logo](https://cdn.discordapp.com/avatars/844226171972616205/4386a40d6b10f55c1b77b195913f6600.png?size=1024)
 ## Information About ieM Discord Bot
 This is a Discord Bot made by lvlahraam
 
