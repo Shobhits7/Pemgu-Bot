@@ -95,7 +95,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     # Echo
     @commands.command(name="echo", aliases=["eo"], help="Will echo your message", usage="<text>")
     async def echo(self, ctx, *, echo):
-        await ctx.send(F"{echo} - {ctx.author}")
+        await ctx.send(F"{echo} | {ctx.author.mention}")
 
     # Ping
     @commands.command(name="ping", aliases=["pi"], help="Will show bot's ping")
