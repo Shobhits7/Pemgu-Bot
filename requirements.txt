@@ -4,11 +4,14 @@ asyncpg
 attrs
 cffi
 chardet
-git+https://github.com/Gnome-py/enhanced-discord.py/tree/2.0
+dnspython
 idna
 jishaku
+motor
 multidict
 pycparser
+pymongo
+pymongo[srv]
 pymunk
 PyNaCl
 pytiled-parser
@@ -18,3 +21,4 @@ six
 typing-extensions
 yarl
 youtube_dl
+git+https://github.com/Gnome-py/enhanced-discord.py/@2.0
