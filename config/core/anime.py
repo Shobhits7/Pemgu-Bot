@@ -69,6 +69,23 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         smaidmbed.set_image(url=response["url"])
         smaidmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=smaidmbed)
+    
+    # NSFW
+    @commands.group(name="nsfw", help="Will send a random nsfw waifu image", invoke_without_command=True)
+    @commands.is_nsfw()
+    async def nsfw(self, ctx):
+        session = await self.bot.session.get("https://api.waifu.im/nsfw/ero/")
+        response = await session.json()
+        session.close()
+        nsfwmbed = discord.Embed(
+            colour=self.bot.colour,
+            url=F"https://waifu.im/preview/?image={response['file']}",
+            title="Here is your NSFW Image",
+            timestamp=ctx.message.created_at
+        )
+        nsfwmbed.set_image(url=response["url"])
+        nsfwmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=nsfwmbed)
 
 def setup(bot):
     bot.add_cog(Anime(bot))
