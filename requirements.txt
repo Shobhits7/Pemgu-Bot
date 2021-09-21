@@ -4,15 +4,11 @@ asyncpg
 attrs
 cffi
 chardet
-dnspython
-git+https://github.com/iDevision/enhanced-discord.py
+git+https://github.com/Gnome-py/enhanced-discord.py/tree/2.0
 idna
 jishaku
-motor
 multidict
 pycparser
-pymongo
-pymongo[srv]
 pymunk
 PyNaCl
 pytiled-parser
