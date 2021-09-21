@@ -14,7 +14,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
     @commands.command(name="guess", aliases=["gs"], help="Will start an guessing game")
     async def guess(self, ctx):
         gsmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="Started the game",
             description="Try to guess now"
         )

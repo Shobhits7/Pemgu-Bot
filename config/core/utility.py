@@ -9,7 +9,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     @commands.command(name="about", aliases=["ab"], help="Will show the bot's information")
     async def about(self, ctx):
         abmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="About Bot",
             description=F"[Click here for Adding Bot]({discord.utils.oauth_url(client_id=self.bot.user.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))})\n[Click here for Joining Support](https://discord.gg/bWnjkjyFRz)\nIn {len(self.bot.guilds)} Guilds\nHas {len(self.bot.commands)} Commands",
             timestamp=ctx.message.created_at
@@ -22,7 +22,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     async def avatar(self, ctx, user:commands.UserConverter = None):
         user = user or ctx.author
         avmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title=F"{user} Avatar",
             timestamp=ctx.message.created_at
         )
@@ -36,7 +36,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         user = user or ctx.author
         image = await self.bot.fetch_user(user.id)
         brmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title=F"{user} Banner",
             timestamp=ctx.message.created_at
         )
@@ -54,7 +54,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         user = member or ctx.author
         image = await self.bot.fetch_user(user.id)
         iombed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title=F"{user} Information",
             timestamp=ctx.message.created_at
         )
@@ -73,7 +73,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     @commands.guild_only()
     async def stats(self, ctx):
         sambed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="Stats for this server",
             timestamp=ctx.message.created_at
         )
@@ -101,7 +101,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     @commands.command(name="ping", aliases=["pi"], help="Will show bot's ping")
     async def ping(self, ctx):
         unpimbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="🎾 Pinging...",
             timestamp=ctx.message.created_at
         )
@@ -112,7 +112,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         dpb = time.time()
         await self.bot.db.fetch("SELECT 1")
         dopimbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="🏓 Pong:",
             description=F"Websocket: {self.bot.latency * 1000}ms\nTyping: {(end - start) * 1000}ms\nDatabase: {(time.time() - dpb) * 1000}ms",
             timestamp=ctx.message.created_at
@@ -124,7 +124,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     @commands.command(name="invite", aliases=["ie"], help="Will make a send the link for adding  the bot")
     async def invite(self, ctx):
         iembed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="Here is the invite link for adding the bot",
             url=discord.utils.oauth_url(client_id=self.bot.user.id, scopes=("bot", "applications.commands"), permissions=discord.Permissions(administrator=True)),
             description="Thank you for adding and inviting me!",
@@ -171,13 +171,13 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     @commands.bot_has_guild_permissions(manage_nicknames=True)
     async def afk(self, ctx):
         unafkmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="Your name has been changed to it's original",
             timestamp=ctx.message.created_at
         )
         unafkmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         doafkmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="Doing AFK",
             description="Your name has been now changed to `AFK`",
             timestamp=ctx.message.created_at

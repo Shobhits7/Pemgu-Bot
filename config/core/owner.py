@@ -11,7 +11,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     async def blacklist(self, ctx, user:commands.UserConverter):
         blacklist = await self.bot.db.fetch("SELECT * FROM blacklist WHERE user_id = $1", user.id)
         blmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
         )
         if len(blacklist) == 0:
             await self.bot.db.execute("INSERT INTO blacklist(user_id) VALUES($1)", user.id)
@@ -26,7 +26,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.is_owner()
     async def cleanup(self, ctx, amount: int):
         cumbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title=F"Cleaned-up {amount} of bot messages",
         )
         cumbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
@@ -38,7 +38,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.is_owner()
     async def logout(self, ctx):
         ltmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="Okay, I'm logging out :wave:",
             timestamp=ctx.message.created_at
         )
@@ -51,7 +51,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.is_owner()
     async def relog(self, ctx):
         rgmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="Okay Relogging :eyes:",
             timestamp=ctx.message.created_at
         )
@@ -65,7 +65,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.is_owner()
     async def guild(self, ctx):
         gdmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="This bot is joined in: ",
             description=F"{len(self.bot.guilds)} Servers",
             timestamp=ctx.message.created_at
@@ -77,7 +77,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.command(name="perms", aliases=["pm"], help="Will show the perms that the bot has in this guild")
     @commands.is_owner()
     async def perms(self, ctx):
-        pmbed = discord.Embed(colour=self.bot.color, title="Bot Permissions", timestamp=ctx.message.created_at)
+        pmbed = discord.Embed(colour=self.bot.colour, title="Bot Permissions", timestamp=ctx.message.created_at)
         pmbed.add_field(name="Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if val))
         pmbed.add_field(name="Not Allowed", value="\n".join(perm.replace("_", " ") for perm, val in ctx.guild.me.guild_permissions if not val))
         pmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
@@ -91,7 +91,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.bot_has_guild_permissions(manage_guild=True)
     async def template(self, ctx):
         tembed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="Please check your DM",
             timestamp=ctx.message.created_at
         )

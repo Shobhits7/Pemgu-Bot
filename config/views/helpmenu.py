@@ -24,7 +24,7 @@ class HelpMenu(discord.ui.Select):
             cmds = cog.walk_commands() if cog else commands
             if self.values[0] == name:
                 mbed = discord.Embed(
-                    colour=self.help.context.bot.color,
+                    colour=self.help.context.bot.colour,
                     title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
                     description=F"{description}\n\n",
                     timestamp=self.help.context.message.created_at
@@ -50,7 +50,7 @@ class HelpView(discord.ui.View):
     @discord.ui.button(emoji="💣", label="Delete", style=discord.ButtonStyle.red)
     async def delete(self, button: discord.ui.Button, interaction: discord.Interaction):
         deletembed = discord.Embed(
-            colour=self.help.context.bot.color,
+            colour=self.help.context.bot.colour,
             title="Deleted the message",
             timestamp=self.help.context.message.created_at
         )
@@ -72,7 +72,7 @@ class HelpView(discord.ui.View):
         if interaction.user.id == self.help.context.author.id:
             return True
         icheckmbed = discord.Embed(
-            colour=self.help.context.bot.color,
+            colour=self.help.context.bot.colour,
             title="You can't use this",
             description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
             timestamp=self.help.context.message.created_at

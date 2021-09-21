@@ -5,7 +5,7 @@ from config.views import helpmenu, helpbuttons
 class MinimalHelp(commands.MinimalHelpCommand):
     async def send_pages(self):
         mhmbed = discord.Embed(
-            colour=self.context.bot.color,
+            colour=self.context.bot.colour,
             title=F"{self.context.me.name}'s Help",
             timestamp=self.context.message.created_at
         )
@@ -42,7 +42,7 @@ class CustomHelp(commands.HelpCommand):
     # Help Main
     async def send_bot_help(self, mapping):
         homepage = discord.Embed(
-            colour=self.context.bot.color,
+            colour=self.context.bot.colour,
             title=F"{self.context.me.name}'s Help",
             description=F"This is a list of all modules in the bot.\nSelect a module for more information.",
             timestamp=self.context.message.created_at
@@ -65,7 +65,7 @@ class CustomHelp(commands.HelpCommand):
         name = cog.qualified_name if cog else "No"
         description = cog.description if cog else "Commands without category"
         hcogmbed = discord.Embed(
-            colour=self.context.bot.color,
+            colour=self.context.bot.colour,
             title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(cog.get_commands())}]",
             description=F"{description}\n\n",
             timestamp=self.context.message.created_at
@@ -80,7 +80,7 @@ class CustomHelp(commands.HelpCommand):
     # Help Command
     async def send_command_help(self, command):
         hcmdmbed = discord.Embed(
-            colour=self.context.bot.color,
+            colour=self.context.bot.colour,
             title=self.get_command_signature(command),
             description=command.help or "No help found...",
             timestamp=self.context.message.created_at
@@ -103,7 +103,7 @@ class CustomHelp(commands.HelpCommand):
     async def send_group_help(self, group):
         can_run = "No"
         hgroupmbed = discord.Embed(
-            colour=self.context.bot.color,
+            colour=self.context.bot.colour,
             title=self.get_command_signature(group),
             description=F"{group.help or 'No help found...'}\n\n",
             timestamp=self.context.message.created_at
@@ -126,7 +126,7 @@ class CustomHelp(commands.HelpCommand):
     # Help Error
     async def send_error_message(self, error):
         herrormbed = discord.Embed(
-            colour=self.context.bot.color,
+            colour=self.context.bot.colour,
             title="Help Error",
             description=error,
             timestamp=self.context.message.created_at

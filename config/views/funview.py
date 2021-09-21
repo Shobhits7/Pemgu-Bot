@@ -18,7 +18,7 @@ class CounterView(discord.ui.View):
         for item in self.children:
             self.clear_items()
         ontimeoutmbed = discord.Embed(
-            colour=self.client.color,
+            colour=self.client.colour,
             title=F"Button was clicked: {self.clicks} times",
         )
         if len(self.clickers) != 0 or self.clicks != 0:

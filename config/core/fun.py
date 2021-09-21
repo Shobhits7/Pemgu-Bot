@@ -9,7 +9,7 @@ class Fun(commands.Cog, description="For just having an great fun time"):
     @commands.command(name="counter", aliases=["ctr"], help="Will start an counter")
     async def counter(self, ctx):
         ctrmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="Click the button for counting"
         )
         ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)

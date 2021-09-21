@@ -16,7 +16,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         response = await session.json()
         session.close()
         rstmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title=F"Roasting {user}",
             description=response['roast'],
             timestamp=ctx.message.created_at
@@ -31,7 +31,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         response = await session.json()
         session.close()
         jkmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="Here is a random joke",
             description=response["joke"],
             timestamp=ctx.message.created_at
@@ -46,7 +46,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         response = await session.json()
         session.close()
         _8bmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="Here is your answer",
             timestamp=ctx.message.created_at
         )
@@ -64,7 +64,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         response = io.BytesIO(await session.read())
         session.close()
         pxlmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title=F"{user} 's pixelated image",
             timestamp=ctx.message.created_at
         )
@@ -81,7 +81,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         response = io.BytesIO(await session.read())
         session.close()
         clrsmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title=F"{user} 's image colors",
             timestamp=ctx.message.created_at
         )
@@ -98,7 +98,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         response = io.BytesIO(await session.read())
         session.close()
         twmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title=F"{user} 's tweet",
             timestamp=ctx.message.created_at
         )
@@ -114,7 +114,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         response = io.BytesIO(await session.read())
         session.close()
         ssmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="Here is your screenshot",
             timestamp=ctx.message.created_at
         )
@@ -132,7 +132,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         response = await session.json()
         session.close()
         pypimbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             url=response['info']['package_url'],
             title=response['info']['name'],
             description=response['info']['summary'],
@@ -150,6 +150,41 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         pypimbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/873478114183880704/887470965188091944/pypilogo.png")
         pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=pypimbed)
+
+    @commands.group(name="rickandmorty", aliases=["ram"], help="Some Rick and Morty commands, use subcommands", invoke_without_command=True)
+    async def rickandmorty(self, ctx):
+        await ctx.send_help(ctx.command.cog)
+    
+    # Character
+    @rickandmorty.command(name="character", aliases=["char"], help="Will show information about the given character", usage="<character's name>")
+    async def character(self, ctx, *, character: str):
+        session = await self.bot.session.get(F"https://rickandmortyapi.com/api/character/?name={character}")
+        response = await session.json()
+        ramchmbed = discord.Embed(
+            colour=self.bot.colour,
+            url=response['results']['url'],
+            title=F"{response['results']['name']} 's Information",
+        )
+        ramchmbed.set_image(url=response['results']['image'])
+        ramchmbed.add_field(name="Stauts:", value=response['results']['status'])
+        ramchmbed.add_field(name="Species:", value=response['results']['species'])
+        ramchmbed.add_field(name="Type:", value="Unknown" if not response['results']['type'] else response['results']['type'])
+        ramchmbed.add_field(name="Gender:", value=response['results']['gender'])
+        ramchmbed.add_field(name="Origin:", value='\n'.join([origin.name for origin in response['results']['origin']]))
+        ramchmbed.add_field(name="Location:", value='\n'.join([location.name for location in response['results']['location']]))
+        ramchmbed.add_field(name="Created:", value=response['results']['created'])
+
+    # Location
+    @rickandmorty.command(name="location", aliases=["loc"], help="Will show information about the given location", usage="<location's name>")
+    async def location(self, ctx, *, location: str):
+        session = await self.bot.session.get("...")
+        response = await session.json()
+
+    # Episode
+    @rickandmorty.command(name="episode", aliases=["ep"], help="Will show information about the given episode", usage="<episode's number>")
+    async def episode(self, ctx, *, episode: int):
+        session = await self.bot.session.get("...")
+        response = await session.json()
 
 def setup(bot):
     bot.add_cog(API(bot))

@@ -12,7 +12,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         quotembed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             title="Here is your quote",
             timestamp=ctx.message.created_at
         )
@@ -29,7 +29,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         sfwmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             url=F"https://waifu.im/preview/?image={response['file']}",
             title="Here is your SFW Image",
             timestamp=ctx.message.created_at
@@ -45,7 +45,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         wambed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             url=F"https://waifu.im/preview/?image={response['file']}",
             title="Here is your SFW Waifu Image",
             timestamp=ctx.message.created_at
@@ -61,7 +61,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         smaidmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             url=F"https://waifu.im/preview/?image={response['file']}",
             title="Here is your SFW Maid Image",
             timestamp=ctx.message.created_at
@@ -78,7 +78,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         nsfwmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             url=F"https://waifu.im/preview/?image={response['file']}",
             title="Here is your NSFW Image",
             timestamp=ctx.message.created_at
@@ -95,7 +95,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         assmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             url=F"https://waifu.im/preview/?image={response['file']}",
             title="Here is your NSFW Ass Image",
             timestamp=ctx.message.created_at
@@ -112,7 +112,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         ecchimbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             url=F"https://waifu.im/preview/?image={response['file']}",
             title="Here is your NSFW Ecchi Image",
             timestamp=ctx.message.created_at
@@ -129,7 +129,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         erombed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             url=F"https://waifu.im/preview/?image={response['file']}",
             title="Here is your NSFW Ero Image",
             timestamp=ctx.message.created_at
@@ -146,7 +146,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         hentaimbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             url=F"https://waifu.im/preview/?image={response['file']}",
             title="Here is your NSFW Hentai Image",
             timestamp=ctx.message.created_at
@@ -163,7 +163,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         nmaidmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             url=F"https://waifu.im/preview/?image={response['file']}",
             title="Here is your NSFW Maid Image",
             timestamp=ctx.message.created_at
@@ -180,7 +180,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         milfmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             url=F"https://waifu.im/preview/?image={response['file']}",
             title="Here is your NSFW Milf Image",
             timestamp=ctx.message.created_at
@@ -197,7 +197,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         oppaimbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             url=F"https://waifu.im/preview/?image={response['file']}",
             title="Here is your NSFW Oppai Image",
             timestamp=ctx.message.created_at
@@ -214,7 +214,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         oralmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             url=F"https://waifu.im/preview/?image={response['file']}",
             title="Here is your NSFW Oral Image",
             timestamp=ctx.message.created_at
@@ -231,7 +231,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         paizurimbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             url=F"https://waifu.im/preview/?image={response['file']}",
             title="Here is your NSFW Paizuri Image",
             timestamp=ctx.message.created_at
@@ -248,7 +248,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         selfiesmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             url=F"https://waifu.im/preview/?image={response['file']}",
             title="Here is your NSFW Selfies Image",
             timestamp=ctx.message.created_at
@@ -265,7 +265,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         uniformmbed = discord.Embed(
-            colour=self.bot.color,
+            colour=self.bot.colour,
             url=F"https://waifu.im/preview/?image={response['file']}",
             title="Here is your NSFW Uniform Image",
             timestamp=ctx.message.created_at
