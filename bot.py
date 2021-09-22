@@ -16,9 +16,10 @@ async def get_prefix_postgres(bot, message):
         prefix = prefix[0].get("prefix")
     return commands.when_mentioned_or(prefix)(bot, message)
 
-async def connect_to_mongodb():
-    bot.mongodb = await motor.motor_asyncio.AsyncIOMotorClient(os.getenv("MONGODB"))
-    print("Connecting to MongoDB was successful")
+
+async def connect_mongodb_cluster():
+    bot.cluster = motor.motor_asyncio.AsyncIOMotorClient(os.getenv("MONGODB"))
+    print("Connection to MongoDB was successful")
 
 async def get_prefix_mongodb(bot, message):
 	    if not message.guild:
@@ -82,6 +83,6 @@ os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
 bot.loop.run_until_complete(create_postgresl_pool())
-bot.loop.run_until_complete(connect_to_mongodb())
+bot.loop.run_until_complete(connect_mongodb_cluster())
 bot.loop.create_task(aiohttpsession())
 bot.run(os.getenv("TOKEN"))
