@@ -80,7 +80,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         if image.banner and image.banner.url:
             iombed.set_image(url=image.banner.url)
         else:
-            iombed.description += "\nMember doesn't have banner"
+            iombed.description += "\n***Banner:*** Member doesn't have banner"
         iombed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=iombed)
 
