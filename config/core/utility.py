@@ -73,7 +73,6 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         Top-Role: {member.top_role}
         Boosting: {'True' if member in ctx.guild.premium_subscribers else 'False'}
         Voice: {member.voice}
-        Guild-Permissions: {', '.join(list(perm) for perm in member.guild_permissions)}
         Mutual-Guilds: {", ".join(guild.name  for guild in member.mutual_guilds)}"""
         iombed.set_thumbnail(url=member.avatar.url)
         if image.banner and image.banner.url:
