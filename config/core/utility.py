@@ -146,10 +146,17 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
                 )
                 finspotifymbed.add_field(name="Artists:", value=", ".join(artist for artist in activity.artists), inline=False)
                 finspotifymbed.add_field(name="Album", value=activity.album, inline=False)
-                finspotifymbed.add_field(name="Duration:", value=activity.duration.resolution, inline=False)
+                finspotifymbed.add_field(name="Duration:", value=activity.duration, inline=False)
                 finspotifymbed.add_field(name="Created-at:", value=activity.created_at.strftime("%y-%m-%d | %H:%M:%S"), inline=False)
                 finspotifymbed.add_field(name="Track-ID", value=activity.track_id, inline=False)
                 finspotifymbed.set_image(url=activity.album_cover_url)
+                await ctx.send(activity.duration.max)
+                await ctx.send(activity.duration.days)
+                await ctx.send(activity.duration.min)
+                await ctx.send(activity.duration.total_seconds())
+                await ctx.send(activity.duration.seconds)
+                await ctx.send(activity.duration.microseconds)
+                await ctx.send(activity.duration.resolution)
                 await ctx.send(embed=finspotifymbed)
                 break
         else:
