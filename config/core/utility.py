@@ -65,7 +65,6 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***ID:*** {member.id}
         ***Mention:*** {member.mention}
         ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
-        ***Activity:*** {'*no-emoji*' if member.activity.emoji is None else member.activity.emoji} {'*nothing*' if member.activity.name is None else member.activity.name}
         ***Status:*** {member.status}
         ***Web-Status:*** {member.web_status}
         ***Desktop-Status:*** {member.desktop_status}
