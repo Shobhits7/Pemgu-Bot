@@ -133,6 +133,32 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         iembed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=iembed)
 
+    # Spotify
+    @commands.command(name="spotify", help="Will show your or the given user's spotify activity if possible", usage="[user]")
+    async def spotify(self, ctx, user:commands.UserConverter = None):
+        user = user or ctx.author
+        activity = {activity for activity in user.activities}
+        if isinstance(activity, discord.Spotify):
+            finspotifymbed = discord.Embed(
+                colour=self.bot.colour,
+                url=activity.track_url,
+                title=activity.title
+            )
+            finspotifymbed.add_field(name="Artists:", value=", ".join(artist for artist in activity.artists))
+            finspotifymbed.add_field(name="Album", value=activity.album)
+            finspotifymbed.add_field(name="Duration:", value=activity.duration)
+            finspotifymbed.add_field(name="Created-at:", value=activity.created_at)
+            finspotifymbed.add_field(name="Track-ID", value=activity.track_id)
+            finspotifymbed.set_image(url=activity.album_cover_url)
+            await ctx.send(embed=finspotifymbed) 
+        else:
+            badspotifymbed = discord.Embed(
+                colour=self.bot.colour,
+                title="You are not listenning to Spotofy"
+            )
+            badspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+            await ctx.send(embed=badspotifymbed) 
+
     # Source
     @commands.command(name="source", aliases=["src"], help="Will show the bots source", usage="[module]")
     async def source(self, ctx, *, command: str = None):

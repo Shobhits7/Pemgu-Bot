@@ -34,6 +34,14 @@ async def handler(bot, ctx, error):
             view.message = await ctx.send(embed=matcnfmbed, view=view)
         else:
             await ctx.send(embed=nmatcnfmbed)
+    elif isinstance(error, commands.CommandOnCooldown):
+        cocmbed = discord.Embed(
+            colour=bot.colour,
+            title=F"Command {ctx.invoked_with} on Cooldown",
+            timestamp=ctx.message.created_at
+        )
+        cocmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=cocmbed)
     elif isinstance(error, commands.MissingPermissions):
         mpmbed = discord.Embed(
             colour=bot.colour,
@@ -50,17 +58,6 @@ async def handler(bot, ctx, error):
         )
         bmpmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=bmpmbed)
-    elif isinstance(error, discord.Forbidden):
-        fmbed = discord.Embed(
-            colour=bot.colour,
-            title="Forbidden Error",
-            description="The problem is one of the options down below",
-            timestamp=ctx.message.created_at
-        )
-        fmbed.add_field(name="You are the owner of this server:", value="If you are the owner, and you are trying to use changing command, you can't")
-        fmbed.add_field(name="Couldn't send messages to the user", value="The user is not accepting messages from the members in here or just blocked this bot")
-        fmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=fmbed)
     elif isinstance(error, commands.MissingRequiredArgument):
         mrambed = discord.Embed(
             colour=bot.colour,
@@ -77,14 +74,22 @@ async def handler(bot, ctx, error):
         )
         bambed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=bambed)
-    elif isinstance(error, commands.CommandOnCooldown):
-        cocmbed = discord.Embed(
+    elif isinstance(error, commands.UserNotFound):
+        unfmbed = discord.Embed(
             colour=bot.colour,
-            title=F"Command {ctx.invoked_with} on Cooldown",
+            title="Did not find the user",
             timestamp=ctx.message.created_at
         )
-        cocmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=cocmbed)
+        unfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=unfmbed)
+    elif isinstance(error, commands.RoleNotFound):
+        rnfmbed = discord.Embed(
+            colour=bot.colour,
+            title="Did not find the role",
+            timestamp=ctx.message.created_at
+        )
+        rnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=rnfmbed)
     elif isinstance(error, commands.NSFWChannelRequired):
         nsfwcr = discord.Embed(
             colour=bot.colour,
@@ -108,22 +113,17 @@ async def handler(bot, ctx, error):
         )
         npmmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=npmmbed)
-    elif isinstance(error, commands.UserNotFound):
-        unfmbed = discord.Embed(
+    elif isinstance(error, discord.Forbidden):
+        fmbed = discord.Embed(
             colour=bot.colour,
-            title="Did not find the user",
+            title="Forbidden Error",
+            description="The problem is one of the options down below",
             timestamp=ctx.message.created_at
         )
-        unfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=unfmbed)
-    elif isinstance(error, commands.RoleNotFound):
-        rnfmbed = discord.Embed(
-            colour=bot.colour,
-            title="Did not find the role",
-            timestamp=ctx.message.created_at
-        )
-        rnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=rnfmbed)
+        fmbed.add_field(name="You are the owner of this server:", value="If you are the owner, and you are trying to use changing command, you can't")
+        fmbed.add_field(name="Couldn't send messages to the user", value="The user is not accepting messages from the members in here or just blocked this bot")
+        fmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=fmbed)
     else:
         tbmbed = discord.Embed(
             colour=bot.colour,
