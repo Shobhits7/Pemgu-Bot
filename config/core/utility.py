@@ -134,10 +134,10 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         await ctx.send(embed=iembed)
 
     # Spotify
-    @commands.command(name="spotify", help="Will show your or the given user's spotify activity if possible", usage="[user]")
-    async def spotify(self, ctx, user:commands.UserConverter = None):
-        user = user or ctx.author
-        activity = {activity for activity in user.activities}
+    @commands.command(name="spotify", help="Will show your or the given member's spotify activity if possible", usage="[member]")
+    async def spotify(self, ctx, member:commands.MemberConverter = None):
+        member = member or ctx.author
+        activity = {activity for activity in member.activities}
         if isinstance(activity, discord.Spotify):
             finspotifymbed = discord.Embed(
                 colour=self.bot.colour,
