@@ -150,14 +150,14 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
                 finspotifymbed.add_field(name="Created-at:", value=activity.created_at)
                 finspotifymbed.add_field(name="Track-ID", value=activity.track_id)
                 finspotifymbed.set_image(url=activity.album_cover_url)
-                await ctx.send(embed=finspotifymbed) 
-            else:
-                badspotifymbed = discord.Embed(
-                    colour=self.bot.colour,
-                    title=F"{member.name} isn't are not listenning to Spotify"
-                )
-                badspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-                await ctx.send(embed=badspotifymbed) 
+                await ctx.send(embed=finspotifymbed)
+                return
+            badspotifymbed = discord.Embed(
+                colour=self.bot.colour,
+                title=F"{member.name} is not listenning to Spotify"
+            )
+            badspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+            await ctx.send(embed=badspotifymbed) 
 
     # Source
     @commands.command(name="source", aliases=["src"], help="Will show the bots source", usage="[module]")
