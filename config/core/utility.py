@@ -51,20 +51,36 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     @commands.command(name="info", aliases=["io"], help="Will show member info", usage="[user]")
     @commands.guild_only()
     async def info(self, ctx, *, member:commands.MemberConverter = None):
-        user = member or ctx.author
-        image = await self.bot.fetch_user(user.id)
+        member = member or ctx.author
+        image = await self.bot.fetch_user(member.id)
         iombed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{user} Information",
+            title=F"{member} Information",
             timestamp=ctx.message.created_at
         )
-        iombed.add_field(name="Joined Date", value=F"{user.mention} joined the server on\n{user.joined_at}")
-        iombed.add_field(name="Roles", value=F"User has {len(user.roles)-1} roles")
-        iombed.set_thumbnail(url=user.avatar.url)
+        iombed.description = F"""Username: {member.name}
+        Discriminator: {member.discriminator}
+        ID: {member.id}
+        Nickname: {member.nick}
+        Mention: {member.mention}
+        Badges: {', '.join(flag for flag in member.public_flags)}
+        Status: {member.status}
+        Web-Status: {member.web_status}
+        Desktop-Status: {member.desktop_status}
+        Mobile-Status: {member.mobile_status}
+        Joined: {member.joined_at}
+        Registered: {member.created_at}
+        Roles {len(member.roles)}: {', '.join(role.mention for role in member.roles)}
+        Top-Role: {member.top_role}
+        Boosting: {'True' if member in ctx.guild.premium_subscribers else 'False'}
+        Voice: {member.voice}
+        Guild-Permissions: {', '.join(perm for perm in member.guild_permissions)}
+        Mutual-Guilds: {", ".join(guild for guild in member.mutual_guilds)}"""
+        iombed.set_thumbnail(url=member.avatar.url)
         if image.banner and image.banner.url:
             iombed.set_image(url=image.banner.url)
         else:
-            iombed.set_image(url=image.accent_colour)
+            iombed.description += "\nMember doesn't have banner"
         iombed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=iombed)
 

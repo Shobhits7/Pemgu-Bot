@@ -1,4 +1,4 @@
-import discord, aiohttp, asyncpg, motor.motor_asyncio, os
+import discord, aiohttp, asyncpg, os
 from discord.ext import commands
 from config.utils import errors, help, options
 
