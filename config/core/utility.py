@@ -58,22 +58,22 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             title=F"{member} Information",
             timestamp=ctx.message.created_at
         )
-        iombed.description = F"""Username: {member.name}
-        Discriminator: {member.discriminator}
-        ID: {member.id}
-        Nickname: {member.nick}
-        Mention: {member.mention}
-        Status: {member.status}
-        Web-Status: {member.web_status}
-        Desktop-Status: {member.desktop_status}
-        Mobile-Status: {member.mobile_status}
-        Joined: {discord.utils.format_dt(member.joined_at, style="f")}
-        Registered: {discord.utils.format_dt(member.created_at, style="f")}
-        Roles {len(member.roles)}: {', '.join(role.mention for role in member.roles)}
-        Top-Role: {member.top_role.mention}
-        Boosting: {'True' if member in ctx.guild.premium_subscribers else 'False'}
-        Voice: {member.voice}
-        Mutual-Guilds: {", ".join(guild.name  for guild in member.mutual_guilds)}"""
+        iombed.description = F"""***Username:*** {member.name}
+        ***Discriminator:*** {member.discriminator}
+        ***ID:*** {member.id}
+        ***Nickname:*** {member.nick}
+        ***Mention:*** {member.mention}
+        ***Status:*** {member.status}
+        ***Web-Status:*** {member.web_status}
+        ***Desktop-Status:*** {member.desktop_status}
+        ***Mobile-Status:*** {member.mobile_status}
+        ***Joined:*** {discord.utils.format_dt(member.joined_at, style="f")}
+        ***Registered:*** {discord.utils.format_dt(member.created_at, style="f")}
+        ***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
+        ***Top-Role:*** {member.top_role.mention}
+        ***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
+        ***Voice:*** {member.voice}
+        ***Mutual-Guilds:*** {", ".join(guild.name  for guild in member.mutual_guilds)}"""
         iombed.set_thumbnail(url=member.avatar.url)
         if image.banner and image.banner.url:
             iombed.set_image(url=image.banner.url)
