@@ -63,7 +63,6 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ID: {member.id}
         Nickname: {member.nick}
         Mention: {member.mention}
-        Badges: {', '.join(flag for flag in member.public_flags)}
         Status: {member.status}
         Web-Status: {member.web_status}
         Desktop-Status: {member.desktop_status}
