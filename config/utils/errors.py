@@ -78,15 +78,23 @@ async def handler(bot, ctx, error):
     elif isinstance(error, commands.UserNotFound):
         unfmbed = discord.Embed(
             colour=bot.colour,
-            title="Did not find the user",
+            title="Couldn't find the given user",
             timestamp=ctx.message.created_at
         )
         unfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=unfmbed)
+    elif isinstance(error, commands.MemberNotFound):
+        mnfmbed = discord.Embed(
+            colour=bot.colour,
+            title="Couldn't find the given member",
+            timestamp=ctx.message.created_at
+        )
+        mnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=mnfmbed)
     elif isinstance(error, commands.RoleNotFound):
         rnfmbed = discord.Embed(
             colour=bot.colour,
-            title="Did not find the role",
+            title="Couldn't find the given role",
             timestamp=ctx.message.created_at
         )
         rnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
