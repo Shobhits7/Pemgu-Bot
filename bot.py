@@ -1,4 +1,4 @@
-import discord, aiohttp, asyncpg, os
+import discord, aiohttp, asyncpg, motor.motor_asyncio, os
 from discord.ext import commands
 from config.utils import errors, help, options
 
@@ -15,6 +15,21 @@ async def get_prefix_postgres(bot, message):
     else:
         prefix = prefix[0].get("prefix")
     return commands.when_mentioned_or(prefix)(bot, message)
+
+async def connect_to_mongodb():
+    bot.mongodb = await motor.motor_asyncio.AsyncIOMotorClient(os.getenv("MONGODB"))
+    print("Connecting to MongoDB was successful")
+
+async def get_prefix_mongodb(bot, message):
+	    if not message.guild:
+	        return ""
+	
+	    prefixes = bot.cluster["Mei-DB"]['prefixes']
+	    if (await prefixes.count_documents({}) == 0):
+	        prefix = bot.prefix
+	    else:
+	        prefix = await prefixes.find_one({'_id': str(message.guild.id)})
+	    return prefix
 
 async def aiohttpsession():
     bot.session = aiohttp.ClientSession()
@@ -53,7 +68,7 @@ class Bot(commands.AutoShardedBot):
         if not self.session.closed:
             await self.session.close()
 
-bot = Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgres, strip_after_prefix=True, case_insensitive=True, help_command=help.CustomHelp(), intents=discord.Intents.all(), allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False))
+bot = Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_mongodb, strip_after_prefix=True, case_insensitive=True, help_command=help.CustomHelp(), intents=discord.Intents.all(), allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False))
 
 bot.prefix = ".m"
 bot.colour = 0x2F3136
@@ -67,5 +82,6 @@ os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
 bot.loop.run_until_complete(create_postgresl_pool())
+bot.loop.run_until_complete(connect_to_mongodb())
 bot.loop.create_task(aiohttpsession())
 bot.run(os.getenv("TOKEN"))

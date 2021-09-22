@@ -4,10 +4,13 @@ asyncpg
 attrs
 cffi
 chardet
+dnspython
 idna
 jishaku
+motor
 multidict
 pycparser
+pymongo
 pymunk
 PyNaCl
 pytiled-parser
