@@ -60,24 +60,24 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             timestamp=ctx.message.created_at
         )
         iombed.add_field(name="Global-Information:", value=F"""
-        Username: {member.name}
-        Discriminator: {member.discriminator}
-        ID: {member.id}
-        Nickname: {member.nick}
-        Mention: {member.mention}
-        Badges: {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
-        Status: {member.status}
-        Web-Status: {member.web_status}
-        Desktop-Status: {member.desktop_status}
-        Mobile-Status: {member.mobile_status}
-        Registered: {discord.utils.format_dt(member.created_at, style="f")}""")
+        ***Username:*** {member.name}
+        ***Discriminator:*** {member.discriminator}
+        ***ID:*** {member.id}
+        ***Nickname:*** {member.nick}
+        ***Mention:*** {member.mention}
+        ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
+        ***Status:*** {member.status}
+        ***Web-Status:*** {member.web_status}
+        ***Desktop-Status:*** {member.desktop_status}
+        ***Mobile-Status:*** {member.mobile_status}
+        ***Registered:*** {discord.utils.format_dt(member.created_at, style="f")}""")
         iombed.add_field(name="Guild-Information:", value=F"""
-        Joined: {discord.utils.format_dt(member.joined_at, style="f")}
-        Roles [{len(member.roles)}]: {', '.join(role.mention for role in member.roles)}
-        Top-Role: {member.top_role.mention}
-        Boosting: {'True' if member in ctx.guild.premium_subscribers else 'False'}
-        Voice: {member.voice}
-        Guild-Permissions: {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}""")
+        ***Joined:*** {discord.utils.format_dt(member.joined_at, style="f")}
+        ***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
+        ***Top-Role:*** {member.top_role.mention}
+        ***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
+        ***Voice:*** {member.voice}
+        ***Guild-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}""")
         iombed.set_thumbnail(url=member.avatar.url)
         if image.banner and image.banner.url:
             iombed.set_image(url=image.banner.url)
