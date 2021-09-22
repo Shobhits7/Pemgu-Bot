@@ -1,4 +1,5 @@
 import discord, difflib, traceback
+from discord import colour
 from discord.ext import commands
 from config.views import dymview
 
@@ -126,7 +127,7 @@ async def handler(bot, ctx, error):
         await ctx.send(embed=fmbed)
     elif isinstance(error, commands.CommandInvokeError):
         ciembed = discord.Embed(
-            colrou=bot.colour,
+            colour=bot.colour,
             title="You can't use bot from this command"
         )
         ciembed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
