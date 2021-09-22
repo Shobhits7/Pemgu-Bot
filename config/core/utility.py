@@ -146,11 +146,8 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
                 )
                 finspotifymbed.add_field(name="Artists:", value=", ".join(artist for artist in activity.artists), inline=False)
                 finspotifymbed.add_field(name="Album", value=activity.album, inline=False)
-                durationseconds = activity.duration.seconds
-                durationhours = durationseconds//3600
-                durationminutes = (durationseconds//60)%60
-                finspotifymbed.add_field(name="Duration:", value=F"{durationhours}:{durationminutes}:{durationseconds}", inline=False)
-                finspotifymbed.add_field(name="Duration:", value=time.strftime("%H:%M:%S", time.gmtime(activity.duration.total_seconds())), inline=False)
+                durationtime = time.strftime("%M:%S", time.gmtime(activity.duration.total_seconds()))
+                finspotifymbed.add_field(name="Duration:", value=discord.utils.format_dt(durationtime, style="t"), inline=False)
                 finspotifymbed.add_field(name="Created-at:", value=discord.utils.format_dt(activity.created_at, style="f"), inline=False)
                 finspotifymbed.add_field(name="Track-ID", value=activity.track_id, inline=False)
                 finspotifymbed.set_image(url=activity.album_cover_url)
