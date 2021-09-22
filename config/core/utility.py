@@ -63,6 +63,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***ID:*** {member.id}
         ***Nickname:*** {member.nick}
         ***Mention:*** {member.mention}
+        ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
         ***Status:*** {member.status}
         ***Web-Status:*** {member.web_status}
         ***Desktop-Status:*** {member.desktop_status}
@@ -73,7 +74,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***Top-Role:*** {member.top_role.mention}
         ***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
         ***Voice:*** {member.voice}
-        ***Guild-Permissions:*** {', '.join([perm.replace("_", " ") for perm, enabled in member.guild_permissions if enabled])}
+        ***Guild-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}
         ***Mutual-Guilds:*** {", ".join(guild.name  for guild in member.mutual_guilds)}"""
         iombed.set_thumbnail(url=member.avatar.url)
         if image.banner and image.banner.url:
