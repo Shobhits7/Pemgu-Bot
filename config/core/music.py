@@ -18,9 +18,9 @@ class Music:
     async def connect(self):
         aqualink.Connection.connect_to(self.bot)
         await self.bot.aqualink.connect(
-            password="youshallnotpass",
-            ws_url="ws://localhost:2333",
-            rest_url="http://localhost:2333",
+            password="mei-lavalink",
+            ws_url="ws://localhost:2008",
+            rest_url="http://localhost:2008",
         )
 
     async def track_callback(self, player):
