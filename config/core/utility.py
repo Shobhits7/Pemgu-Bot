@@ -146,7 +146,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
                 )
                 finspotifymbed.add_field(name="Artists:", value=", ".join(artist for artist in activity.artists), inline=False)
                 finspotifymbed.add_field(name="Album", value=activity.album, inline=False)
-                finspotifymbed.add_field(name="Duration:", value=datetime.datetime.strptime(activity.duration, "%H:%M:%S"), inline=False)
+                finspotifymbed.add_field(name="Duration:", value=activity.duration, inline=False)
                 finspotifymbed.add_field(name="Created-at:", value=activity.created_at, inline=False)
                 finspotifymbed.add_field(name="Track-ID", value=activity.track_id, inline=False)
                 finspotifymbed.set_image(url=activity.album_cover_url, inline=False)
