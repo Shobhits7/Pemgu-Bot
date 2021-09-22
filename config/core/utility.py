@@ -144,12 +144,12 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
                     url=activity.track_url,
                     title=activity.title
                 )
-                finspotifymbed.add_field(name="Artists:", value=", ".join(artist for artist in activity.artists))
-                finspotifymbed.add_field(name="Album", value=activity.album)
-                finspotifymbed.add_field(name="Duration:", value=activity.duration)
-                finspotifymbed.add_field(name="Created-at:", value=activity.created_at)
-                finspotifymbed.add_field(name="Track-ID", value=activity.track_id)
-                finspotifymbed.set_image(url=activity.album_cover_url)
+                finspotifymbed.add_field(name="Artists:", value=", ".join(artist for artist in activity.artists), inline=False)
+                finspotifymbed.add_field(name="Album", value=activity.album, inline=False)
+                finspotifymbed.add_field(name="Duration:", value=activity.duration, inline=False)
+                finspotifymbed.add_field(name="Created-at:", value=activity.created_at, inline=False)
+                finspotifymbed.add_field(name="Track-ID", value=activity.track_id, inline=False)
+                finspotifymbed.set_image(url=activity.album_cover_url, inline=False)
                 await ctx.send(embed=finspotifymbed)
                 return
             badspotifymbed = discord.Embed(
