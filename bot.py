@@ -24,7 +24,7 @@ class Bot(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         self.slash_commands=True
         self.slash_command_guilds=[804380398296498256]
-        self.command_prefix=get_prefix_postgres(self, discord.Message)
+        self.command_prefix=get_prefix_postgres
         self.strip_after_prefix=True
         self.case_insensitive=True
         self.help_command=help.CustomHelp()
