@@ -47,15 +47,7 @@ class HelpView(discord.ui.View):
 
     @discord.ui.button(emoji="💣", label="Delete", style=discord.ButtonStyle.red)
     async def delete(self, button: discord.ui.Button, interaction: discord.Interaction):
-        deletembed = discord.Embed(
-            colour=self.help.context.bot.colour,
-            title="Deleted the message",
-            timestamp=self.help.context.message.created_at
-        )
-        deletembed.set_thumbnail(url=self.help.context.me.avatar.url)
-        deletembed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
         await interaction.message.delete()
-        await interaction.response.send_message(embed=deletembed, ephemeral=True)
 
     async def on_timeout(self):
         try:

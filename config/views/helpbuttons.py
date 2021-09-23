@@ -27,15 +27,7 @@ class HelpButtons(discord.ui.Button):
         if self.custom_id == "Home":
             await interaction.response.edit_message(embed=self.homepage)
         if self.custom_id == "Delete":
-            deletembed = discord.Embed(
-                colour=self.help.context.bot.colour,
-                title="Deleted the message",
-                timestamp=self.help.context.message.created_at
-            )
-            deletembed.set_thumbnail(url=self.help.context.me.avatar.url)
-            deletembed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
             await interaction.message.delete()
-            await interaction.response.send_message(embed=deletembed, ephemeral=True)
 
 
 class HelpView(discord.ui.View):
