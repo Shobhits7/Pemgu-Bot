@@ -137,7 +137,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         else:
             badspotifymbed = discord.Embed(
                 colour=self.bot.colour,
-                title=F"{member.name} is not listenning to Spotify"
+                title=F"{member} is not listenning to Spotify"
             )
             badspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=badspotifymbed)
