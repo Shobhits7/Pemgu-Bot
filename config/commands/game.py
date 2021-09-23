@@ -19,7 +19,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
             description="Try to guess now"
         )
         gsmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        view = gv.GuessView(bot=self.bot, ctx:commands.Context=ctx)
+        view = gv.GuessView(self.bot, ctx)
         view.message = await ctx.send(embed=gsmbed, view=view)
 
 def setup(bot):
