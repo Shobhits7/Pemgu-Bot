@@ -1,6 +1,5 @@
 import discord, aiohttp, asyncpg, motor.motor_asyncio, os
 from discord.ext import commands
-from config.utils import help, options
 
 async def create_postgresl_pool():
     bot.postgresql = await asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"))
@@ -34,7 +33,6 @@ bot = Bot(
     command_prefix=get_prefix_postgresql,
     strip_after_prefix=True,
     case_insensitive=True,
-    help_command=help.CustomHelp(),
     intents=discord.Intents.all(),
     allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False)
 )
