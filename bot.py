@@ -47,9 +47,7 @@ for folder in sorted(os.listdir("./config/")):
     if folder in ("commands", "events"):
         for cog in folder:
             if cog.endswith(".py"):
-                bot.load_extension(F"config.core.{cog[:-3]}")
-        else: pass
-else: pass
+                bot.load_extension(F"config.{folder}.{cog[:-3]}")
 
 bot.load_extension("jishaku")
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
