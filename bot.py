@@ -22,7 +22,6 @@ async def aiohttpsession():
 
 class Bot(commands.AutoShardedBot):
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
         self.slash_commands=True
         self.slash_command_guilds=[804380398296498256]
         self.command_prefix=get_prefix_postgres(self, discord.Message)
@@ -31,6 +30,7 @@ class Bot(commands.AutoShardedBot):
         self.help_command=help.CustomHelp()
         self.intents=discord.Intents.all()
         self.allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False)
+        super().__init__(**kwargs)
 
     async def close(self):
         if not self.session.closed:
