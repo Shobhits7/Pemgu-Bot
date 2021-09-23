@@ -1,4 +1,3 @@
-from posix import listdir
 import discord, aiohttp, asyncpg, motor.motor_asyncio, os
 from discord.ext import commands
 from config.utils import help, options
