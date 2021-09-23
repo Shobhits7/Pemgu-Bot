@@ -4,7 +4,9 @@ from discord.ext import commands
 from config.views import dymview
 
 async def handler(bot, ctx, error):
-    if isinstance(error, commands.NotOwner):
+    if isinstance(error, commands.CommandInvokeError):
+        error = error.original
+    elif isinstance(error, commands.NotOwner):
         nombed = discord.Embed(
             colour=bot.colour,
             title="You are not the owner of this bot",
@@ -133,13 +135,6 @@ async def handler(bot, ctx, error):
         fmbed.add_field(name="Couldn't send messages to the user", value="The user is not accepting messages from the members in here or just blocked this bot")
         fmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=fmbed)
-    elif isinstance(error, commands.CommandInvokeError):
-        ciembed = discord.Embed(
-            colour=bot.colour,
-            title="You can't use bot from this command"
-        )
-        ciembed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=ciembed)
     else:
         tbmbed = discord.Embed(
             colour=bot.colour,
