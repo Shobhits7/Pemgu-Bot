@@ -1,12 +1,9 @@
 import discord, time, os, inspect
 from discord.ext import commands
-from config.utils import help
 
 class Utility(commands.Cog, description="Useful commands that are open to everyone"):
     def __init__(self, bot):
         self.bot = bot
-        self.bot.help_command = help.CustomHelp()
-        self.bot.help_command.cog = self
 
     # About
     @commands.command(name="about", aliases=["ab"], help="Will show the bot's information")
