@@ -7,7 +7,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # About
     @commands.command(name="about", aliases=["ab"], help="Will show the bot's information")
-    async def about(self, ctx:commands.Conext):
+    async def about(self, ctx:commands.Context):
         abmbed = discord.Embed(
             colour=self.bot.colour,
             title="About Bot",
@@ -19,7 +19,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Avatar
     @commands.command(name="avatar", aliases=["av"], help="Will show your or another user's avatar", usage="[user]")
-    async def avatar(self, ctx:commands.Conext, user:commands.UserConverter = None):
+    async def avatar(self, ctx:commands.Context, user:commands.UserConverter = None):
         user = user or ctx.author
         avmbed = discord.Embed(
             colour=self.bot.colour,
@@ -32,7 +32,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Banner
     @commands.command(name="banner", aliases=["br"], help="Will show your or another user's banner", usage="[user]")
-    async def banner(self, ctx:commands.Conext, user:commands.UserConverter = None):
+    async def banner(self, ctx:commands.Context, user:commands.UserConverter = None):
         user = user or ctx.author
         image = await self.bot.fetch_user(user.id)
         brmbed = discord.Embed(
@@ -50,7 +50,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     # Info
     @commands.command(name="info", aliases=["io"], help="Will show member info", usage="[user]")
     @commands.guild_only()
-    async def info(self, ctx:commands.Conext, *, member:commands.MemberConverter = None):
+    async def info(self, ctx:commands.Context, *, member:commands.MemberConverter = None):
         member = member or ctx.author
         image = await self.bot.fetch_user(member.id)
         iombed = discord.Embed(
@@ -90,7 +90,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     # Stats
     @commands.command(name="stats", aliases=["sa"], help="Will show the stats of this server")
     @commands.guild_only()
-    async def stats(self, ctx:commands.Conext):
+    async def stats(self, ctx:commands.Context):
         sambed = discord.Embed(
             colour=self.bot.colour,
             title="Stats for this server",
@@ -113,7 +113,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Spotify
     @commands.command(name="spotify", help="Will show your or the given member's spotify activity if possible", usage="[member]")
-    async def spotify(self, ctx:commands.Conext, member:commands.Option()):
+    async def spotify(self, ctx:commands.Context, member:commands.Option()):
         member = member or ctx.author
         for activity in member.activities:
             if isinstance(activity, discord.Spotify):
@@ -141,12 +141,12 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Echo
     @commands.command(name="echo", aliases=["eo"], help="Will echo your message", usage="<text>")
-    async def echo(self, ctx:commands.Conext, *, echo):
+    async def echo(self, ctx:commands.Context, *, echo):
         await ctx.send(F"{echo} | {ctx.author.mention}")
 
     # Ping
     @commands.command(name="ping", aliases=["pi"], help="Will show bot's ping")
-    async def ping(self, ctx:commands.Conext):
+    async def ping(self, ctx:commands.Context):
         unpimbed = discord.Embed(
             colour=self.bot.colour,
             title="🎾 Pinging...",
@@ -169,7 +169,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Invite
     @commands.command(name="invite", aliases=["ie"], help="Will make a send the link for adding  the bot")
-    async def invite(self, ctx:commands.Conext):
+    async def invite(self, ctx:commands.Context):
         iembed = discord.Embed(
             colour=self.bot.colour,
             title="Here is the invite link for adding the bot",
@@ -182,7 +182,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Source
     @commands.command(name="source", aliases=["src"], help="Will show the bots source", usage="[module]")
-    async def source(self, ctx:commands.Conext, *, command: str = None):
+    async def source(self, ctx:commands.Context, *, command: str = None):
         source_url = "https://github.com/lvlahraam/Mei-Bot"
         branch = "main"
         if not command:
@@ -216,7 +216,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     @commands.guild_only()
     @commands.has_guild_permissions(change_nickname=True)
     @commands.bot_has_guild_permissions(manage_nicknames=True)
-    async def afk(self, ctx:commands.Conext):
+    async def afk(self, ctx:commands.Context):
         unafkmbed = discord.Embed(
             colour=self.bot.colour,
             title="Your name has been changed to it's original",

@@ -7,7 +7,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     
     # Quote
     @commands.command(name="quote", help="Will send a anime quote")
-    async def quote(self, ctx:commands.Conext):
+    async def quote(self, ctx:commands.Context):
         session = await self.bot.session.get("https://animechan.vercel.app/api/random/")
         response = await session.json()
         session.close()
@@ -24,7 +24,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
 
     # SFW
     @commands.group(name="sfw", help="Will send a random sfw waifu or husbando image if not specified", invoke_without_command=True)
-    async def sfw(self, ctx:commands.Conext):
+    async def sfw(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/sfw/all/")
         response = await session.json()
         session.close()
@@ -40,7 +40,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
 
     # Waifu
     @sfw.command(name="waifu", help="Will send a random sfw waifu image")
-    async def waifu(self, ctx:commands.Conext):
+    async def waifu(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/sfw/waifu/")
         response = await session.json()
         session.close()
@@ -56,7 +56,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     
     # SMaid
     @sfw.command(name="maid", help="Will send a random sfw maid image")
-    async def smaid(self, ctx:commands.Conext):
+    async def smaid(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/sfw/maid/")
         response = await session.json()
         session.close()
@@ -73,7 +73,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # NSFW
     @commands.group(name="nsfw", help="Will send a random nsfw waifu image", invoke_without_command=True)
     @commands.is_nsfw()
-    async def nsfw(self, ctx:commands.Conext):
+    async def nsfw(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/nsfw/ero/")
         response = await session.json()
         session.close()
@@ -90,7 +90,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # Ass
     @nsfw.command(name="ass", help="Will send a random nsfw ass image")
     @commands.is_nsfw()
-    async def ass(self, ctx:commands.Conext):
+    async def ass(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/nsfw/ass/")
         response = await session.json()
         session.close()
@@ -107,7 +107,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # Ecchi
     @nsfw.command(name="ecchi", help="Will send a random nsfw ecchi image")
     @commands.is_nsfw()
-    async def ecchi(self, ctx:commands.Conext):
+    async def ecchi(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/nsfw/ecchi/")
         response = await session.json()
         session.close()
@@ -124,7 +124,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # Ero
     @nsfw.command(name="ero", help="Will send a random nsfw ero image")
     @commands.is_nsfw()
-    async def ero(self, ctx:commands.Conext):
+    async def ero(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/nsfw/ero/")
         response = await session.json()
         session.close()
@@ -141,7 +141,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # Hentai
     @nsfw.command(name="hentai", help="Will send a random nsfw hentai image")
     @commands.is_nsfw()
-    async def hentai(self, ctx:commands.Conext):
+    async def hentai(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/nsfw/hentai/")
         response = await session.json()
         session.close()
@@ -158,7 +158,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # NMaid
     @nsfw.command(name="maid", help="Will send a random nsfw maid image")
     @commands.is_nsfw()
-    async def nmaid(self, ctx:commands.Conext):
+    async def nmaid(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/nsfw/maid/")
         response = await session.json()
         session.close()
@@ -175,7 +175,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # Milf
     @nsfw.command(name="milf", help="Will send a random nsfw milf image")
     @commands.is_nsfw()
-    async def milf(self, ctx:commands.Conext):
+    async def milf(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/nsfw/milf/")
         response = await session.json()
         session.close()
@@ -192,7 +192,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # Oppai
     @nsfw.command(name="oppai", help="Will send a random nsfw oppai image")
     @commands.is_nsfw()
-    async def oppai(self, ctx:commands.Conext):
+    async def oppai(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/nsfw/ero/")
         response = await session.json()
         session.close()
@@ -209,7 +209,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # Oral
     @nsfw.command(name="oral", help="Will send a random nsfw oral image")
     @commands.is_nsfw()
-    async def oral(self, ctx:commands.Conext):
+    async def oral(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/nsfw/oral/")
         response = await session.json()
         session.close()
@@ -226,7 +226,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # Paizuri
     @nsfw.command(name="paizuri", help="Will send a random nsfw paizuri image")
     @commands.is_nsfw()
-    async def paizuri(self, ctx:commands.Conext):
+    async def paizuri(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/nsfw/paizuri/")
         response = await session.json()
         session.close()
@@ -243,7 +243,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # Selfies
     @nsfw.command(name="selfies", help="Will send a random nsfw selfies image")
     @commands.is_nsfw()
-    async def selfies(self, ctx:commands.Conext):
+    async def selfies(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/nsfw/selfies/")
         response = await session.json()
         session.close()
@@ -260,7 +260,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # Uniform
     @nsfw.command(name="uniform", help="Will send a random nsfw uniform image")
     @commands.is_nsfw()
-    async def uniform(self, ctx:commands.Conext):
+    async def uniform(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/nsfw/uniform/")
         response = await session.json()
         session.close()

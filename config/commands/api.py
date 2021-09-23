@@ -10,7 +10,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
 
     # Roast
     @commands.command(name="roast", aliases=["rst"], help="Will roast you or the given user")
-    async def roast(self, ctx:commands.Conext, user:commands.UserConverter = None):
+    async def roast(self, ctx:commands.Context, user:commands.UserConverter = None):
         user = user or ctx.author
         session = await self.bot.session.get("https://api.dagpi.xyz/data/roast", headers=self.dagpi_headers)
         response = await session.json()
@@ -26,7 +26,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
 
     # Joke
     @commands.command(name="joke", aliases=["jk"], help="Will tell you a random joke")
-    async def joke(self, ctx:commands.Conext):
+    async def joke(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.dagpi.xyz/data/joke", headers=self.dagpi_headers)
         response = await session.json()
         session.close()
@@ -41,7 +41,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
 
     # 8Ball
     @commands.command(name="8ball", aliases=["8b"], help="Will give you a random answer", usage="<question>")
-    async def _8ball(self, ctx:commands.Conext, *, question):
+    async def _8ball(self, ctx:commands.Context, *, question):
         session = await self.bot.session.get("https://api.dagpi.xyz/data/8ball", headers=self.dagpi_headers)
         response = await session.json()
         session.close()
@@ -58,7 +58,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     # Pixel
     @commands.command(name="pixel", aliases=["pxl"], help="Will make the given image pixelated", usage="[user]")
     @commands.bot_has_guild_permissions(attach_files=True)
-    async def pixel(self, ctx:commands.Conext, user:commands.UserConverter = None):
+    async def pixel(self, ctx:commands.Context, user:commands.UserConverter = None):
         user = user or ctx.author
         session = await self.bot.session.get(F"https://api.dagpi.xyz/image/pixel/?url={user.avatar.with_static_format('png').with_size(1024)}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
@@ -75,7 +75,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     # Colors
     @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image", usage="[user]")
     @commands.bot_has_guild_permissions(attach_files=True)
-    async def colors(self, ctx:commands.Conext, user:commands.UserConverter = None):
+    async def colors(self, ctx:commands.Context, user:commands.UserConverter = None):
         user = user or ctx.author
         session = await self.bot.session.get(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.with_static_format('png').with_size(1024)}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
@@ -92,7 +92,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     # Tweet
     @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet", usage="<username> <text>")
     @commands.bot_has_guild_permissions(attach_files=True)
-    async def tweet(self, ctx:commands.Conext, *, text, user:commands.UserConverter = None):
+    async def tweet(self, ctx:commands.Context, *, text, user:commands.UserConverter = None):
         user = user or ctx.author
         session = await self.bot.session.get(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_static_format('png').with_size(1024)}&username={ctx.author.name}&text={text}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
@@ -109,7 +109,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     # Screenshot
     @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website", usage="<website>")
     @commands.bot_has_guild_permissions(attach_files=True)
-    async def screenshot(self, ctx:commands.Conext, *, website):
+    async def screenshot(self, ctx:commands.Context, *, website):
         session = await self.bot.session.get(F"https://api.screenshotmachine.com?key=a95edd&url={website}&dimension=1024x768")
         response = io.BytesIO(await session.read())
         session.close()
@@ -124,7 +124,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
 
     # Pypi
     @commands.command(name="pypi", help="Will give information about the given lib in pypi")
-    async def pypi(self, ctx:commands.Conext, *, lib):
+    async def pypi(self, ctx:commands.Context, *, lib):
         session = await self.bot.session.get(F"https://pypi.org/pypi/{lib}/json")
         if session.status != 200:
             await ctx.send("Couldn't find that library in PYPI")
@@ -152,12 +152,12 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         await ctx.send(embed=pypimbed)
 
     @commands.group(name="rickandmorty", aliases=["ram"], help="Some Rick and Morty commands, use subcommands", invoke_without_command=True)
-    async def rickandmorty(self, ctx:commands.Conext):
+    async def rickandmorty(self, ctx:commands.Context):
         await ctx.send_help(ctx.command.cog)
     
     # Character
     @rickandmorty.command(name="character", aliases=["char"], help="Will show information about the given character", usage="<character's name>")
-    async def character(self, ctx:commands.Conext, *, character: str):
+    async def character(self, ctx:commands.Context, *, character: str):
         session = await self.bot.session.get(F"https://rickandmortyapi.com/api/character/?name={character}")
         response = await session.json()
         ramchmbed = discord.Embed(
@@ -178,13 +178,13 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
 
     # Location
     @rickandmorty.command(name="location", aliases=["loc"], help="Will show information about the given location", usage="<location's name>")
-    async def location(self, ctx:commands.Conext, *, location: str):
+    async def location(self, ctx:commands.Context, *, location: str):
         session = await self.bot.session.get("...")
         response = await session.json()
 
     # Episode
     @rickandmorty.command(name="episode", aliases=["ep"], help="Will show information about the given episode", usage="<episode's number>")
-    async def episode(self, ctx:commands.Conext, *, episode: int):
+    async def episode(self, ctx:commands.Context, *, episode: int):
         session = await self.bot.session.get("...")
         response = await session.json()
 
