@@ -31,7 +31,7 @@ class Bot(commands.AutoShardedBot):
 bot = Bot(
     slash_commands=True,
     slash_command_guilds=[804380398296498256],
-    command_prefix=get_prefix_postgres(),
+    command_prefix=get_prefix_postgres,
     strip_after_prefix=True,
     case_insensitive=True,
     help_command=help.CustomHelp(),
