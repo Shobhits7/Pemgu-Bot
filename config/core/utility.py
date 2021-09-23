@@ -67,9 +67,9 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
         ***Activity:*** {'*None*' if member.activity.name is None else member.activity}
         ***Status:*** {member.status}
-        ***Web-Status:*** {'❎' if not member.web_status else '✅'}
-        ***Desktop-Status:*** {'❎' if not member.desktop_status else '✅'}
-        ***Mobile-Status:*** {'❎' if not member.mobile_status else '✅'}
+        ***Web-Status:*** {member.web_status}
+        ***Desktop-Status:*** {member.desktop_status}
+        ***Mobile-Status:*** {member.mobile_status}
         ***Registered:*** {discord.utils.format_dt(member.created_at, style="f")}""", inline=False)
         iombed.add_field(name="Guild-Information:", value=F"""
         ***Joined:*** {discord.utils.format_dt(member.joined_at, style="f")}
