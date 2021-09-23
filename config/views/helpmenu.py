@@ -11,7 +11,7 @@ class HelpMenu(discord.ui.Select):
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category..."
-            if not name.startswith("On") or not name == "Jishaku":
+            if not name.startswith("On") and name != "Jishaku":
                 option = discord.SelectOption(label=F"{name} Category", description=description, value=name, emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓')
                 options.append(option)
         super().__init__(placeholder="Where do you want to go...", min_values=1, max_values=1, options=options)
