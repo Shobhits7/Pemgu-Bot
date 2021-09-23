@@ -7,7 +7,7 @@ class OnError(commands.Cog):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
+    async def on_command_error(self, ctx:commands.Conext, error):
         if isinstance(error, commands.CommandInvokeError):
             error = error.original
             await ctx.send()
@@ -38,7 +38,7 @@ class OnError(commands.Cog):
             )
             nmatcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             if len(matches) > 0:
-                view = dymview.DYMView(bot=self.bot, ctx=ctx, matches=matches)
+                view = dymview.DYMView(bot=self.bot, ctx:commands.Conext=ctx, matches=matches)
                 view.message = await ctx.send(embed=matcnfmbed, view=view)
             else:
                 await ctx.send(embed=nmatcnfmbed)

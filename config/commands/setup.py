@@ -8,8 +8,8 @@ class Setup(commands.Cog, description="For setting up the bot"):
     # Prefix
     @commands.group(name="prefix", aliases=["pf"], help="Will tell you the prefix for this guild", invoke_without_command=True)
     @commands.guild_only()
-    async def prefix(self, ctx):
-        prefix = await self.bot.postgresql.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", ctx.guild.id)
+    async def prefix(self, ctx:commands.Conext):
+        prefix = await self.bot.postgresql.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", ctx:commands.Conext.guild.id)
         if len(prefix) == 0:
             prefix = self.bot.prefix
         else:
@@ -26,12 +26,12 @@ class Setup(commands.Cog, description="For setting up the bot"):
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     @commands.cooldown(1, 5, commands.BucketType.guild)
-    async def prefix_change(self, ctx, prefix):
-        row = await self.bot.postgresql.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", ctx.guild.id)
+    async def prefix_change(self, ctx:commands.Conext, prefix):
+        row = await self.bot.postgresql.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", ctx:commands.Conext.guild.id)
         if len(row) == 0:
-            await self.bot.postgresql.execute("INSERT INTO prefixes(guild_id, prefix) VALUES ($1, $2)", ctx.guild.id, prefix)
+            await self.bot.postgresql.execute("INSERT INTO prefixes(guild_id, prefix) VALUES ($1, $2)", ctx:commands.Conext.guild.id, prefix)
         else:
-            await self.bot.postgresql.execute("UPDATE prefixes SET prefix = $2 WHERE guild_id = $1", ctx.guild.id, prefix)
+            await self.bot.postgresql.execute("UPDATE prefixes SET prefix = $2 WHERE guild_id = $1", ctx:commands.Conext.guild.id, prefix)
         pfcmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"Changed my prefix to `{prefix}`",
@@ -44,8 +44,8 @@ class Setup(commands.Cog, description="For setting up the bot"):
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     @commands.cooldown(1, 5, commands.BucketType.guild)
-    async def prefix_reset(self, ctx):
-        await self.bot.postgresql.execute("UPDATE prefixes SET prefix = $1 WHERE guild_id = $2",self.bot.prefix, ctx.guild.id)
+    async def prefix_reset(self, ctx:commands.Conext):
+        await self.bot.postgresql.execute("UPDATE prefixes SET prefix = $1 WHERE guild_id = $2",self.bot.prefix, ctx:commands.Conext.guild.id)
         pfrmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"The prefix has been resetted  to `{self.bot.prefix}`",

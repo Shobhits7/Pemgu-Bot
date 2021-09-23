@@ -7,7 +7,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # About
     @commands.command(name="about", aliases=["ab"], help="Will show the bot's information")
-    async def about(self, ctx):
+    async def about(self, ctx:commands.Conext):
         abmbed = discord.Embed(
             colour=self.bot.colour,
             title="About Bot",
@@ -19,7 +19,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Avatar
     @commands.command(name="avatar", aliases=["av"], help="Will show your or another user's avatar", usage="[user]")
-    async def avatar(self, ctx, user:commands.UserConverter = None):
+    async def avatar(self, ctx:commands.Conext, user:commands.UserConverter = None):
         user = user or ctx.author
         avmbed = discord.Embed(
             colour=self.bot.colour,
@@ -32,7 +32,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Banner
     @commands.command(name="banner", aliases=["br"], help="Will show your or another user's banner", usage="[user]")
-    async def banner(self, ctx, user:commands.UserConverter = None):
+    async def banner(self, ctx:commands.Conext, user:commands.UserConverter = None):
         user = user or ctx.author
         image = await self.bot.fetch_user(user.id)
         brmbed = discord.Embed(
@@ -50,7 +50,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     # Info
     @commands.command(name="info", aliases=["io"], help="Will show member info", usage="[user]")
     @commands.guild_only()
-    async def info(self, ctx, *, member:commands.MemberConverter = None):
+    async def info(self, ctx:commands.Conext, *, member:commands.MemberConverter = None):
         member = member or ctx.author
         image = await self.bot.fetch_user(member.id)
         iombed = discord.Embed(
@@ -90,7 +90,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     # Stats
     @commands.command(name="stats", aliases=["sa"], help="Will show the stats of this server")
     @commands.guild_only()
-    async def stats(self, ctx):
+    async def stats(self, ctx:commands.Conext):
         sambed = discord.Embed(
             colour=self.bot.colour,
             title="Stats for this server",
@@ -111,14 +111,42 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         sambed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=sambed)
 
+    # Spotify
+    @commands.command(name="spotify", help="Will show your or the given member's spotify activity if possible", usage="[member]")
+    async def spotify(self, ctx:commands.Conext, member:commands.Option()):
+        member = member or ctx.author
+        for activity in member.activities:
+            if isinstance(activity, discord.Spotify):
+                finspotifymbed = discord.Embed(
+                    colour=activity.colour,
+                    url=activity.track_url,
+                    title=activity.title,
+                    timestamp=ctx.message.created_at
+                )
+                finspotifymbed.add_field(name="Artists:", value=", ".join(artist for artist in activity.artists), inline=False)
+                finspotifymbed.add_field(name="Album", value=activity.album, inline=False)
+                finspotifymbed.add_field(name="Duration:", value=time.strftime("%H:%M:%S", time.gmtime(activity.duration.total_seconds())), inline=False)
+                finspotifymbed.add_field(name="Created-at:", value=F"{discord.utils.format_dt(activity.created_at, style='f')} ({discord.utils.format_dt(activity.created_at, style='R')})", inline=False)
+                finspotifymbed.add_field(name="Track-ID", value=activity.track_id, inline=False)
+                finspotifymbed.set_image(url=activity.album_cover_url)
+                await ctx.send(embed=finspotifymbed)
+                break
+        else:
+            badspotifymbed = discord.Embed(
+                colour=self.bot.colour,
+                title=F"{member.name} is not listenning to Spotify"
+            )
+            badspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+            await ctx.send(embed=badspotifymbed)
+
     # Echo
     @commands.command(name="echo", aliases=["eo"], help="Will echo your message", usage="<text>")
-    async def echo(self, ctx, *, echo):
+    async def echo(self, ctx:commands.Conext, *, echo):
         await ctx.send(F"{echo} | {ctx.author.mention}")
 
     # Ping
     @commands.command(name="ping", aliases=["pi"], help="Will show bot's ping")
-    async def ping(self, ctx):
+    async def ping(self, ctx:commands.Conext):
         unpimbed = discord.Embed(
             colour=self.bot.colour,
             title="🎾 Pinging...",
@@ -141,7 +169,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Invite
     @commands.command(name="invite", aliases=["ie"], help="Will make a send the link for adding  the bot")
-    async def invite(self, ctx):
+    async def invite(self, ctx:commands.Conext):
         iembed = discord.Embed(
             colour=self.bot.colour,
             title="Here is the invite link for adding the bot",
@@ -152,36 +180,9 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         iembed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=iembed)
 
-    # Spotify
-    @commands.command(name="spotify", help="Will show your or the given member's spotify activity if possible", usage="[member]")
-    async def spotify(self, ctx, member:commands.MemberConverter = None):
-        member = member or ctx.author
-        for activity in member.activities:
-            if isinstance(activity, discord.Spotify):
-                finspotifymbed = discord.Embed(
-                    colour=self.bot.colour,
-                    url=activity.track_url,
-                    title=activity.title
-                )
-                finspotifymbed.add_field(name="Artists:", value=", ".join(artist for artist in activity.artists), inline=False)
-                finspotifymbed.add_field(name="Album", value=activity.album, inline=False)
-                finspotifymbed.add_field(name="Duration:", value=time.strftime("%H:%M:%S", time.gmtime(activity.duration.total_seconds())), inline=False)
-                finspotifymbed.add_field(name="Created-at:", value=F"{discord.utils.format_dt(activity.created_at, style='f')} ({discord.utils.format_dt(activity.created_at, style='R')})", inline=False)
-                finspotifymbed.add_field(name="Track-ID", value=activity.track_id, inline=False)
-                finspotifymbed.set_image(url=activity.album_cover_url)
-                await ctx.send(embed=finspotifymbed)
-                break
-        else:
-            badspotifymbed = discord.Embed(
-                colour=self.bot.colour,
-                title=F"{member.name} is not listenning to Spotify"
-            )
-            badspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=badspotifymbed)
-
     # Source
     @commands.command(name="source", aliases=["src"], help="Will show the bots source", usage="[module]")
-    async def source(self, ctx, *, command: str = None):
+    async def source(self, ctx:commands.Conext, *, command: str = None):
         source_url = "https://github.com/lvlahraam/Mei-Bot"
         branch = "main"
         if not command:
@@ -215,7 +216,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     @commands.guild_only()
     @commands.has_guild_permissions(change_nickname=True)
     @commands.bot_has_guild_permissions(manage_nicknames=True)
-    async def afk(self, ctx):
+    async def afk(self, ctx:commands.Conext):
         unafkmbed = discord.Embed(
             colour=self.bot.colour,
             title="Your name has been changed to it's original",

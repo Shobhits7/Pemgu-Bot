@@ -8,18 +8,18 @@ class Game(commands.Cog, description="If you are bored... use these"):
     
     @commands.command(name="tictactoe", aliases=["ttt"], help="Will start an tic-tac-toe game")
     @commands.is_owner()
-    async def tictactoe(self, ctx):
+    async def tictactoe(self, ctx:commands.Conext):
         await ctx.send('Tic Tac Toe: X goes first', view=gv.TicTacToeView())
     
     @commands.command(name="guess", aliases=["gs"], help="Will start an guessing game")
-    async def guess(self, ctx):
+    async def guess(self, ctx:commands.Conext):
         gsmbed = discord.Embed(
             colour=self.bot.colour,
             title="Started the game",
             description="Try to guess now"
         )
         gsmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        view = gv.GuessView(bot=self.bot, ctx=ctx)
+        view = gv.GuessView(bot=self.bot, ctx:commands.Conext=ctx)
         view.message = await ctx.send(embed=gsmbed, view=view)
 
 def setup(bot):
