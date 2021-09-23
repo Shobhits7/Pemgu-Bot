@@ -9,7 +9,7 @@ class HelpButtons(discord.ui.Button):
 
     async def callback(self, interaction: discord.Interaction):
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "General"
+            name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             cmds = cog.walk_commands() if cog else commands
             if self.custom_id == name:
@@ -46,7 +46,7 @@ class HelpView(discord.ui.View):
         self.homepage = homepage
         self.add_item(item=HelpButtons(emoji="🏠", label="Home", style=discord.ButtonStyle.green, custom_id="Home", view=self))
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "General"
+            name = cog.qualified_name if cog else "No"
             if not name.startswith("On") and name != "Jishaku":
                 self.add_item(item=HelpButtons(emoji=self.help.emojis.get(name), label=F"{name}", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
         self.add_item(item=HelpButtons(emoji="💣",label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))

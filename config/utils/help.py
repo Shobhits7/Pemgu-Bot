@@ -29,6 +29,7 @@ class CustomHelp(commands.HelpCommand):
             "Rick and Morty": "🥒",
             "Setup": "🔧",
             "Utility": "🧰",
+            "No": "❓"
         }
         super().__init__(
             command_attrs={
