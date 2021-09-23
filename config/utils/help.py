@@ -19,18 +19,16 @@ class MinimalHelp(commands.MinimalHelpCommand):
 class CustomHelp(commands.HelpCommand):
     def __init__(self):
         self.emojis = {
-            "Anime": "🍙",
+            "Anime": "🍘",
             "API": "🌎",
-            "Fun": "🤣",
             "Game": "🎮",
+            "General": "💬",
             "Moderation": "🎩",
-            "Music": "🎻",
+            "Music": "🎼",
             "Owner": "👑",
             "Rick and Morty": "🥒",
             "Setup": "🔧",
             "Utility": "🧰",
-            "Jishaku": "👀",
-            "No": "❓"
         }
         super().__init__(
             command_attrs={

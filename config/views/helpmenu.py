@@ -9,7 +9,7 @@ class HelpMenu(discord.ui.Select):
             discord.SelectOption(emoji="🏠", label="Home", description="The homepage of this menu", value="Home")
         ]
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
+            name = cog.qualified_name if cog else "General"
             description = cog.description if cog else "Commands without category..."
             if not name.startswith("On") and name != "Jishaku":
                 option = discord.SelectOption(label=F"{name} Category", description=description, value=name, emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓')
@@ -17,7 +17,7 @@ class HelpMenu(discord.ui.Select):
         super().__init__(placeholder="Where do you want to go...", min_values=1, max_values=1, options=options)
     async def callback(self, interaction: discord.Interaction):
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
+            name = cog.qualified_name if cog else "General"
             description = cog.description if cog else "Commands without category"
             cmds = cog.walk_commands() if cog else commands
             if self.values[0] == name:
