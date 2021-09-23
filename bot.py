@@ -6,7 +6,7 @@ async def create_postgresl_pool():
     bot.postgresql = await asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"))
     print("Creating pool to Postgres was successful")
 
-async def get_prefix_postgres(bot, message):
+async def get_prefix_postgresql(bot, message):
     if not message.guild:
         return ""
     prefix = await bot.postgresql.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", message.guild.id)
@@ -31,7 +31,7 @@ class Bot(commands.AutoShardedBot):
 bot = Bot(
     slash_commands=True,
     slash_command_guilds=[804380398296498256],
-    command_prefix=get_prefix_postgres,
+    command_prefix=get_prefix_postgresql,
     strip_after_prefix=True,
     case_insensitive=True,
     help_command=help.CustomHelp(),
