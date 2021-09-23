@@ -31,7 +31,7 @@ class Bot(commands.AutoShardedBot):
     async def on_message(self, message):
         if message.author.bot: return
         if F"<@!{self.user.id}>" == message.content or F"<@{self.user.id}>" == message.content:
-            prefix = await self.db.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", message.guild.id)
+            prefix = await self.postgresql.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", message.guild.id)
             if len(prefix) == 0:
                 prefix = self.prefix
             else:
