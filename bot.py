@@ -43,11 +43,12 @@ bot.prefix = ".m"
 bot.colour = 0x2F3136
 
 
-for folder in sorted(os.listdir("./config/")):
-    if folder in ("commands", "events"):
-        for cog in folder:
-            if cog.endswith(".py"):
-                bot.load_extension(F"config.{folder}.{cog[:-3]}")
+for command in sorted(os.listdir("./config/commands/")):
+    if command.endswith(".py"):
+         bot.load_extension(F"config.commands.{command[:-3]}")
+for event in sorted(os.listdir("./config/events/")):
+    if event.endswith(".py"):
+         bot.load_extension(F"config.events.{event[:-3]}")
 
 bot.load_extension("jishaku")
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
