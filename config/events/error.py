@@ -38,7 +38,7 @@ class OnError(commands.Cog):
             )
             nmatcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             if len(matches) > 0:
-                view = dymview.DYMView(bot=self.bot, ctx:commands.Context=ctx, matches=matches)
+                view = dymview.DYMView(self.bot, ctx, matches)
                 view.message = await ctx.send(embed=matcnfmbed, view=view)
             else:
                 await ctx.send(embed=nmatcnfmbed)
