@@ -23,37 +23,20 @@ async def aiohttpsession():
 class Bot(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-    async def on_connect(self):
-        print(F"---------------------------------------------------\nLogged in as: {self.user} - {self.user.id}\nMain prefix is: {self.prefix}\nGuilds bot is in: {len(self.guilds)}\nThe Bot is online now\n---------------------------------------------------")
-        await self.change_presence(activity=discord.Game(name=F"@{self.user.name} for prefix | {self.prefix} help for help"))
-
-    async def on_message(self, message):
-        if message.author.bot: return
-        if F"<@!{self.user.id}>" == message.content or F"<@{self.user.id}>" == message.content:
-            prefix = await self.postgresql.fetch("SELECT prefix FROM prefixes WHERE guild_id = $1", message.guild.id)
-            if len(prefix) == 0:
-                prefix = self.prefix
-            else:
-                prefix = prefix[0].get("prefix")
-            ompmbed = discord.Embed(
-                colour=self.colour,
-                title=F"My Prefix here is `{prefix}`",
-                timestamp=message.created_at
-            )
-            ompmbed.set_footer(text=message.author, icon_url=message.author.avatar.url)
-            return await message.channel.send(embed=ompmbed)
-        else:
-            await self.process_commands(message)
-
-    async def on_command_error(self, ctx, error):
-        await errors.handler(bot=self, ctx=ctx, error=error)
+        self.slash_commands=True
+        self.slash_command_guilds=[804380398296498256]
+        self.command_prefix=get_prefix_postgres(self, discord.Message)
+        self.strip_after_prefix=True
+        self.case_insensitive=True
+        self.help_command=help.CustomHelp()
+        self.intents=discord.Intents.all()
+        self.allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False)
 
     async def close(self):
         if not self.session.closed:
             await self.session.close()
 
-bot = Bot(slash_commands=True, slash_command_guilds=[804380398296498256], command_prefix=get_prefix_postgres, strip_after_prefix=True, case_insensitive=True, help_command=help.CustomHelp(), intents=discord.Intents.all(), allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False))
+bot = Bot()
 
 bot.prefix = ".m"
 bot.colour = 0x2F3136

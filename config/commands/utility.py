@@ -65,7 +65,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***ID:*** {member.id}
         ***Mention:*** {member.mention}
         ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
-        ***Activity:*** {'*None*' if member.activity is None else member.activity}
+        ***Activity:*** {'*Nothing*' if not member.activity else member.activity}
         ***Status:*** {member.status}
         ***Web-Status:*** {member.web_status}
         ***Desktop-Status:*** {member.desktop_status}
@@ -184,7 +184,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     async def source(self, ctx, *, command: str = None):
         source_url = "https://github.com/lvlahraam/Mei-Bot"
         branch = "main"
-        if command is None:
+        if not command:
             return await ctx.send(source_url)
 
         if command == "help":
@@ -193,7 +193,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             filename = inspect.getsourcefile(src)
         else:
             obj = self.bot.get_command(command.replace(".", " "))
-            if obj is None:
+            if not obj:
                 return await ctx.send("Could not find command.")
             src = obj.callback.__code__
             module = obj.callback.__module__
