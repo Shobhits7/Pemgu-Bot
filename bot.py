@@ -1,6 +1,6 @@
 import discord, aiohttp, asyncpg, motor.motor_asyncio, os
 from discord.ext import commands
-from config.utils import errors, help, options
+from config.utils import help, options
 
 async def create_postgresl_pool():
     bot.postgresql = await asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"))
