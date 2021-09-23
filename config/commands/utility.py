@@ -70,9 +70,9 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***Web-Status:*** {member.web_status}
         ***Desktop-Status:*** {member.desktop_status}
         ***Mobile-Status:*** {member.mobile_status}
-        ***Registered:*** {discord.utils.format_dt(member.created_at, style="f")}""", inline=False)
+        ***Registered:*** {discord.utils.format_dt(member.created_at, style="f")} ({discord.utils.format_dt(member.created_at, style="R")})""", inline=False)
         iombed.add_field(name="Guild-Information:", value=F"""
-        ***Joined:*** {discord.utils.format_dt(member.joined_at, style="f")}
+        ***Joined:*** {discord.utils.format_dt(member.joined_at, style="f")} ({discord.utils.format_dt(member.joined_at, style="R")})
         ***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
         ***Top-Role:*** {member.top_role.mention}
         ***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
@@ -166,7 +166,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
                 finspotifymbed.add_field(name="Artists:", value=", ".join(artist for artist in activity.artists), inline=False)
                 finspotifymbed.add_field(name="Album", value=activity.album, inline=False)
                 finspotifymbed.add_field(name="Duration:", value=time.strftime("%H:%M:%S", time.gmtime(activity.duration.total_seconds())), inline=False)
-                finspotifymbed.add_field(name="Created-at:", value=discord.utils.format_dt(activity.created_at, style="f"), inline=False)
+                finspotifymbed.add_field(name="Created-at:", value=F"{discord.utils.format_dt(activity.created_at, style="f")} ({discord.utils.format_dt(activity.created_at, style="R")})", inline=False)
                 finspotifymbed.add_field(name="Track-ID", value=activity.track_id, inline=False)
                 finspotifymbed.set_image(url=activity.album_cover_url)
                 await ctx.send(embed=finspotifymbed)
