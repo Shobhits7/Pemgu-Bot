@@ -1,6 +1,6 @@
 import discord, contextlib
 from discord.ext import commands
-from config.views import helpmenu, helpbuttons
+import config.views.helpview as hv
 
 class MinimalHelp(commands.MinimalHelpCommand):
     async def send_pages(self):
@@ -55,7 +55,7 @@ class CustomHelp(commands.HelpCommand):
         homepage.add_field(name="Prefix:", value=self.context.prefix or "In DM you don't need to use prefix", inline=False)
         homepage.add_field(name="Usable:", value=usable, inline=False)
         homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THESE WHEN DOING A COMMAND***", inline=False)
-        view = helpbuttons.HelpView(self, mapping, homepage)
+        view = hv.SelectView(self, mapping, homepage)
         view.message = await self.context.send(embed=homepage, view=view)
         return
 
