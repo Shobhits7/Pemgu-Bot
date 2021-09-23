@@ -1,4 +1,3 @@
-from _typeshed import NoneType
 import discord, datetime, time, os, inspect
 from discord.ext import commands
 
@@ -66,7 +65,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***ID:*** {member.id}
         ***Mention:*** {member.mention}
         ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
-        ***Activity:*** {'*no-emoji*' if str(member.activity.emoji) is NoneType else str(member.activity.emoji)} {'*nothing*' if str(member.activity.name) is None else str(member.activity.name)}
+        ***Activity:*** {'*no-emoji*' if str(member.activity.emoji) is None else str(member.activity.emoji)} {'*nothing*' if str(member.activity.name) is None else str(member.activity.name)}
         ***Status:*** {member.status}
         ***Web-Status:*** {'❎' if not member.web_status else '✅'}
         ***Desktop-Status:*** {'❎' if not member.desktop_status else '✅'}
