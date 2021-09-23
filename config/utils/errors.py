@@ -6,7 +6,8 @@ from config.views import dymview
 async def handler(bot, ctx, error):
     if isinstance(error, commands.CommandInvokeError):
         error = error.original
-    elif isinstance(error, commands.NotOwner):
+        await ctx.send(error)
+    if isinstance(error, commands.NotOwner):
         nombed = discord.Embed(
             colour=bot.colour,
             title="You are not the owner of this bot",
@@ -14,7 +15,7 @@ async def handler(bot, ctx, error):
         )
         nombed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=nombed)
-    elif isinstance(error, commands.CommandNotFound):
+    if isinstance(error, commands.CommandNotFound):
         cmd = ctx.invoked_with
         cmds = [cmd.name for cmd in bot.commands]
         matches = difflib.get_close_matches(cmd, cmds)
@@ -37,7 +38,7 @@ async def handler(bot, ctx, error):
             view.message = await ctx.send(embed=matcnfmbed, view=view)
         else:
             await ctx.send(embed=nmatcnfmbed)
-    elif isinstance(error, commands.CommandOnCooldown):
+    if isinstance(error, commands.CommandOnCooldown):
         cocmbed = discord.Embed(
             colour=bot.colour,
             title=F"Command {ctx.invoked_with} on Cooldown",
@@ -45,7 +46,7 @@ async def handler(bot, ctx, error):
         )
         cocmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=cocmbed)
-    elif isinstance(error, commands.MissingPermissions):
+    if isinstance(error, commands.MissingPermissions):
         mpmbed = discord.Embed(
             colour=bot.colour,
             title=F"You don't have permission for {ctx.invoked_with}",
@@ -53,7 +54,7 @@ async def handler(bot, ctx, error):
         )
         mpmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=mpmbed)
-    elif isinstance(error, commands.BotMissingPermissions):
+    if isinstance(error, commands.BotMissingPermissions):
         bmpmbed = discord.Embed(
             colour=bot.colour,
             title=F"Bot does not have permission for {ctx.invoked_with}",
@@ -61,7 +62,7 @@ async def handler(bot, ctx, error):
         )
         bmpmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=bmpmbed)
-    elif isinstance(error, commands.MissingRequiredArgument):
+    if isinstance(error, commands.MissingRequiredArgument):
         mrambed = discord.Embed(
             colour=bot.colour,
             title="Please pass an argument",
@@ -69,7 +70,7 @@ async def handler(bot, ctx, error):
         )
         mrambed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=mrambed)
-    elif isinstance(error, commands.BadArgument):
+    if isinstance(error, commands.BadArgument):
         bambed = discord.Embed(
             colour=bot.colour,
             title="Please pass an correct argument",
@@ -77,7 +78,7 @@ async def handler(bot, ctx, error):
         )
         bambed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=bambed)
-    elif isinstance(error, commands.UserNotFound):
+    if isinstance(error, commands.UserNotFound):
         unfmbed = discord.Embed(
             colour=bot.colour,
             title="Couldn't find the given user",
@@ -85,7 +86,7 @@ async def handler(bot, ctx, error):
         )
         unfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=unfmbed)
-    elif isinstance(error, commands.MemberNotFound):
+    if isinstance(error, commands.MemberNotFound):
         mnfmbed = discord.Embed(
             colour=bot.colour,
             title="Couldn't find the given member",
@@ -93,7 +94,7 @@ async def handler(bot, ctx, error):
         )
         mnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=mnfmbed)
-    elif isinstance(error, commands.RoleNotFound):
+    if isinstance(error, commands.RoleNotFound):
         rnfmbed = discord.Embed(
             colour=bot.colour,
             title="Couldn't find the given role",
@@ -101,14 +102,14 @@ async def handler(bot, ctx, error):
         )
         rnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=rnfmbed)
-    elif isinstance(error, commands.NSFWChannelRequired):
+    if isinstance(error, commands.NSFWChannelRequired):
         nsfwcr = discord.Embed(
             colour=bot.colour,
             title=F"{ctx.invoked_with} is only possible in NSFW channels"
         )
         nsfwcr.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=nsfwcr)
-    elif isinstance(error, commands.PrivateMessageOnly):
+    if isinstance(error, commands.PrivateMessageOnly):
         pmombed = discord.Embed(
             colour=bot.colour,
             title=F"{ctx.invoked_with} can only be used in DMs",
@@ -116,7 +117,7 @@ async def handler(bot, ctx, error):
         )
         pmombed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=pmombed)
-    elif isinstance(error, commands.NoPrivateMessage):
+    if isinstance(error, commands.NoPrivateMessage):
         npmmbed = discord.Embed(
             colour=bot.colour,
             title=F"Can't use {ctx.invoked_with} in DMs",
@@ -124,7 +125,7 @@ async def handler(bot, ctx, error):
         )
         npmmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=npmmbed)
-    elif isinstance(error, discord.Forbidden):
+    if isinstance(error, discord.Forbidden):
         fmbed = discord.Embed(
             colour=bot.colour,
             title="Forbidden Error",
