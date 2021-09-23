@@ -11,7 +11,7 @@ class OnError(commands.Cog):
         if isinstance(error, commands.CommandInvokeError):
             error = error.original
             await ctx.send()
-        if isinstance(error, commands.NotOwner):
+        elif isinstance(error, commands.NotOwner):
             nombed = discord.Embed(
                 colour=self.bot.colour,
                 title="You are not the owner of this bot",
@@ -19,7 +19,7 @@ class OnError(commands.Cog):
             )
             nombed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=nombed)
-        if isinstance(error, commands.CommandNotFound):
+        elif isinstance(error, commands.CommandNotFound):
             cmd = ctx.invoked_with
             cmds = [cmd.name for cmd in self.bot.commands]
             matches = difflib.get_close_matches(cmd, cmds)
@@ -42,7 +42,7 @@ class OnError(commands.Cog):
                 view.message = await ctx.send(embed=matcnfmbed, view=view)
             else:
                 await ctx.send(embed=nmatcnfmbed)
-        if isinstance(error, commands.CommandOnCooldown):
+        elif isinstance(error, commands.CommandOnCooldown):
             cocmbed = discord.Embed(
                 colour=self.bot.colour,
                 title=F"Command {ctx.invoked_with} on Cooldown",
@@ -50,7 +50,7 @@ class OnError(commands.Cog):
             )
             cocmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=cocmbed)
-        if isinstance(error, commands.MissingPermissions):
+        elif isinstance(error, commands.MissingPermissions):
             mpmbed = discord.Embed(
                 colour=self.bot.colour,
                 title=F"You don't have permission for {ctx.invoked_with}",
@@ -58,7 +58,7 @@ class OnError(commands.Cog):
             )
             mpmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=mpmbed)
-        if isinstance(error, commands.BotMissingPermissions):
+        elif isinstance(error, commands.BotMissingPermissions):
             bmpmbed = discord.Embed(
                 colour=self.bot.colour,
                 title=F"Bot does not have permission for {ctx.invoked_with}",
@@ -66,7 +66,7 @@ class OnError(commands.Cog):
             )
             bmpmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=bmpmbed)
-        if isinstance(error, commands.MissingRequiredArgument):
+        elif isinstance(error, commands.MissingRequiredArgument):
             mrambed = discord.Embed(
                 colour=self.bot.colour,
                 title="Please pass an argument",
@@ -74,7 +74,7 @@ class OnError(commands.Cog):
             )
             mrambed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=mrambed)
-        if isinstance(error, commands.BadArgument):
+        elif isinstance(error, commands.BadArgument):
             bambed = discord.Embed(
                 colour=self.bot.colour,
                 title="Please pass an correct argument",
@@ -82,7 +82,7 @@ class OnError(commands.Cog):
             )
             bambed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=bambed)
-        if isinstance(error, commands.UserNotFound):
+        elif isinstance(error, commands.UserNotFound):
             unfmbed = discord.Embed(
                 colour=self.bot.colour,
                 title="Couldn't find the given user",
@@ -90,7 +90,7 @@ class OnError(commands.Cog):
             )
             unfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=unfmbed)
-        if isinstance(error, commands.MemberNotFound):
+        elif isinstance(error, commands.MemberNotFound):
             mnfmbed = discord.Embed(
                 colour=self.bot.colour,
                 title="Couldn't find the given member",
@@ -98,7 +98,7 @@ class OnError(commands.Cog):
             )
             mnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=mnfmbed)
-        if isinstance(error, commands.RoleNotFound):
+        elif isinstance(error, commands.RoleNotFound):
             rnfmbed = discord.Embed(
                 colour=self.bot.colour,
                 title="Couldn't find the given role",
@@ -106,14 +106,14 @@ class OnError(commands.Cog):
             )
             rnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=rnfmbed)
-        if isinstance(error, commands.NSFWChannelRequired):
+        elif isinstance(error, commands.NSFWChannelRequired):
             nsfwcr = discord.Embed(
                 colour=self.bot.colour,
                 title=F"{ctx.invoked_with} is only possible in NSFW channels"
             )
             nsfwcr.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=nsfwcr)
-        if isinstance(error, commands.PrivateMessageOnly):
+        elif isinstance(error, commands.PrivateMessageOnly):
             pmombed = discord.Embed(
                 colour=self.bot.colour,
                 title=F"{ctx.invoked_with} can only be used in DMs",
@@ -121,7 +121,7 @@ class OnError(commands.Cog):
             )
             pmombed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=pmombed)
-        if isinstance(error, commands.NoPrivateMessage):
+        elif isinstance(error, commands.NoPrivateMessage):
             npmmbed = discord.Embed(
                 colour=self.bot.colour,
                 title=F"Can't use {ctx.invoked_with} in DMs",
@@ -129,7 +129,7 @@ class OnError(commands.Cog):
             )
             npmmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=npmmbed)
-        if isinstance(error, discord.Forbidden):
+        elif isinstance(error, discord.Forbidden):
             fmbed = discord.Embed(
                 colour=self.bot.colour,
                 title="Forbidden Error",
