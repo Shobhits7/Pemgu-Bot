@@ -27,7 +27,7 @@ class Bot(commands.AutoShardedBot):
         self.command_prefix=get_prefix_postgres
         self.strip_after_prefix=True
         self.case_insensitive=True
-        self.help_command=help.CustomHelp()
+        self._help_command=help.CustomHelp()
         self.intents=discord.Intents.all()
         self.allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False)
         super().__init__(**kwargs)
