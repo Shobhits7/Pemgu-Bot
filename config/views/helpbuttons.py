@@ -8,8 +8,6 @@ class HelpButtons(discord.ui.Button):
         self.homepage = view.homepage
 
     async def callback(self, interaction: discord.Interaction):
-        def gts(self, command):
-            return F"{self.context.clean_prefix}{command.name} {command.signature}"
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
@@ -22,7 +20,7 @@ class HelpButtons(discord.ui.Button):
                     timestamp=self.help.context.message.created_at
                 )
                 for command in cmds:
-                    mbed.description += F"• **{gts(self.help, command)}** - {command.help or 'No help found...'}\n"
+                    mbed.description += F"• **{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
