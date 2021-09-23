@@ -1,3 +1,4 @@
+from posix import listdir
 import discord, aiohttp, asyncpg, motor.motor_asyncio, os
 from discord.ext import commands
 from config.utils import help, options
@@ -45,7 +46,7 @@ bot.colour = 0x2F3136
 
 for folder in sorted(os.listdir("./config/")):
     if folder in ("commands", "events"):
-        for cog in folder:
+        for cog in sorted(os.listdir(F"./config/{folder}/")):
             if cog.endswith(".py"):
                 bot.load_extension(F"config.{folder}.{cog[:-3]}")
 
