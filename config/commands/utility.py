@@ -1,4 +1,4 @@
-import discord, datetime, time, os, inspect
+import discord, time, os, inspect
 from discord.ext import commands
 
 class Utility(commands.Cog, description="Useful commands that are open to everyone"):

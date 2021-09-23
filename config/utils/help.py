@@ -1,4 +1,4 @@
-import discord, contextlib, random
+import discord, contextlib
 from discord.ext import commands
 from config.views import helpmenu, helpbuttons
 

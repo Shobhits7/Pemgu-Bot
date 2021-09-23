@@ -1,5 +1,4 @@
 import discord
-from discord.ext import commands
 
 class HelpButtons(discord.ui.Button):
     def __init__(self, view, **kwargs):
