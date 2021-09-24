@@ -42,10 +42,9 @@ bot = Bot(
 bot.prefix = ".m"
 bot.colour = 0x2F3136
 
-
 # Info
 @bot.user_command(name="Info")
-async def info(ctx, user):
+async def info(ctx:commands.Context, user):
     member = user or ctx.author
     image = await bot.fetch_user(member.id)
     iombed = discord.Embed(
