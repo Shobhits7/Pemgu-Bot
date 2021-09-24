@@ -67,9 +67,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in user.public_flags if enabled])}
         ***Activity:*** {'*Nothing*' if not user.activity else user.activity.name}
         ***Status:*** {user.status}
-        ***Web-Status:*** {user.web_status}
-        ***Desktop-Status:*** {user.desktop_status}
-        ***Mobile-Status:*** {user.mobile_status}
+        ***Web-Status:*** {user.web_status.title()}
         ***Registered:*** {discord.utils.format_dt(user.created_at, style="F")} ({discord.utils.format_dt(user.created_at, style="R")})""", inline=False)
         iombed.add_field(name="__Guild-Information:__", value=F"""
         ***Joined:*** {discord.utils.format_dt(user.joined_at, style="F")} ({discord.utils.format_dt(user.joined_at, style="R")})
@@ -87,30 +85,30 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         iombed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=iombed)
 
-    # ServerInfo
-    @commands.command(name="serverinfo", aliases=["si"], help="Will show the server's info")
+    # GuildInfo
+    @commands.command(name="guildinfo", aliases=["gi"], help="Will show the guild's info")
     @commands.guild_only()
-    async def serverinfo(self, ctx:commands.Context):
-        serverctx = ctx.guild
-        simbed = discord.Embed(
+    async def guildinfo(self, ctx:commands.Context):
+        guildctx = ctx.guild
+        gimbed = discord.Embed(
             colour=self.bot.colour,
-            title="Stats for this server",
+            title="Stats for this Guild",
             timestamp=ctx.message.created_at
         )
-        simbed.add_field(name="Members", value=F"{len(ctx.guild.members)}")
-        simbed.add_field(name="Channels", value=F"{len(ctx.guild.channels)}")
+        gimbed.add_field(name="Members", value=F"{len(ctx.guild.members)}")
+        gimbed.add_field(name="Channels", value=F"{len(ctx.guild.channels)}")
         if ctx.guild.icon and ctx.guild.icon.url:
-            simbed.add_field(name="Icon:", value=F"True")
-            simbed.set_thumbnail(url=ctx.guild.icon.url)
+            gimbed.add_field(name="Icon:", value=F"True")
+            gimbed.set_thumbnail(url=ctx.guild.icon.url)
         else:
-            simbed.add_field(name="Icon:", value=F"False")
+            gimbed.add_field(name="Icon:", value=F"False")
         if ctx.guild.banner and ctx.guild.banner.url:
-            simbed.add_field(name="Banner:", value=F"True")
-            simbed.set_image(url=ctx.guild.banner.url)
+            gimbed.add_field(name="Banner:", value=F"True")
+            gimbed.set_image(url=ctx.guild.banner.url)
         else:
-            simbed.add_field(name="Banner:", value=F"False")
-        simbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=simbed)
+            gimbed.add_field(name="Banner:", value=F"False")
+        gimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=gimbed)
 
     # Spotify
     @commands.command(name="spotify", help="Will show your or the given member's spotify activity if possible", usage="[member]")

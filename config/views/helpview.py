@@ -39,7 +39,7 @@ class SelectView(discord.ui.View):
         self.homepage = homepage
         self.add_item(SelectUI(self))
         self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
-        self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
+        self.add_item(discord.ui.Button(emoji="🍩", label="Support Guild", url="https://discord.gg/bWnjkjyFRz"))
 
     @discord.ui.button(emoji="🏠", label="Home", style=discord.ButtonStyle.green)
     async def home(self, button:discord.ui.Button, interaction:discord.Interaction):
@@ -116,7 +116,7 @@ class ButtonsView(discord.ui.View):
                 self.add_item(item=ButtonsUI(emoji=self.help.emojis.get(name), label=F"{name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
         self.add_item(item=ButtonsUI(emoji="💣",label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))
         self.add_item(item=ButtonsUI(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True)), view=self))
-        self.add_item(item=ButtonsUI(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz", view=self))
+        self.add_item(item=ButtonsUI(emoji="🍩", label="Support Guild", url="https://discord.gg/bWnjkjyFRz", view=self))
 
     async def on_timeout(self):
         try:

@@ -67,7 +67,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         gdmbed = discord.Embed(
             colour=self.bot.colour,
             title="This bot is joined in: ",
-            description=F"{len(self.bot.guilds)} Servers",
+            description=F"{len(self.bot.guilds)} Guildss",
             timestamp=ctx.message.created_at
         )
         gdmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)

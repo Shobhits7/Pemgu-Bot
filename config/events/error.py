@@ -10,7 +10,7 @@ class OnError(commands.Cog):
     async def on_command_error(self, ctx:commands.Context, error):
         if isinstance(error, commands.CommandInvokeError):
             error = error.original
-            await ctx.send(error)
+            raise error
         elif isinstance(error, commands.NotOwner):
             nombed = discord.Embed(
                 colour=self.bot.colour,
@@ -136,7 +136,7 @@ class OnError(commands.Cog):
                 description="The problem is one of the options down below",
                 timestamp=ctx.message.created_at
             )
-            fmbed.add_field(name="You are the owner of this server:", value="If you are the owner, and you are trying to use changing command, you can't")
+            fmbed.add_field(name="You are the owner of this Guild:", value="If you are the owner, and you are trying to use changing command, you can't")
             fmbed.add_field(name="Couldn't send messages to the user", value="The user is not accepting messages from the members in here or just blocked this bot")
             fmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=fmbed)
