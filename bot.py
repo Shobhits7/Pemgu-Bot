@@ -44,7 +44,7 @@ bot.colour = 0x2F3136
 
 
 @bot.user_command(name="Avatar")
-async def avatar(ctx:commands.Context, user:discord.Member):
+async def avatar(ctx:commands.Context, user):
     avatarMbed = discord.Embed(title=F"{user} 's Avatar")
     avatarMbed.set_image(url=user.avatar.url)
     await ctx.respond(content="Here is the avatar", embed=avatarMbed)
