@@ -12,7 +12,7 @@ class SelectUI(discord.ui.Select):
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category..."
             if not name.startswith("On") and name != "Jishaku":
-                option = discord.SelectOption(emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓', label=F"{name} Category [{len(commands)}]", description=description, value=name)
+                option = discord.SelectOption(emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓', label=F"{name} Category [{len(commands)}]", value=name)
                 options.append(option)
         super().__init__(placeholder="Where do you want to go...", min_values=1, max_values=1, options=options)
     async def callback(self, interaction: discord.Interaction):
@@ -113,7 +113,7 @@ class ButtonsView(discord.ui.View):
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             if not name.startswith("On") and name != "Jishaku":
-                self.add_item(item=ButtonsUI(emoji=self.help.emojis.get(name), label=F"{name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
+                self.add_item(item=ButtonsUI(emoji=self.help.emojis.get(name), label=F"{name} [{len(commands)}]", style=discord.ButtonStyle.blurple, row=4, custom_id=name, view=self))
         self.add_item(item=ButtonsUI(emoji="💣",label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))
         self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
