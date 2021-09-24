@@ -59,7 +59,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             description="`Global-Information` is for the user in discord\n`Guild-Information` for the user in this guild",
             timestamp=ctx.message.created_at
         )
-        iombed.add_field(name="Global-Information:", value=F"""
+        iombed.add_field(name="__Global-Information:__", value=F"""
         ***Username:*** {member.name}
         ***Discriminator:*** {member.discriminator}
         ***ID:*** {member.id}
@@ -71,7 +71,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***Desktop-Status:*** {member.desktop_status}
         ***Mobile-Status:*** {member.mobile_status}
         ***Registered:*** {discord.utils.format_dt(member.created_at, style="f")} ({discord.utils.format_dt(member.created_at, style="R")})""", inline=False)
-        iombed.add_field(name="Guild-Information:", value=F"""
+        iombed.add_field(name="__Guild-Information:__", value=F"""
         ***Joined:*** {discord.utils.format_dt(member.joined_at, style="f")} ({discord.utils.format_dt(member.joined_at, style="R")})
         ***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
         ***Top-Role:*** {member.top_role.mention}
