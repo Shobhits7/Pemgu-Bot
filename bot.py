@@ -79,7 +79,7 @@ async def info(ctx:commands.Context, user):
     else:
         iombed.description += "\n**Banner:** Member doesn't have banner"
     iombed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-    await ctx.send(embed=iombed)
+    await ctx.send(content="Here is the information:", embed=iombed)
 
 for folder in sorted(os.listdir("./config/")):
     if folder in ("commands", "events"):
