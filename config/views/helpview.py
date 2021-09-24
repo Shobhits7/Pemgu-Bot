@@ -97,7 +97,7 @@ class ButtonsUI(discord.ui.Button):
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
-        if self.custom_id == "Home Page":
+        if self.custom_id == "Home":
             await interaction.response.edit_message(embed=self.homepage)
         if self.custom_id == "Delete":
             await interaction.message.delete()
@@ -109,7 +109,7 @@ class ButtonsView(discord.ui.View):
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
-        self.add_item(item=ButtonsUI(emoji="🏠", label="Home Page", style=discord.ButtonStyle.green, custom_id="Home Page", view=self))
+        self.add_item(item=ButtonsUI(emoji="🏠", label="Home", style=discord.ButtonStyle.green, custom_id="Home", view=self))
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             if not name.startswith("On") and name != "Jishaku":
