@@ -47,69 +47,69 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         brmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=brmbed)
 
-    # Info
-    @commands.command(name="info", aliases=["io"], help="Will show member info", usage="[user]")
+    # UserInfo
+    @commands.command(name="userinfo", aliases=["ui"], help="Will show User info", usage="[user]")
     @commands.guild_only()
-    async def info(self, ctx:commands.Context, *, member:commands.MemberConverter = None):
-        member = member or ctx.author
-        image = await self.bot.fetch_user(member.id)
+    async def userinfo(self, ctx:commands.Context, *, user:commands.UserConverter = None):
+        user = user or ctx.author
+        image = await self.bot.fetch_user(user.id)
         iombed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{member} Information",
+            title=F"{user} Information",
             description="`Global-Information` is for the user in discord\n`Guild-Information` for the user in this guild",
             timestamp=ctx.message.created_at
         )
         iombed.add_field(name="__Global-Information:__", value=F"""
-        ***Username:*** {member.name}
-        ***Discriminator:*** {member.discriminator}
-        ***ID:*** {member.id}
-        ***Mention:*** {member.mention}
-        ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
-        ***Activity:*** {'*Nothing*' if not member.activity else member.activity}
-        ***Status:*** {member.status}
-        ***Web-Status:*** {member.web_status}
-        ***Desktop-Status:*** {member.desktop_status}
-        ***Mobile-Status:*** {member.mobile_status}
-        ***Registered:*** {discord.utils.format_dt(member.created_at, style="f")} ({discord.utils.format_dt(member.created_at, style="R")})""", inline=False)
+        ***Username:*** {user.name}
+        ***Discriminator:*** {user.discriminator}
+        ***ID:*** {user.id}
+        ***Mention:*** {user.mention}
+        ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in user.public_flags if enabled])}
+        ***Activity:*** {'*Nothing*' if not user.activity else user.activity}
+        ***Status:*** {user.status}
+        ***Web-Status:*** {user.web_status}
+        ***Desktop-Status:*** {user.desktop_status}
+        ***Mobile-Status:*** {user.mobile_status}
+        ***Registered:*** {discord.utils.format_dt(user.created_at, style="f")} ({discord.utils.format_dt(user.created_at, style="R")})""", inline=False)
         iombed.add_field(name="__Guild-Information:__", value=F"""
-        ***Joined:*** {discord.utils.format_dt(member.joined_at, style="f")} ({discord.utils.format_dt(member.joined_at, style="R")})
-        ***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
-        ***Top-Role:*** {member.top_role.mention}
-        ***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
-        ***Nickname:*** {member.nick}
-        ***Voice:*** {member.voice}
-        ***Guild-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}""", inline=False)
-        iombed.set_thumbnail(url=member.avatar.url)
+        ***Joined:*** {discord.utils.format_dt(user.joined_at, style="f")} ({discord.utils.format_dt(user.joined_at, style="R")})
+        ***Roles [{len(user.roles)}]:*** {', '.join(role.mention for role in user.roles)}
+        ***Top-Role:*** {user.top_role.mention}
+        ***Boosting:*** {'True' if user in ctx.guild.premium_subscribers else 'False'}
+        ***Nickname:*** {user.nick}
+        ***Voice:*** {user.voice}
+        ***Guild-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in user.guild_permissions if enabled])}""", inline=False)
+        iombed.set_thumbnail(url=user.avatar.url)
         if image.banner and image.banner.url:
             iombed.set_image(url=image.banner.url)
         else:
-            iombed.description += "\n**Banner:** Member doesn't have banner"
+            iombed.description += "\n**Banner:** User doesn't have banner"
         iombed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=iombed)
 
-    # Stats
-    @commands.command(name="stats", aliases=["sa"], help="Will show the stats of this server")
+    # ServerInfo
+    @commands.command(name="serverinfo", aliases=["si"], help="Will show the server's info")
     @commands.guild_only()
-    async def stats(self, ctx:commands.Context):
-        sambed = discord.Embed(
+    async def serverinfo(self, ctx:commands.Context):
+        simbed = discord.Embed(
             colour=self.bot.colour,
             title="Stats for this server",
             timestamp=ctx.message.created_at
         )
-        sambed.add_field(name="Members", value=F"{len(ctx.guild.members)}")
-        sambed.add_field(name="Channels", value=F"{len(ctx.guild.channels)}")
+        simbed.add_field(name="Members", value=F"{len(ctx.guild.members)}")
+        simbed.add_field(name="Channels", value=F"{len(ctx.guild.channels)}")
         if ctx.guild.icon and ctx.guild.icon.url:
-            sambed.add_field(name="Icon:", value=F"True")
-            sambed.set_thumbnail(url=ctx.guild.icon.url)
+            simbed.add_field(name="Icon:", value=F"True")
+            simbed.set_thumbnail(url=ctx.guild.icon.url)
         else:
-            sambed.add_field(name="Icon:", value=F"False")
+            simbed.add_field(name="Icon:", value=F"False")
         if ctx.guild.banner and ctx.guild.banner.url:
-            sambed.add_field(name="Banner:", value=F"True")
-            sambed.set_image(url=ctx.guild.banner.url)
+            simbed.add_field(name="Banner:", value=F"True")
+            simbed.set_image(url=ctx.guild.banner.url)
         else:
-            sambed.add_field(name="Banner:", value=F"False")
-        sambed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=sambed)
+            simbed.add_field(name="Banner:", value=F"False")
+        simbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=simbed)
 
     # Spotify
     @commands.command(name="spotify", help="Will show your or the given member's spotify activity if possible", usage="[member]")
