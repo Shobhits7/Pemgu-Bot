@@ -123,6 +123,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
                     title=activity.title,
                     timestamp=ctx.message.created_at
                 )
+                finspotifymbed.set_author(name=member, icon_url=member.avatar.url)
                 finspotifymbed.add_field(name="Artists:", value=", ".join(artist for artist in activity.artists), inline=False)
                 finspotifymbed.add_field(name="Album", value=activity.album, inline=False)
                 finspotifymbed.add_field(name="Duration:", value=time.strftime("%H:%M:%S", time.gmtime(activity.duration.total_seconds())), inline=False)
