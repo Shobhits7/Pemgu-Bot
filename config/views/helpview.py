@@ -10,9 +10,9 @@ class SelectUI(discord.ui.Select):
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category..."
             if not name.startswith("On") and name != "Jishaku":
-                option = discord.SelectOption(emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓', label=name, value=name)
+                option = discord.SelectOption(emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓', label=F"{name} Category [{len(commands)}]", description=description, value=name)
                 options.append(option)
-        super().__init__(placeholder="Where do you want to go...", min_values=1, max_values=1, options=options)
+        super().__init__(placeholder="Where do you want to go...", min_values=2, max_values=6, options=options)
     async def callback(self, interaction:discord.Interaction):
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
