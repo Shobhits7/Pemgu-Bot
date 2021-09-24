@@ -10,7 +10,7 @@ class OnError(commands.Cog):
     async def on_command_error(self, ctx:commands.Context, error):
         if isinstance(error, commands.CommandInvokeError):
             error = error.original
-        elif isinstance(error, commands.NotOwner):
+        if isinstance(error, commands.NotOwner):
             nombed = discord.Embed(
                 colour=self.bot.colour,
                 title="You are not the owner of this bot",
