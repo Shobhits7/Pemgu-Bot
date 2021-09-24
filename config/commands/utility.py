@@ -127,7 +127,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
                 finspotifymbed.add_field(name="Artists:", value=", ".join(artist for artist in activity.artists), inline=False)
                 finspotifymbed.add_field(name="Album", value=activity.album, inline=False)
                 finspotifymbed.add_field(name="Duration:", value=time.strftime("%H:%M:%S", time.gmtime(activity.duration.total_seconds())), inline=False)
-                finspotifymbed.add_field(name="Listening-From:", value=F"{discord.utils.format_dt(activity.created_at, style='f')} ({discord.utils.format_dt(activity.created_at, style='R')})", inline=False)
+                finspotifymbed.add_field(name="Listening-Since:", value=F"{discord.utils.format_dt(activity.created_at, style='f')} ({discord.utils.format_dt(activity.created_at, style='R')})", inline=False)
                 finspotifymbed.add_field(name="Track-ID", value=activity.track_id, inline=False)
                 finspotifymbed.set_image(url=activity.album_cover_url)
                 finspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
