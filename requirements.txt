@@ -1,2 +1,3 @@
 asyncpg
+jishaku
 git+https://github.com/Pycord-Development/pycord
