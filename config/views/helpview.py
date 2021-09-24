@@ -5,9 +5,7 @@ class SelectUI(discord.ui.Select):
         self.help = view.help
         self.mapping = view.mapping
         self.homepage = view.homepage
-        options = [
-            discord.SelectOption(emoji="🏠", label="Home", description="The Home page of this menu", value="Home")
-        ]
+        options = []
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category..."
@@ -15,7 +13,7 @@ class SelectUI(discord.ui.Select):
                 option = discord.SelectOption(emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓', label=F"{name} Category [{len(commands)}]", description=description, value=name)
                 options.append(option)
         super().__init__(placeholder="Where do you want to go...", min_values=1, max_values=1, options=options)
-    async def callback(self, interaction: discord.Interaction):
+    async def callback(self, interaction:discord.Interaction):
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
@@ -32,8 +30,6 @@ class SelectUI(discord.ui.Select):
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
-        if self.values[0] == "Home":
-            await interaction.response.edit_message(embed=self.homepage)
 
 class SelectView(discord.ui.View):
     def __init__(self, help, mapping, homepage):
@@ -45,8 +41,12 @@ class SelectView(discord.ui.View):
         self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
 
+    @discord.ui.button(emoji="🏠", label="Home", style=discord.ButtonStyle.blurple)
+    async def home(self, button:discord.ui.Button, interaction:discord.Interaction):
+        await interaction.response.edit_message(embed=self.homepage)
+
     @discord.ui.button(emoji="💣", label="Delete", style=discord.ButtonStyle.red)
-    async def delete(self, button: discord.ui.Button, interaction: discord.Interaction):
+    async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
         await interaction.message.delete()
 
     async def on_timeout(self):
@@ -59,7 +59,7 @@ class SelectView(discord.ui.View):
         except discord.NotFound:
             return
 
-    async def interaction_check(self, interaction: discord.Interaction):
+    async def interaction_check(self, interaction:discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
             return True
         icheckmbed = discord.Embed(
@@ -80,7 +80,7 @@ class ButtonsUI(discord.ui.Button):
         self.mapping = view.mapping
         self.homepage = view.homepage
 
-    async def callback(self, interaction: discord.Interaction):
+    async def callback(self, interaction:discord.Interaction):
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
@@ -97,11 +97,6 @@ class ButtonsUI(discord.ui.Button):
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
-        if self.custom_id == "Home":
-            await interaction.response.edit_message(embed=self.homepage)
-        if self.custom_id == "Delete":
-            await interaction.message.delete()
-
 
 class ButtonsView(discord.ui.View):
     def __init__(self, help, mapping, homepage):
@@ -109,14 +104,20 @@ class ButtonsView(discord.ui.View):
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
-        self.add_item(item=ButtonsUI(emoji="🏠", label="Home", style=discord.ButtonStyle.green, custom_id="Home", view=self))
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             if not name.startswith("On") and name != "Jishaku":
                 self.add_item(item=ButtonsUI(emoji=self.help.emojis.get(name), label=F"{name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
-        self.add_item(item=ButtonsUI(emoji="💣",label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))
         self.add_item(item=ButtonsUI(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True)), view=self))
         self.add_item(item=ButtonsUI(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz", view=self))
+
+        @ButtonsUI(emoji="🏠", label="Home", style=discord.ButtonStyle.green, custom_id="Home", view=self)
+        async def home(self, interaction:discord.Interaction):
+            await interaction.response.edit_message(embed=homepage)
+
+        @ButtonsUI(emoji="💣",label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self)
+        async def delete(self, interaction:discord.Interaction):
+            await interaction.message.delete()
 
     async def on_timeout(self):
         try:
@@ -127,7 +128,7 @@ class ButtonsView(discord.ui.View):
         except discord.NotFound:
             return
 
-    async def interaction_check(self, interaction: discord.Interaction):
+    async def interaction_check(self, interaction:discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
             return True
         icheckmbed = discord.Embed(

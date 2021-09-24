@@ -7,7 +7,7 @@ class DYMButtons(discord.ui.Button):
         self.ctx = view.ctx
         self.matches = view.matches
 
-    async def callback(self, interaction: discord.Interaction):
+    async def callback(self, interaction:discord.Interaction):
         for match in self.matches:
             if self.label == match:
                 await interaction.message.delete()
@@ -43,7 +43,7 @@ class DYMView(discord.ui.View):
         except discord.NotFound:
             pass
 
-    async def interaction_check(self, interaction: discord.Interaction):
+    async def interaction_check(self, interaction:discord.Interaction):
         if interaction.user.id == self.ctx.author.id:
             return True
         else:

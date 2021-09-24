@@ -81,7 +81,7 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
-    async def addrole(self, ctx:commands.Context, member: commands.MemberConverter, role: commands.RoleConverter):
+    async def addrole(self, ctx:commands.Context, member:commands.MemberConverter, role:commands.RoleConverter):
         finaembed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully added the {role} role",
@@ -105,7 +105,7 @@ class Moderation(commands.Cog, description="Was someone being bad"):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
-    async def removerole(self, ctx:commands.Context, member: commands.MemberConverter, role: commands.RoleConverter):
+    async def removerole(self, ctx:commands.Context, member:commands.MemberConverter, role:commands.RoleConverter):
         finrembed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully removed the {role} role",

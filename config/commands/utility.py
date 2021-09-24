@@ -65,14 +65,14 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***ID:*** {user.id}
         ***Mention:*** {user.mention}
         ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in user.public_flags if enabled])}
-        ***Activity:*** {'*Nothing*' if not user.activity else user.activity}
+        ***Activity:*** {'*Nothing*' if not user.activity else user.activity.name}
         ***Status:*** {user.status}
         ***Web-Status:*** {user.web_status}
         ***Desktop-Status:*** {user.desktop_status}
         ***Mobile-Status:*** {user.mobile_status}
-        ***Registered:*** {discord.utils.format_dt(user.created_at, style="f")} ({discord.utils.format_dt(user.created_at, style="R")})""", inline=False)
+        ***Registered:*** {discord.utils.format_dt(user.created_at, style="F")} ({discord.utils.format_dt(user.created_at, style="R")})""", inline=False)
         iombed.add_field(name="__Guild-Information:__", value=F"""
-        ***Joined:*** {discord.utils.format_dt(user.joined_at, style="f")} ({discord.utils.format_dt(user.joined_at, style="R")})
+        ***Joined:*** {discord.utils.format_dt(user.joined_at, style="F")} ({discord.utils.format_dt(user.joined_at, style="R")})
         ***Roles [{len(user.roles)}]:*** {', '.join(role.mention for role in user.roles)}
         ***Top-Role:*** {user.top_role.mention}
         ***Boosting:*** {'True' if user in ctx.guild.premium_subscribers else 'False'}
@@ -91,6 +91,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     @commands.command(name="serverinfo", aliases=["si"], help="Will show the server's info")
     @commands.guild_only()
     async def serverinfo(self, ctx:commands.Context):
+        serverctx = ctx.guild
         simbed = discord.Embed(
             colour=self.bot.colour,
             title="Stats for this server",

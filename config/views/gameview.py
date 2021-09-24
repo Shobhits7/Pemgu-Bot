@@ -7,7 +7,7 @@ class TicTacToeButton(discord.ui.Button['TicTacToeView']):
         self.x = x
         self.y = y
     
-    async def callback(self, interaction: discord.Interaction):
+    async def callback(self, interaction:discord.Interaction):
         assert self.view is not None
         view: TicTacToeView = self.view
         state = view.board[self.y][self.x]
@@ -103,7 +103,7 @@ class GuessButtons(discord.ui.Button):
         self.choose = view.choose
         self.number = view.number
     
-    async def callback(self, interaction: discord.Interaction):
+    async def callback(self, interaction:discord.Interaction):
         if self.label == self.number:
             self.choose = True
         elif self.label != self.number:
@@ -145,7 +145,7 @@ class GuessView(discord.ui.View):
                 self.add_item(discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
                 await self.message.edit(view=self)
 
-    async def interaction_check(self, interaction: discord.Interaction):
+    async def interaction_check(self, interaction:discord.Interaction):
         if interaction.user.id == self.ctx.author.id:
             return True
         else:
@@ -167,7 +167,7 @@ class CounterView(discord.ui.View):
         self.client = client
 
     @discord.ui.button(emoji="🍘", style=discord.ButtonStyle.green)
-    async def click(self, button: discord.ui.Button, interaction: discord.Interaction):
+    async def click(self, button:discord.ui.Button, interaction:discord.Interaction):
         self.clicks += 1
         if str(interaction.user) in self.clickers:
             pass
