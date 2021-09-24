@@ -10,7 +10,6 @@ class OnError(commands.Cog):
     async def on_command_error(self, ctx:commands.Context, error):
         if isinstance(error, commands.CommandInvokeError):
             error = error.original
-            raise error
         elif isinstance(error, commands.NotOwner):
             nombed = discord.Embed(
                 colour=self.bot.colour,
