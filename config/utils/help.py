@@ -22,11 +22,9 @@ class CustomHelp(commands.HelpCommand):
             "Anime": "🍘",
             "API": "🌎",
             "Game": "🎮",
-            "General": "💬",
             "Moderation": "🎩",
             "Music": "🎼",
             "Owner": "👑",
-            "Rick and Morty": "🥒",
             "Setup": "🔧",
             "Utility": "🧰",
             "No": "❓"
