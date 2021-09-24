@@ -113,7 +113,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Spotify
     @commands.command(name="spotify", help="Will show your or the given member's spotify activity if possible", usage="[member]")
-    async def spotify(self, ctx:commands.Context, member:discord.Member = commands.Option(description="Input user to get their Spotify activity", default=None)):
+    async def spotify(self, ctx:commands.Context, member:discord.Member = None):
         member = member or ctx.author
         for activity in member.activities:
             if isinstance(activity, discord.Spotify):
