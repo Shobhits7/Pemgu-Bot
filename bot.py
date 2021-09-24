@@ -43,6 +43,10 @@ bot.prefix = ".m"
 bot.colour = 0x2F3136
 
 
+@bot.user_command()
+async def avatar(ctx:commands.Context, user:discord.Member):
+    await ctx.send(user.avatar.url)
+
 for folder in sorted(os.listdir("./config/")):
     if folder in ("commands", "events"):
         for cog in sorted(os.listdir(F"./config/{folder}/")):

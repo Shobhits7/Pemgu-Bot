@@ -20,4 +20,4 @@ six
 typing-extensions
 yarl
 youtube_dl
-git+https://github.com/Gnome-py/enhanced-discord.py/@2.0
+git+https://github.com/Pycord-Development/pycord
