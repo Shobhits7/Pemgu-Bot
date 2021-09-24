@@ -115,8 +115,8 @@ class ButtonsView(discord.ui.View):
             if not name.startswith("On") and name != "Jishaku":
                 self.add_item(item=ButtonsUI(emoji=self.help.emojis.get(name), label=F"{name} [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
         self.add_item(item=ButtonsUI(emoji="💣",label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))
-        self.add_item(item=ButtonsUI(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
-        self.add_item(item=ButtonsUI(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
+        self.add_item(item=ButtonsUI(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True)), view=self))
+        self.add_item(item=ButtonsUI(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz", view=self))
 
     async def on_timeout(self):
         try:
