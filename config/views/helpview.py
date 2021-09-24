@@ -6,7 +6,7 @@ class SelectUI(discord.ui.Select):
         self.mapping = view.mapping
         self.homepage = view.homepage
         options = [
-            discord.SelectOption(emoji="🏠", label="Home", description="The homepage of this menu", value="Home")
+            discord.SelectOption(emoji="🏠", label="Home Page", description="The homepage of this menu", value="Home Page")
         ]
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
@@ -32,7 +32,7 @@ class SelectUI(discord.ui.Select):
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
-        if self.values[0] == "Home":
+        if self.values[0] == "Home Page":
             await interaction.response.edit_message(embed=self.homepage)
 
 class SelectView(discord.ui.View):
@@ -54,8 +54,6 @@ class SelectView(discord.ui.View):
             for items in self.children:
                 if isinstance(items, discord.ui.Select):
                     items.placeholder = "Disabled due to timeout..."
-                if isinstance(items, discord.ui.Button):
-                    items.emoji = "❌"
                 items.disabled = True
             await self.message.edit(view=self)
         except discord.NotFound:
@@ -99,7 +97,7 @@ class ButtonsUI(discord.ui.Button):
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
-        if self.custom_id == "Home":
+        if self.custom_id == "Home Page":
             await interaction.response.edit_message(embed=self.homepage)
         if self.custom_id == "Delete":
             await interaction.message.delete()
@@ -111,11 +109,11 @@ class ButtonsView(discord.ui.View):
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
-        self.add_item(item=ButtonsUI(emoji="🏠", label="Home", style=discord.ButtonStyle.green, custom_id="Home", view=self))
+        self.add_item(item=ButtonsUI(emoji="🏠", label="Home Page", style=discord.ButtonStyle.green, custom_id="Home Page", view=self))
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             if not name.startswith("On") and name != "Jishaku":
-                self.add_item(item=ButtonsUI(emoji=self.help.emojis.get(name), label=F"{name}", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
+                self.add_item(item=ButtonsUI(emoji=self.help.emojis.get(name), label=F"{name} Category [{len(commands)}]", style=discord.ButtonStyle.blurple, custom_id=name, view=self))
         self.add_item(item=ButtonsUI(emoji="💣",label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))
         self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
