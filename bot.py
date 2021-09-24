@@ -42,45 +42,6 @@ bot = Bot(
 bot.prefix = ".m"
 bot.colour = 0x2F3136
 
-# Info
-@bot.user_command(name="Info")
-async def info(ctx:commands.Context, user):
-    member = user or ctx.author
-    image = await bot.fetch_user(member.id)
-    iombed = discord.Embed(
-        colour=bot.colour,
-        title=F"{member} Information",
-        description="`Global-Information` is for the user in discord\n`Guild-Information` for the user in this guild",
-        timestamp=ctx.message.created_at
-    )
-    iombed.add_field(name="Global-Information:", value=F"""
-    ***Username:*** {member.name}
-    ***Discriminator:*** {member.discriminator}
-    ***ID:*** {member.id}
-    ***Mention:*** {member.mention}
-    ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
-    ***Activity:*** {'*Nothing*' if not member.activity else member.activity}
-    ***Status:*** {member.status}
-    ***Web-Status:*** {member.web_status}
-    ***Desktop-Status:*** {member.desktop_status}
-    ***Mobile-Status:*** {member.mobile_status}
-    ***Registered:*** {discord.utils.format_dt(member.created_at, style="f")} ({discord.utils.format_dt(member.created_at, style="R")})""", inline=False)
-    iombed.add_field(name="Guild-Information:", value=F"""
-    ***Joined:*** {discord.utils.format_dt(member.joined_at, style="f")} ({discord.utils.format_dt(member.joined_at, style="R")})
-    ***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
-    ***Top-Role:*** {member.top_role.mention}
-    ***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
-    ***Nickname:*** {member.nick}
-    ***Voice:*** {member.voice}
-    ***Guild-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}""", inline=False)
-    iombed.set_thumbnail(url=member.avatar.url)
-    if image.banner and image.banner.url:
-        iombed.set_image(url=image.banner.url)
-    else:
-        iombed.description += "\n**Banner:** Member doesn't have banner"
-    iombed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-    await ctx.send(content="Here is the information:", embed=iombed)
-
 for folder in sorted(os.listdir("./config/")):
     if folder in ("commands", "events"):
         for cog in sorted(os.listdir(F"./config/{folder}/")):

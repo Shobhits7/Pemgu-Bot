@@ -1,3 +1,3 @@
 asyncpg
 jishaku
-git+https://github.com/Pycord-Development/pycord
+git+https://github.com/Gnome-py/enhanced-discord.py/@2.0
