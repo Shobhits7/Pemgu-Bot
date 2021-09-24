@@ -1,4 +1,4 @@
-import discord, aiohttp, asyncpg, motor.motor_asyncio, os
+import discord, aiohttp, asyncpg, os
 from discord.ext import commands
 from config.utils import help, options
 
@@ -45,7 +45,9 @@ bot.colour = 0x2F3136
 
 @bot.user_command(name="Avatar")
 async def avatar(ctx:commands.Context, user:discord.Member):
-    await ctx.respond(user.avatar.url)
+    avatarMbed = discord.Embed(title=F"{user} 's Avatar")
+    avatarMbed.set_image(url=user.avatar.url)
+    await ctx.respond(content="Here is the avatar", embed=avatarMbed)
 
 for folder in sorted(os.listdir("./config/")):
     if folder in ("commands", "events"):
