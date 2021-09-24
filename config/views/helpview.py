@@ -12,7 +12,7 @@ class SelectUI(discord.ui.Select):
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category..."
             if not name.startswith("On") and name != "Jishaku":
-                option = discord.SelectOption(label=F"{name} Category", description=description, value=name, emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓')
+                option = discord.SelectOption(emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓', label=F"{name} Category [{len(commands)}]", description=description, value=name)
                 options.append(option)
         super().__init__(placeholder="Where do you want to go...", min_values=1, max_values=1, options=options)
     async def callback(self, interaction: discord.Interaction):
@@ -23,7 +23,7 @@ class SelectUI(discord.ui.Select):
             if self.values[0] == name:
                 mbed = discord.Embed(
                     colour=self.help.context.bot.colour,
-                    title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
+                    title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
                     description=F"{description}\n\n",
                     timestamp=self.help.context.message.created_at
                 )
@@ -88,7 +88,7 @@ class ButtonsUI(discord.ui.Button):
             if self.custom_id == name:
                 mbed = discord.Embed(
                     colour=self.help.context.bot.colour,
-                    title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
+                    title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category [{len(commands)}]",
                     description=F"{description}\n\n",
                     timestamp=self.help.context.message.created_at
                 )
