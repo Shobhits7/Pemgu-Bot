@@ -48,7 +48,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         await ctx.send(embed=brmbed)
 
     # UserInfo
-    @commands.command(name="userinfo", aliases=["ui"], help="Will show User info", usage="[user]")
+    @commands.command(name="userinfo", aliases=["ui"], help="Will show user info", usage="[user]")
     @commands.guild_only()
     async def userinfo(self, ctx:commands.Context, *, member:commands.MemberConverter = None):
         member = member or ctx.author
@@ -56,7 +56,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         uimbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{member} Information",
-            description="`Global-Information` is for the member in discord\n`Guild-Information` for the member in this guild",
+            description="`Global-Information` is for the user in discord\n`Guild-Information` for the user in this guild",
             timestamp=ctx.message.created_at
         )
         uimbed.add_field(name="__Global-Information:__", value=F"""
