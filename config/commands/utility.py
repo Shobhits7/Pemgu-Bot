@@ -160,12 +160,10 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         start = time.perf_counter()
         unpimsg = await ctx.send(embed=unpimbed)
         end = time.perf_counter()
-        dpb = time.time()
-        await self.bot.postgresql.fetch("SELECT 1")
         dopimbed = discord.Embed(
             colour=self.bot.colour,
             title="🏓 Pong:",
-            description=F"Websocket: {self.bot.latency * 1000}ms\nTyping: {(end - start) * 1000}ms\nDatabase: {(time.time() - dpb) * 1000}ms",
+            description=F"Websocket: {self.bot.latency * 1000}ms\nTyping: {(end - start) * 1000}ms",
             timestamp=ctx.message.created_at
         )
         dopimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
