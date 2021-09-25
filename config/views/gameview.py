@@ -30,7 +30,7 @@ class CounterView(discord.ui.View):
 
 class RPSButtons(discord.ui.Button):
     def __init__(self, view, **kwargs):
-        super.__init__(**kwargs)
+        super().__init__(**kwargs)
         self.bot = view.bot
         self.botoption = view.botoption
         self.useroption = view.useroption
@@ -65,7 +65,7 @@ class RPSButtons(discord.ui.Button):
 
 class RPSView(discord.ui.View):
     def __init__(self, bot, ctx):
-        super.__init__(timeout=5)
+        super().__init__(timeout=5)
         self.bot = bot
         self.ctx = ctx
         self.botoption = random.choice(["Rock", "Paper", "Scissors"])
