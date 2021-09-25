@@ -37,7 +37,7 @@ bot = Bot(
     allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False)
 )
 
-bot.prefix = ";m"
+bot.prefix = ",m"
 bot.colour = 0x2F3136
 
 for folder in sorted(os.listdir("./config/")):
