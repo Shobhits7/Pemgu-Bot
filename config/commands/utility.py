@@ -67,7 +67,9 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in user.public_flags if enabled])}
         ***Activity:*** {'*Nothing*' if not user.activity else user.activity.name}
         ***Status:*** {user.status}
-        ***Web-Status:*** {user.web_status.title()}
+        ***Web-Status:*** {user.web_status}
+        ***Desktop-Status:*** {user.desktop_status}
+        ***Mobile-Status:*** {user.mobile_status}
         ***Registered:*** {discord.utils.format_dt(user.created_at, style="F")} ({discord.utils.format_dt(user.created_at, style="R")})""", inline=False)
         iombed.add_field(name="__Guild-Information:__", value=F"""
         ***Joined:*** {discord.utils.format_dt(user.joined_at, style="F")} ({discord.utils.format_dt(user.joined_at, style="R")})
@@ -183,7 +185,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         await ctx.send(embed=iembed)
 
     # Source
-    @commands.command(name="source", aliases=["src"], help="Will show the bots source", usage="[module]")
+    @commands.command(name="source", aliases=["src"], help="Will show the bots source", usage="[command]")
     async def source(self, ctx:commands.Context, *, command: str = None):
         source_url = "https://github.com/lvlahraam/Mei-Bot"
         branch = "main"
