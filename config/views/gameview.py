@@ -68,20 +68,24 @@ class RPSButtons(discord.ui.Button):
         if self.useroption == self.botoption:
             self.view.clear_items()
             await interaction.response.edit_message(embed=tierpsmbed, view=self.view)
-        else:
+        elif self.useroption == "Rock" and self.botoption == "Scissors":
             self.view.clear_items()
-            if self.useroption == "Rock" and self.botoption == "Scissors":
-                await interaction.response.edit_message(embed=wonrpsmbed)
-            elif self.useroption == "Paper" and self.botoption == "Rock":
-                await interaction.response.edit_message(embed=wonrpsmbed)
-            elif self.useroption == "Scissors" and self.botoption == "Paper":
-                await interaction.response.edit_message(embed=wonrpsmbed)
-            elif self.useroption == "Scissors" and self.botoption == "Rock":
-                await interaction.response.edit_message(embed=lostrpsmbed)
-            elif self.useroption == "Rock" and self.botoption == "Paper":
-                await interaction.response.edit_message(embed=lostrpsmbed)
-            elif self.useroption == "Paper" and self.botoption == "Scissors":
-                await interaction.response.edit_message(embed=lostrpsmbed)
+            await interaction.response.edit_message(embed=wonrpsmbed)
+        elif self.useroption == "Paper" and self.botoption == "Rock":
+            self.view.clear_items()
+            await interaction.response.edit_message(embed=wonrpsmbed)
+        elif self.useroption == "Scissors" and self.botoption == "Paper":
+            self.view.clear_items()
+            await interaction.response.edit_message(embed=wonrpsmbed)
+        elif self.useroption == "Scissors" and self.botoption == "Rock":
+            self.view.clear_items()
+            await interaction.response.edit_message(embed=lostrpsmbed)
+        elif self.useroption == "Rock" and self.botoption == "Paper":
+            self.view.clear_items()
+            await interaction.response.edit_message(embed=lostrpsmbed)
+        elif self.useroption == "Paper" and self.botoption == "Scissors":
+            self.view.clear_items()
+            await interaction.response.edit_message(embed=lostrpsmbed)
 
 class RPSView(discord.ui.View):
     def __init__(self, bot, ctx):
