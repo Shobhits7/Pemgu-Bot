@@ -76,7 +76,7 @@ class ButtonsUI(discord.ui.Button):
 
     async def callback(self, interaction:discord.Interaction):
         def gts(command):
-            return F"• **{command.qualified_name}** {command.signature}"
+            return F"• **{command.qualified_name} {command.aliases}** {command.signature}"
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
