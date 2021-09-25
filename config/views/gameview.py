@@ -36,6 +36,27 @@ class RPSButtons(discord.ui.Button):
         self.useroption = view.useroption
 
     async def callback(self, interaction: discord.Interaction):
+        tierpsmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Bruh! We are tied",
+            description=F"We chose the same\nYou: {self.useroption}\nMe: {self.botoption}",
+            timestamp=interaction.message.created_at
+        )
+        tierpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
+        wonrpsmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Congrats! You won.",
+            description=F"You chose {self.useroption}\nBut,\nI chose {self.botoption}",
+            timestamp=interaction.message.created_at
+        )
+        wonrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
+        lostrpsmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Damn! I won.",
+            description=F"I chose {self.botoption}\nBut,\nYou chose {self.useroption}",
+            timestamp=interaction.message.created_at
+        )
+        lostrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
         if self.label == "Rock":
             self.useroption = "Rock"
         elif self.label == "Paper":
@@ -43,25 +64,23 @@ class RPSButtons(discord.ui.Button):
         elif self.label == "Scissors":
             self.useroption = "Scissors"
         if self.useroption == self.botoption:
-            wonrpsmbed = discord.Embed(
-                colour=self.bot.colour,
-                title="Congrats! You won.",
-                description=F"You chose {self.useroption}\nBut,\nI chose {self.botoption}",
-                timestamp=interaction.message.created_at
-            )
-            wonrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
             self.view.clear_items()
-            await interaction.response.edit_message(embed=wonrpsmbed, view=self.view)
+            await interaction.response.edit_message(embed=tierpsmbed, view=self.view)
         else:
-            lostrpsmbed = discord.Embed(
-                colour=self.bot.colour,
-                title="Damn! I won.",
-                description=F"I chose {self.botoption}\nBut,\nYou chose {self.useroption}",
-                timestamp=interaction.message.created_at
-            )
-            lostrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
-            self.view.clear_items()
-            await interaction.response.edit_message(embed=lostrpsmbed, view=self.view)
+            self.clear_items()
+            if self.useroption == "Rock" and self.botoption == "Scissors":
+                await interaction.response.edit_message(embed=wonrpsmbed)
+            if self.useroption == "Paper" and self.botoption == "Rock":
+                await interaction.response.edit_message(embed=wonrpsmbed)
+            if self.useroption == "Scissors" and self.botoption == "Paper":
+                await interaction.response.edit_message(embed=wonrpsmbed)
+
+            if self.useroption == "Scissors" and self.botoption == "Rock":
+                await interaction.response.edit_message(embed=lostrpsmbed)
+            if self.useroption == "Rock" and self.botoption == "Paper":
+                await interaction.response.edit_message(embed=lostrpsmbed)
+            if self.useroption == "Paper" and self.botoption == "Scissors":
+                await interaction.response.edit_message(embed=lostrpsmbed)
 
 class RPSView(discord.ui.View):
     def __init__(self, bot, ctx):
