@@ -93,6 +93,7 @@ class ButtonsUI(discord.ui.Button):
                     # mbed.description += F"• **{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+                mbed.set_footer(text="<> is required | [] is optional")
                 await interaction.response.edit_message(embed=mbed)
         if self.custom_id == "Home":
             await interaction.response.edit_message(embed=self.homepage)
