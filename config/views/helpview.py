@@ -105,7 +105,7 @@ class ButtonsView(discord.ui.View):
         self.add_item(item=ButtonsUI(emoji="🏠", label="Home", style=discord.ButtonStyle.green, custom_id="Home", view=self))
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
-            if not name.startswith("On") and name != "Jishaku":
+            if not name.startswith("On"):
                 self.add_item(item=ButtonsUI(emoji=self.help.emojis.get(name), label=name, style=discord.ButtonStyle.blurple, custom_id=name, view=self))
         self.add_item(item=ButtonsUI(emoji="💣", label="Delete", style=discord.ButtonStyle.green, custom_id="Delete", view=self))
         self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
