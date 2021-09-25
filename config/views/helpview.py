@@ -76,7 +76,7 @@ class ButtonsUI(discord.ui.Button):
 
     async def callback(self, interaction:discord.Interaction):
         def gts(command):
-            return F"• **{command.qualified_name}** {command.signature}"
+            return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}"
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
@@ -89,7 +89,7 @@ class ButtonsUI(discord.ui.Button):
                     timestamp=self.help.context.message.created_at
                 )
                 for command in cmds:
-                    mbed.description += F"{gts(command)} - {command.help or 'No help found...'}\n"
+                    mbed.description += gts(command)
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 mbed.set_footer(text="<> is required | [] is optional")
