@@ -88,9 +88,8 @@ class ButtonsUI(discord.ui.Button):
                     description=F"{description}\n\n",
                     timestamp=self.help.context.message.created_at
                 )
-                mbed.description += '\n'.join([gts(command) for command in cmds])
-                # for command in cmds:
-                    # mbed.description += F"• **{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
+                for command in cmds:
+                    mbed.description += F"{gts(command)} - {command.help or 'No help found...'}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 mbed.set_footer(text="<> is required | [] is optional")
@@ -111,7 +110,7 @@ class ButtonsView(discord.ui.View):
             name = cog.qualified_name if cog else "No"
             if not name.startswith("On"):
                 self.add_item(item=ButtonsUI(emoji=self.help.emojis.get(name), label=name, style=discord.ButtonStyle.blurple, custom_id=name, view=self))
-        self.add_item(item=ButtonsUI(emoji="💣", label="Delete", style=discord.ButtonStyle.green, custom_id="Delete", view=self))
+        self.add_item(item=ButtonsUI(emoji="💣", label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))
         self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Guild", url="https://discord.gg/bWnjkjyFRz"))
 
