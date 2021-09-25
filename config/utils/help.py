@@ -27,6 +27,7 @@ class CustomHelp(commands.HelpCommand):
             "Owner": "👑",
             "Setup": "🔧",
             "Utility": "🧰",
+            "Jishaku": "👀",
             "No": "❓"
         }
         super().__init__(

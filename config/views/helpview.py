@@ -75,6 +75,8 @@ class ButtonsUI(discord.ui.Button):
         self.homepage = view.homepage
 
     async def callback(self, interaction:discord.Interaction):
+        def gts(cmd):
+            return F"{cmd.name} - {cmd.signature}"
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
@@ -83,7 +85,7 @@ class ButtonsUI(discord.ui.Button):
                 mbed = discord.Embed(
                     colour=self.help.context.bot.colour,
                     title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
-                    description=F"{description}\n\n{', '.join([command.name for command in cmds])}\n",
+                    description=F"{description}\n\n{', \n'.join([gts(command) for command in cmds])}",
                     timestamp=self.help.context.message.created_at
                 )
                 for command in cmds:
