@@ -92,7 +92,7 @@ class RPSView(discord.ui.View):
         self.useroption = ""
         self.add_item(item=RPSButtons(emoji="🗻", label="Rock", style=discord.ButtonStyle.blurple, view=self))
         self.add_item(item=RPSButtons(emoji="🧻", label="Paper", style=discord.ButtonStyle.green, view=self))
-        self.add_item(item=RPSButtons(emoji="🧪", label="Scissors", style=discord.ButtonStyle.red, view=self))
+        self.add_item(item=RPSButtons(emoji="🔪", label="Scissors", style=discord.ButtonStyle.red, view=self))
 
     async def on_timeout(self):
         if self.children:
