@@ -37,10 +37,13 @@ class RPSButtons(discord.ui.Button):
 
     async def callback(self, interaction: discord.Interaction):
         if self.label == "Rock":
+            self.view.clear_items()
             self.useroption = "Rock"
         elif self.label == "Paper":
+            self.view.clear_items()
             self.useroption = "Paper"
         elif self.label == "Scissors":
+            self.view.clear_items()
             self.useroption = "Scissors"
 
         tierpsmbed = discord.Embed(
