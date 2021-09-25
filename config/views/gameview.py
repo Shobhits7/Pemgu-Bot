@@ -70,9 +70,9 @@ class RPSView(discord.ui.View):
         self.ctx = ctx
         self.botoption = random.choice(["Rock", "Paper", "Scissors"])
         self.useroption = ""
-        self.add_item(item=RPSButtons(emoji="🗻", label="Rock", style=discord.ButtonStyle.blurple))
-        self.add_item(item=RPSButtons(emoji="🧻", label="Paper", style=discord.ButtonStyle.green))
-        self.add_item(item=RPSButtons(emoji="🧪", label="Scissors", style=discord.ButtonStyle.red))
+        self.add_item(item=RPSButtons(emoji="🗻", label="Rock", style=discord.ButtonStyle.blurple, view=self))
+        self.add_item(item=RPSButtons(emoji="🧻", label="Paper", style=discord.ButtonStyle.green, view=self))
+        self.add_item(item=RPSButtons(emoji="🧪", label="Scissors", style=discord.ButtonStyle.red, view=self))
 
     async def on_timeout(self):
         if self.children:
