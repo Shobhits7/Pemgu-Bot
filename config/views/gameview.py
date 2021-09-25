@@ -71,17 +71,23 @@ class RPSButtons(discord.ui.Button):
         else:
             self.view.clear_items()
             if self.useroption == "Rock" and self.botoption == "Scissors":
+                self.view.clear_items()
                 await interaction.response.edit_message(embed=wonrpsmbed)
             if self.useroption == "Paper" and self.botoption == "Rock":
+                self.view.clear_items()
                 await interaction.response.edit_message(embed=wonrpsmbed)
             if self.useroption == "Scissors" and self.botoption == "Paper":
+                self.view.clear_items()
                 await interaction.response.edit_message(embed=wonrpsmbed)
 
             if self.useroption == "Scissors" and self.botoption == "Rock":
+                self.view.clear_items()
                 await interaction.response.edit_message(embed=lostrpsmbed)
             if self.useroption == "Rock" and self.botoption == "Paper":
+                self.view.clear_items()
                 await interaction.response.edit_message(embed=lostrpsmbed)
             if self.useroption == "Paper" and self.botoption == "Scissors":
+                self.view.clear_items()
                 await interaction.response.edit_message(embed=lostrpsmbed)
 
 class RPSView(discord.ui.View):
