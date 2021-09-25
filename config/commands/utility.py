@@ -50,42 +50,42 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     # UserInfo
     @commands.command(name="userinfo", aliases=["ui"], help="Will show User info", usage="[user]")
     @commands.guild_only()
-    async def userinfo(self, ctx:commands.Context, *, user:commands.UserConverter = None):
-        user = user or ctx.author
-        image = await self.bot.fetch_user(user.id)
-        iombed = discord.Embed(
+    async def userinfo(self, ctx:commands.Context, *, member:commands.MemberConverter = None):
+        member = member or ctx.author
+        image = await self.bot.fetch_user(member.id)
+        uimbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{user} Information",
-            description="`Global-Information` is for the user in discord\n`Guild-Information` for the user in this guild",
+            title=F"{member} Information",
+            description="`Global-Information` is for the member in discord\n`Guild-Information` for the member in this guild",
             timestamp=ctx.message.created_at
         )
-        iombed.add_field(name="__Global-Information:__", value=F"""
-        ***Username:*** {user.name}
-        ***Discriminator:*** {user.discriminator}
-        ***ID:*** {user.id}
-        ***Mention:*** {user.mention}
-        ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in user.public_flags if enabled])}
-        ***Activity:*** {'*Nothing*' if not user.activity else user.activity.name}
-        ***Status:*** {user.status}
-        ***Web-Status:*** {user.web_status}
-        ***Desktop-Status:*** {user.desktop_status}
-        ***Mobile-Status:*** {user.mobile_status}
-        ***Registered:*** {discord.utils.format_dt(user.created_at, style="F")} ({discord.utils.format_dt(user.created_at, style="R")})""", inline=False)
-        iombed.add_field(name="__Guild-Information:__", value=F"""
-        ***Joined:*** {discord.utils.format_dt(user.joined_at, style="F")} ({discord.utils.format_dt(user.joined_at, style="R")})
-        ***Roles [{len(user.roles)}]:*** {', '.join(role.mention for role in user.roles)}
-        ***Top-Role:*** {user.top_role.mention}
-        ***Boosting:*** {'True' if user in ctx.guild.premium_subscribers else 'False'}
-        ***Nickname:*** {user.nick}
-        ***Voice:*** {user.voice}
-        ***Guild-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in user.guild_permissions if enabled])}""", inline=False)
-        iombed.set_thumbnail(url=user.avatar.url)
+        uimbed.add_field(name="__Global-Information:__", value=F"""
+        ***Username:*** {member.name}
+        ***Discriminator:*** {member.discriminator}
+        ***ID:*** {member.id}
+        ***Mention:*** {member.mention}
+        ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
+        ***Activity:*** {'*Nothing*' if not member.activity else member.activity.name}
+        ***Status:*** {member.status}
+        ***Web-Status:*** {member.web_status}
+        ***Desktop-Status:*** {member.desktop_status}
+        ***Mobile-Status:*** {member.mobile_status}
+        ***Registered:*** {discord.utils.format_dt(member.created_at, style="F")} ({discord.utils.format_dt(member.created_at, style="R")})""", inline=False)
+        uimbed.add_field(name="__Guild-Information:__", value=F"""
+        ***Joined:*** {discord.utils.format_dt(member.joined_at, style="F")} ({discord.utils.format_dt(member.joined_at, style="R")})
+        ***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
+        ***Top-Role:*** {member.top_role.mention}
+        ***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
+        ***Nickname:*** {member.nick}
+        ***Voice:*** {member.voice}
+        ***Guild-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}""", inline=False)
+        uimbed.set_thumbnail(url=member.avatar.url)
         if image.banner and image.banner.url:
-            iombed.set_image(url=image.banner.url)
+            uimbed.set_image(url=image.banner.url)
         else:
-            iombed.description += "\n**Banner:** User doesn't have banner"
-        iombed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=iombed)
+            uimbed.description += "\n**Banner:** member doesn't have banner"
+        uimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=uimbed)
 
     # GuildInfo
     @commands.command(name="guildinfo", aliases=["gi"], help="Will show the guild's info")
