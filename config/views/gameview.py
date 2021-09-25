@@ -36,6 +36,13 @@ class RPSButtons(discord.ui.Button):
         self.useroption = view.useroption
 
     async def callback(self, interaction: discord.Interaction):
+        if self.label == "Rock":
+            self.useroption = "Rock"
+        elif self.label == "Paper":
+            self.useroption = "Paper"
+        elif self.label == "Scissors":
+            self.useroption = "Scissors"
+
         tierpsmbed = discord.Embed(
             colour=self.bot.colour,
             title="Bruh! We are tied",
@@ -57,17 +64,12 @@ class RPSButtons(discord.ui.Button):
             timestamp=interaction.message.created_at
         )
         lostrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
-        if self.label == "Rock":
-            self.useroption = "Rock"
-        elif self.label == "Paper":
-            self.useroption = "Paper"
-        elif self.label == "Scissors":
-            self.useroption = "Scissors"
+
         if self.useroption == self.botoption:
             self.view.clear_items()
             await interaction.response.edit_message(embed=tierpsmbed, view=self.view)
         else:
-            self.clear_items()
+            self.view.clear_items()
             if self.useroption == "Rock" and self.botoption == "Scissors":
                 await interaction.response.edit_message(embed=wonrpsmbed)
             if self.useroption == "Paper" and self.botoption == "Rock":
