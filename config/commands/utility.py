@@ -60,25 +60,25 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             timestamp=ctx.message.created_at
         )
         uimbed.add_field(name="__Global-Information:__", value=F"""
-        ***Username:*** {member.name}
-        ***Discriminator:*** {member.discriminator}
-        ***ID:*** {member.id}
-        ***Mention:*** {member.mention}
-        ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
-        ***Activity:*** {'*Nothing*' if not member.activity else member.activity.name}
-        ***Status:*** {member.status}
-        ***Web-Status:*** {member.web_status}
-        ***Desktop-Status:*** {member.desktop_status}
-        ***Mobile-Status:*** {member.mobile_status}
-        ***Registered:*** {discord.utils.format_dt(member.created_at, style="F")} ({discord.utils.format_dt(member.created_at, style="R")})""", inline=False)
+        ╰***Username:*** {member.name}
+        ╰***Discriminator:*** {member.discriminator}
+        ╰***ID:*** {member.id}
+        ╰***Mention:*** {member.mention}
+        ╰***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
+        ╰***Activity:*** {'*Nothing*' if not member.activity else member.activity.name}
+        ╰***Status:*** {member.status}
+        ╰***Web-Status:*** {member.web_status}
+        ╰***Desktop-Status:*** {member.desktop_status}
+        ╰***Mobile-Status:*** {member.mobile_status}
+        ╰***Registered:*** {discord.utils.format_dt(member.created_at, style="F")} ({discord.utils.format_dt(member.created_at, style="R")})""", inline=False)
         uimbed.add_field(name="__Guild-Information:__", value=F"""
-        ***Joined:*** {discord.utils.format_dt(member.joined_at, style="F")} ({discord.utils.format_dt(member.joined_at, style="R")})
-        ***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
-        ***Top-Role:*** {member.top_role.mention}
-        ***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
-        ***Nickname:*** {member.nick}
-        ***Voice:*** {member.voice}
-        ***Guild-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}""", inline=False)
+        ╰***Joined:*** {discord.utils.format_dt(member.joined_at, style="F")} ({discord.utils.format_dt(member.joined_at, style="R")})
+        ╰***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
+        ╰***Top-Role:*** {member.top_role.mention}
+        ╰***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
+        ╰***Nickname:*** {member.nick}
+        ╰***Voice:*** {member.voice}
+        ╰***Guild-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}""", inline=False)
         uimbed.set_thumbnail(url=member.avatar.url)
         if image.banner and image.banner.url:
             uimbed.set_image(url=image.banner.url)
