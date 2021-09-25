@@ -59,7 +59,8 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             description="`Global-Information` is for the user in discord\n`Guild-Information` for the user in this guild",
             timestamp=ctx.message.created_at
         )
-        uimbed.add_field(name="__Global-Information:__", value=F"""╰***Username:*** {member.name}
+        uimbed.add_field(name="__Global-Information:__", value=F"""
+        ╰***Username:*** {member.name}
         ╰***Discriminator:*** {member.discriminator}
         ╰***ID:*** {member.id}
         ╰***Mention:*** {member.mention}
@@ -70,7 +71,8 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ╰***Desktop-Status:*** {member.desktop_status}
         ╰***Mobile-Status:*** {member.mobile_status}
         ╰***Registered:*** {discord.utils.format_dt(member.created_at, style="F")} ({discord.utils.format_dt(member.created_at, style="R")})""", inline=False)
-        uimbed.add_field(name="__Guild-Information:__", value=F"""╰***Joined:*** {discord.utils.format_dt(member.joined_at, style="F")} ({discord.utils.format_dt(member.joined_at, style="R")})
+        uimbed.add_field(name="__Guild-Information:__", value=F"""
+        ╰***Joined:*** {discord.utils.format_dt(member.joined_at, style="F")} ({discord.utils.format_dt(member.joined_at, style="R")})
         ╰***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
         ╰***Top-Role:*** {member.top_role.mention}
         ╰***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
@@ -78,10 +80,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ╰***Voice:*** {member.voice}
         ╰***Guild-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}""", inline=False)
         uimbed.set_thumbnail(url=member.avatar.url)
-        if image.banner and image.banner.url:
-            uimbed.set_image(url=image.banner.url)
-        else:
-            uimbed.description += "\n**Banner:** member doesn't have banner"
+        uimbed.set_image(url=image.banner.url) if image.banner else uimbed.description += "\n**Banner:** User doesn't have a banner"
         uimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=uimbed)
 
@@ -93,6 +92,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         gimbed = discord.Embed(
             colour=self.bot.colour,
             title="Stats for this Guild",
+            description="`Owner-Information` is for the user that owns this server\n`Guild-Information` is for the actual server",
             timestamp=ctx.message.created_at
         )
         gimbed.add_field(name="Members", value=F"{len(ctx.guild.members)}")
@@ -107,6 +107,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             gimbed.set_image(url=ctx.guild.banner.url)
         else:
             gimbed.add_field(name="Banner:", value=F"False")
+        gimbed.set_image(url=guildctx.banner.url) if guildctx.banner else gimbed.description += "\n**Banner:** Guild doesn't have a banner"
         gimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=gimbed)
 

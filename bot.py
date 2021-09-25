@@ -21,7 +21,7 @@ bot = Bot(
     case_insensitive=True,
     help_command=help.CustomHelp(),
     intents=discord.Intents.all(),
-    allowed_mentions=discord.AllowedMentions(users=False, everyone=False, roles=False, replied_user=False)
+    allowed_mentions=discord.AllowedMentions.none()
 )
 
 bot.prefix = prefix
