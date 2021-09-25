@@ -85,11 +85,12 @@ class ButtonsUI(discord.ui.Button):
                 mbed = discord.Embed(
                     colour=self.help.context.bot.colour,
                     title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
-                    description=F"{description}\n\n{', \n'.join([gts(command) for command in cmds])}",
+                    description=F"{description}\n\n",
                     timestamp=self.help.context.message.created_at
                 )
                 for command in cmds:
-                    mbed.description += F"• **{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
+                    mbed.description += F"{gts(command)},\n"
+                    # mbed.description += F"• **{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 await interaction.response.edit_message(embed=mbed)
