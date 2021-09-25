@@ -59,8 +59,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             description="`Global-Information` is for the user in discord\n`Guild-Information` for the user in this guild",
             timestamp=ctx.message.created_at
         )
-        uimbed.add_field(name="__Global-Information:__", value=F"""
-        ╰***Username:*** {member.name}
+        uimbed.add_field(name="__Global-Information:__", value=F"""╰***Username:*** {member.name}
         ╰***Discriminator:*** {member.discriminator}
         ╰***ID:*** {member.id}
         ╰***Mention:*** {member.mention}
@@ -71,8 +70,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ╰***Desktop-Status:*** {member.desktop_status}
         ╰***Mobile-Status:*** {member.mobile_status}
         ╰***Registered:*** {discord.utils.format_dt(member.created_at, style="F")} ({discord.utils.format_dt(member.created_at, style="R")})""", inline=False)
-        uimbed.add_field(name="__Guild-Information:__", value=F"""
-        ╰***Joined:*** {discord.utils.format_dt(member.joined_at, style="F")} ({discord.utils.format_dt(member.joined_at, style="R")})
+        uimbed.add_field(name="__Guild-Information:__", value=F"""╰***Joined:*** {discord.utils.format_dt(member.joined_at, style="F")} ({discord.utils.format_dt(member.joined_at, style="R")})
         ╰***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
         ╰***Top-Role:*** {member.top_role.mention}
         ╰***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
