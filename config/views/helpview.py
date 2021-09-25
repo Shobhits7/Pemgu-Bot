@@ -89,7 +89,7 @@ class ButtonsUI(discord.ui.Button):
                     timestamp=self.help.context.message.created_at
                 )
                 for command in cmds:
-                    mbed.description += gts(command)
+                    mbed.description += F"{gts(command)}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
                 mbed.set_footer(text="<> is required | [] is optional")
