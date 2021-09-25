@@ -47,7 +47,7 @@ class RPSButtons(discord.ui.Button):
                 colour=self.bot.colour,
                 title="Congrats! You won.",
                 description=F"You chose {self.useroption}\nBut,\nI chose {self.botoption}",
-                timestmap=interaction.message.created_at
+                timestamp=interaction.message.created_at
             )
             wonrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
             self.view.clear_items()
@@ -57,7 +57,7 @@ class RPSButtons(discord.ui.Button):
                 colour=self.bot.colour,
                 title="Damn! I won.",
                 description=F"I chose {self.botoption}\nBut,\nYou chose {self.useroption}",
-                timestmap=interaction.message.created_at
+                timestamp=interaction.message.created_at
             )
             lostrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
             self.view.clear_items()
