@@ -105,8 +105,8 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in ctx.guild.owner.public_flags if enabled])}
         ***Registered:*** {discord.utils.format_dt(ctx.guild.owner.created_at, style="F")} ({discord.utils.format_dt(ctx.guild.owner.created_at, style="R")})""", inline=False)
         simbed.add_field(name="__Server-Information:__", value=F"""
-        ***ID:*** {ctx.guild.id}
         ***Name:*** {ctx.guild.name}
+        ***ID:*** {ctx.guild.id}
         ***Created-At:*** {discord.utils.format_dt(ctx.guild.created_at, style="F")} ({discord.utils.format_dt(ctx.guild.created_at, style="R")})
         ***Region:*** {ctx.guild.region}
         ***MFA:*** {ctx.guild.mfa_level}
