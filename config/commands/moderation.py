@@ -132,7 +132,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     async def mute(self, ctx:commands.Context, member:discord.Member, *, reason=None):
         domtmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"Successfully Muted {member.mention}",
+            title=F"Successfully Muted",
             description=F"Muted: {member.mention}\nReason: {reason}",
             timestamp=ctx.message.created_at
         )
@@ -144,26 +144,32 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         unmtmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        mutename = "Muted"
         for role in ctx.guild.roles:
             if role.name == "Muted":
-                mute_role = role
+                muterole = role
                 break
         else:
-            mute_role = await ctx.guild.create_role(
+            muterole = await ctx.guild.create_role(
                 colour=discord.Colour.red(),
                 name="Muted",
                 mentionable=True,
                 reason="There was no Muted role, so I created one."
             )
+            crmtmbed = discord.Embed(
+                colour=self.bot.colour,
+                title=F"There was no Muted role, so I created one",
+                timestamp=ctx.message.created_at
+            )
+            crmtmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+            await ctx.send(content=muterole.mention, embed=crmtmbed)
         for channel in ctx.guild.channels:
             if not channel.permissions_synced:
-                await channel.set_permissions(mute_role, add_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False)
-        if mute_role in member.roles:
-            await member.remove_roles(mute_role, reason=F"UnMuted by {ctx.author}, Because: {reason}")
+                await channel.set_permissions(muterole, add_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False)
+        if muterole in member.roles:
+            await member.remove_roles(muterole, reason=F"UnMuted by {ctx.author}, Because: {reason}")
             await ctx.send(embed=unmtmbed)
         else:
-            await member.add_roles(mute_role, reason=F"Muted by {ctx.author}, Because: {reason}")
+            await member.add_roles(muterole, reason=F"Muted by {ctx.author}, Because: {reason}")
             await ctx.send(embed=domtmbed)
 
     # Purge
