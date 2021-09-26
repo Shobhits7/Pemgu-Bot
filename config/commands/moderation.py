@@ -162,9 +162,9 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             )
             crmtmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(content=muterole.mention, embed=crmtmbed)
-        for channel in ctx.guild.channels:
-            if not channel.permissions_synced:
-                await channel.set_permissions(muterole, add_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False, create_instant_invite=False, create_public_threads=False, create_private_threads=False)
+            for channel in ctx.guild.channels:
+                if not channel.permissions_synced:
+                    await channel.set_permissions(muterole, add_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False, create_instant_invite=False, create_public_threads=False, create_private_threads=False)
         if muterole in member.roles:
             await member.remove_roles(muterole, reason=F"UnMuted by {ctx.author}, Because: {reason}")
             await ctx.send(embed=unmtmbed)

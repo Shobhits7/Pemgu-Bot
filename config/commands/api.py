@@ -11,7 +11,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     # Roast
     @commands.command(name="roast", aliases=["rst"], help="Will roast you or the given user")
     async def roast(self, ctx:commands.Context, user:discord.User = None):
-        user = user or ctx.author
+        user = ctx.author if not user else user
         session = await self.bot.session.get("https://api.dagpi.xyz/data/roast", headers=self.dagpi_headers)
         response = await session.json()
         session.close()
@@ -59,7 +59,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     @commands.command(name="pixel", aliases=["pxl"], help="Will make the given image pixelated", usage="[user]")
     @commands.bot_has_guild_permissions(attach_files=True)
     async def pixel(self, ctx:commands.Context, user:discord.User = None):
-        user = user or ctx.author
+        user = ctx.author if not user else user
         session = await self.bot.session.get(F"https://api.dagpi.xyz/image/pixel/?url={user.avatar.with_static_format('png').with_size(1024)}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
         session.close()
@@ -76,7 +76,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image", usage="[user]")
     @commands.bot_has_guild_permissions(attach_files=True)
     async def colors(self, ctx:commands.Context, user:discord.User = None):
-        user = user or ctx.author
+        user = ctx.author if not user else user
         session = await self.bot.session.get(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.with_static_format('png').with_size(1024)}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
         session.close()
@@ -93,7 +93,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet", usage="<username> <text>")
     @commands.bot_has_guild_permissions(attach_files=True)
     async def tweet(self, ctx:commands.Context, *, text, user:discord.User = None):
-        user = user or ctx.author
+        user = ctx.author if not user else user
         session = await self.bot.session.get(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_static_format('png').with_size(1024)}&username={ctx.author.name}&text={text}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
         session.close()

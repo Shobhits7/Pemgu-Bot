@@ -20,7 +20,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     # Avatar
     @commands.command(name="avatar", aliases=["av"], help="Will show your or another user's avatar", usage="[user]")
     async def avatar(self, ctx:commands.Context, user:discord.User = None):
-        user = user or ctx.author
+        user = ctx.author if not user else user
         avmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{user} Avatar",
@@ -33,7 +33,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     # Banner
     @commands.command(name="banner", aliases=["br"], help="Will show your or another user's banner", usage="[user]")
     async def banner(self, ctx:commands.Context, user:discord.User = None):
-        user = user or ctx.author
+        user = ctx.author if not user else user
         image = await self.bot.fetch_user(user.id)
         brmbed = discord.Embed(
             colour=self.bot.colour,
@@ -51,7 +51,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     @commands.command(name="userinfo", aliases=["ui"], help="Will show user info", usage="[user]")
     @commands.guild_only()
     async def userinfo(self, ctx:commands.Context, *, member:discord.Member = None):
-        member = member or ctx.author
+        member = ctx.author if not member else member
         image = await self.bot.fetch_user(member.id)
         uimbed = discord.Embed(
             colour=self.bot.colour,
@@ -139,7 +139,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     # Spotify
     @commands.command(name="spotify", help="Will show your or the given member's spotify activity if possible", usage="[member]")
     async def spotify(self, ctx:commands.Context, member:discord.Member = None):
-        member = member or ctx.author
+        member = ctx.author if not member else member
         for activity in member.activities:
             if isinstance(activity, discord.Spotify):
                 finspotifymbed = discord.Embed(
