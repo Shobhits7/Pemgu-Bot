@@ -77,8 +77,8 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ╰***Top-Role:*** {member.top_role.mention}
         ╰***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
         ╰***Nickname:*** {member.nick}
-        ╰***Voice:*** {member.voice}
-        ╰***server-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}""", inline=False)
+        ╰***Voice:*** {'*Not in a voice**' if not member.voice else member.voice.mention}
+        ╰***Server-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}""", inline=False)
         uimbed.set_thumbnail(url=member.avatar.url)
         if image.banner:
             uimbed.set_image(url=image.banner.url)
@@ -93,22 +93,20 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         guildctx = ctx.guild
         simbed = discord.Embed(
             colour=self.bot.colour,
-            title="Stats for this Guild",
-            description="`Owner-Information` is for the user that owns this server\n`Guild-Information` is for the actual server",
+            title=F"{guildctx.name} Server's Information",
+            description="`Owner-Information` is for the user that owns this server\n`Server-Information` is for the actual server",
             timestamp=ctx.message.created_at
         )
-        simbed.add_field(name="Members", value=F"{len(ctx.guild.members)}")
-        simbed.add_field(name="Channels", value=F"{len(ctx.guild.channels)}")
-        if ctx.guild.icon and ctx.guild.icon.url:
-            simbed.add_field(name="Icon:", value=F"True")
-            simbed.set_thumbnail(url=ctx.guild.icon.url)
-        else:
-            simbed.add_field(name="Icon:", value=F"False")
-        if ctx.guild.banner and ctx.guild.banner.url:
-            simbed.add_field(name="Banner:", value=F"True")
-            simbed.set_image(url=ctx.guild.banner.url)
-        else:
-            simbed.add_field(name="Banner:", value=F"False")
+        simbed.add_field(name="__Server-Information:__", value=F"""
+        ╰***ID:*** {guildctx.id}
+        ╰***Members:*** {len(guildctx.members)}
+        ╰***Channels:*** {len(guildctx.channels)}
+        ╰***AFK-Channel:*** {guildctx.afk_channel}
+        ╰***AFK-Timeout:*** {guildctx.afk_timeout}
+        ╰***Text-Channels:*** {', '.join(tc.mention for tc in guildctx.text_channels)}""")
+        if guildctx.icon:
+            simbed.set_thumbnail(url=guildctx.icon.url)
+        else: simbed.description += "\n**Banner:** Server doesn't have a banner"
         if guildctx.banner:
             simbed.set_image(url=guildctx.banner.url)
         else: simbed.description += "\n**Banner:** Guild doesn't have a banner"
