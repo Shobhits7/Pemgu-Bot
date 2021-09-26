@@ -100,14 +100,15 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             description="`Owner-Information` is for the user that owns this server\n`Server-Information` is for the actual server",
             timestamp=ctx.message.created_at
         )
-        simbed.description += F"""__**Owner-Information:**__
+        simbed.description += F"""
+        __**Owner-Information:**__
         ***Username:*** {ctx.guild.owner.name}
         ***Discriminator:*** {ctx.guild.owner.discriminator}
         ***ID:*** {ctx.guild.owner.id}
         ***Mention:*** {ctx.guild.owner.mention}
         ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in ctx.guild.owner.public_flags if enabled])}
         ***Registered:*** {discord.utils.format_dt(ctx.guild.owner.created_at, style="F")} ({discord.utils.format_dt(ctx.guild.owner.created_at, style="R")})
-        **__Server-Information:**__
+        __**Server-Information:**__
         ***Name:*** {ctx.guild.name}
         ***ID:*** {ctx.guild.id}
         ***Description:*** {'*No Description*' if not ctx.guild.description else ctx.guild.description}
