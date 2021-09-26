@@ -60,7 +60,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     @commands.bot_has_guild_permissions(attach_files=True)
     async def pixel(self, ctx:commands.Context, user:discord.User = None):
         user = ctx.author if not user else user
-        session = await self.bot.session.get(F"https://api.dagpi.xyz/image/pixel/?url={user.avatar.with_static_format('png').with_size(1024)}", headers=self.dagpi_headers)
+        session = await self.bot.session.get(F"https://api.dagpi.xyz/image/pixel/?url={user.avatar.with_format('png')}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
         session.close()
         pxlmbed = discord.Embed(
