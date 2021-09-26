@@ -56,7 +56,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         uimbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{member} Information",
-            description="`Global-Information` is for the user in discord\n`Guild-Information` for the user in this guild",
+            description="`Global-Information` is for the user in discord\n`Server-Information` for the user in this server",
             timestamp=ctx.message.created_at
         )
         uimbed.add_field(name="__Global-Information:__", value=F"""
@@ -71,45 +71,47 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ╰***Desktop-Status:*** {member.desktop_status}
         ╰***Mobile-Status:*** {member.mobile_status}
         ╰***Registered:*** {discord.utils.format_dt(member.created_at, style="F")} ({discord.utils.format_dt(member.created_at, style="R")})""", inline=False)
-        uimbed.add_field(name="__Guild-Information:__", value=F"""
+        uimbed.add_field(name="__Server-Information:__", value=F"""
         ╰***Joined:*** {discord.utils.format_dt(member.joined_at, style="F")} ({discord.utils.format_dt(member.joined_at, style="R")})
         ╰***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
         ╰***Top-Role:*** {member.top_role.mention}
         ╰***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
         ╰***Nickname:*** {member.nick}
         ╰***Voice:*** {member.voice}
-        ╰***Guild-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}""", inline=False)
+        ╰***server-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}""", inline=False)
         uimbed.set_thumbnail(url=member.avatar.url)
-        uimbed.set_image(url=image.banner.url) if image.banner else uimbed.description += "\n**Banner:** User doesn't have a banner"
+        if image.banner:
+            uimbed.set_image(url=image.banner.url)
+        else: uimbed.description += "\n**Banner:** User doesn't have a banner"
         uimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=uimbed)
 
-    # GuildInfo
-    @commands.command(name="guildinfo", aliases=["gi"], help="Will show the guild's info")
+    # ServerInfo
+    @commands.command(name="serverinfo", aliases=["si"], help="Will show the server's info")
     @commands.guild_only()
-    async def guildinfo(self, ctx:commands.Context):
+    async def serverinfo(self, ctx:commands.Context):
         guildctx = ctx.guild
-        gimbed = discord.Embed(
+        simbed = discord.Embed(
             colour=self.bot.colour,
             title="Stats for this Guild",
             description="`Owner-Information` is for the user that owns this server\n`Guild-Information` is for the actual server",
             timestamp=ctx.message.created_at
         )
-        gimbed.add_field(name="Members", value=F"{len(ctx.guild.members)}")
-        gimbed.add_field(name="Channels", value=F"{len(ctx.guild.channels)}")
+        simbed.add_field(name="Members", value=F"{len(ctx.guild.members)}")
+        simbed.add_field(name="Channels", value=F"{len(ctx.guild.channels)}")
         if ctx.guild.icon and ctx.guild.icon.url:
-            gimbed.add_field(name="Icon:", value=F"True")
-            gimbed.set_thumbnail(url=ctx.guild.icon.url)
+            simbed.add_field(name="Icon:", value=F"True")
+            simbed.set_thumbnail(url=ctx.guild.icon.url)
         else:
-            gimbed.add_field(name="Icon:", value=F"False")
+            simbed.add_field(name="Icon:", value=F"False")
         if ctx.guild.banner and ctx.guild.banner.url:
-            gimbed.add_field(name="Banner:", value=F"True")
-            gimbed.set_image(url=ctx.guild.banner.url)
+            simbed.add_field(name="Banner:", value=F"True")
+            simbed.set_image(url=ctx.guild.banner.url)
         else:
-            gimbed.add_field(name="Banner:", value=F"False")
-        gimbed.set_image(url=guildctx.banner.url) if guildctx.banner else gimbed.description += "\n**Banner:** Guild doesn't have a banner"
-        gimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=gimbed)
+            simbed.add_field(name="Banner:", value=F"False")
+        simbed.set_image(url=guildctx.banner.url) if guildctx.banner else simbed.description += "\n**Banner:** Guild doesn't have a banner"
+        simbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=simbed)
 
     # Spotify
     @commands.command(name="spotify", help="Will show your or the given member's spotify activity if possible", usage="[member]")

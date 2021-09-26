@@ -1,8 +1,28 @@
 import discord, contextlib
 from discord.ext import commands
+from discord.ext.commands import Paginator
 import config.views.helpview as hv
 
 class MinimalHelp(commands.MinimalHelpCommand):
+    def __init__(self):
+        self.emojis = {
+            "Anime": "🍘",
+            "API": "🌎",
+            "Game": "🎮",
+            "Moderation": "🎩",
+            "Music": "🎼",
+            "Owner": "👑",
+            "Setup": "🔧",
+            "Utility": "🧰",
+            "Jishaku": "👀",
+            "No": "❓"
+        }
+        super().__init__(
+            command_attrs={
+                "help": "The help command for this bot",
+                "aliases": ["h", "commands"]
+            }
+        )
     async def send_pages(self):
         mhmbed = discord.Embed(
             colour=self.context.bot.colour,
@@ -15,6 +35,40 @@ class MinimalHelp(commands.MinimalHelpCommand):
         for page in self.paginator.pages:
             mhmbed.description = page
             await self.context.send(embed=mhmbed)
+
+class PaginateHelp(commands.HelpCommand):
+    def __init__(self):
+        self.emojis = {
+            "Anime": "🍘",
+            "API": "🌎",
+            "Game": "🎮",
+            "Moderation": "🎩",
+            "Music": "🎼",
+            "Owner": "👑",
+            "Setup": "🔧",
+            "Utility": "🧰",
+            "Jishaku": "👀",
+            "No": "❓"
+        }
+        super().__init__(
+            command_attrs={
+                "help": "The help command for this bot",
+                "aliases": ["h", "commands"]
+            }
+        )
+
+    async def send_bot_help(self, mapping):
+        paginator = Paginator
+        embeds = []
+        for cog, commands in mapping.items():
+            name = cog.qualified_name if cog else "No"
+            description = cog.description if cog else "Commands without category"
+            embed = discord.Embed(colour=self.context.bot.colour, title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name}", description=description)
+            embeds.append(embed)
+        for mbed in embeds:
+            paginator.add_line(mbed)
+        for page in paginator.pages:
+            await self.context.send(page)
 
 class CustomHelp(commands.HelpCommand):
     def __init__(self):
