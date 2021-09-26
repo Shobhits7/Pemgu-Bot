@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import config.views.gameview as gv
 
-class Game(commands.Cog, description="If you are bored... use these"):
+class game(commands.Cog, description="If you are bored... use these"):
     def __init__(self, bot):
         self.bot = bot
 
@@ -49,4 +49,4 @@ class Game(commands.Cog, description="If you are bored... use these"):
         await ctx.send('Tic Tac Toe: X goes first', view=gv.TicTacToeView())
 
 def setup(bot):
-    bot.add_cog(Game(bot))
+    bot.add_cog(game(bot))

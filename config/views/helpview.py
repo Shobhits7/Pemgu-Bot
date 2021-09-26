@@ -78,7 +78,7 @@ class ButtonsUI(discord.ui.Button):
         def gts(command):
             return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}"
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
+            name = cog.qualified_name.title() if cog else "No"
             description = cog.description if cog else "Commands without category"
             cmds = cog.walk_commands() if cog else commands
             if self.custom_id == name:
@@ -107,7 +107,7 @@ class ButtonsView(discord.ui.View):
         self.homepage = homepage
         self.add_item(item=ButtonsUI(emoji="🏠", label="Home", style=discord.ButtonStyle.green, custom_id="Home", view=self))
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
+            name = cog.qualified_name.title() if cog else "No"
             if not name.startswith("On"):
                 self.add_item(item=ButtonsUI(emoji=self.help.emojis.get(name), label=name, style=discord.ButtonStyle.blurple, custom_id=name, view=self))
         self.add_item(item=ButtonsUI(emoji="💣", label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))
