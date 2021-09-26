@@ -45,21 +45,21 @@ class RPSButtons(discord.ui.Button):
 
         tierpsmbed = discord.Embed(
             colour=self.bot.colour,
-            title="Bruh! We are tied",
+            title="We are GG! tied.",
             description=F"We chose the same\nYou: {self.useroption}\nMe: {self.botoption}",
             timestamp=interaction.message.created_at
         )
         tierpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
         wonrpsmbed = discord.Embed(
             colour=self.bot.colour,
-            title="Congrats! You won.",
+            title="GG! You won.",
             description=F"You chose {self.useroption}\nBut,\nI chose {self.botoption}",
             timestamp=interaction.message.created_at
         )
         wonrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
         lostrpsmbed = discord.Embed(
             colour=self.bot.colour,
-            title="Damn! I won.",
+            title="I won. GG!",
             description=F"I chose {self.botoption}\nBut,\nYou chose {self.useroption}",
             timestamp=interaction.message.created_at
         )

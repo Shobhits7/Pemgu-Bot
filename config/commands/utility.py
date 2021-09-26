@@ -105,7 +105,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ╰***Members:*** {len(guildctx.members)}
         ╰***Default-Role:*** {guildctx.default_role}
         ╰***Boost-Role:*** {guildctx.premium_subscriber_role}
-        ╰***Boosters:*** {'*Nobody is boosting*' if not guildctx.premium_subscribers else ', '.join(booster.mention for booster in guildctx.premium_subscribers)} - {guildctx.premium_subscription_count}
+        ╰***Boosters:*** {'*Nobody is boosting*' if not guildctx.premium_subscription_count else guildctx.premium_subscription_count}
         ╰***Tier:*** {guildctx.premium_tier}
         ╰***Categories:*** {len(guildctx.categories)}
         ╰***Channels:*** {len(guildctx.channels)}
