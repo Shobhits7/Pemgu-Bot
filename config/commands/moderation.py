@@ -144,16 +144,17 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         unmtmbed.set_footer(text=member, icon_url=member.avatar.url)
         mutename = "Muted"
         for role in ctx.guild.roles:
-            if mutename in role.name:
+            if role.name == "Muted":
                 mute_role = role
-            else:
-                mute_role = await ctx.guild.create_role(
-                    colour=discord.Colour.red(),
-                    name="Muted",
-                    permissions=discord.Permissions(add_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False),
-                    mentionable=True,
-                    reason="There was no Muted role, so I created one."
-                )
+                break
+        else:
+            mute_role = await ctx.guild.create_role(
+                colour=discord.Colour.red(),
+                name="Muted",
+                permissions=discord.Permissions(add_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False),
+                mentionable=True,
+                reason="There was no Muted role, so I created one."
+            )
         if mute_role in member.roles:
             await member.remove_roles(mute_role, reason=F"UnMuted by {ctx.author}")
             await ctx.send(embed=unmtmbed)
