@@ -19,7 +19,7 @@ bot = Bot(
     command_prefix=prefix,
     strip_after_prefix=True,
     case_insensitive=True,
-    help_command=help.PaginateHelp(),
+    help_command=help.CustomHelp(),
     intents=discord.Intents.all(),
     allowed_mentions=discord.AllowedMentions.none()
 )
