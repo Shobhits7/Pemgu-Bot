@@ -60,7 +60,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             timestamp=ctx.message.created_at
         )
         uimbed.description += F"""
-        **__Global-Information:__**
+        __**Global-Information:**__
         ***Username:*** {member.name}
         ***Discriminator:*** {member.discriminator}
         ***ID:*** {member.id}
@@ -72,7 +72,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***Desktop-Status:*** {member.desktop_status}
         ***Mobile-Status:*** {member.mobile_status}
         ***Registered:*** {discord.utils.format_dt(member.created_at, style="F")} ({discord.utils.format_dt(member.created_at, style="R")})
-        **__Server-Information:__**
+        __**Server-Information:**__
         ***Joined:*** {discord.utils.format_dt(member.joined_at, style="F")} ({discord.utils.format_dt(member.joined_at, style="R")})
         ***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
         ***Top-Role:*** {member.top_role.mention}
@@ -83,10 +83,10 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         """.replace("\t", "")
         if member.avatar:
             uimbed.set_thumbnail(url=member.avatar.url)
-        else: uimbed.description += "**Avatar:** User doesn't have a avatar"
+        else: uimbed.description += "__**Avatar:**__ User doesn't have a avatar"
         if image.banner:
             uimbed.set_image(url=image.banner.url)
-        else: uimbed.description += "**Banner:** User doesn't have a banner"
+        else: uimbed.description += "__**Banner:**__ User doesn't have a banner"
         uimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=uimbed)
 
@@ -100,17 +100,17 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             description="`Owner-Information` is for the user that owns this server\n`Server-Information` is for the actual server",
             timestamp=ctx.message.created_at
         )
-        simbed.description += F"\n**Description:** {'*No Description*' if not ctx.guild.description else ctx.guild.description}"
-        simbed.add_field(name="__Owner-Information:__", value=F"""
+        simbed.description += F"""__**Owner-Information:**__
         ***Username:*** {ctx.guild.owner.name}
         ***Discriminator:*** {ctx.guild.owner.discriminator}
         ***ID:*** {ctx.guild.owner.id}
         ***Mention:*** {ctx.guild.owner.mention}
         ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in ctx.guild.owner.public_flags if enabled])}
-        ***Registered:*** {discord.utils.format_dt(ctx.guild.owner.created_at, style="F")} ({discord.utils.format_dt(ctx.guild.owner.created_at, style="R")})""", inline=False)
-        simbed.add_field(name="__Server-Information:__", value=F"""
+        ***Registered:*** {discord.utils.format_dt(ctx.guild.owner.created_at, style="F")} ({discord.utils.format_dt(ctx.guild.owner.created_at, style="R")})
+        **__Server-Information:**__
         ***Name:*** {ctx.guild.name}
         ***ID:*** {ctx.guild.id}
+        ***Description:*** {'*No Description*' if not ctx.guild.description else ctx.guild.description}
         ***Created-At:*** {discord.utils.format_dt(ctx.guild.created_at, style="F")} ({discord.utils.format_dt(ctx.guild.created_at, style="R")})
         ***Region:*** {ctx.guild.region}
         ***MFA:*** {ctx.guild.mfa_level}
@@ -124,13 +124,14 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***Categories:*** {len(ctx.guild.categories)}
         ***Channels:*** {len(ctx.guild.channels)}
         ***AFK-Channel:*** {'*No AFK channel*' if not ctx.guild.afk_channel else ctx.guild.afk_channel.mention}
-        ***AFK-Timeout:*** {ctx.guild.afk_timeout}""".replace("\t", ""), inline=False)
+        ***AFK-Timeout:*** {ctx.guild.afk_timeout}
+        """.replace("\t", "")
         if ctx.guild.icon:
             simbed.set_thumbnail(url=ctx.guild.icon.url)
-        else: simbed.description += "\n**Icon:** Server doesn't have a icon"
+        else: simbed.description += "__**Icon:**__ Server doesn't have a icon"
         if ctx.guild.banner:
             simbed.set_image(url=ctx.guild.banner.url)
-        else: simbed.description += "\n**Banner:** Server doesn't have a banner"
+        else: simbed.description += "__**Banner:**__ Server doesn't have a banner"
         simbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=simbed)
 
@@ -146,13 +147,15 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
                     title=activity.title,
                     timestamp=ctx.message.created_at
                 )
+                finspotifymbed.description = F"""
+                **Artists:** {', '.join(artist for artist in activity.artists)}
+                **Album:** {activity.album}
+                **Duration:** {time.strftime("%H:%M:%S", time.gmtime(activity.duration.total_seconds()))}
+                **Listening-Since:** {discord.utils.format_dt(activity.created_at, style='f')} ({discord.utils.format_dt(activity.created_at, style='R')})
+                **Track-ID:** {activity.track_id}
+                **Party-ID:** {activity.party_id}
+                """.replace("\t", "")
                 finspotifymbed.set_author(name=member, icon_url=member.avatar.url)
-                finspotifymbed.add_field(name="Artists:", value=", ".join(artist for artist in activity.artists), inline=False)
-                finspotifymbed.add_field(name="Album", value=activity.album, inline=False)
-                finspotifymbed.add_field(name="Duration:", value=time.strftime("%H:%M:%S", time.gmtime(activity.duration.total_seconds())), inline=False)
-                finspotifymbed.add_field(name="Listening-Since:", value=F"{discord.utils.format_dt(activity.created_at, style='f')} ({discord.utils.format_dt(activity.created_at, style='R')})", inline=False)
-                finspotifymbed.add_field(name="Track-ID", value=activity.track_id, inline=False)
-                finspotifymbed.add_field(name="Party-ID", value=activity.party_id, inline=False)
                 finspotifymbed.set_image(url=activity.album_cover_url)
                 finspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
                 await ctx.send(embed=finspotifymbed)

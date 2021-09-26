@@ -68,8 +68,8 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             title=F"{user} 's pixelated image",
             timestamp=ctx.message.created_at
         )
-        pxlmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         pxlmbed.set_image(url="attachment://pixel.png")
+        pxlmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(file=discord.File(response, filename="pixel.png"), embed=pxlmbed)
 
     # Colors
@@ -85,8 +85,8 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             title=F"{user} 's image colors",
             timestamp=ctx.message.created_at
         )
-        clrsmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         clrsmbed.set_image(url="attachment://colors.png")
+        clrsmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(file=discord.File(response, filename="colors.png"), embed=clrsmbed)
 
     # Tweet
@@ -102,8 +102,8 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             title=F"{user} 's tweet",
             timestamp=ctx.message.created_at
         )
-        twmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         twmbed.set_image(url="attachment://tweet.png")
+        twmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(file=discord.File(response, filename="tweet.png"), embed=twmbed)
 
     # Screenshot
@@ -118,8 +118,8 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             title="Here is your screenshot",
             timestamp=ctx.message.created_at
         )
-        ssmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         ssmbed.set_image(url="attachment://screenshot.png")
+        ssmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(file=discord.File(response, filename="screenshot.png"), embed=ssmbed)
 
     # Pypi
@@ -145,7 +145,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             **Home Page:** {response['info']['home_page']}
             **Yanked:** {response['info']['yanked']} - {response['info']['yanked_reason']}
             **Keywords:** {response['info']['keywords']}
-            **License:** {response['info']['license']}""", inline=False)
+            **License:** {response['info']['license']}""".replace("\t", ""), inline=False)
         pypimbed.add_field(name="Classifiers:", value=",\n    ".join(classifier for classifier in response['info']['classifiers']), inline=False)
         pypimbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/873478114183880704/887470965188091944/pypilogo.png")
         pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
@@ -166,7 +166,6 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             title=F"{response['results'][0]['name']} 's Information",
             timestamp=ctx.message.created_at,
         )
-        ramchmbed.set_image(url=response['results'][0]['image'])
         ramchmbed.add_field(name="Stauts:", value=response['results'][0]['status'], inline=False)
         ramchmbed.add_field(name="Species:", value=response['results'][0]['species'], inline=False)
         ramchmbed.add_field(name="Type:", value="Unknown" if not response['results'][0]['type'] else response['results'][0]['type'], inline=False)
@@ -174,6 +173,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         ramchmbed.add_field(name="Origin:", value=response['results'][0]['origin']['name'], inline=False)
         ramchmbed.add_field(name="Location:", value=response['results'][0]['location']['name'], inline=False)
         ramchmbed.add_field(name="Created:", value=response['results'][0]['created'], inline=False)
+        ramchmbed.set_image(url=response['results'][0]['image'])
         await ctx.send(embed=ramchmbed)
 
     # Location
