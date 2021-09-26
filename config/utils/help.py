@@ -65,6 +65,7 @@ class PaginateHelp(commands.HelpCommand):
             description = cog.description if cog else "Commands without category"
             embed = discord.Embed(title=name, description=description)
             embeds.append(embed)
+            await self.context.send(embeds=embeds)
         for mbed in embeds:
             paginator.add_line(mbed)
         for page in paginator.pages:
