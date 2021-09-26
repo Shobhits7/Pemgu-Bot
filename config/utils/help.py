@@ -39,7 +39,7 @@ class MinimalHelp(commands.MinimalHelpCommand):
 class CustomHelp(commands.HelpCommand):
     def __init__(self):
         self.emojis = {
-            "Anime": "🍘",
+            "Anime": "🍙",
             "API": "🌎",
             "Game": "🎮",
             "Moderation": "🎩",
@@ -47,7 +47,7 @@ class CustomHelp(commands.HelpCommand):
             "Owner": "👑",
             "Meta": "🔧",
             "Utility": "🧰",
-            "Jishaku": "👀",
+            "Jishaku": "🎓",
             "No": "❓"
         }
         super().__init__(
