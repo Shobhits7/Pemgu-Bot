@@ -142,13 +142,12 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         unmtmbed.set_footer(text=member, icon_url=member.avatar.url)
-        mute_role = None
-        mute_role_name = "Muted"
+        mutename = "Muted"
         for role in ctx.guild.roles:
-            if mute_role_name in role.name:
-                mute_role += role
+            if mutename in role.name:
+                mute_role = role
             else:
-                mute_role += await ctx.guild.create_role(
+                mute_role = await ctx.guild.create_role(
                     colour=discord.Colour.red(),
                     name="Muted",
                     permissions=discord.Permissions(add_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False),
