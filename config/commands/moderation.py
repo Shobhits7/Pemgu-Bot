@@ -157,7 +157,8 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
                 reason="There was no Muted role, so I created one."
             )
         for channel in ctx.guild.channels:
-            await channel.set_permissions(mute_role, add_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False)
+            if not channel.permissions_synced:
+                await channel.set_permissions(mute_role, add_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False)
         if mute_role in member.roles:
             await member.remove_roles(mute_role, reason=F"UnMuted by {ctx.author}, Because: {reason}")
             await ctx.send(embed=unmtmbed)
