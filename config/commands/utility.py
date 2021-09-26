@@ -170,10 +170,10 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             badspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=badspotifymbed)
 
-    # Echo
-    @commands.command(name="echo", aliases=["eo"], help="Will echo your message", usage="<text>")
-    async def echo(self, ctx:commands.Context, *, echo):
-        await ctx.send(F"{echo} | {ctx.author.mention}")
+    # Say
+    @commands.command(name="say", help="Will say your message", usage="<text>")
+    async def say(self, ctx:commands.Context, *, say):
+        await ctx.send(F"{say} | {ctx.author.mention}")
 
     # Ping
     @commands.command(name="ping", aliases=["pi"], help="Will show bot's ping")
