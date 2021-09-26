@@ -160,6 +160,9 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     @rickandmorty.command(name="character", aliases=["char"], help="Will show information about the given character", usage="<character's name>")
     async def character(self, ctx:commands.Context, *, character: str):
         session = await self.bot.session.get(F"https://rickandmortyapi.com/api/character/?name={character}")
+        if session.status != 200:
+            await ctx.send("Couldn't find that character")
+            return
         response = await session.json()
         session.close()
         ramchmbed = discord.Embed(
