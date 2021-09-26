@@ -36,41 +36,6 @@ class MinimalHelp(commands.MinimalHelpCommand):
             mhmbed.description = page
             await self.context.send(embed=mhmbed)
 
-class PaginateHelp(commands.HelpCommand):
-    def __init__(self):
-        self.emojis = {
-            "Anime": "🍘",
-            "API": "🌎",
-            "Game": "🎮",
-            "Moderation": "🎩",
-            "Music": "🎼",
-            "Owner": "👑",
-            "Setup": "🔧",
-            "Utility": "🧰",
-            "Jishaku": "👀",
-            "No": "❓"
-        }
-        super().__init__(
-            command_attrs={
-                "help": "The help command for this bot",
-                "aliases": ["h", "commands"]
-            }
-        )
-
-    async def send_bot_help(self, mapping):
-        paginator = Paginator(",m", "~m", max_size=2000, linesep="\n")
-        embeds = []
-        for cog, commands in mapping.items():
-            name = cog.qualified_name if cog else "No"
-            description = cog.description if cog else "Commands without category"
-            embed = discord.Embed(title=name, description=description)
-            embeds.append(embed)
-            await self.context.send(embeds=embeds)
-        for mbed in embeds:
-            paginator.add_line(mbed)
-        for page in paginator.pages:
-            await self.context.send(page)
-
 class CustomHelp(commands.HelpCommand):
     def __init__(self):
         self.emojis = {
