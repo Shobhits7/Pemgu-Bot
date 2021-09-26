@@ -103,7 +103,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ╰***Description:*** {'*No Description' if not guildctx.description else guildctx.description}
         ╰***Created-At:*** {discord.utils.format_dt(guildctx.created_at, style="F")} ({discord.utils.format_dt(guildctx.created_at, style="R")})
         ╰***Members:*** {len(guildctx.members)}
-        ╰***Default-Role:*** {len(guildctx.default_role)}
+        ╰***Default-Role:*** {guildctx.default_role}
         ╰***Boost-Role:*** {len(guildctx.premium_subscriber_role)}
         ╰***Boosters:*** {'*Nobody is boosting*' if not guildctx.premium_subscribers else ', '.join(booster.mention for booster in guildctx.premium_subscribers)} - {guildctx.premium_subscription_count}
         ╰***Tier:*** {guildctx.premium_tier}
