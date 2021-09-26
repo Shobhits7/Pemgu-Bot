@@ -67,8 +67,8 @@ class PaginateHelp(commands.HelpCommand):
             embeds.append(embed)
         for mbed in embeds:
             paginator.add_line(mbed)
-            for page in paginator.pages:
-                await self.context.send(mbed, page)
+        for page in paginator.pages:
+            await self.context.send(page)
 
 class CustomHelp(commands.HelpCommand):
     def __init__(self):
