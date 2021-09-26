@@ -11,7 +11,7 @@ class OnMessage(commands.Cog):
         if F"<@!{self.bot.user.id}>" == message.content or F"<@{self.bot.user.id}>" == message.content:
             ompmbed = discord.Embed(
                 colour=self.bot.colour,
-                title=F"My Prefix here is `{self.bot.prefix}`",
+                title=F"My Prefix here is '{self.bot.prefix}'",
                 timestamp=message.created_at
             )
             ompmbed.set_footer(text=message.author, icon_url=message.author.avatar.url)

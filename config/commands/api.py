@@ -168,13 +168,15 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             title=F"{response['results'][0]['name']} 's Information",
             timestamp=ctx.message.created_at,
         )
-        ramchmbed.add_field(name="Stauts:", value=response['results'][0]['status'], inline=False)
-        ramchmbed.add_field(name="Species:", value=response['results'][0]['species'], inline=False)
-        ramchmbed.add_field(name="Type:", value="Unknown" if not response['results'][0]['type'] else response['results'][0]['type'], inline=False)
-        ramchmbed.add_field(name="Gender:", value=response['results'][0]['gender'], inline=False)
-        ramchmbed.add_field(name="Origin:", value=response['results'][0]['origin']['name'], inline=False)
-        ramchmbed.add_field(name="Location:", value=response['results'][0]['location']['name'], inline=False)
-        ramchmbed.add_field(name="Created:", value=response['results'][0]['created'], inline=False)
+        ramchmbed.description = F"""
+        Stauts: {response['results'][0]['status']}
+        Species: {response['results'][0]['species']}
+        Type: {'Unknown' if not response['results'][0]['type'] else response['results'][0]['type']}
+        Gender:" {['results'][0]['gender']}
+        Origin:" {['results'][0]['origin']['name']}
+        Location:" {['results'][0]['location']['name']}
+        Created:" {['results'][0]['created']}
+        """.replace("\t", "")
         ramchmbed.set_image(url=response['results'][0]['image'])
         await ctx.send(embed=ramchmbed)
 
