@@ -1,7 +1,7 @@
 import discord, time, os, inspect
 from discord.ext import commands
 
-class utility(commands.Cog, description="Useful commands that are open to everyone"):
+class Utility(commands.Cog, description="Useful commands that are open to everyone"):
     def __init__(self, bot):
         self.bot = bot
 
@@ -269,4 +269,4 @@ class utility(commands.Cog, description="Useful commands that are open to everyo
             await ctx.author.move_to(ctx.guild.afk_channel)
 
 def setup(bot):
-    bot.add_cog(utility(bot))
+    bot.add_cog(Utility(bot))

@@ -1,7 +1,7 @@
 import discord, io
 from discord.ext import commands
 
-class owner(commands.Cog, description="Only lvlahraam can use these commands"):
+class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     def __init__(self, bot):
         self.bot = bot
 
@@ -85,4 +85,4 @@ class owner(commands.Cog, description="Only lvlahraam can use these commands"):
         await ctx.author.send(temp)
 
 def setup(bot):
-    bot.add_cog(owner(bot))
+    bot.add_cog(Owner(bot))

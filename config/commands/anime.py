@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class anime(commands.Cog, description="Some Weeb shit"):
+class Anime(commands.Cog, description="Some Weeb shit"):
     def __init__(self, bot):
         self.bot = bot
     
@@ -275,4 +275,4 @@ class anime(commands.Cog, description="Some Weeb shit"):
         await ctx.send(embed=uniformmbed)
 
 def setup(bot):
-    bot.add_cog(anime(bot))
+    bot.add_cog(Anime(bot))

@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class mod(commands.Cog, description="Was someone being bad?"):
+class Mod(commands.Cog, description="Was someone being bad?"):
     def __init__(self, bot):
         self.bot = bot
 
@@ -196,4 +196,4 @@ class mod(commands.Cog, description="Was someone being bad?"):
         await ctx.send(embed=finpumbed, delete_after=2.5)
 
 def setup(bot):
-    bot.add_cog(mod(bot))
+    bot.add_cog(Mod(bot))

@@ -42,10 +42,10 @@ class CustomHelp(commands.HelpCommand):
             "Anime": "🍘",
             "API": "🌎",
             "Game": "🎮",
-            "Moderation": "🎩",
+            "Mod": "🎩",
             "Music": "🎼",
             "Owner": "👑",
-            "Setup": "🔧",
+            "Meta": "🔧",
             "Utility": "🧰",
             "Jishaku": "👀",
             "No": "❓"
