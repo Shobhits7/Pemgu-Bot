@@ -110,8 +110,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ╰***Categories:*** {len(guildctx.categories)}
         ╰***Channels:*** {len(guildctx.channels)}
         ╰***AFK-Channel:*** {guildctx.afk_channel}
-        ╰***AFK-Timeout:*** {guildctx.afk_timeout}
-        """)
+        ╰***AFK-Timeout:*** {guildctx.afk_timeout}""")
         if guildctx.icon:
             simbed.set_thumbnail(url=guildctx.icon.url)
         else: simbed.description += "\n**Banner:** Server doesn't have a banner"
