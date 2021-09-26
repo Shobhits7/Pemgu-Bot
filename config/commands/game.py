@@ -23,7 +23,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
         rpsmbed = discord.Embed(
             colour=self.bot.colour,
             title="Started the game",
-            description="Choose your Tool with the buttons:",
+            description="Choose your Tool with the buttons:\n🗻 == Rock\n🧻 == Paper\n🔪 == Scissors",
             timestamp=ctx.message.created_at
         )
         rpsmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
