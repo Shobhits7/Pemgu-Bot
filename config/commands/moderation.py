@@ -151,7 +151,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
                 mute_role += await ctx.guild.create_role(
                     colour=discord.Colour.red(),
                     name="Muted",
-                    permissions=discord.Permissions(add_reactions=False, remove_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False),
+                    permissions=discord.Permissions(add_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False),
                     mentionable=True,
                     reason="There was no Muted role, so I created one."
                 )
