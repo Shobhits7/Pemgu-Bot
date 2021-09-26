@@ -115,18 +115,18 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***Members:*** {ctx.guild.member_count}
         ***Default-Role:*** {ctx.guild.default_role.mention}
         ***Boost-Role:*** {ctx.guild.premium_subscriber_role.mention}
-        ***Boosters:*** {'*Nobody is boosting*' if not ctx.guild.premium_subscription_count else ctx.guild.premium_subscription_count}
+        ***Boosters:*** {ctx.guild.premium_subscription_count}
         ***Tier:*** {ctx.guild.premium_tier}
         ***Categories:*** {len(ctx.guild.categories)}
-        ***Channels:*** {len(ctx.guild.channels)}
+        ***Channels:*** {ctx.guild.count}
         ***AFK-Channel:*** {ctx.guild.afk_channel.mention}
         ***AFK-Timeout:*** {ctx.guild.afk_timeout}""".replace("\t", ""), inline=False)
         if ctx.guild.icon:
             simbed.set_thumbnail(url=ctx.guild.icon.url)
-        else: simbed.description += "\n**Banner:** Server doesn't have a banner"
+        else: simbed.description += "\n**Icon:** Server doesn't have a icon"
         if ctx.guild.banner:
             simbed.set_image(url=ctx.guild.banner.url)
-        else: simbed.description += "\n**Banner:** Guild doesn't have a banner"
+        else: simbed.description += "\n**Banner:** Server doesn't have a banner"
         simbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=simbed)
 
