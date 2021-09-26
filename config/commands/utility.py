@@ -56,29 +56,29 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         uimbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{member} Information",
-            description="`Global-Information` is for the user in discord\n`Server-Information` for the user in this server",
+            description="`Global-Information` is for the user in discord\n`Server-Information` is for the user in server",
             timestamp=ctx.message.created_at
         )
         uimbed.add_field(name="__Global-Information:__", value=F"""
-        ╰***Username:*** {member.name}
-        ╰***Discriminator:*** {member.discriminator}
-        ╰***ID:*** {member.id}
-        ╰***Mention:*** {member.mention}
-        ╰***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
-        ╰***Activity:*** {'*Nothing*' if not member.activity else member.activity.name}
-        ╰***Status:*** {member.status}
-        ╰***Web-Status:*** {member.web_status}
-        ╰***Desktop-Status:*** {member.desktop_status}
-        ╰***Mobile-Status:*** {member.mobile_status}
-        ╰***Registered:*** {discord.utils.format_dt(member.created_at, style="F")} ({discord.utils.format_dt(member.created_at, style="R")})""", inline=False)
+        ***Username:*** {member.name}
+        ***Discriminator:*** {member.discriminator}
+        ***ID:*** {member.id}
+        ***Mention:*** {member.mention}
+        ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
+        ***Activity:*** {'*Nothing*' if not member.activity else member.activity.name}
+        ***Status:*** {member.status}
+        ***Web-Status:*** {member.web_status}
+        ***Desktop-Status:*** {member.desktop_status}
+        ***Mobile-Status:*** {member.mobile_status}
+        ***Registered:*** {discord.utils.format_dt(member.created_at, style="F")} ({discord.utils.format_dt(member.created_at, style="R")})""", inline=False)
         uimbed.add_field(name="__Server-Information:__", value=F"""
-        ╰***Joined:*** {discord.utils.format_dt(member.joined_at, style="F")} ({discord.utils.format_dt(member.joined_at, style="R")})
-        ╰***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
-        ╰***Top-Role:*** {member.top_role.mention}
-        ╰***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
-        ╰***Nickname:*** {member.nick}
-        ╰***Voice:*** {'*Not in a voice**' if not member.voice else member.voice.channel.mention}
-        ╰***Server-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}""", inline=False)
+        ***Joined:*** {discord.utils.format_dt(member.joined_at, style="F")} ({discord.utils.format_dt(member.joined_at, style="R")})
+        ***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
+        ***Top-Role:*** {member.top_role.mention}
+        ***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
+        ***Nickname:*** {member.nick}
+        ***Voice:*** {'*Not in a voice**' if not member.voice else member.voice.channel.mention}
+        ***Server-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}""", inline=False)
         uimbed.set_thumbnail(url=member.avatar.url)
         if image.banner:
             uimbed.set_image(url=image.banner.url)
