@@ -1,4 +1,5 @@
 import discord
+from discord.interactions import Interaction
 
 class SelectUI(discord.ui.Select):
     def __init__(self, view, **kwargs):
@@ -8,6 +9,8 @@ class SelectUI(discord.ui.Select):
         self.homepage = view.homepage
 
     async def callback(self, interaction:discord.Interaction):
+        def gts(command):
+            return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}"
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
@@ -20,9 +23,10 @@ class SelectUI(discord.ui.Select):
                     timestamp=self.help.context.message.created_at
                 )
                 for command in cmds:
-                    mbed.description += F"• **{self.help.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
+                    mbed.description += F"{gts(command)}\n"
                 mbed.set_thumbnail(url=self.help.context.me.avatar.url)
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+                mbed.set_footer(text="<> is required | [] is optional")
                 await interaction.response.edit_message(embed=mbed)
         if self.values[0] == "Home":
             await interaction.response.edit_message(embed=self.homepage)
@@ -39,19 +43,28 @@ class SelectView(discord.ui.View):
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category..."
-            if not name.startswith("On") and name != "Jishaku":
+            if not name.startswith("On"):
                 option = discord.SelectOption(emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓', label=name, description=description, value=name)
                 options.append(option)
-        self.add_item(SelectUI(placeholder="Where do you want to go...", options=options, view=self))
+        self.add_item(SelectUI(placeholder="Where do you want to go...", options=options, min_values=1, max_values=1, view=self))
         self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(discord.ui.Button(emoji="🍩", label="Support Guild", url="https://discord.gg/bWnjkjyFRz"))
 
+    @discord.ui.button(emoji="💣", label="Delete", style=discord.ButtonStyle.red)
+    async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
+        await interaction.message.delete()
+
     async def on_timeout(self):
-        for items in self.children:
-            if isinstance(items, discord.ui.Select):
-                items.placeholder = "Disabled due to timeout..."
-            items.disabled = True
-        await self.message.edit(view=self)
+        try:
+            for item in self.children:
+                if isinstance(item, discord.ui.Select):
+                    item.placeholder = "Disabled due to timeout..."
+                elif isinstance(item, discord.ui.Button):
+                    self.remove_item(item=item)
+                item.disabled = True
+            await self.message.edit(view=self)
+        except discord.NotFound:
+            return
 
     async def interaction_check(self, interaction:discord.Interaction):
         if interaction.user.id == self.help.context.author.id:
@@ -116,7 +129,7 @@ class ButtonsView(discord.ui.View):
 
     async def on_timeout(self):
         try:
-            for items in self.children:
+            for item in self.children:
                 self.clear_items()
                 self.add_item(discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
             await self.message.edit(view=self)
