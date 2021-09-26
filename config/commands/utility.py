@@ -60,7 +60,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             timestamp=ctx.message.created_at
         )
         uimbed.description += F"""
-        __Global-Information:__
+        **__Global-Information:__**
         ***Username:*** {member.name}
         ***Discriminator:*** {member.discriminator}
         ***ID:*** {member.id}
@@ -72,7 +72,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***Desktop-Status:*** {member.desktop_status}
         ***Mobile-Status:*** {member.mobile_status}
         ***Registered:*** {discord.utils.format_dt(member.created_at, style="F")} ({discord.utils.format_dt(member.created_at, style="R")})
-        __Server-Information:__
+        **__Server-Information:__**
         ***Joined:*** {discord.utils.format_dt(member.joined_at, style="F")} ({discord.utils.format_dt(member.joined_at, style="R")})
         ***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
         ***Top-Role:*** {member.top_role.mention}
