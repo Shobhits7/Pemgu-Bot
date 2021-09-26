@@ -102,8 +102,13 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***ID:*** {guildctx.id}
         ***Name:*** {guildctx.name}
         ***Created-At:*** {discord.utils.format_dt(guildctx.created_at, style="F")} ({discord.utils.format_dt(guildctx.created_at, style="R")})
-        ***Members:*** {len(guildctx.members)}
-        ***Default-Role:*** {guildctx.default_role}
+        ***Region:*** {guildctx.region}
+        ***MFA:*** {guildctx.mfa_level}
+        ***Verification:*** {guildctx.verification_level}
+        ***Features:*** {', '.join(feature for feature in guildctx.features)}
+        ***File-Size-Limit:*** {guildctx.filesize_limit}
+        ***Members:*** {guildctx.member_count}
+        ***Default-Role:*** {guildctx.default_role.mention}
         ***Boost-Role:*** {guildctx.premium_subscriber_role}
         ***Boosters:*** {'*Nobody is boosting*' if not guildctx.premium_subscription_count else guildctx.premium_subscription_count}
         ***Tier:*** {guildctx.premium_tier}
