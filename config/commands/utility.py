@@ -93,24 +93,24 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         guildctx = ctx.guild
         simbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{guildctx.name} Server's Information",
+            title=F"{guildctx.name} 's Information",
             description="`Owner-Information` is for the user that owns this server\n`Server-Information` is for the actual server",
             timestamp=ctx.message.created_at
         )
+        simbed.description += F"\n**Description:** {'*No Description*' if not guildctx.description else guildctx.description}"
         simbed.add_field(name="__Server-Information:__", value=F"""
-        ╰***ID:*** {guildctx.id}
-        ╰***Name:*** {guildctx.name}
-        ╰***Description:*** {'*No Description' if not guildctx.description else guildctx.description}
-        ╰***Created-At:*** {discord.utils.format_dt(guildctx.created_at, style="F")} ({discord.utils.format_dt(guildctx.created_at, style="R")})
-        ╰***Members:*** {len(guildctx.members)}
-        ╰***Default-Role:*** {guildctx.default_role}
-        ╰***Boost-Role:*** {guildctx.premium_subscriber_role}
-        ╰***Boosters:*** {'*Nobody is boosting*' if not guildctx.premium_subscription_count else guildctx.premium_subscription_count}
-        ╰***Tier:*** {guildctx.premium_tier}
-        ╰***Categories:*** {len(guildctx.categories)}
-        ╰***Channels:*** {len(guildctx.channels)}
-        ╰***AFK-Channel:*** {guildctx.afk_channel}
-        ╰***AFK-Timeout:*** {guildctx.afk_timeout}""")
+        ***ID:*** {guildctx.id}
+        ***Name:*** {guildctx.name}
+        ***Created-At:*** {discord.utils.format_dt(guildctx.created_at, style="F")} ({discord.utils.format_dt(guildctx.created_at, style="R")})
+        ***Members:*** {len(guildctx.members)}
+        ***Default-Role:*** {guildctx.default_role}
+        ***Boost-Role:*** {guildctx.premium_subscriber_role}
+        ***Boosters:*** {'*Nobody is boosting*' if not guildctx.premium_subscription_count else guildctx.premium_subscription_count}
+        ***Tier:*** {guildctx.premium_tier}
+        ***Categories:*** {len(guildctx.categories)}
+        ***Channels:*** {len(guildctx.channels)}
+        ***AFK-Channel:*** {guildctx.afk_channel}
+        ***AFK-Timeout:*** {guildctx.afk_timeout}""")
         if guildctx.icon:
             simbed.set_thumbnail(url=guildctx.icon.url)
         else: simbed.description += "\n**Banner:** Server doesn't have a banner"
