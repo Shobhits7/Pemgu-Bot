@@ -58,7 +58,7 @@ class PaginateHelp(commands.HelpCommand):
         )
 
     async def send_bot_help(self, mapping):
-        paginator = Paginator
+        paginator = Paginator(",m", "~m", max_size=2000, linesep="\n")
         embeds = []
         for cog, commands in mapping.items():
             name = cog.qualified_name if cog else "No"
@@ -67,8 +67,8 @@ class PaginateHelp(commands.HelpCommand):
             embeds.append(embed)
         for mbed in embeds:
             paginator.add_line(mbed)
-        for page in paginator.pages:
-            await self.context.send(page)
+            for page in paginator.pages:
+                await self.context.send(mbed, page)
 
 class CustomHelp(commands.HelpCommand):
     def __init__(self):
