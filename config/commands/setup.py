@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class setup(commands.Cog, description="For setting up the bot"):
+class configure(commands.Cog, description="For setting up the bot"):
     def __init__(self, bot):
         self.bot = bot
 
@@ -18,4 +18,4 @@ class setup(commands.Cog, description="For setting up the bot"):
         await ctx.send(embed=pfmbed)
 
 def setup(bot):
-    bot.add_cog(setup(bot))
+    bot.add_cog(configure(bot))
