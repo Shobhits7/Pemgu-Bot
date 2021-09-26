@@ -175,7 +175,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         Gender: {response['results'][0]['gender']}
         Origin: {response['results'][0]['origin']['name']}
         Location: {response['results'][0]['location']['name']}
-        Created: {discord.utils.format_dt(response['results'][0]['created'], style='F')} ({discord.utils.format_dt(response['results'][0]['created'], style='R')})
+        Created: {response['results'][0]['created']}
         """.replace("\t", "")
         ramchmbed.set_image(url=response['results'][0]['image'])
         await ctx.send(embed=ramchmbed)
