@@ -98,6 +98,13 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             timestamp=ctx.message.created_at
         )
         simbed.description += F"\n**Description:** {'*No Description*' if not guildctx.description else guildctx.description}"
+        ownerctx = guildctx.owner
+        simbed.add_field(name="__Owner-Information:__", value=F"""
+        ***Username:*** {ownerctx.name}
+        ***Discriminator:*** {ownerctx.discriminator}
+        ***ID:*** {ownerctx.id}
+        ***Mention:*** {ownerctx.mention}
+        ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in ownerctx.public_flags if enabled])}""")
         simbed.add_field(name="__Server-Information:__", value=F"""
         ***ID:*** {guildctx.id}
         ***Name:*** {guildctx.name}
@@ -105,7 +112,6 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***Region:*** {guildctx.region}
         ***MFA:*** {guildctx.mfa_level}
         ***Verification:*** {guildctx.verification_level}
-        ***Features:*** {', '.join(feature for feature in guildctx.features)}
         ***File-Size-Limit:*** {guildctx.filesize_limit}
         ***Members:*** {guildctx.member_count}
         ***Default-Role:*** {guildctx.default_role.mention}
