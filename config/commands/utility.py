@@ -90,43 +90,42 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     @commands.command(name="serverinfo", aliases=["si"], help="Will show the server's info")
     @commands.guild_only()
     async def serverinfo(self, ctx:commands.Context):
-        guildctx = ctx.guild
         simbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{guildctx.name} 's Information",
+            title=F"{ctx.guild.name} 's Information",
             description="`Owner-Information` is for the user that owns this server\n`Server-Information` is for the actual server",
             timestamp=ctx.message.created_at
         )
-        simbed.description += F"\n**Description:** {'*No Description*' if not guildctx.description else guildctx.description}"
-        ownerctx = guildctx.owner
+        simbed.description += F"\n**Description:** {'*No Description*' if not ctx.guild.description else ctx.guild.description}"
         simbed.add_field(name="__Owner-Information:__", value=F"""
-        ***Username:*** {ownerctx.name}
-        ***Discriminator:*** {ownerctx.discriminator}
-        ***ID:*** {ownerctx.id}
-        ***Mention:*** {ownerctx.mention}
-        ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in ownerctx.public_flags if enabled])}""")
+        ***Username:*** {ctx.guild.owner.name}
+        ***Discriminator:*** {ctx.guild.owner.discriminator}
+        ***ID:*** {ctx.guild.owner.id}
+        ***Mention:*** {ctx.guild.owner.mention}
+        ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in ctx.guild.owner.public_flags if enabled])}
+        ***Registered:*** {discord.utils.format_dt(ctx.guild.owner.created_at, style="F")} ({discord.utils.format_dt(ctx.guild.owner.created_at, style="R")})""", inline=False)
         simbed.add_field(name="__Server-Information:__", value=F"""
-        ***ID:*** {guildctx.id}
-        ***Name:*** {guildctx.name}
-        ***Created-At:*** {discord.utils.format_dt(guildctx.created_at, style="F")} ({discord.utils.format_dt(guildctx.created_at, style="R")})
-        ***Region:*** {guildctx.region}
-        ***MFA:*** {guildctx.mfa_level}
-        ***Verification:*** {guildctx.verification_level}
-        ***File-Size-Limit:*** {guildctx.filesize_limit}
-        ***Members:*** {guildctx.member_count}
-        ***Default-Role:*** {guildctx.default_role.mention}
-        ***Boost-Role:*** {guildctx.premium_subscriber_role}
-        ***Boosters:*** {'*Nobody is boosting*' if not guildctx.premium_subscription_count else guildctx.premium_subscription_count}
-        ***Tier:*** {guildctx.premium_tier}
-        ***Categories:*** {len(guildctx.categories)}
-        ***Channels:*** {len(guildctx.channels)}
-        ***AFK-Channel:*** {guildctx.afk_channel}
-        ***AFK-Timeout:*** {guildctx.afk_timeout}""")
-        if guildctx.icon:
-            simbed.set_thumbnail(url=guildctx.icon.url)
+        ***ID:*** {ctx.guild.id}
+        ***Name:*** {ctx.guild.name}
+        ***Created-At:*** {discord.utils.format_dt(ctx.guild.created_at, style="F")} ({discord.utils.format_dt(ctx.guild.created_at, style="R")})
+        ***Region:*** {ctx.guild.region}
+        ***MFA:*** {ctx.guild.mfa_level}
+        ***Verification:*** {ctx.guild.verification_level}
+        ***File-Size-Limit:*** {ctx.guild.filesize_limit}
+        ***Members:*** {ctx.guild.member_count}
+        ***Default-Role:*** {ctx.guild.default_role.mention}
+        ***Boost-Role:*** {ctx.guild.premium_subscriber_role}
+        ***Boosters:*** {'*Nobody is boosting*' if not ctx.guild.premium_subscription_count else ctx.guild.premium_subscription_count}
+        ***Tier:*** {ctx.guild.premium_tier}
+        ***Categories:*** {len(ctx.guild.categories)}
+        ***Channels:*** {len(ctx.guild.channels)}
+        ***AFK-Channel:*** {ctx.guild.afk_channel}
+        ***AFK-Timeout:*** {ctx.guild.afk_timeout}""", inline=False)
+        if ctx.guild.icon:
+            simbed.set_thumbnail(url=ctx.guild.icon.url)
         else: simbed.description += "\n**Banner:** Server doesn't have a banner"
-        if guildctx.banner:
-            simbed.set_image(url=guildctx.banner.url)
+        if ctx.guild.banner:
+            simbed.set_image(url=ctx.guild.banner.url)
         else: simbed.description += "\n**Banner:** Guild doesn't have a banner"
         simbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=simbed)
