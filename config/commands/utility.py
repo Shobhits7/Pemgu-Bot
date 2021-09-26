@@ -81,10 +81,12 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***Voice:*** {'*Not in a voice*' if not member.voice else member.voice.channel.mention}
         ***Server-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}
         """.replace("\t", "")
-        uimbed.set_thumbnail(url=member.avatar.url)
+        if member.avatar:
+            uimbed.set_thumbnail(url=member.avatar.url)
+        else: uimbed.description += "**Avatar:** User doesn't have a avatar"
         if image.banner:
             uimbed.set_image(url=image.banner.url)
-        else: uimbed.description += "\n**Banner:** User doesn't have a banner"
+        else: uimbed.description += "**Banner:** User doesn't have a banner"
         uimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=uimbed)
 
