@@ -77,7 +77,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ╰***Top-Role:*** {member.top_role.mention}
         ╰***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
         ╰***Nickname:*** {member.nick}
-        ╰***Voice:*** {'*Not in a voice**' if not member.voice else member.voice.mention}
+        ╰***Voice:*** {'*Not in a voice**' if not member.voice else member.voice.channel.mention}
         ╰***Server-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}""", inline=False)
         uimbed.set_thumbnail(url=member.avatar.url)
         if image.banner:
