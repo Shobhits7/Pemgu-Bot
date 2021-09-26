@@ -48,7 +48,7 @@ class SelectView(discord.ui.View):
                 options.append(option)
         self.add_item(SelectUI(placeholder="Where do you want to go...", options=options, min_values=1, max_values=1, view=self))
         self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
-        self.add_item(discord.ui.Button(emoji="🍩", label="Support Guild", url="https://discord.gg/bWnjkjyFRz"))
+        self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
 
     @discord.ui.button(emoji="💣", label="Delete", style=discord.ButtonStyle.red)
     async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
@@ -59,8 +59,9 @@ class SelectView(discord.ui.View):
             for item in self.children:
                 if isinstance(item, discord.ui.Select):
                     item.placeholder = "Disabled due to timeout..."
-                elif isinstance(item, discord.ui.Button):
-                    self.remove_item(item=item)
+                else:
+                    for other in item:
+                        self.remove_item(item=other)
                 item.disabled = True
             await self.message.edit(view=self)
         except discord.NotFound:
@@ -125,7 +126,7 @@ class ButtonsView(discord.ui.View):
                 self.add_item(item=ButtonsUI(emoji=self.help.emojis.get(name), label=name, style=discord.ButtonStyle.blurple, custom_id=name, view=self))
         self.add_item(item=ButtonsUI(emoji="💣", label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))
         self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
-        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Guild", url="https://discord.gg/bWnjkjyFRz"))
+        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
 
     async def on_timeout(self):
         try:
