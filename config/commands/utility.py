@@ -109,7 +109,9 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             simbed.set_image(url=ctx.guild.banner.url)
         else:
             simbed.add_field(name="Banner:", value=F"False")
-        simbed.set_image(url=guildctx.banner.url) if guildctx.banner else simbed.description += "\n**Banner:** Guild doesn't have a banner"
+        if guildctx.banner:
+            simbed.set_image(url=guildctx.banner.url)
+        else: simbed.description += "\n**Banner:** Guild doesn't have a banner"
         simbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=simbed)
 
