@@ -65,18 +65,15 @@ class RPSButtons(discord.ui.Button):
             await interaction.response.edit_message(embed=tierpsmbed, view=self.view)
         else:
             self.view.clear_items()
-            if self.useroption == "Rock" and self.botoption == "Scissors":
-                await interaction.response.edit_message(embed=wonrpsmbed, view=self.view)
-            if self.useroption == "Paper" and self.botoption == "Rock":
-                await interaction.response.edit_message(embed=wonrpsmbed, view=self.view)
-            if self.useroption == "Scissors" and self.botoption == "Paper":
-                await interaction.response.edit_message(embed=wonrpsmbed, view=self.view)
-            if self.useroption == "Scissors" and self.botoption == "Rock":
-                await interaction.response.edit_message(embed=lostrpsmbed, view=self.view)
-            if self.useroption == "Rock" and self.botoption == "Paper":
-                await interaction.response.edit_message(embed=lostrpsmbed, view=self.view)
-            if self.useroption == "Paper" and self.botoption == "Scissors":
-                await interaction.response.edit_message(embed=lostrpsmbed, view=self.view)
+            if self.useroption == "Rock" and self.botoption == "Scissors" \
+               or self.useroption == "Paper" and self.botoption == "Rock" \
+                   or self.useroption == "Scissors" and self.botoption == "Paper":
+                   await interaction.response.edit_message(embed=wonrpsmbed, view=self.view)
+            elif self.useroption == "Scissors" and self.botoption == "Rock" \
+                or self.useroption == "Rock" and self.botoption == "Paper" \
+                    or self.useroption == "Paper" and self.botoption == "Scissors":
+                    await interaction.response.edit_message(embed=lostrpsmbed, view=self.view)
+                
 
 class RPSView(discord.ui.View):
     def __init__(self, bot, ctx):
