@@ -4,7 +4,7 @@ from discord.ext import commands
 class API(commands.Cog, description="Some cool commands that uses internet"):
     def __init__(self, bot):
         self.bot = bot
-        headers=self.dagpi_headers = {
+        self.dagpi_headers = {
             "Authorization": os.getenv("DAGPI")
         }
 
@@ -161,6 +161,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     async def character(self, ctx:commands.Context, *, character: str):
         session = await self.bot.session.get(F"https://rickandmortyapi.com/api/character/?name={character}")
         response = await session.json()
+        session.close()
         ramchmbed = discord.Embed(
             colour=self.bot.colour,
             url=response['results'][0]['url'],
