@@ -118,7 +118,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***Boosters:*** {ctx.guild.premium_subscription_count}
         ***Tier:*** {ctx.guild.premium_tier}
         ***Categories:*** {len(ctx.guild.categories)}
-        ***Channels:*** {ctx.guild.count}
+        ***Channels:*** {len(ctx.guild.channels)}
         ***AFK-Channel:*** {ctx.guild.afk_channel.mention}
         ***AFK-Timeout:*** {ctx.guild.afk_timeout}""".replace("\t", ""), inline=False)
         if ctx.guild.icon:
@@ -156,7 +156,8 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         else:
             badspotifymbed = discord.Embed(
                 colour=self.bot.colour,
-                title=F"{member} is not listenning to Spotify"
+                title=F"{member} is not listenning to Spotify",
+                timestamp=ctx.message.created_at
             )
             badspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
             await ctx.send(embed=badspotifymbed)
