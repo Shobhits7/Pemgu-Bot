@@ -36,11 +36,11 @@ class RPSButtons(discord.ui.Button):
         self.useroption = view.useroption
 
     async def callback(self, interaction: discord.Interaction):
-        if self.emoji == "🗻":
+        if self.label == "Rock":
             self.useroption = "Rock"
-        elif self.emoji == "🧻":
+        elif self.label == "Paper":
             self.useroption = "Paper"
-        elif self.emoji == "🔪":
+        elif self.label == "Scissors":
             self.useroption = "Scissors"
         tierpsmbed = discord.Embed(
             colour=self.bot.colour,
@@ -73,7 +73,6 @@ class RPSButtons(discord.ui.Button):
                 or self.useroption == "Rock" and self.botoption == "Paper" \
                     or self.useroption == "Paper" and self.botoption == "Scissors":
                     await interaction.response.edit_message(embed=lostrpsmbed, view=self.view)
-                
 
 class RPSView(discord.ui.View):
     def __init__(self, bot, ctx):
@@ -82,9 +81,9 @@ class RPSView(discord.ui.View):
         self.ctx = ctx
         self.botoption = random.choice(["Rock", "Paper", "Scissors"])
         self.useroption = ""
-        self.add_item(item=RPSButtons(emoji="🗻", style=discord.ButtonStyle.blurple, view=self))
-        self.add_item(item=RPSButtons(emoji="🧻", style=discord.ButtonStyle.green, view=self))
-        self.add_item(item=RPSButtons(emoji="🔪", style=discord.ButtonStyle.red, view=self))
+        self.add_item(item=RPSButtons(emoji="🗻", label="Rock", style=discord.ButtonStyle.blurple, view=self))
+        self.add_item(item=RPSButtons(emoji="🧻", label="Paper", style=discord.ButtonStyle.green, view=self))
+        self.add_item(item=RPSButtons(emoji="🔪", label="Scissors", style=discord.ButtonStyle.red, view=self))
 
     async def on_timeout(self):
         if self.children:
