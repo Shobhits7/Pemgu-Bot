@@ -11,7 +11,7 @@ class DYMButtons(discord.ui.Button):
         for match in self.matches:
             if self.label == match:
                 await interaction.message.delete()
-                await self.bot.process_commands(self.ctx.message)
+                await self.bot.process_commands(match)
         if self.label == "Delete":
             deletembed = discord.Embed(
                 colour=self.bot.colour,
