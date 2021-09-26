@@ -44,19 +44,19 @@ class RPSButtons(discord.ui.Button):
             self.useroption = "Scissors"
         tierpsmbed = discord.Embed(
             colour=self.bot.colour,
-            description=F"We both chose **{self.useroption}**, It's a tie",
+            description=F"We both chose **{self.botoption}**, It's a tie",
             timestamp=interaction.message.created_at
         )
         tierpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
         wonrpsmbed = discord.Embed(
             colour=self.bot.colour,
-            description=F"I chose {self.botoption}, But, You chose {self.useroption}, You won!",
+            description=F"I chose **{self.botoption}**, But, You chose **{self.useroption}**, You won! / I lost",
             timestamp=interaction.message.created_at
         )
         wonrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
         lostrpsmbed = discord.Embed(
             colour=self.bot.colour,
-            description=F"You chose {self.useroption}, But, I choose {self.botoption}, I won!",
+            description=F"You chose **{self.useroption}**, But, I choose **{self.botoption}**, I won! / You lost!",
             timestamp=interaction.message.created_at
         )
         lostrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
