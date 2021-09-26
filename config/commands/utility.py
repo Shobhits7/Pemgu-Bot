@@ -99,11 +99,19 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         )
         simbed.add_field(name="__Server-Information:__", value=F"""
         ╰***ID:*** {guildctx.id}
+        ╰***Name:*** {guildctx.name}
+        ╰***Description:*** {'*No Description' if not guildctx.description else guildctx.description}
+        ╰***Created-At:*** {discord.utils.format_dt(guildctx.created_at, style="F")} ({discord.utils.format_dt(guildctx.created_at, style="R")})
         ╰***Members:*** {len(guildctx.members)}
+        ╰***Default-Role:*** {len(guildctx.default_role)}
+        ╰***Boost-Role:*** {len(guildctx.premium_subscriber_role)}
+        ╰***Boosters:*** {'*Nobody is boosting*' if not guildctx.premium_subscribers else ', '.join(booster.mention for booster in guildctx.premium_subscribers)} - {guildctx.premium_subscription_count}
+        ╰***Tier:*** {guildctx.premium_tier}
+        ╰***Categories:*** {len(guildctx.categories)}
         ╰***Channels:*** {len(guildctx.channels)}
         ╰***AFK-Channel:*** {guildctx.afk_channel}
         ╰***AFK-Timeout:*** {guildctx.afk_timeout}
-        ╰***Text-Channels:*** {', '.join(tc.mention for tc in guildctx.text_channels)}""")
+        """)
         if guildctx.icon:
             simbed.set_thumbnail(url=guildctx.icon.url)
         else: simbed.description += "\n**Banner:** Server doesn't have a banner"
