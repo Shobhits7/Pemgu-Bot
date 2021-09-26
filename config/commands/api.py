@@ -77,7 +77,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     @commands.bot_has_guild_permissions(attach_files=True)
     async def colors(self, ctx:commands.Context, user:discord.User = None):
         user = ctx.author if not user else user
-        session = await self.bot.session.get(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.with_static_format('png').with_size(1024)}", headers=self.dagpi_headers)
+        session = await self.bot.session.get(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.with_format('png')}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
         session.close()
         clrsmbed = discord.Embed(
@@ -94,7 +94,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
     @commands.bot_has_guild_permissions(attach_files=True)
     async def tweet(self, ctx:commands.Context, *, text, user:discord.User = None):
         user = ctx.author if not user else user
-        session = await self.bot.session.get(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_static_format('png').with_size(1024)}&username={ctx.author.name}&text={text}", headers=self.dagpi_headers)
+        session = await self.bot.session.get(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_format('png')}&username={user.name}&text={text}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
         session.close()
         twmbed = discord.Embed(
@@ -108,6 +108,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
 
     # Screenshot
     @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website", usage="<website>")
+    @commands.is_owner()
     @commands.bot_has_guild_permissions(attach_files=True)
     async def screenshot(self, ctx:commands.Context, *, website):
         session = await self.bot.session.get(F"https://api.screenshotmachine.com?key=a95edd&url={website}&dimension=1024x768")
