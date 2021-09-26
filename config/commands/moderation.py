@@ -133,13 +133,13 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         domtmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully Muted {member.mention}",
-            timestmap=ctx.message.created_at
+            timestamp=ctx.message.created_at
         )
         domtmbed.set_footer(text=member, icon_url=member.avatar.url)
         unmtmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully Un-Muted {member.mention}",
-            timestmap=ctx.message.created_at
+            timestamp=ctx.message.created_at
         )
         unmtmbed.set_footer(text=member, icon_url=member.avatar.url)
         mute_role = None
