@@ -19,7 +19,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Avatar
     @commands.command(name="avatar", aliases=["av"], help="Will show your or another user's avatar", usage="[user]")
-    async def avatar(self, ctx:commands.Context, user:commands.UserConverter = None):
+    async def avatar(self, ctx:commands.Context, user:discord.User = None):
         user = user or ctx.author
         avmbed = discord.Embed(
             colour=self.bot.colour,
@@ -32,7 +32,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Banner
     @commands.command(name="banner", aliases=["br"], help="Will show your or another user's banner", usage="[user]")
-    async def banner(self, ctx:commands.Context, user:commands.UserConverter = None):
+    async def banner(self, ctx:commands.Context, user:discord.User = None):
         user = user or ctx.author
         image = await self.bot.fetch_user(user.id)
         brmbed = discord.Embed(
@@ -50,7 +50,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     # UserInfo
     @commands.command(name="userinfo", aliases=["ui"], help="Will show user info", usage="[user]")
     @commands.guild_only()
-    async def userinfo(self, ctx:commands.Context, *, member:commands.MemberConverter = None):
+    async def userinfo(self, ctx:commands.Context, *, member:discord.Member = None):
         member = member or ctx.author
         image = await self.bot.fetch_user(member.id)
         uimbed = discord.Embed(

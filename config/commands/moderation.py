@@ -10,7 +10,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(ban_members=True)
     @commands.bot_has_guild_permissions(ban_members=True)
-    async def ban(self, ctx:commands.Context, user:commands.UserConverter, *, reason=None):
+    async def ban(self, ctx:commands.Context, user:discord.User, *, reason=None):
         abnmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{user} is now Banned",
@@ -34,7 +34,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(ban_members=True)
     @commands.bot_has_guild_permissions(ban_members=True)
-    async def unban(self, ctx:commands.Context, user:commands.UserConverter, *, reason):
+    async def unban(self, ctx:commands.Context, user:discord.User, *, reason):
         aunmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{user.name} is now Unbanned",
@@ -57,7 +57,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(kick_members=True)
     @commands.bot_has_guild_permissions(kick_members=True)
-    async def kick(self, ctx:commands.Context, member:commands.MemberConverter, *, reason=None):
+    async def kick(self, ctx:commands.Context, member:discord.Member, *, reason=None):
         akcmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{member} is now Kicked",
@@ -81,7 +81,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
-    async def addrole(self, ctx:commands.Context, member:commands.MemberConverter, role:commands.RoleConverter):
+    async def addrole(self, ctx:commands.Context, member:discord.Member, role:discord.Role):
         finaembed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully added the {role} role",
@@ -105,7 +105,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
-    async def removerole(self, ctx:commands.Context, member:commands.MemberConverter, role:commands.RoleConverter):
+    async def removerole(self, ctx:commands.Context, member:discord.Member, role:discord.Role):
         finrembed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully removed the {role} role",
@@ -123,6 +123,44 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             await ctx.send(embed=finrembed)
             return
         await ctx.send(embed=badrembed)
+
+    # Mute
+    @commands.command(name="mute", aliases=["mt"], help="Will mute the given user", usage="<user>")
+    @commands.guild_only()
+    @commands.has_guild_permissions(manage_roles=True)
+    @commands.bot_has_guild_permissions(manage_roles=True)
+    async def mute(self, ctx:commands.Context, member:discord.Member):
+        domtmbed = discord.Embed(
+            colour=self.bot.colour,
+            title=F"Successfully Muted {member.mention}",
+            timestmap=ctx.message.created_at
+        )
+        domtmbed.set_footer(text=member, icon_url=member.avatar.url)
+        unmtmbed = discord.Embed(
+            colour=self.bot.colour,
+            title=F"Successfully Un-Muted {member.mention}",
+            timestmap=ctx.message.created_at
+        )
+        unmtmbed.set_footer(text=member, icon_url=member.avatar.url)
+        mute_role = None
+        mute_role_name = "Muted"
+        for role in ctx.guild.roles:
+            if mute_role_name in role.name:
+                mute_role += role
+            else:
+                mute_role += await ctx.guild.create_role(
+                    colour=discord.Colour.red(),
+                    name="Muted",
+                    permissions=discord.Permissions(add_reactions=False, remove_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False),
+                    mentionable=True,
+                    reason="There was no Muted role, so I created one."
+                )
+        if mute_role in member.roles:
+            await member.remove_roles(mute_role, reason=F"UnMuted by {ctx.author}")
+            await ctx.send(embed=unmtmbed)
+        else:
+            await member.add_roles(mute_role, reason=F"Muted by {ctx.author}")
+            await ctx.send(embed=domtmbed)
 
     # Purge
     @commands.command(name="purge", aliases=["pu"], help="Will delete messages", usage="<amount>")
