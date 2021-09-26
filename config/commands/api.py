@@ -172,10 +172,10 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         Stauts: {response['results'][0]['status']}
         Species: {response['results'][0]['species']}
         Type: {'Unknown' if not response['results'][0]['type'] else response['results'][0]['type']}
-        Gender:" {['results'][0]['gender']}
-        Origin:" {['results'][0]['origin']['name']}
-        Location:" {['results'][0]['location']['name']}
-        Created:" {['results'][0]['created']}
+        Gender:" {response['results'][0]['gender']}
+        Origin:" {response['results'][0]['origin']['name']}
+        Location:" {response['results'][0]['location']['name']}
+        Created:" {response['results'][0]['created']}
         """.replace("\t", "")
         ramchmbed.set_image(url=response['results'][0]['image'])
         await ctx.send(embed=ramchmbed)
