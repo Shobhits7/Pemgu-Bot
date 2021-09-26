@@ -63,7 +63,7 @@ class PaginateHelp(commands.HelpCommand):
         for cog, commands in mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
-            embed = discord.Embed(colour=self.context.bot.colour, title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name}", description=description)
+            embed = discord.Embed(title=name, description=description)
             embeds.append(embed)
         for mbed in embeds:
             paginator.add_line(mbed)
