@@ -114,12 +114,12 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***File-Size-Limit:*** {ctx.guild.filesize_limit}
         ***Members:*** {ctx.guild.member_count}
         ***Default-Role:*** {ctx.guild.default_role.mention}
-        ***Boost-Role:*** {ctx.guild.premium_subscriber_role}
+        ***Boost-Role:*** {ctx.guild.premium_subscriber_role.mention}
         ***Boosters:*** {'*Nobody is boosting*' if not ctx.guild.premium_subscription_count else ctx.guild.premium_subscription_count}
         ***Tier:*** {ctx.guild.premium_tier}
         ***Categories:*** {len(ctx.guild.categories)}
         ***Channels:*** {len(ctx.guild.channels)}
-        ***AFK-Channel:*** {ctx.guild.afk_channel}
+        ***AFK-Channel:*** {ctx.guild.afk_channel.mention}
         ***AFK-Timeout:*** {ctx.guild.afk_timeout}""".replace("\t", ""), inline=False)
         if ctx.guild.icon:
             simbed.set_thumbnail(url=ctx.guild.icon.url)
