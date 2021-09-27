@@ -24,7 +24,7 @@ class PaginatorView(discord.ui.View):
                 )
             embed.set_thumbnail(url=self.help.context.me.avatar.url)
             embed.set_author(name=self.help.context.author, icon_url=self.help.context.author.avatar.url)
-            embed.set_footer(text=F"<> is required | [] is optional | Page: {len(self.embeds)}/{len(cog)}")
+            embed.set_footer(text=F"<> is required | [] is optional | Page: {len(self.embeds)}/{}")
             self.embeds.append(embed)
 
     @discord.ui.button(emoji="⏯", style=discord.ButtonStyle.green)
