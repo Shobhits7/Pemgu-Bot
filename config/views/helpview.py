@@ -61,7 +61,6 @@ class PaginatorView(discord.ui.View):
     async def on_timeout(self):
         try:
             self.clear_items()
-            self.add_item(item=discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
             await self.message.edit(view=self)
         except discord.NotFound:
             return
