@@ -1,54 +1,63 @@
 import discord
 
+class PaginatorButtons(discord.ui.Button):
+    def __init__(self, view, **kwargs):
+        super().__init__(**kwargs)
+        self.help = view.help
+        self.help = view.help
+        self.mapping = view.mapping
+        self.homepage = view.homepage
+        self.embed = 0
+        self.embeds = [self.homepage]
+        
+    async def callback(self, interaction:discord.Interaction):
+        def gts(command):
+            return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
+        for cog, commands in self.mapping.items():
+            name = cog.qualified_name if cog else "No"
+            description = cog.description if cog else "Commands without category"
+            cmds = cog.walk_commands() if cog else commands
+            embed = discord.Embed(
+                    colour=self.help.context.bot.colour,
+                    title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
+                    description=F"{description}\n\n {', '.join(gts(command) for command in cmds)}",
+                    timestamp=self.help.context.message.created_at
+                )
+            embed.set_thumbnail(url=self.help.context.me.avatar.url)
+            embed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+            embed.set_footer(text="<> is required | [] is optional")
+            await interaction.response.edit_message(embed=embed)
+            self.embeds.append(embed)
+        if self.label == "Homepage":
+            await interaction.response.edit_message(embed=self.homepage)
+        if self.label == "Previous":
+            if self.embed == 0:
+                self.disabled = True
+                await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
+            else:
+                self.embed -= 1
+                await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
+        if self.label == "Stop":
+            await interaction.message.delete()
+        if self.label == "Next":
+            if self.embed == 7:
+                self.disabled = True
+                await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
+            else:
+                self.embed += 1
+                await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
+
+
 class PaginatorView(discord.ui.View):
     def __init__(self, help, mapping, homepage):
         super().__init__(timeout=15)
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
-        self.embed = 0
-        self.embeds = [self.homepage]
-        def gts(command):
-            return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}"
-        for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
-            description = cog.description if cog else "Commands without category"
-            cmds = cog.walk_commands() if cog else commands
-            embed = discord.Embed(
-                colour=self.help.context.bot.colour,
-                title=name,
-                description=F"{description}\n\n", 
-                timestamp=self.help.context.message.created_at
-            )
-            embed.description += "\n".join(gts(cmd) for cmd in cmds)
-            self.embeds.append(embed)
-        
-    @discord.ui.button(emoji="⏮", label="Previous", style=discord.ButtonStyle.blurple)
-    async def previous(self, button:discord.ui.Button, interaction:discord.Interaction):
-        if self.embed == 0:
-            self.disabled = True
-            await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
-        else:
-            self.embed -= 1
-            await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
-    
-    @discord.ui.button(emoji="⏹", label="Stop", style=discord.ButtonStyle.red)
-    async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
-        await interaction.message.delete()
-
-    @discord.ui.button(emoji="⏯", label="Homepage", style=discord.ButtonStyle.green)
-    async def homepage(self, button:discord.ui.Button, interaction:discord.Interaction):
-        await interaction.response.edit_message(embed=self.homepage)
-        
-
-    @discord.ui.button(emoji="⏭", label="Next", style=discord.ButtonStyle.blurple)
-    async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
-        if self.embed == 7:
-            self.disabled = True
-            await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
-        else:
-            self.embed += 1
-            await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
+        self.add_item(item=PaginatorButtons(emoji="⏯", label="Homepage", style=discord.ButtonStyle.green))
+        self.add_item(item=PaginatorButtons(emoji="⏮", label="Previous", style=discord.ButtonStyle.blurple))
+        self.add_item(item=PaginatorButtons(emoji="⏹", label="Stop", style=discord.ButtonStyle.red))
+        self.add_item(item=PaginatorButtons(emoji="⏭", label="Next", style=discord.ButtonStyle.blurple))
 
     async def on_timeout(self):
         try:
