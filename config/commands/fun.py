@@ -28,7 +28,7 @@ class Fun(commands.Cog, description="You sad?. Use these to at least have a smil
         class NitroView(discord.ui.View):
             def __init__(self):
                 super().__init__(timeout=15)
-                self.add_item(item=NitroButton(label="Claim", style=discord.ButtonStyle.green, width=225, view=self))
+                self.add_item(item=NitroButton(label="Claim", style=discord.ButtonStyle.green, view=self))
             async def on_timeout(self):
                 if self.children:
                     for item in self.children:
