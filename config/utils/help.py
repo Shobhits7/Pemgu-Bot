@@ -1,6 +1,5 @@
 import discord, contextlib
 from discord.ext import commands
-from discord.ext.commands import Paginator
 import config.views.helpview as hv
 
 class MinimalHelp(commands.MinimalHelpCommand):
@@ -35,6 +34,41 @@ class MinimalHelp(commands.MinimalHelpCommand):
         for page in self.paginator.pages:
             mhmbed.description = page
             await self.context.send(embed=mhmbed)
+
+class PaginatedHelp(commands.HelpCommand):
+    def __init__(self):
+        self.emojis = {
+            "Anime": "🍙",
+            "API": "🌎",
+            "Game": "🎮",
+            "Moderation": "🎩",
+            "Music": "🎼",
+            "Owner": "👑",
+            "Meta": "🔧",
+            "Utility": "🧰",
+            "Jishaku": "🎓",
+            "No": "❓"
+        }
+        super().__init__(
+            command_attrs={
+                "help": "The help command for this bot",
+                "aliases": ["h", "commands"]
+            }
+        )
+
+    async def send_bot_help(self, mapping):
+        homepage = discord.Embed(
+            colour=self.context.bot.colour,
+            title=F"{self.context.me.name}'s Help",
+            description=F"This is a list of all modules in the bot.\nSelect a module for more information.",
+            timestamp=self.context.message.created_at
+        )
+        homepage.set_thumbnail(url=self.context.me.avatar.url)
+        homepage.set_author(name=self.context.author, icon_url=self.context.author.avatar.url)
+        homepage.add_field(name="Prefix:", value=self.context.prefix or "In DM you don't need to use prefix", inline=False)
+        homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THESE WHEN DOING A COMMAND***", inline=False)
+        view = hv.PaginatorView(self, mapping, homepage)
+        view.message = await self.context.send(embed=homepage, view=view)
 
 class CustomHelp(commands.HelpCommand):
     def __init__(self):
