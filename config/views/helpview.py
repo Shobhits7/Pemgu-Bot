@@ -8,6 +8,8 @@ class PaginatorView(discord.ui.View):
         self.homepage = homepage
         self.embed = 0
         self.embeds = [self.homepage]
+        self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
+        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
         def gts(command):
             return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
         for cog, commands in self.mapping.items():
@@ -33,10 +35,10 @@ class PaginatorView(discord.ui.View):
     async def previous(self, button:discord.ui.Button, interaction:discord.Interaction):
         if self.embed == 0:
             self.disabled = True
-            await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
+            await interaction.response.edit_message(embed=self.embeds[self.embed])
         else:
             self.embed -= 1
-            await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
+            await interaction.response.edit_message(embed=self.embeds[self.embed])
     
     @discord.ui.button(emoji="⏹", label="Stop", style=discord.ButtonStyle.red)
     async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
@@ -46,10 +48,10 @@ class PaginatorView(discord.ui.View):
     async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
         if self.embed == 7:
             self.disabled = True
-            await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
+            await interaction.response.edit_message(embed=self.embeds[self.embed])
         else:
             self.embed += 1
-            await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
+            await interaction.response.edit_message(embed=self.embeds[self.embed])
 
 class SelectUI(discord.ui.Select):
     def __init__(self, view, **kwargs):
