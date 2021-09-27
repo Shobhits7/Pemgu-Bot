@@ -17,35 +17,41 @@ class PaginatorView(discord.ui.View):
             embed = discord.Embed(
                 colour=self.help.context.bot.colour,
                 title=name,
-                description=", ".join(gts(cmd) for cmd in cmds),
+                description=F"{description}\n\n"
                 timestamp=self.help.context.message.created_at
             )
+            embed.description += "\n".join(gts(cmd) for cmd in cmds)
             self.embeds.append(embed)
         
     @discord.ui.button(emoji="⏮", style=discord.ButtonStyle.blurple)
-    async def back(self, button:discord.ui.Button, interaction:discord.Interaction):
-        self.embed -= 1
-        await interaction.response.edit_message(embed=self.embeds[self.embed])
+    async def previous(self, button:discord.ui.Button, interaction:discord.Interaction):
+        if self.embed = 0:
+            self.disabled = True
+        else:
+            self.embed -= 1
+            await interaction.response.edit_message(embed=self.embeds[self.embed])
     
     @discord.ui.button(emoji="⏹", style=discord.ButtonStyle.red)
     async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
         await interaction.message.delete()
 
     @discord.ui.button(emoji="⏯", style=discord.ButtonStyle.green)
-    async def back(self, button:discord.ui.Button, interaction:discord.Interaction):
+    async def homepage(self, button:discord.ui.Button, interaction:discord.Interaction):
         await interaction.response.edit_message(embed=self.homepage)
 
     @discord.ui.button(emoji="⏭", style=discord.ButtonStyle.blurple)
-    async def back(self, button:discord.ui.Button, interaction:discord.Interaction):
-        self.embed += 1
-        await interaction.response.edit_message(embed=self.embeds[self.embed])
+    async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
+        if self.embed == 7 or self.embed == 8:
+            self.disabled = True
+        else:
+            self.embed += 1
+            await interaction.response.edit_message(embed=self.embeds[self.embed])
 
     async def on_timeout(self):
         try:
             for item in self.children:
-                if isinstance(item, discord.ui.Select):
-                    item.placeholder = "Disabled due to timeout..."
-                item.disabled = True
+                self.clear_items()
+                self.add_item(discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
             await self.message.edit(view=self)
         except discord.NotFound:
             return
