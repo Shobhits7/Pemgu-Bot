@@ -29,23 +29,23 @@ class PaginatorButtons(discord.ui.Button):
             await interaction.response.edit_message(embed=embed)
             self.embeds.append(embed)
         if self.label == "Homepage":
-            await interaction.response.edit_message(embed=self.homepage)
+            await interaction.response.edit_message(embed=self.homepage, view=self.view)
         if self.label == "Previous":
             if self.embed == 0:
-                self.disabled = True
-                await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
+                self.view.remove_item(item=self)
+                await interaction.response.edit_message(embed=self.embeds[self.embed], view=self.view)
             else:
                 self.embed -= 1
-                await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
+                await interaction.response.edit_message(embed=self.embeds[self.embed], view=self.view)
         if self.label == "Stop":
             await interaction.message.delete()
         if self.label == "Next":
             if self.embed == 7:
-                self.disabled = True
-                await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
+                self.view.remove_item(item=self)
+                await interaction.response.edit_message(embed=self.embeds[self.embed], view=self.view)
             else:
                 self.embed += 1
-                await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
+                await interaction.response.edit_message(embed=self.embeds[self.embed], view=self.view)
 
 
 class PaginatorView(discord.ui.View):
@@ -58,12 +58,14 @@ class PaginatorView(discord.ui.View):
         self.add_item(item=PaginatorButtons(emoji="⏮", label="Previous", style=discord.ButtonStyle.blurple))
         self.add_item(item=PaginatorButtons(emoji="⏹", label="Stop", style=discord.ButtonStyle.red))
         self.add_item(item=PaginatorButtons(emoji="⏭", label="Next", style=discord.ButtonStyle.blurple))
+        self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
+        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
 
     async def on_timeout(self):
         try:
             for item in self.children:
                 self.clear_items()
-                self.add_item(discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
+                self.add_item(item=discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
             await self.message.edit(view=self)
         except discord.NotFound:
             return
@@ -127,9 +129,9 @@ class SelectView(discord.ui.View):
             if not name.startswith("On"):
                 option = discord.SelectOption(emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓', label=name, description=description, value=name)
                 options.append(option)
-        self.add_item(SelectUI(placeholder="Where do you want to go...", options=options, min_values=1, max_values=1, view=self))
-        self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
-        self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
+        self.add_item(item=SelectUI(placeholder="Where do you want to go...", options=options, min_values=1, max_values=1, view=self))
+        self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
+        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
 
     @discord.ui.button(emoji="💣", label="Delete", style=discord.ButtonStyle.red)
     async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
@@ -210,7 +212,7 @@ class ButtonsView(discord.ui.View):
         try:
             for item in self.children:
                 self.clear_items()
-                self.add_item(discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
+                self.add_item(item=discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
             await self.message.edit(view=self)
         except discord.NotFound:
             return
