@@ -14,7 +14,7 @@ class Meta(commands.Cog, description="For setting up the bot"):
             title=F"My Prefix here is `{self.bot.prefix}`",
             timestamp=ctx.message.created_at
         )
-        pfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        pfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=pfmbed)
 
 def setup(bot):

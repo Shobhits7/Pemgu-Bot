@@ -6,26 +6,26 @@ class PaginatorView(discord.ui.View):
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
-        self.embedpage = 0
-        self.embeds = [self.homepage]
-        self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
-        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
+        self.page = 0
+        self.mbeds = [self.homepage]
+        self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))), row=4)
+        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"), row=4)
         def gts(command):
             return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             cmds = cog.walk_commands() if cog else commands
-            embed = discord.Embed(
+            mbed = discord.Embed(
                     colour=self.help.context.bot.colour,
                     title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
-                    description=F"{description}\n\n {''.join(gts(command) for command in commands)}",
+                    description=F"{description}\n\n{''.join(gts(command) for command in cmds)}",
                     timestamp=self.help.context.message.created_at
             )
-            embed.set_thumbnail(url=self.help.context.me.avatar.url)
-            embed.set_author(name=self.help.context.author, icon_url=self.help.context.author.avatar.url)
-            embed.set_footer(text=F"<> is required | [] is optional | Page: {len(self.embeds)}")
-            self.embeds.append(embed)
+            mbed.set_thumbnail(url=self.help.context.me.display_avatar.url)
+            mbed.set_author(name=self.help.context.author, icon_url=self.help.context.author.display_avatar.url)
+            mbed.set_footer(text=F"<> is required | [] is optional | Page: {len(self.mbeds)}")
+            self.mbeds.append(mbed)
 
     @discord.ui.button(emoji="⏯", style=discord.ButtonStyle.green)
     async def home(self, button:discord.ui.Button, interaction:discord.Interaction):
@@ -33,12 +33,12 @@ class PaginatorView(discord.ui.View):
 
     @discord.ui.button(emoji="⏮", style=discord.ButtonStyle.blurple)
     async def previous(self, button:discord.ui.Button, interaction:discord.Interaction):
-        if self.embedpage == 0:
+        if self.page == 0:
             self.disabled = True
-            await interaction.response.edit_message(embed=self.embeds[self.embedpage], view=self)
+            await interaction.response.edit_message(embed=self.embeds[self.page], view=self)
         else:
-            self.embedpage -= 1
-            await interaction.response.edit_message(embed=self.embeds[self.embedpage])
+            self.page -= 1
+            await interaction.response.edit_message(embed=self.embeds[self.page])
     
     @discord.ui.button(emoji="⏹", style=discord.ButtonStyle.red)
     async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
@@ -46,12 +46,12 @@ class PaginatorView(discord.ui.View):
 
     @discord.ui.button(emoji="⏭", style=discord.ButtonStyle.blurple)
     async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
-        if self.embedpage == 7:
+        if self.page == 7:
             self.disabled = True
-            await interaction.response.edit_message(embed=self.embeds[self.embedpage], view=self)
+            await interaction.response.edit_message(embed=self.embeds[self.page], view=self)
         else:
-            self.embedpage += 1
-            await interaction.response.edit_message(embed=self.embeds[self.embedpage])
+            self.page += 1
+            await interaction.response.edit_message(embed=self.embeds[self.page])
 
     async def on_timeout(self):
         try:
@@ -71,8 +71,8 @@ class PaginatorView(discord.ui.View):
             description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
             timestamp=self.help.context.message.created_at
         )
-        icheckmbed.set_thumbnail(url=self.help.context.me.avatar.url)
-        icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+        icheckmbed.set_thumbnail(url=self.help.context.me.display_avatar.url)
+        icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
         await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
         return False
 
@@ -85,7 +85,7 @@ class SelectUI(discord.ui.Select):
 
     async def callback(self, interaction:discord.Interaction):
         def gts(command):
-            return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}"
+            return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
@@ -94,13 +94,11 @@ class SelectUI(discord.ui.Select):
                 mbed = discord.Embed(
                     colour=self.help.context.bot.colour,
                     title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
-                    description=F"{description}\n\n",
+                    description=F"{description}\n\n{''.join(gts(command) for command in cmds)}",
                     timestamp=self.help.context.message.created_at
                 )
-                for command in cmds:
-                    mbed.description += F"{gts(command)}\n"
-                mbed.set_thumbnail(url=self.help.context.me.avatar.url)
-                mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+                mbed.set_thumbnail(url=self.help.context.me.display_avatar.url)
+                mbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
                 mbed.set_footer(text="<> is required | [] is optional")
                 await interaction.response.edit_message(embed=mbed)
         if self.values[0] == "Home":
@@ -132,9 +130,8 @@ class SelectView(discord.ui.View):
     async def on_timeout(self):
         try:
             for item in self.children:
-                if isinstance(item, discord.ui.Select):
-                    item.placeholder = "Disabled due to timeout..."
-                item.disabled = True
+                self.clear_items()
+                self.add_item(item=discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
             await self.message.edit(view=self)
         except discord.NotFound:
             return
@@ -148,8 +145,8 @@ class SelectView(discord.ui.View):
             description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
             timestamp=self.help.context.message.created_at
         )
-        icheckmbed.set_thumbnail(url=self.help.context.me.avatar.url)
-        icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+        icheckmbed.set_thumbnail(url=self.help.context.me.display_avatar.url)
+        icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
         await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
         return False
 
@@ -162,7 +159,7 @@ class ButtonsUI(discord.ui.Button):
 
     async def callback(self, interaction:discord.Interaction):
         def gts(command):
-            return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}"
+            return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
@@ -171,13 +168,11 @@ class ButtonsUI(discord.ui.Button):
                 mbed = discord.Embed(
                     colour=self.help.context.bot.colour,
                     title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
-                    description=F"{description}\n\n",
+                    description=F"{description}\n\n{''.join(gts(command) for command in cmds)}",
                     timestamp=self.help.context.message.created_at
                 )
-                for command in cmds:
-                    mbed.description += F"{gts(command)}\n"
-                mbed.set_thumbnail(url=self.help.context.me.avatar.url)
-                mbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+                mbed.set_thumbnail(url=self.help.context.me.display_avatar.url)
+                mbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
                 mbed.set_footer(text="<> is required | [] is optional")
                 await interaction.response.edit_message(embed=mbed)
         if self.custom_id == "Home":
@@ -218,7 +213,7 @@ class ButtonsView(discord.ui.View):
             description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
             timestamp=self.help.context.message.created_at
         )
-        icheckmbed.set_thumbnail(url=self.help.context.me.avatar.url)
-        icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+        icheckmbed.set_thumbnail(url=self.help.context.me.display_avatar.url)
+        icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
         await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
         return False

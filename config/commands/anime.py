@@ -19,7 +19,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         quotembed.add_field(name="Quote:", value=response["quote"])
         quotembed.add_field(name="Character:", value=response["character"])
         quotembed.add_field(name="Series:", value=response["anime"])
-        quotembed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        quotembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=quotembed)
 
     # SFW
@@ -35,7 +35,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             timestamp=ctx.message.created_at
         )
         sfwmbed.set_image(url=response["url"])
-        sfwmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        sfwmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=sfwmbed)
 
     # Waifu
@@ -51,7 +51,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             timestamp=ctx.message.created_at
         )
         wambed.set_image(url=response["url"])
-        wambed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        wambed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=wambed)
     
     # SMaid
@@ -67,7 +67,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             timestamp=ctx.message.created_at
         )
         smaidmbed.set_image(url=response["url"])
-        smaidmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        smaidmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=smaidmbed)
     
     # NSFW
@@ -84,7 +84,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             timestamp=ctx.message.created_at
         )
         nsfwmbed.set_image(url=response["url"])
-        nsfwmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        nsfwmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=nsfwmbed)
 
     # Ass
@@ -101,7 +101,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             timestamp=ctx.message.created_at
         )
         assmbed.set_image(url=response["url"])
-        assmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        assmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=assmbed)
 
     # Ecchi
@@ -118,7 +118,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             timestamp=ctx.message.created_at
         )
         ecchimbed.set_image(url=response["url"])
-        ecchimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        ecchimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=ecchimbed)
 
     # Ero
@@ -135,7 +135,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             timestamp=ctx.message.created_at
         )
         erombed.set_image(url=response["url"])
-        erombed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        erombed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=erombed)
 
     # Hentai
@@ -152,7 +152,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             timestamp=ctx.message.created_at
         )
         hentaimbed.set_image(url=response["url"])
-        hentaimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        hentaimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=hentaimbed)
 
     # NMaid
@@ -169,7 +169,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             timestamp=ctx.message.created_at
         )
         nmaidmbed.set_image(url=response["url"])
-        nmaidmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        nmaidmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=nmaidmbed)
 
     # Milf
@@ -186,7 +186,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             timestamp=ctx.message.created_at
         )
         milfmbed.set_image(url=response["url"])
-        milfmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        milfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=milfmbed)
 
     # Oppai
@@ -203,7 +203,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             timestamp=ctx.message.created_at
         )
         oppaimbed.set_image(url=response["url"])
-        oppaimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        oppaimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=oppaimbed)
 
     # Oral
@@ -220,7 +220,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             timestamp=ctx.message.created_at
         )
         oralmbed.set_image(url=response["url"])
-        oralmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        oralmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=oralmbed)
 
     # Paizuri
@@ -237,7 +237,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             timestamp=ctx.message.created_at
         )
         paizurimbed.set_image(url=response["url"])
-        paizurimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        paizurimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=paizurimbed)
 
     # Selfies
@@ -254,7 +254,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             timestamp=ctx.message.created_at
         )
         selfiesmbed.set_image(url=response["url"])
-        selfiesmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        selfiesmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=selfiesmbed)
 
     # Uniform
@@ -271,7 +271,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             timestamp=ctx.message.created_at
         )
         uniformmbed.set_image(url=response["url"])
-        uniformmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        uniformmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=uniformmbed)
 
 def setup(bot):

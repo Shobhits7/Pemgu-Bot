@@ -28,8 +28,8 @@ class MinimalHelp(commands.MinimalHelpCommand):
             title=F"{self.context.me.name}'s Help",
             timestamp=self.context.message.created_at
         )
-        mhmbed.set_thumbnail(url=self.context.me.avatar.url)
-        mhmbed.set_author(name=self.context.author, icon_url=self.context.author.avatar.url)
+        mhmbed.set_thumbnail(url=self.context.me.display_avatar.url)
+        mhmbed.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
         mhmbed.set_footer(text="[] means the argument is optional. | <> means the argument is required.")
         for page in self.paginator.pages:
             mhmbed.description = page
@@ -61,11 +61,11 @@ class CustomHelp(commands.HelpCommand):
         homepage = discord.Embed(
             colour=self.context.bot.colour,
             title=F"{self.context.me.name}'s Help",
-            description=F"For more help or information use the buttons.",
+            description="For more help or information use the menu and select the module.",
             timestamp=self.context.message.created_at
         )
-        homepage.set_thumbnail(url=self.context.me.avatar.url)
-        homepage.set_author(name=self.context.author, icon_url=self.context.author.avatar.url)
+        homepage.set_thumbnail(url=self.context.me.display_avatar.url)
+        homepage.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
         usable = 0
         for cog, commands in mapping.items():
             name = cog.qualified_name if cog else "No"
@@ -77,7 +77,7 @@ class CustomHelp(commands.HelpCommand):
         homepage.add_field(name="Prefix:", value=self.context.prefix or "In DM you don't need to use prefix", inline=False)
         homepage.add_field(name="Usable:", value=usable, inline=False)
         homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THESE WHEN DOING A COMMAND***", inline=False)
-        view = hv.ButtonsView(self, mapping, homepage)
+        view = hv.SelectView(self, mapping, homepage)
         view.message = await self.context.send(embed=homepage, view=view)
         return
 
@@ -93,8 +93,8 @@ class CustomHelp(commands.HelpCommand):
         )
         for command in cog.walk_commands():
             hcogmbed.description += F"• **{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
-        hcogmbed.set_thumbnail(url=self.context.me.avatar.url)
-        hcogmbed.set_author(name=self.context.author, icon_url=self.context.author.avatar.url)
+        hcogmbed.set_thumbnail(url=self.context.me.display_avatar.url)
+        hcogmbed.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
         await self.context.send(embed=hcogmbed)
         return
 
@@ -106,8 +106,8 @@ class CustomHelp(commands.HelpCommand):
             description=command.help or "No help found...",
             timestamp=self.context.message.created_at
         )
-        hcmdmbed.set_thumbnail(url=self.context.me.avatar.url)
-        hcmdmbed.set_author(name=self.context.author, icon_url=self.context.author.avatar.url)
+        hcmdmbed.set_thumbnail(url=self.context.me.display_avatar.url)
+        hcmdmbed.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
         if cog := command.cog:
             hcmdmbed.add_field(name="Category:", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name}")
         can_run = "No"
@@ -129,8 +129,8 @@ class CustomHelp(commands.HelpCommand):
             description=F"{group.help or 'No help found...'}\n\n",
             timestamp=self.context.message.created_at
         )
-        hgroupmbed.set_thumbnail(url=self.context.me.avatar.url)
-        hgroupmbed.set_author(name=self.context.author, icon_url=self.context.author.avatar.url)
+        hgroupmbed.set_thumbnail(url=self.context.me.display_avatar.url)
+        hgroupmbed.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
         for command in group.commands:
             hgroupmbed.description += F"• **{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
         if cog := command.cog:
@@ -152,7 +152,7 @@ class CustomHelp(commands.HelpCommand):
             description=error,
             timestamp=self.context.message.created_at
         )
-        herrormbed.set_thumbnail(url=self.context.me.avatar.url)
-        herrormbed.set_author(name=self.context.author, icon_url=self.context.author.avatar.url)
+        herrormbed.set_thumbnail(url=self.context.me.display_avatar.url)
+        herrormbed.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
         await self.context.send(embed=herrormbed)
         return

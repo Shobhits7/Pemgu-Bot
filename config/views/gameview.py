@@ -47,19 +47,19 @@ class RPSButtons(discord.ui.Button):
             description=F"We both chose **{self.botoption}**, It's a tie",
             timestamp=interaction.message.created_at
         )
-        tierpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
+        tierpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
         wonrpsmbed = discord.Embed(
             colour=self.bot.colour,
             description=F"I chose **{self.botoption}**, But, You chose **{self.useroption}**, You won! / I lost",
             timestamp=interaction.message.created_at
         )
-        wonrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
+        wonrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
         lostrpsmbed = discord.Embed(
             colour=self.bot.colour,
             description=F"You chose **{self.useroption}**, But, I choose **{self.botoption}**, I won! / You lost!",
             timestamp=interaction.message.created_at
         )
-        lostrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
+        lostrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
         if self.useroption == self.botoption:
             self.view.clear_items()
             await interaction.response.edit_message(embed=tierpsmbed, view=self.view)
@@ -102,7 +102,7 @@ class RPSView(discord.ui.View):
                 description=F"<@{interaction.user.id}> - Only <@{self.ctx.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
                 timestamp=interaction.message.created_at
             )
-            icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+            icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
             await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
             return False
 
@@ -124,7 +124,7 @@ class GuessButtons(discord.ui.Button):
                 title="You guessed correctly",
                 description=F"The number was {self.number}"
             )
-            truembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
+            truembed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
             self.view.clear_items()
             await interaction.response.edit_message(embed=truembed, view=self.view)
         if self.choose == False:
@@ -133,7 +133,7 @@ class GuessButtons(discord.ui.Button):
                 title="You guessed incorrectly",
                 description=F"The correct answer was {self.number}"
             )
-            falsembed.set_footer(text=interaction.user, icon_url=interaction.user.avatar.url)
+            falsembed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
             self.view.clear_items()
             await interaction.response.edit_message(embed=falsembed, view=self.view)
 
@@ -164,7 +164,7 @@ class GuessView(discord.ui.View):
                 description=F"<@{interaction.user.id}> - Only <@{self.ctx.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
                 timestamp=interaction.message.created_at
             )
-            icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+            icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
             await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
             return False
 

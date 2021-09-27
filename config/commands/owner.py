@@ -13,7 +13,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             colour=self.bot.colour,
             title=F"Cleaned-up {amount} of bot messages",
         )
-        cumbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        cumbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.channel.purge(limit=amount, check=lambda m: m.author.id == self.bot.user.id)
         await ctx.send(embed=cumbed, delete_after=2.5)
         
@@ -26,7 +26,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             title="Okay, I'm logging out :wave:",
             timestamp=ctx.message.created_at
         )
-        ltmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        ltmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=ltmbed)
         await self.bot.close()
 
@@ -39,7 +39,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             title="Okay Relogging :eyes:",
             timestamp=ctx.message.created_at
         )
-        rgmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        rgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=rgmbed)
         await self.bot.close()
         await self.bot.login()
@@ -54,7 +54,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             description=F"{len(self.bot.guilds)} Guilds",
             timestamp=ctx.message.created_at
         )
-        gdmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        gdmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=gdmbed)
     
     # Perms
@@ -64,7 +64,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         pmbed = discord.Embed(colour=self.bot.colour, title="Bot Permissions", timestamp=ctx.message.created_at)
         pmbed.add_field(name="Allowed", value="\n".join(perm.replace("_", " ").title() for perm, val in ctx.guild.me.guild_permissions if val))
         pmbed.add_field(name="Not Allowed", value="\n".join(perm.replace("_", " ").title() for perm, val in ctx.guild.me.guild_permissions if not val))
-        pmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        pmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=pmbed)
 
     # Template
@@ -79,7 +79,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             title="Please check your DM",
             timestamp=ctx.message.created_at
         )
-        tembed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        tembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=tembed)
         temp = await ctx.guild.templates()
         await ctx.author.send(temp)

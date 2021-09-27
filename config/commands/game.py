@@ -13,7 +13,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
             colour=self.bot.colour,
             title="Click the button for counting"
         )
-        ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         view = gv.CounterView(client=self.bot)
         view.message = await ctx.send(embed=ctrmbed, view=view)
 
@@ -26,7 +26,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
             description="Choose your Tool with the buttons:",
             timestamp=ctx.message.created_at
         )
-        rpsmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        rpsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         view = gv.RPSView(self.bot, ctx)
         view.message = await ctx.send(embed=rpsmbed, view=view)
 
@@ -38,7 +38,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
             title="Started the game",
             description="Try to guess now"
         )
-        gsmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        gsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         view = gv.GuessView(self.bot, ctx)
         view.message = await ctx.send(embed=gsmbed, view=view)
 

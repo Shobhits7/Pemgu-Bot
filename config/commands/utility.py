@@ -14,7 +14,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             description=F"[Click here for Adding Bot]({discord.utils.oauth_url(client_id=self.bot.user.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))})\n[Click here for Joining Support](https://discord.gg/bWnjkjyFRz)\nIn {len(self.bot.guilds)} Servers\nHas {len(self.bot.commands)} Commands\nOwner is lvlahraam#8435",
             timestamp=ctx.message.created_at
         )
-        abmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        abmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=abmbed)
 
     # Avatar
@@ -26,8 +26,8 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             title=F"{user} Avatar",
             timestamp=ctx.message.created_at
         )
-        avmbed.set_image(url=user.avatar.url)
-        avmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        avmbed.set_image(url=user.display_avatar.url)
+        avmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=avmbed)
 
     # Banner
@@ -44,7 +44,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             brmbed.set_image(url=image.banner.url)
         else:
             brmbed.description = "The user doesn't have a banner"
-        brmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        brmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=brmbed)
 
     # UserInfo
@@ -82,12 +82,12 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ***Server-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}
         """.replace("\t", "")
         if member.avatar:
-            uimbed.set_thumbnail(url=member.avatar.url)
+            uimbed.set_thumbnail(url=member.display_avatar.url)
         else: uimbed.description += "__**Avatar:**__ User doesn't have a avatar"
         if image.banner:
             uimbed.set_image(url=image.banner.url)
         else: uimbed.description += "__**Banner:**__ User doesn't have a banner"
-        uimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        uimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=uimbed)
 
     # ServerInfo
@@ -133,7 +133,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         if ctx.guild.banner:
             simbed.set_image(url=ctx.guild.banner.url)
         else: simbed.description += "__**Banner:**__ Server doesn't have a banner"
-        simbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        simbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=simbed)
 
     # Spotify
@@ -156,9 +156,9 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
                 **Party-ID:** {activity.party_id}
                 **Listening-Since:** {discord.utils.format_dt(activity.created_at, style='f')} ({discord.utils.format_dt(activity.created_at, style='R')})
                 """.replace("\t", "")
-                finspotifymbed.set_author(name=member, icon_url=member.avatar.url)
+                finspotifymbed.set_author(name=member, icon_url=member.display_avatar.url)
                 finspotifymbed.set_image(url=activity.album_cover_url)
-                finspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+                finspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
                 await ctx.send(embed=finspotifymbed)
                 break
         else:
@@ -167,7 +167,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
                 title=F"{member} is not listenning to Spotify",
                 timestamp=ctx.message.created_at
             )
-            badspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+            badspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             await ctx.send(embed=badspotifymbed)
 
     # Say
@@ -183,7 +183,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             title="🎾 Pinging...",
             timestamp=ctx.message.created_at
         )
-        unpimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        unpimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         start = time.perf_counter()
         unpimsg = await ctx.send(embed=unpimbed)
         end = time.perf_counter()
@@ -193,7 +193,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             description=F"Websocket: {self.bot.latency * 1000}ms\nTyping: {(end - start) * 1000}ms",
             timestamp=ctx.message.created_at
         )
-        dopimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        dopimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await unpimsg.edit(embed=dopimbed)
 
     # Invite
@@ -206,7 +206,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             description="Thank you for adding and inviting me!",
             timestamp=ctx.message.created_at
         )
-        iembed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        iembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=iembed)
 
     # Source
@@ -251,14 +251,14 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             title="Your name has been changed to it's original",
             timestamp=ctx.message.created_at
         )
-        unafkmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        unafkmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         doafkmbed = discord.Embed(
             colour=self.bot.colour,
             title="Doing AFK",
             description="Your name has been now changed to `AFK`",
             timestamp=ctx.message.created_at
         )
-        doafkmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        doafkmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if ctx.author.nick == "AFK":
             await ctx.author.edit(nick=None)
             return await ctx.send(embed=unafkmbed)

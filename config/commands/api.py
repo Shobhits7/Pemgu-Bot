@@ -21,7 +21,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             description=response['roast'],
             timestamp=ctx.message.created_at
         )
-        rstmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        rstmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=rstmbed)
 
     # Joke
@@ -36,7 +36,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             description=response["joke"],
             timestamp=ctx.message.created_at
         )
-        jkmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        jkmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=jkmbed)
 
     # 8Ball
@@ -50,7 +50,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             title="Here is your answer",
             timestamp=ctx.message.created_at
         )
-        _8bmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        _8bmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         _8bmbed.add_field(name="Your Question:", value=question)
         _8bmbed.add_field(name="Your Answer:", value=response["response"])
         await ctx.send(embed=_8bmbed)
@@ -69,7 +69,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             timestamp=ctx.message.created_at
         )
         pxlmbed.set_image(url="attachment://pixel.png")
-        pxlmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        pxlmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(file=discord.File(response, filename="pixel.png"), embed=pxlmbed)
 
     # Colors
@@ -86,7 +86,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             timestamp=ctx.message.created_at
         )
         clrsmbed.set_image(url="attachment://colors.png")
-        clrsmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        clrsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(file=discord.File(response, filename="colors.png"), embed=clrsmbed)
 
     # Tweet
@@ -103,7 +103,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             timestamp=ctx.message.created_at
         )
         twmbed.set_image(url="attachment://tweet.png")
-        twmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        twmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(file=discord.File(response, filename="tweet.png"), embed=twmbed)
 
     # Screenshot
@@ -120,7 +120,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             timestamp=ctx.message.created_at
         )
         ssmbed.set_image(url="attachment://screenshot.png")
-        ssmbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        ssmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(file=discord.File(response, filename="screenshot.png"), embed=ssmbed)
 
     # Pypi
@@ -149,7 +149,7 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
             **License:** {response['info']['license']}""".replace("\t", ""), inline=False)
         pypimbed.add_field(name="Classifiers:", value=",\n    ".join(classifier for classifier in response['info']['classifiers']), inline=False)
         pypimbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/873478114183880704/887470965188091944/pypilogo.png")
-        pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.avatar.url)
+        pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=pypimbed)
 
     @commands.group(name="rickandmorty", aliases=["ram"], help="Some Rick and Morty commands, use subcommands", invoke_without_command=True)
