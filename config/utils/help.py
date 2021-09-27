@@ -61,15 +61,19 @@ class CustomHelp(commands.HelpCommand):
         homepage = discord.Embed(
             colour=self.context.bot.colour,
             title=F"{self.context.me.name}'s Help",
-            description=F"This is a list of all modules in the bot.\nSelect a module for more information.",
+            description=F"For more help or information use the buttons.",
             timestamp=self.context.message.created_at
         )
         homepage.set_thumbnail(url=self.context.me.avatar.url)
         homepage.set_author(name=self.context.author, icon_url=self.context.author.avatar.url)
         usable = 0
         for cog, commands in mapping.items():
+            name = cog.qualified_name if cog else "No"
+            description = cog.description if cog else "Commands without category"
             if filtered_commands := await self.filter_commands(commands, sort=True):
                 usable += len(filtered_commands)
+            homepage.description += F"\n{name}: {description}\n"
+            homepage.add_field(name=name, value=description)
         homepage.add_field(name="Prefix:", value=self.context.prefix or "In DM you don't need to use prefix", inline=False)
         homepage.add_field(name="Usable:", value=usable, inline=False)
         homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THESE WHEN DOING A COMMAND***", inline=False)
