@@ -1,6 +1,6 @@
 import discord, aiohttp, asyncpg, os
 from discord.ext import commands
-from config.utils import help, options
+from config.utils import help, colours
 
 async def aiohttpsession():
     bot.session = aiohttp.ClientSession()
@@ -19,7 +19,7 @@ bot = Bot(
     command_prefix=prefix,
     strip_after_prefix=True,
     case_insensitive=True,
-    help_command=help.PaginatedHelp(),
+    help_command=help.CustomHelp(),
     intents=discord.Intents.all(),
     allowed_mentions=discord.AllowedMentions.none()
 )
