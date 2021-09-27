@@ -60,9 +60,8 @@ class PaginatorView(discord.ui.View):
 
     async def on_timeout(self):
         try:
-            for item in self.children:
-                self.clear_items()
-                self.add_item(item=discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
+            self.clear_items()
+            self.add_item(item=discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
             await self.message.edit(view=self)
         except discord.NotFound:
             return
@@ -140,8 +139,9 @@ class SelectView(discord.ui.View):
     async def on_timeout(self):
         try:
             for item in self.children:
-                self.clear_items()
-                self.add_item(item=discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
+                if isinstance(item, discord.ui.Select):
+                    item.placeholder = "Disabled due to being timed out..."
+                item.disable = True
             await self.message.edit(view=self)
         except discord.NotFound:
             return
@@ -212,9 +212,8 @@ class ButtonsView(discord.ui.View):
 
     async def on_timeout(self):
         try:
-            for item in self.children:
-                self.clear_items()
-                self.add_item(item=discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
+            self.clear_items()
+            self.add_item(item=discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
             await self.message.edit(view=self)
         except discord.NotFound:
             return
