@@ -9,8 +9,6 @@ class PaginatorButtons(discord.ui.Button):
         self.homepage = view.homepage
         self.embed = 0
         self.embeds = [self.homepage]
-        
-    async def callback(self, interaction:discord.Interaction):
         def gts(command):
             return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
         for cog, commands in self.mapping.items():
@@ -24,10 +22,11 @@ class PaginatorButtons(discord.ui.Button):
                     timestamp=self.help.context.message.created_at
                 )
             embed.set_thumbnail(url=self.help.context.me.avatar.url)
-            embed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
+            embed.set_author(name=self.help.context.author, icon_url=self.help.context.author.avatar.url)
             embed.set_footer(text="<> is required | [] is optional")
-            await interaction.response.edit_message(embed=embed)
             self.embeds.append(embed)
+        
+    async def callback(self, interaction:discord.Interaction):
         if self.label == "Homepage":
             await interaction.response.edit_message(embed=self.homepage, view=self.view)
         if self.label == "Previous":
