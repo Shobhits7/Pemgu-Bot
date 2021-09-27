@@ -7,8 +7,7 @@ class PaginatorView(discord.ui.View):
         self.mapping = mapping
         self.homepage = homepage
         self.embed = 0
-        self.embeds = []
-        self.embeds[0] = self.homepage
+        self.embeds = [self.homepage]
         def gts(command):
             return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}"
         for cog, commands in self.mapping.items():
