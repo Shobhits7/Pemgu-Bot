@@ -18,7 +18,7 @@ class PaginatorButtons(discord.ui.Button):
             embed = discord.Embed(
                     colour=self.help.context.bot.colour,
                     title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
-                    description=F"{description}\n\n {', '.join(gts(command) for command in cmds)}",
+                    description=F"{description}\n\n {''.join(gts(command) for command in cmds)}",
                     timestamp=self.help.context.message.created_at
                 )
             embed.set_thumbnail(url=self.help.context.me.avatar.url)
