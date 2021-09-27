@@ -27,9 +27,10 @@ class PaginatorView(discord.ui.View):
     async def previous(self, button:discord.ui.Button, interaction:discord.Interaction):
         if self.embed == 0:
             self.disabled = True
+            await interaction.response.edit_message(view=self)
         else:
             self.embed -= 1
-            await interaction.response.edit_message(embed=self.embeds[self.embed])
+            await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
     
     @discord.ui.button(emoji="⏹", label="Stop", style=discord.ButtonStyle.red)
     async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
@@ -38,14 +39,16 @@ class PaginatorView(discord.ui.View):
     @discord.ui.button(emoji="⏯", label="Homepage", style=discord.ButtonStyle.green)
     async def homepage(self, button:discord.ui.Button, interaction:discord.Interaction):
         await interaction.response.edit_message(embed=self.homepage)
+        
 
     @discord.ui.button(emoji="⏭", label="Next", style=discord.ButtonStyle.blurple)
     async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
         if self.embed == 7 or self.embed == 8:
             self.disabled = True
+            await interaction.response.edit_message(view=self)
         else:
             self.embed += 1
-            await interaction.response.edit_message(embed=self.embeds[self.embed])
+            await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
 
     async def on_timeout(self):
         try:
