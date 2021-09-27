@@ -70,7 +70,8 @@ class CustomHelp(commands.HelpCommand):
         for cog, commands in mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
-            homepage.description += F"\n{name}: {description}\n"
+            if not name.startswith("On"):
+                homepage.add_field(name=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name}", value=description)
             if filtered_commands := await self.filter_commands(commands, sort=True):
                 usable += len(filtered_commands)
         homepage.add_field(name="Prefix:", value=self.context.prefix or "In DM you don't need to use prefix", inline=False)
