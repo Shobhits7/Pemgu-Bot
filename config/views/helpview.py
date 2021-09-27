@@ -19,9 +19,9 @@ class PaginatorView(discord.ui.View):
             embed = discord.Embed(
                     colour=self.help.context.bot.colour,
                     title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
-                    description=F"{description}\n\n {''.join(gts(command) for command in cmds)}",
+                    description=F"{description}\n\n {''.join(gts(command) for command in commands)}",
                     timestamp=self.help.context.message.created_at
-                )
+            )
             embed.set_thumbnail(url=self.help.context.me.avatar.url)
             embed.set_author(name=self.help.context.author, icon_url=self.help.context.author.avatar.url)
             embed.set_footer(text=F"<> is required | [] is optional | Page: {len(self.embeds)}")
