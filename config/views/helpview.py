@@ -6,7 +6,7 @@ class PaginatorView(discord.ui.View):
         self.help = help
         self.mapping = mapping
         self.homepage = homepage
-        self.embed = 0
+        self.embedpage = 0
         self.embeds = [self.homepage]
         self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
@@ -24,7 +24,7 @@ class PaginatorView(discord.ui.View):
                 )
             embed.set_thumbnail(url=self.help.context.me.avatar.url)
             embed.set_author(name=self.help.context.author, icon_url=self.help.context.author.avatar.url)
-            embed.set_footer(text="<> is required | [] is optional")
+            embed.set_footer(text=F"<> is required | [] is optional | Page: {self.embedpage} {len(self.embeds)}")
             self.embeds.append(embed)
 
     @discord.ui.button(emoji="⏯", style=discord.ButtonStyle.green)
@@ -33,12 +33,12 @@ class PaginatorView(discord.ui.View):
 
     @discord.ui.button(emoji="⏮", style=discord.ButtonStyle.blurple)
     async def previous(self, button:discord.ui.Button, interaction:discord.Interaction):
-        if self.embed == 0:
+        if self.embedpage == 0:
             self.disabled = True
-            await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
+            await interaction.response.edit_message(embed=self.embeds[self.embedpage], view=self)
         else:
-            self.embed -= 1
-            await interaction.response.edit_message(embed=self.embeds[self.embed])
+            self.embedpage -= 1
+            await interaction.response.edit_message(embed=self.embeds[self.embedpage])
     
     @discord.ui.button(emoji="⏹", style=discord.ButtonStyle.red)
     async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
@@ -46,12 +46,12 @@ class PaginatorView(discord.ui.View):
 
     @discord.ui.button(emoji="⏭", style=discord.ButtonStyle.blurple)
     async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
-        if self.embed == 7:
+        if self.embedpage == 7:
             self.disabled = True
-            await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
+            await interaction.response.edit_message(embed=self.embeds[self.embedpage], view=self)
         else:
-            self.embed += 1
-            await interaction.response.edit_message(embed=self.embeds[self.embed])
+            self.embedpage += 1
+            await interaction.response.edit_message(embed=self.embeds[self.embedpage])
 
     async def on_timeout(self):
         try:
