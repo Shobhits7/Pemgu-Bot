@@ -17,7 +17,7 @@ class PaginatorView(discord.ui.View):
             embed = discord.Embed(
                 colour=self.help.context.bot.colour,
                 title=name,
-                description=F"{description}\n\n"
+                description=F"{description}\n\n", 
                 timestamp=self.help.context.message.created_at
             )
             embed.description += "\n".join(gts(cmd) for cmd in cmds)
