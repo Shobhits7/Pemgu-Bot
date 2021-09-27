@@ -15,10 +15,10 @@ class PaginatorView(discord.ui.View):
             description = cog.description if cog else "Commands without category"
             cmds = cog.walk_commands() if cog else commands
             embed = discord.Embed(
-                colour=self.context.bot.colour,
+                colour=self.help.context.bot.colour,
                 title=name,
                 description=", ".join(gts(cmd) for cmd in cmds),
-                timestamp=self.context.message.created_at
+                timestamp=self.help.context.message.created_at
             )
             self.embeds.append(embed)
         
