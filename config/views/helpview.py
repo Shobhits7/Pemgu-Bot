@@ -27,28 +27,28 @@ class PaginatorView(discord.ui.View):
             embed.set_footer(text="<> is required | [] is optional")
             self.embeds.append(embed)
 
-    @discord.ui.button(emoji="⏯", label="Home", style=discord.ButtonStyle.green)
+    @discord.ui.button(emoji="⏯", style=discord.ButtonStyle.green)
     async def home(self, button:discord.ui.Button, interaction:discord.Interaction):
         await interaction.response.edit_message(embed=self.homepage)
 
-    @discord.ui.button(emoji="⏮", label="Previous", style=discord.ButtonStyle.blurple)
+    @discord.ui.button(emoji="⏮", style=discord.ButtonStyle.blurple)
     async def previous(self, button:discord.ui.Button, interaction:discord.Interaction):
         if self.embed == 0:
             self.disabled = True
-            await interaction.response.edit_message(embed=self.embeds[self.embed])
+            await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
         else:
             self.embed -= 1
             await interaction.response.edit_message(embed=self.embeds[self.embed])
     
-    @discord.ui.button(emoji="⏹", label="Stop", style=discord.ButtonStyle.red)
+    @discord.ui.button(emoji="⏹", style=discord.ButtonStyle.red)
     async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
         await interaction.message.delete()
 
-    @discord.ui.button(emoji="⏭", label="Next", style=discord.ButtonStyle.blurple)
+    @discord.ui.button(emoji="⏭", style=discord.ButtonStyle.blurple)
     async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
         if self.embed == 7:
             self.disabled = True
-            await interaction.response.edit_message(embed=self.embeds[self.embed])
+            await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
         else:
             self.embed += 1
             await interaction.response.edit_message(embed=self.embeds[self.embed])
