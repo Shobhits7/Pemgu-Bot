@@ -60,8 +60,7 @@ class PaginatorView(discord.ui.View):
 
     async def on_timeout(self):
         try:
-            self.clear_items()
-            await self.message.edit(view=self)
+            await self.message.edit(view=None)
         except discord.NotFound:
             return
 
