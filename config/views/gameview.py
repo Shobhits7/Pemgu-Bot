@@ -81,16 +81,15 @@ class RPSView(discord.ui.View):
         self.ctx = ctx
         self.botoption = random.choice(["Rock", "Paper", "Scissors"])
         self.useroption = ""
-        self.add_item(item=RPSButtons(emoji="🗻", label="Rock", style=discord.ButtonStyle.blurple, view=self))
-        self.add_item(item=RPSButtons(emoji="🧻", label="Paper", style=discord.ButtonStyle.green, view=self))
+        self.add_item(item=RPSButtons(emoji="🗻", label="Rock", style=discord.ButtonStyle.green, view=self))
+        self.add_item(item=RPSButtons(emoji="🧻", label="Paper", style=discord.ButtonStyle.blurple, view=self))
         self.add_item(item=RPSButtons(emoji="🔪", label="Scissors", style=discord.ButtonStyle.red, view=self))
 
     async def on_timeout(self):
         if self.children:
             for item in self.children:
                 self.clear_items()
-                self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...", style=discord.ButtonStyle.blurple, disabled=True))
-                self.add_item(discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
+                self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...", style=discord.ButtonStyle.red, disabled=True))
                 await self.message.edit(view=self)
 
     async def interaction_check(self, interaction:discord.Interaction):
@@ -152,8 +151,7 @@ class GuessView(discord.ui.View):
         if self.children:
             for item in self.children:
                 self.clear_items()
-                self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...", style=discord.ButtonStyle.blurple, disabled=True))
-                self.add_item(discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
+                self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...", style=discord.ButtonStyle.red, disabled=True))
                 await self.message.edit(view=self)
 
     async def interaction_check(self, interaction:discord.Interaction):
