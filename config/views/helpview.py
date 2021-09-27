@@ -5,7 +5,12 @@ class PaginatorView(discord.ui.View):
         super().__init__(timeout=15)
         self.help = help
         self.mapping = mapping
-        self.homepage = homepage
+        self.homepage = discord.Embed(
+            colour=self.help.context.bot.colour,
+            title=F"{self.help.context.me.name}'s Help",
+            description="For more help or information use the buttons to change pages.",
+            timestamp=self.help.context.message.created_at
+        )
         self.page = 0
         self.mbeds = [self.homepage]
         self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))), row=4)
@@ -109,7 +114,12 @@ class SelectView(discord.ui.View):
         super().__init__(timeout=15)
         self.help = help
         self.mapping = mapping
-        self.homepage = homepage
+        self.homepage = discord.Embed(
+            colour=self.help.context.bot.colour,
+            title=F"{self.help.context.me.name}'s Help",
+            description="For more help or information use the menu and select the module.",
+            timestamp=self.help.context.message.created_at
+        )
         options = [
             discord.SelectOption(emoji="🏠", label=F"Home", description="The Hompage of this help", value="Home"),
         ]
@@ -185,7 +195,12 @@ class ButtonsView(discord.ui.View):
         super().__init__(timeout=15)
         self.help = help
         self.mapping = mapping
-        self.homepage = homepage
+        self.homepage = discord.Embed(
+            colour=self.help.context.bot.colour,
+            title=F"{self.help.context.me.name}'s Help",
+            description="For more help or information use and click on the buttons.",
+            timestamp=self.help.context.message.created_at
+        )
         self.add_item(item=ButtonsUI(emoji="🏠", label="Home", style=discord.ButtonStyle.green, custom_id="Home", view=self))
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
