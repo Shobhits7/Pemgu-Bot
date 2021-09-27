@@ -25,8 +25,8 @@ class PaginatorView(discord.ui.View):
             embed.set_footer(text="<> is required | [] is optional")
             self.embeds.append(embed)
 
-    @discord.ui.button(emoji="⏯", label="Homepage", style=discord.ButtonStyle.green)
-    async def homepage(self, button:discord.ui.Button, interaction:discord.Interaction):
+    @discord.ui.button(emoji="⏯", label="Home", style=discord.ButtonStyle.green)
+    async def home(self, button:discord.ui.Button, interaction:discord.Interaction):
         await interaction.response.edit_message(embed=self.homepage)
 
     @discord.ui.button(emoji="⏮", label="Previous", style=discord.ButtonStyle.blurple)
@@ -41,7 +41,6 @@ class PaginatorView(discord.ui.View):
     @discord.ui.button(emoji="⏹", label="Stop", style=discord.ButtonStyle.red)
     async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
         await interaction.message.delete()
-        
 
     @discord.ui.button(emoji="⏭", label="Next", style=discord.ButtonStyle.blurple)
     async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
@@ -51,29 +50,6 @@ class PaginatorView(discord.ui.View):
         else:
             self.embed += 1
             await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
-
-    async def on_timeout(self):
-        try:
-            for item in self.children:
-                self.clear_items()
-                self.add_item(discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
-            await self.message.edit(view=self)
-        except discord.NotFound:
-            return
-
-    async def interaction_check(self, interaction:discord.Interaction):
-        if interaction.user.id == self.help.context.author.id:
-            return True
-        icheckmbed = discord.Embed(
-            colour=self.help.context.bot.colour,
-            title="You can't use this",
-            description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
-            timestamp=self.help.context.message.created_at
-        )
-        icheckmbed.set_thumbnail(url=self.help.context.me.avatar.url)
-        icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
-        await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
-        return False
 
 class SelectUI(discord.ui.Select):
     def __init__(self, view, **kwargs):
@@ -120,9 +96,9 @@ class SelectView(discord.ui.View):
             if not name.startswith("On"):
                 option = discord.SelectOption(emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓', label=name, description=description, value=name)
                 options.append(option)
-        self.add_item(SelectUI(placeholder="Where do you want to go...", options=options, min_values=1, max_values=1, view=self))
-        self.add_item(discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
-        self.add_item(discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
+        self.add_item(item=SelectUI(placeholder="Where do you want to go...", options=options, min_values=1, max_values=1, view=self))
+        self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
+        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
 
     @discord.ui.button(emoji="💣", label="Delete", style=discord.ButtonStyle.red)
     async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
@@ -203,7 +179,7 @@ class ButtonsView(discord.ui.View):
         try:
             for item in self.children:
                 self.clear_items()
-                self.add_item(discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
+                self.add_item(item=discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
             await self.message.edit(view=self)
         except discord.NotFound:
             return
@@ -221,3 +197,4 @@ class ButtonsView(discord.ui.View):
         icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.avatar.url)
         await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
         return False
+
