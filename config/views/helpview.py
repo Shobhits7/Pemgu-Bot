@@ -13,8 +13,8 @@ class PaginatorView(discord.ui.View):
         )
         self.page = 0
         self.mbeds = [self.homepage]
-        self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))), row=4)
-        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"), row=4)
+        self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True)), row=4))
+        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz", row=4))
         def gts(command):
             return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
         for cog, commands in self.mapping.items():
