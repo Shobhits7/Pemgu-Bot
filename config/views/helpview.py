@@ -1,7 +1,7 @@
 import discord
 
 class PaginatorView(discord.ui.View):
-    def __init__(self, help, mapping, homepage):
+    def __init__(self, help, mapping):
         super().__init__(timeout=15)
         self.help = help
         self.mapping = mapping
@@ -110,7 +110,7 @@ class SelectUI(discord.ui.Select):
             await interaction.response.edit_message(embed=self.homepage)
 
 class SelectView(discord.ui.View):
-    def __init__(self, help, mapping, homepage):
+    def __init__(self, help, mapping):
         super().__init__(timeout=15)
         self.help = help
         self.mapping = mapping
@@ -191,7 +191,7 @@ class ButtonsUI(discord.ui.Button):
             await interaction.message.delete()
 
 class ButtonsView(discord.ui.View):
-    def __init__(self, help, mapping, homepage):
+    def __init__(self, help, mapping):
         super().__init__(timeout=15)
         self.help = help
         self.mapping = mapping
