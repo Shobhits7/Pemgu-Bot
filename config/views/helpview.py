@@ -25,7 +25,7 @@ class PaginatorView(discord.ui.View):
         
     @discord.ui.button(emoji="⏮", style=discord.ButtonStyle.blurple)
     async def previous(self, button:discord.ui.Button, interaction:discord.Interaction):
-        if self.embed = 0:
+        if self.embed == 0:
             self.disabled = True
         else:
             self.embed -= 1
