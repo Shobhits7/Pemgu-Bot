@@ -68,10 +68,9 @@ class CustomHelp(commands.HelpCommand):
         homepage.set_author(name=self.context.author, icon_url=self.context.author.avatar.url)
         usable = 0
         for cog, commands in mapping.items():
-            cogname = cog.qualified_name if cog else "No"
+            name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
-            homepage.description += F"\n{cogname}: {description}\n"
-            homepage.add_field(name=cogname, value=description)
+            homepage.description += F"\n{name}: {description}\n"
             if filtered_commands := await self.filter_commands(commands, sort=True):
                 usable += len(filtered_commands)
         homepage.add_field(name="Prefix:", value=self.context.prefix or "In DM you don't need to use prefix", inline=False)
