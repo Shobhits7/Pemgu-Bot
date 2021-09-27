@@ -27,7 +27,7 @@ class PaginatorView(discord.ui.View):
     async def previous(self, button:discord.ui.Button, interaction:discord.Interaction):
         if self.embed == 0:
             self.disabled = True
-            await interaction.response.edit_message(view=self)
+            await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
         else:
             self.embed -= 1
             await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
@@ -43,9 +43,9 @@ class PaginatorView(discord.ui.View):
 
     @discord.ui.button(emoji="⏭", label="Next", style=discord.ButtonStyle.blurple)
     async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
-        if self.embed == 7 or self.embed == 8:
+        if self.embed == 7:
             self.disabled = True
-            await interaction.response.edit_message(view=self)
+            await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
         else:
             self.embed += 1
             await interaction.response.edit_message(embed=self.embeds[self.embed], view=self)
