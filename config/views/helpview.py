@@ -24,7 +24,7 @@ class PaginatorView(discord.ui.View):
             mbed = discord.Embed(
                     colour=self.help.context.bot.colour,
                     title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
-                    description=F"{description}\n\n{''.join(gts(command) for command in cmds)}",
+                    description=F"{description}\n\n{''.join(gts(command) for command in commands)}",
                     timestamp=self.help.context.message.created_at
             )
             mbed.set_thumbnail(url=self.help.context.me.display_avatar.url)
