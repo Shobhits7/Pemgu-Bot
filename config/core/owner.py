@@ -1,5 +1,4 @@
-from re import L
-import discord, io
+import discord, os, sys
 from discord.ext import commands
 
 class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
@@ -83,8 +82,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     async def repeat(self, ctx:commands.Context, time:int, command:str):
         print(command)
         for _ in range(1, time+1):
-            process = await self.bot.process_commands(ctx.message)
-            
+            await self.bot.get_command(str(command))(ctx)
         await ctx.send(F"Successfully repeated `{command}` - `{time}` times")
 
     # Logout
@@ -99,6 +97,22 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         ltmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=ltmbed)
         await self.bot.close()
+
+    # Relog
+    @commands.command(name="relog", aliases=["rg"], help="Will Relog the bot")
+    @commands.is_owner()
+    async def relog(self, ctx:commands.Context):
+        def restart():
+            python = sys.executable
+            os.execl(python, python, * sys.argv)
+        rgmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Okay Relogging :eyes:",
+            timestamp=ctx.message.created_at
+        )
+        rgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=rgmbed)
+        restart()
 
     # Template
     @commands.command(name="template", aliases=["te"], help="Will give the guild's template")
