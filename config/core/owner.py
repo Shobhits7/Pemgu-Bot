@@ -49,8 +49,8 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             await ctx.send(embed=funloadmbed)
         except discord.ExtensionNotLoaded:
             await ctx.send(embed=bunloadmbed)
-        
-    
+  
+    # Reload
     @commands.command(name="reload", help="Will reload the given cog", usage="<cog>")
     @commands.is_owner()
     async def reload(self, ctx:commands.Context, *, cog):
@@ -63,6 +63,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         self.bot.reload_extension(F"config.core.{cog}")
         await ctx.send(embed=reloadmbed)
 
+    # ReloadAll
     @commands.command(name="reloadall", help="Will reload every cog")
     @commands.is_owner()
     async def reloadall(self, ctx:commands.Context):
@@ -75,6 +76,13 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         for cog in self.bot.extensions:
             reloadallmbed.description = F"{cog}, "
             self.bot.reload_extension(F"config.core.{cog[:-1]}")
+
+    # Repeat
+    @commands.command(name="repeat", help="Will repeat the given commands the amounts of time given", usage="<time> <command>")
+    @commands.is_owner()
+    async def repeat(self, ctx:commands.Context, *, time:int, command:str):
+        for _ in range(1, time+1):
+            self.bot.process_commands(command)
 
     # Logout
     @commands.command(name="logout", aliases=["lt"], help="Will logout the bot")
