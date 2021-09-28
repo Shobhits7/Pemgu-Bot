@@ -120,7 +120,7 @@ class SelectView(discord.ui.View):
             if not name.startswith("On"):
                 option = discord.SelectOption(emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓', label=name, description=description, value=name)
                 self.options.append(option)
-        self.add_item(item=SelectUI(placeholder="Where do you want to go...", options=self.options, min_values=1, max_values=2, view=self))
+        self.add_item(item=SelectUI(placeholder="Where do you want to go...", options=self.options, min_values=1, max_values=1, view=self))
         self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True)), row=2))
         self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz", row=2))
 
