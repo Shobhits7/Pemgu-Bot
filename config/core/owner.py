@@ -80,7 +80,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     # Repeat
     @commands.command(name="repeat", help="Will repeat the given commands the amounts of time given", usage="<time> <command>")
     @commands.is_owner()
-    async def repeat(self, ctx:commands.Context, *, time:int, command:str):
+    async def repeat(self, ctx:commands.Context, time:int, command:str):
         for _ in range(1, time+1):
             self.bot.process_commands(command)
 
