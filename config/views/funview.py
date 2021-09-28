@@ -22,7 +22,7 @@ class NitroButton(discord.ui.Button):
             print("ELSE")
 class NitroView(discord.ui.View):
     def __init__(self, bot, ctx):
-        super().__init__(timeout=15)
+        super().__init__(timeout=1)
         self.bot = bot
         self.ctx = ctx
         self.add_item(item=NitroButton(label="Claim", style=discord.ButtonStyle.green, view=self))
