@@ -15,7 +15,7 @@ class Bot(commands.AutoShardedBot):
 
     async def close(self):
         for cog in self.extensions:
-            await self.unload_extension(F"config.core.{cog}")
+            await self.unload_extension(cog)
         if not self.session.closed:
             await self.session.close()
         await super().close()
