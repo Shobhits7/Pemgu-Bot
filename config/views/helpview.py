@@ -126,7 +126,7 @@ class SelectView(discord.ui.View):
 
     @discord.ui.button(emoji="🏠", label=F"Home", style=discord.ButtonStyle.green, row=1)
     async def home(self, button:discord.ui.Button, interaction:discord.Interaction):
-        await interaction.response.edit_message(self.homepage)
+        await interaction.response.edit_message(embed=self.homepage)
 
     @discord.ui.button(emoji="💣", label="Delete", style=discord.ButtonStyle.red, row=1)
     async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
