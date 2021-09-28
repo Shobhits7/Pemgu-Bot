@@ -112,7 +112,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         rgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=rgmbed)
         await self.bot.close()
-        await self.bot.login()
+        await self.bot.login(self.bot.token)
 
     # Template
     @commands.command(name="template", aliases=["te"], help="Will give the guild's template")

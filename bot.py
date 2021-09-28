@@ -9,12 +9,16 @@ async def aiohttpsession():
 class Bot(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.token = os.getenv("TOKEN")
         self.prefix = ",m"
         self.colour = 0x2F3136
 
     async def close(self):
+        for cog in self.extensions:
+            await self.unload_extension(F"config.core.{cog}")
         if not self.session.closed:
             await self.session.close()
+        await super().close()
 
 bot = Bot(
     command_prefix=commands.when_mentioned_or(",m"),
@@ -34,4 +38,4 @@ os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
 bot.loop.create_task(aiohttpsession())
-bot.run(os.getenv("TOKEN"))
+bot.run(bot.token)
