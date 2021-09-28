@@ -13,8 +13,8 @@ class PaginatorView(discord.ui.View):
         )
         self.page = 0
         self.mbeds = [self.homepage]
-        self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True)), row=4))
-        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz", row=4))
+        self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
+        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
         def gts(command):
             return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
         for cog, commands in self.mapping.items():
@@ -39,7 +39,7 @@ class PaginatorView(discord.ui.View):
     @discord.ui.button(emoji="⏮", style=discord.ButtonStyle.blurple)
     async def previous(self, button:discord.ui.Button, interaction:discord.Interaction):
         if self.page == 0:
-            self.disabled = True
+            button.disabled = True
             await interaction.response.edit_message(embed=self.mbeds[self.page], view=self)
         else:
             self.page -= 1
@@ -52,7 +52,7 @@ class PaginatorView(discord.ui.View):
     @discord.ui.button(emoji="⏭", style=discord.ButtonStyle.blurple)
     async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
         if self.page == 7:
-            self.disabled = True
+            button.disabled = True
             await interaction.response.edit_message(embed=self.mbeds[self.page], view=self)
         else:
             self.page += 1
