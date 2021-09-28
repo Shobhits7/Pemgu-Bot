@@ -136,7 +136,7 @@ class SelectView(discord.ui.View):
             for item in self.children:
                 if isinstance(item, discord.ui.Select):
                     item.placeholder = "Disabled due to being timed out..."
-                item.disable = True
+                item.disabled = True
             await self.message.edit(view=self)
         except discord.NotFound:
             return
