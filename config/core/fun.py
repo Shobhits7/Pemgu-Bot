@@ -11,7 +11,7 @@ class Fun(commands.Cog, description="You sad?. Use these to at least have a smil
         bnitrombed = discord.Embed(
             colour=self.bot.colour,
             title="A WILD NITRO GIFT APPEARS?!",
-            description="Expires in 48 hours\nClick the button for claiming Nitro:."
+            description="Expires in 48 hours\nClick the button for claiming Nitro:.",
             timestamp=ctx.message.created_at
         )
         bnitrombed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
