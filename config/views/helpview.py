@@ -47,7 +47,7 @@ class PaginatorView(discord.ui.View):
     async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
         await interaction.message.delete()
 
-    @discord.ui.button(emoji="⏭", style=discord.ButtonStyle.blurple, disbale=False)
+    @discord.ui.button(emoji="⏭", style=discord.ButtonStyle.blurple, disabled=False)
     async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
         if self.page == 7:
             button.disabled = True
