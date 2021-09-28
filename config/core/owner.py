@@ -100,20 +100,6 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         await ctx.send(embed=ltmbed)
         await self.bot.close()
 
-    # Relog
-    @commands.command(name="relog", aliases=["rg"], help="Will Relog the bot")
-    @commands.is_owner()
-    async def relog(self, ctx:commands.Context):
-        rgmbed = discord.Embed(
-            colour=self.bot.colour,
-            title="Okay Relogging :eyes:",
-            timestamp=ctx.message.created_at
-        )
-        rgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=rgmbed)
-        await self.bot.close()
-        await self.bot.login(self.bot.token)
-
     # Template
     @commands.command(name="template", aliases=["te"], help="Will give the guild's template")
     @commands.is_owner()
