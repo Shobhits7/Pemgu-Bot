@@ -126,7 +126,7 @@ class SelectView(discord.ui.View):
         self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz", row=3))
 
-    @discord.ui.button(emoji="💣", label="Delete", style=discord.ButtonStyle.red, row=4)
+    @discord.ui.button(emoji="💣", label="Delete", style=discord.ButtonStyle.red, row=1)
     async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
         await interaction.message.delete()
 
