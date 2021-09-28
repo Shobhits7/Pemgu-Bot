@@ -61,25 +61,25 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         )
         uimbed.description += F"""
         __**Global-Information:**__
-        ***Username:*** {member.name}
-        ***Discriminator:*** {member.discriminator}
-        ***ID:*** {member.id}
-        ***Mention:*** {member.mention}
-        ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
-        ***Activity:*** {'*Nothing*' if not member.activity else member.activity.name}
-        ***Status:*** {member.status}
-        ***Web-Status:*** {member.web_status}
-        ***Desktop-Status:*** {member.desktop_status}
-        ***Mobile-Status:*** {member.mobile_status}
-        ***Registered:*** {discord.utils.format_dt(member.created_at, style="F")} ({discord.utils.format_dt(member.created_at, style="R")})
+        ╰***Username:*** {member.name}
+        ╰***Discriminator:*** {member.discriminator}
+        ╰***ID:*** {member.id}
+        ╰***Mention:*** {member.mention}
+        ╰***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
+        ╰***Activity:*** {'*Nothing*' if not member.activity else member.activity.name}
+        ╰***Status:*** {member.status}
+        ╰***Web-Status:*** {member.web_status}
+        ╰***Desktop-Status:*** {member.desktop_status}
+        ╰***Mobile-Status:*** {member.mobile_status}
+        ╰***Registered:*** {discord.utils.format_dt(member.created_at, style="F")} ({discord.utils.format_dt(member.created_at, style="R")})
         __**Server-Information:**__
-        ***Joined:*** {discord.utils.format_dt(member.joined_at, style="F")} ({discord.utils.format_dt(member.joined_at, style="R")})
-        ***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
-        ***Top-Role:*** {member.top_role.mention}
-        ***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
-        ***Nickname:*** {member.nick}
-        ***Voice:*** {'*Not in a voice*' if not member.voice else member.voice.channel.mention}
-        ***Server-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}
+        ╰***Joined:*** {discord.utils.format_dt(member.joined_at, style="F")} ({discord.utils.format_dt(member.joined_at, style="R")})
+        ╰***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
+        ╰***Top-Role:*** {member.top_role.mention}
+        ╰***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
+        ╰***Nickname:*** {member.nick}
+        ╰***Voice:*** {'*Not in a voice*' if not member.voice else member.voice.channel.mention}
+        ╰***Server-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}
         """.replace("\t", "")
         if member.avatar:
             uimbed.set_thumbnail(url=member.display_avatar.url)
@@ -102,29 +102,29 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         )
         simbed.description += F"""
         __**Owner-Information:**__
-        ***Username:*** {ctx.guild.owner.name}
-        ***Discriminator:*** {ctx.guild.owner.discriminator}
-        ***ID:*** {ctx.guild.owner.id}
-        ***Mention:*** {ctx.guild.owner.mention}
-        ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in ctx.guild.owner.public_flags if enabled])}
-        ***Registered:*** {discord.utils.format_dt(ctx.guild.owner.created_at, style="F")} ({discord.utils.format_dt(ctx.guild.owner.created_at, style="R")})
+        ╰***Username:*** {ctx.guild.owner.name}
+        ╰***Discriminator:*** {ctx.guild.owner.discriminator}
+        ╰***ID:*** {ctx.guild.owner.id}
+        ╰***Mention:*** {ctx.guild.owner.mention}
+        ╰***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in ctx.guild.owner.public_flags if enabled])}
+        ╰***Registered:*** {discord.utils.format_dt(ctx.guild.owner.created_at, style="F")} ({discord.utils.format_dt(ctx.guild.owner.created_at, style="R")})
         __**Server-Information:**__
-        ***Name:*** {ctx.guild.name}
-        ***ID:*** {ctx.guild.id}
-        ***Description:*** {'*No Description*' if not ctx.guild.description else ctx.guild.description}
-        ***Created-At:*** {discord.utils.format_dt(ctx.guild.created_at, style="F")} ({discord.utils.format_dt(ctx.guild.created_at, style="R")})
-        ***Region:*** {ctx.guild.region}
-        ***MFA:*** {ctx.guild.mfa_level}
-        ***Verification:*** {ctx.guild.verification_level}
-        ***File-Size-Limit:*** {ctx.guild.filesize_limit}
-        ***Members:*** {ctx.guild.member_count}
-        ***Default-Role:*** {ctx.guild.default_role.mention}
-        ***Boost-Role:*** {ctx.guild.premium_subscriber_role.mention}
-        ***Boosters:*** {ctx.guild.premium_subscription_count}
-        ***Tier:*** {ctx.guild.premium_tier}
-        ***Categories:*** {len(ctx.guild.categories)}
-        ***Channels:*** {len(ctx.guild.channels)}
-        ***AFK-Channel:*** {'*No AFK channel*' if not ctx.guild.afk_channel else ctx.guild.afk_channel.mention}
+        ╰***Name:*** {ctx.guild.name}
+        ╰***ID:*** {ctx.guild.id}
+        ╰***Description:*** {'*No Description*' if not ctx.guild.description else ctx.guild.description}
+        ╰***Created-At:*** {discord.utils.format_dt(ctx.guild.created_at, style="F")} ({discord.utils.format_dt(ctx.guild.created_at, style="R")})
+        ╰***Region:*** {ctx.guild.region}
+        ╰***MFA:*** {ctx.guild.mfa_level}
+        ╰***Verification:*** {ctx.guild.verification_level}
+        ╰***File-Size-Limit:*** {ctx.guild.filesize_limit}
+        ╰***Members:*** {ctx.guild.member_count}
+        ╰***Default-Role:*** {ctx.guild.default_role.mention}
+        ╰***Boost-Role:*** {ctx.guild.premium_subscriber_role.mention}
+        ╰***Boosters:*** {ctx.guild.premium_subscription_count}
+        ╰***Tier:*** {ctx.guild.premium_tier}
+        ╰***Categories:*** {len(ctx.guild.categories)}
+        ╰***Channels:*** {len(ctx.guild.channels)}
+        ╰***AFK-Channel:*** {'*No AFK channel*' if not ctx.guild.afk_channel else ctx.guild.afk_channel.mention}
         ***AFK-Timeout:*** {ctx.guild.afk_timeout}
         """.replace("\t", "")
         if ctx.guild.icon:
