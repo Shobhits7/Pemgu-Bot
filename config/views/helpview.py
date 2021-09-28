@@ -113,15 +113,13 @@ class SelectView(discord.ui.View):
             description="For more help or information use the menu.",
             timestamp=self.help.context.message.created_at
         )
-        options = [
-            discord.SelectOption(emoji="🏠", label=F"Home", description="The Hompage of this help", value="Home"),
-        ]
+        self.options = []
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category..."
             if not name.startswith("On"):
                 option = discord.SelectOption(emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓', label=name, description=description, value=name)
-                options.append(option)
+                self.options.append(option)
         self.add_item(item=SelectUI(placeholder="Where do you want to go...", options=options, min_values=1, max_values=1, view=self))
         self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True)), row=2))
         self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz", row=2))
