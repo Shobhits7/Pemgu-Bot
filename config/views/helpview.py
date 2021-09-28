@@ -111,7 +111,7 @@ class SelectView(discord.ui.View):
         self.homepage = discord.Embed(
             colour=self.help.context.bot.colour,
             title=F"{self.help.context.me.name}'s Help",
-            description="For more help or information use the menu and select the module.",
+            description="For more help or information use the menu.",
             timestamp=self.help.context.message.created_at
         )
         options = [
