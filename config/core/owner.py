@@ -82,7 +82,8 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     @commands.is_owner()
     async def repeat(self, ctx:commands.Context, time:int, command:str):
         for _ in range(1, time+1):
-            self.bot.process_commands(command)
+            await self.bot.process_commands(command)
+        await ctx.send(F"Successfully repeated `{command}` - `{time}` times")
 
     # Logout
     @commands.command(name="logout", aliases=["lt"], help="Will logout the bot")
