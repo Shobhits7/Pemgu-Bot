@@ -9,16 +9,15 @@ async def aiohttpsession():
 class Bot(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.prefix = prefix
+        self.prefix = ",m"
         self.colour = 0x2F3136
 
     async def close(self):
         if not self.session.closed:
             await self.session.close()
 
-prefix = ",m"
 bot = Bot(
-    command_prefix=prefix,
+    command_prefix=",m",
     strip_after_prefix=True,
     case_insensitive=True,
     help_command=help.CustomHelp(),

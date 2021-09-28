@@ -74,12 +74,12 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         > ***Registered:*** {discord.utils.format_dt(member.created_at, style="F")} ({discord.utils.format_dt(member.created_at, style="R")})
         __**Server-Information:**__
         > ***Joined:*** {discord.utils.format_dt(member.joined_at, style="F")} ({discord.utils.format_dt(member.joined_at, style="R")})
-        >***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
-        >***Top-Role:*** {member.top_role.mention}
-        >***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
-        >***Nickname:*** {member.nick}
-        >***Voice:*** {'*Not in a voice*' if not member.voice else member.voice.channel.mention}
-        >***Server-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}
+        > ***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
+        > ***Top-Role:*** {member.top_role.mention}
+        > ***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
+        > ***Nickname:*** {member.nick}
+        > ***Voice:*** {'*Not in a voice*' if not member.voice else member.voice.channel.mention}
+        > ***Server-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}
         """.replace("\t", "")
         if member.avatar:
             uimbed.set_thumbnail(url=member.display_avatar.url)
