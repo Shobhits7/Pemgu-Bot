@@ -15,7 +15,7 @@ class Bot(commands.AutoShardedBot):
 
     async def close(self):
         for cog in self.cogs:
-            self.remove(cog)
+            self.remove_cog(cog)
         if not self.session.closed:
             await self.session.close()
         await super().close()
