@@ -50,6 +50,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             await ctx.send(embed=bunloadmbed)
     
     @commands.command(name="reload", help="Will reload the given cog", usage="<cog>")
+    @commands.is_owner()
     async def reload(self, ctx:commands.Context, *, cog):
         reloadmbed = discord.Embed(
             colour=self.bot.colour,
@@ -59,6 +60,19 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         reloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         self.bot.reload_extension(F"config.core.{cog}")
         await ctx.send(embed=reloadmbed)
+
+    @commands.command(name="reloadall", help="Will reload every cog")
+    @commands.is_owner()
+    async def reloadall(self, ctx:commands.Context):
+        reloadallmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Successfully reloaded every cog",
+            timestamp=ctx.message.created_at
+        )
+        reloadallmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        for cog in self.bot.cogs:
+            reloadallmbed.description = F"{cog}, "
+            self.bot.reload_extension(F"config.core.{cog}")
 
     # Logout
     @commands.command(name="logout", aliases=["lt"], help="Will logout the bot")

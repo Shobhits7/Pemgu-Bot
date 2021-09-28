@@ -28,6 +28,7 @@ bot = Bot(
 for cog in sorted("./config/core/"):
     if cog.endswith(".py"):
         bot.load_extension(F"config.core.{cog[:-3]}")
+        print(F"Loaded {cog}")
 
 bot.load_extension("jishaku")
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
