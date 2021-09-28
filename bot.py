@@ -17,7 +17,7 @@ class Bot(commands.AutoShardedBot):
             await self.session.close()
 
 bot = Bot(
-    command_prefix=",m",
+    command_prefix=commands.when_mentioned_or(",m"),
     strip_after_prefix=True,
     case_insensitive=True,
     help_command=help.CustomHelp(),
