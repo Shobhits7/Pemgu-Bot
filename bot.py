@@ -9,6 +9,8 @@ async def aiohttpsession():
 class Bot(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.prefix = command_prefix
+        self.colour = 0x2F3136
 
     async def close(self):
         if not self.session.closed:
@@ -23,9 +25,6 @@ bot = Bot(
     intents=discord.Intents.all(),
     allowed_mentions=discord.AllowedMentions.none()
 )
-
-bot.prefix = prefix
-bot.colour = 0x2F3136
 
 for folder in sorted(os.listdir("./config/")):
     if folder in ("commands", "events"):
