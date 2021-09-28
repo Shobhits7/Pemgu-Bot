@@ -52,7 +52,7 @@ class PaginatorView(discord.ui.View):
     async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
         if self.page == 9:
             button.disabled = True
-        self.page += 1
+        else: self.page += 1
         await interaction.response.edit_message(embed=self.mbeds[self.page], view=button.view)
 
     async def on_timeout(self):
