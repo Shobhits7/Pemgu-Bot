@@ -142,13 +142,13 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         member = ctx.author if not member else member
         for activity in member.activities:
             if isinstance(activity, discord.Spotify):
-                finspotifymbed = discord.Embed(
+                fspotifymbed = discord.Embed(
                     colour=activity.colour,
                     url=activity.track_url,
                     title=activity.title,
                     timestamp=ctx.message.created_at
                 )
-                finspotifymbed.description = F"""
+                fspotifymbed.description = F"""
                 **Artists:** {', '.join(artist for artist in activity.artists)}
                 **Album:** {activity.album}
                 **Duration:** {time.strftime("%H:%M:%S", time.gmtime(activity.duration.total_seconds()))}
@@ -156,10 +156,10 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
                 **Party-ID:** {activity.party_id}
                 **Listening-Since:** {discord.utils.format_dt(activity.created_at, style='f')} ({discord.utils.format_dt(activity.created_at, style='R')})
                 """.replace("\t", "")
-                finspotifymbed.set_author(name=member, icon_url=member.display_avatar.url)
-                finspotifymbed.set_image(url=activity.album_cover_url)
-                finspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=finspotifymbed)
+                fspotifymbed.set_author(name=member, icon_url=member.display_avatar.url)
+                fspotifymbed.set_image(url=activity.album_cover_url)
+                fspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+                await ctx.send(embed=fspotifymbed)
                 break
         else:
             badspotifymbed = discord.Embed(
@@ -174,6 +174,27 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     @commands.command(name="say", help="Will say your message", usage="<text>")
     async def say(self, ctx:commands.Context, *, say):
         await ctx.send(F"{say} | {ctx.author.mention}")
+
+    # Cleanup
+    @commands.command(name="cleanup", aliases=["cu"], help="Will delete bot's messagess")
+    @commands.bot_has_guild_permissions(manage_messages=True)
+    async def cleanup(self, ctx:commands.Context, amount: int):
+        cumbed = discord.Embed(
+            colour=self.bot.colour,
+            title=F"Cleaned-up {amount} of bot messages",
+        )
+        cumbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.channel.purge(limit=amount, check=lambda m: m.author.id == self.bot.user.id)
+        await ctx.send(embed=cumbed, delete_after=2.5)
+
+    # Perms
+    @commands.command(name="perms", aliases=["pm"], help="Will show the perms that the bot has in this guild")
+    async def perms(self, ctx:commands.Context):
+        pmbed = discord.Embed(colour=self.bot.colour, title="Bot Permissions", timestamp=ctx.message.created_at)
+        pmbed.add_field(name="Allowed", value="\n".join(perm.replace("_", " ").title() for perm, val in ctx.guild.me.guild_permissions if val))
+        pmbed.add_field(name="Not Allowed", value="\n".join(perm.replace("_", " ").title() for perm, val in ctx.guild.me.guild_permissions if not val))
+        pmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=pmbed)
 
     # Ping
     @commands.command(name="ping", aliases=["pi"], help="Will show bot's ping")

@@ -1,0 +1,108 @@
+import discord, io
+from discord.ext import commands
+
+class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
+    def __init__(self, bot):
+        self.bot = bot
+
+    # Load
+    @commands.command(name="load", help="Will load the given cog if it was not already loaded", usage="<cog>")
+    @commands.is_owner()
+    async def load(self, ctx:commands.Context, *, cog):
+        floadmbed = discord.Embed(
+            colour=self.bot.colour,
+            title=F"Successfully loaded {cog}.",
+            timestamp=ctx.message.created_at
+        )
+        floadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        bloadmbed = discord.Embed(
+            colour=self.bot.colour,
+            title=F"{cog} is already loaded.",
+            timestamp=ctx.message.created_at
+        )
+        bloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if cog in self.bot.cogs:
+            await ctx.send(embed=bloadmbed)
+        else:
+            self.bot.load_extension(F"config.core.{cog}")
+            await ctx.send(embed=floadmbed)
+
+    # Unload
+    @commands.command(name="unload", help="Will unload the given cog if it was already loaded", usage="<cog>")
+    @commands.is_owner()
+    async def unload(self, ctx:commands.Context, *, cog):
+        funloadmbed = discord.Embed(
+            colour=self.bot.colour,
+            title=F"Successfully unloaded {cog}.",
+            timestamp=ctx.message.created_at
+        )
+        funloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        bunloadmbed = discord.Embed(
+            colour=self.bot.colour,
+            title=F"{cog} is not already loaded.",
+            timestamp=ctx.message.created_at
+        )
+        bunloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if cog in self.bot.cogs:
+            self.bot.unload_extension(F"config.core.{cog}")
+            await ctx.send(embed=funloadmbed)
+        else:
+            await ctx.send(embed=bunloadmbed)
+    
+    @commands.command(name="reload", help="Will reload the given cog", usage="<cog>")
+    async def reload(self, ctx:commands.Context, *, cog):
+        reloadmbed = discord.Embed(
+            colour=self.bot.colour,
+            title=F"Successfully reloaded {cog}.",
+            timestamp=ctx.message.created_at
+        )
+        reloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        self.bot.reload_extension(F"config.core.{cog}")
+        await ctx.send(embed=reloadmbed)
+
+    # Logout
+    @commands.command(name="logout", aliases=["lt"], help="Will logout the bot")
+    @commands.is_owner()
+    async def logout(self, ctx:commands.Context):
+        ltmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Okay, I'm logging out :wave:",
+            timestamp=ctx.message.created_at
+        )
+        ltmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=ltmbed)
+        await self.bot.close()
+
+    # Relog
+    @commands.command(name="relog", aliases=["rg"], help="Will Relog the bot")
+    @commands.is_owner()
+    async def relog(self, ctx:commands.Context):
+        rgmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Okay Relogging :eyes:",
+            timestamp=ctx.message.created_at
+        )
+        rgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=rgmbed)
+        await self.bot.close()
+        await self.bot.login()
+
+    # Template
+    @commands.command(name="template", aliases=["te"], help="Will give the guild's template")
+    @commands.is_owner()
+    @commands.guild_only()
+    @commands.has_guild_permissions(manage_guild=True)
+    @commands.bot_has_guild_permissions(manage_guild=True)
+    async def template(self, ctx:commands.Context):
+        tembed = discord.Embed(
+            colour=self.bot.colour,
+            title="Please check your DM",
+            timestamp=ctx.message.created_at
+        )
+        tembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=tembed)
+        temp = await ctx.guild.templates()
+        await ctx.author.send(temp)
+
+def setup(bot):
+    bot.add_cog(Owner(bot))

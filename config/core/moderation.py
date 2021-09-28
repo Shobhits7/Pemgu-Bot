@@ -82,23 +82,23 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
     async def addrole(self, ctx:commands.Context, member:discord.Member, role:discord.Role):
-        finaembed = discord.Embed(
+        faembed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully added the {role} role",
             timestamp=ctx.message.created_at
         )
-        finaembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        badaembed = discord.Embed(
+        faembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        baembed = discord.Embed(
             colour=self.bot.colour,
             title=F"The member already has the {role} role",
             timestamp=ctx.message.created_at
         )
-        badaembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        baembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if role in member.roles:
-            await ctx.send(embed=badaembed)
+            await ctx.send(embed=baembed)
             return
         await member.add_roles(role)
-        await ctx.send(embed=finaembed)
+        await ctx.send(embed=faembed)
     
     # RemoveRole
     @commands.command(name="removerole", aliases=["re"], help="Will remove the given role from the given user", usage="<user> <role>")
@@ -106,23 +106,23 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
     async def removerole(self, ctx:commands.Context, member:discord.Member, role:discord.Role):
-        finrembed = discord.Embed(
+        frembed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully removed the {role} role",
             timestamp=ctx.message.created_at
         )
-        finrembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        badrembed = discord.Embed(
+        frembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        brembed = discord.Embed(
             colour=self.bot.colour,
             title=F"The member don't have the {role} role",
             timestamp=ctx.message.created_at
         )
-        badrembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        brembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if role in member.roles:
             await member.remove_roles(role)
-            await ctx.send(embed=finrembed)
+            await ctx.send(embed=frembed)
             return
-        await ctx.send(embed=badrembed)
+        await ctx.send(embed=brembed)
 
     # Mute
     @commands.command(name="mute", aliases=["mt"], help="Will mute the given user", usage="<user>")
@@ -176,24 +176,24 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.command(name="purge", aliases=["pu"], help="Will delete messages", usage="<amount>")
     @commands.guild_only()
     @commands.has_guild_permissions(manage_messages=True)
-    @commands.bot_has_guild_permissions(manage_messages=True, manage_channels=True)
+    @commands.bot_has_guild_permissions(manage_messages=True)
     async def purge(self, ctx:commands.Context, amount: int):
-        finpumbed = discord.Embed(
+        fpumbed = discord.Embed(
             colour=self.bot.colour,
             title=F"Deleted {amount} amount of messages",
             timestamp=ctx.message.created_at
         )
-        finpumbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        badpumbed = discord.Embed(
+        fpumbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        bpumbed = discord.Embed(
             colour=self.bot.colour,
             title="Can't clear more than 100 messages",
             timestamp=ctx.message.created_at
         )
-        badpumbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        bpumbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if amount > 100:
-            return await ctx.send(embed=badpumbed, delete_after=2.5)
+            return await ctx.send(embed=bpumbed, delete_after=2.5)
         await ctx.channel.purge(limit=amount+1)
-        await ctx.send(embed=finpumbed, delete_after=2.5)
+        await ctx.send(embed=fpumbed, delete_after=2.5)
 
 def setup(bot):
     bot.add_cog(Moderation(bot))

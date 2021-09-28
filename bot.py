@@ -25,11 +25,9 @@ bot = Bot(
     allowed_mentions=discord.AllowedMentions.none()
 )
 
-for folder in sorted(os.listdir("./config/")):
-    if folder in ("commands", "events"):
-        for cog in sorted(os.listdir(F"./config/{folder}/")):
-            if cog.endswith(".py"):
-                bot.load_extension(F"config.{folder}.{cog[:-3]}")
+for cog in sorted("./config/core/"):
+    if cog.endswith(".py"):
+        bot.load_extension(F"config.core.{cog[:-3]}")
 
 bot.load_extension("jishaku")
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
