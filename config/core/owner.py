@@ -1,3 +1,4 @@
+from re import L
 import discord, io
 from discord.ext import commands
 
@@ -21,11 +22,11 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             timestamp=ctx.message.created_at
         )
         bloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if cog in self.bot.cogs:
-            await ctx.send(embed=bloadmbed)
-        else:
+        try:
             self.bot.load_extension(F"config.core.{cog}")
             await ctx.send(embed=floadmbed)
+        except discord.ExtensionAlreadyLoaded:
+            await ctx.send(embed=bloadmbed)
 
     # Unload
     @commands.command(name="unload", help="Will unload the given cog if it was already loaded", usage="<cog>")
@@ -43,11 +44,12 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             timestamp=ctx.message.created_at
         )
         bunloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if cog in self.bot.cogs:
+        try:
             self.bot.unload_extension(F"config.core.{cog}")
             await ctx.send(embed=funloadmbed)
-        else:
+        except discord.ExtensionNotLoaded:
             await ctx.send(embed=bunloadmbed)
+        
     
     @commands.command(name="reload", help="Will reload the given cog", usage="<cog>")
     @commands.is_owner()
