@@ -14,8 +14,10 @@ class Bot(commands.AutoShardedBot):
         self.colour = 0x2F3136
 
     async def close(self):
+        for extension in self.extensions:
+            self.unload_extension(extension)
         for cog in self.cogs:
-            self.unload_extension(cog)
+            self.remove(cog)
         if not self.session.closed:
             await self.session.close()
         await super().close()
