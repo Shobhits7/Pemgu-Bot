@@ -32,6 +32,7 @@ class PaginatorView(discord.ui.View):
                 mbed.set_author(name=self.help.context.author, icon_url=self.help.context.author.display_avatar.url)
                 mbed.set_footer(text=F"<> is required | [] is optional | Page: {len(self.mbeds)}")
                 self.mbeds.append(mbed)
+        print(len(self.mbeds))
 
     @discord.ui.button(emoji="⏯", style=discord.ButtonStyle.green)
     async def home(self, button:discord.ui.Button, interaction:discord.Interaction):
@@ -50,8 +51,7 @@ class PaginatorView(discord.ui.View):
 
     @discord.ui.button(emoji="⏭", style=discord.ButtonStyle.blurple)
     async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
-        if self.page == 9:
-            button.disabled = True
+        if self.page == 10: button.disabled = True
         else: self.page += 1
         await interaction.response.edit_message(embed=self.mbeds[self.page], view=button.view)
 
