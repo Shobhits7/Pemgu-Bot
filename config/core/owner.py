@@ -72,9 +72,9 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             timestamp=ctx.message.created_at
         )
         reloadallmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        for cog in self.bot.cogs:
+        for cog in self.bot.extensions:
             reloadallmbed.description = F"{cog}, "
-            self.bot.reload_extension(F"config.core.{cog}")
+            self.bot.reload_extension(F"config.core.{cog[:-1]}")
 
     # Logout
     @commands.command(name="logout", aliases=["lt"], help="Will logout the bot")
