@@ -25,7 +25,7 @@ bot = Bot(
     allowed_mentions=discord.AllowedMentions.none()
 )
 
-for cog in sorted("./config/core/"):
+for cog in sorted(os.listdir("./config/core/")):
     if cog.endswith(".py"):
         bot.load_extension(F"config.core.{cog[:-3]}")
         print(F"Loaded {cog}")
