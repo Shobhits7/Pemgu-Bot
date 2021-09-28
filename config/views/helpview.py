@@ -37,18 +37,17 @@ class PaginatorView(discord.ui.View):
     async def home(self, button:discord.ui.Button, interaction:discord.Interaction):
         await interaction.response.edit_message(embed=self.homepage)
 
-    @discord.ui.button(emoji="⏮", style=discord.ButtonStyle.blurple, disabled=True)
+    @discord.ui.button(emoji="⏮", style=discord.ButtonStyle.blurple)
     async def previous(self, button:discord.ui.Button, interaction:discord.Interaction):
-        if self.page == 0:
-            button.disabled = False
-        self.page -= 1
+        if self.page == 0: button.disabled = False
+        else: self.page -= 1
         await interaction.response.edit_message(embed=self.mbeds[self.page], view=button.view)
     
     @discord.ui.button(emoji="⏹", style=discord.ButtonStyle.red)
     async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
         await interaction.message.delete()
 
-    @discord.ui.button(emoji="⏭", style=discord.ButtonStyle.blurple, disabled=False)
+    @discord.ui.button(emoji="⏭", style=discord.ButtonStyle.blurple)
     async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
         if self.page == 50:
             button.disabled = True
