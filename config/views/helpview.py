@@ -21,16 +21,17 @@ class PaginatorView(discord.ui.View):
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
             cmds = cog.walk_commands() if cog else commands
-            mbed = discord.Embed(
-                    colour=self.help.context.bot.colour,
-                    title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
-                    description=F"{description}\n\n{''.join(gts(command) for command in commands)}",
-                    timestamp=self.help.context.message.created_at
-            )
-            mbed.set_thumbnail(url=self.help.context.me.display_avatar.url)
-            mbed.set_author(name=self.help.context.author, icon_url=self.help.context.author.display_avatar.url)
-            mbed.set_footer(text=F"<> is required | [] is optional | Page: {len(self.mbeds)}")
-            self.mbeds.append(mbed)
+            if not name.startswith("On"):
+                mbed = discord.Embed(
+                        colour=self.help.context.bot.colour,
+                        title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
+                        description=F"{description}\n\n{''.join(gts(command) for command in commands)}",
+                        timestamp=self.help.context.message.created_at
+                )
+                mbed.set_thumbnail(url=self.help.context.me.display_avatar.url)
+                mbed.set_author(name=self.help.context.author, icon_url=self.help.context.author.display_avatar.url)
+                mbed.set_footer(text=F"<> is required | [] is optional | Page: {len(self.mbeds)}")
+                self.mbeds.append(mbed)
 
     @discord.ui.button(emoji="⏯", style=discord.ButtonStyle.green)
     async def home(self, button:discord.ui.Button, interaction:discord.Interaction):
