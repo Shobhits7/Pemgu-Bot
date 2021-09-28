@@ -83,7 +83,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
     async def repeat(self, ctx:commands.Context, time:int, command:str):
         print(command)
         for _ in range(1, time+1):
-            process = await self.bot.process_commands(ctx.message.content)
+            process = await self.bot.process_commands(ctx.message)
             
         await ctx.send(F"Successfully repeated `{command}` - `{time}` times")
 
