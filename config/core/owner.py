@@ -21,10 +21,10 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             timestamp=ctx.message.created_at
         )
         bloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        try:
+        if cog not in self.bot.extensions:
             self.bot.load_extension(F"config.core.{cog}")
             await ctx.send(embed=floadmbed)
-        except discord.ExtensionAlreadyLoaded:
+        else:
             await ctx.send(embed=bloadmbed)
 
     # Unload
@@ -43,10 +43,10 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             timestamp=ctx.message.created_at
         )
         bunloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        try:
+        if cog in self.bot.extensions:
             self.bot.unload_extension(F"config.core.{cog}")
             await ctx.send(embed=funloadmbed)
-        except discord.ExtensionNotLoaded:
+        else:
             await ctx.send(embed=bunloadmbed)
   
     # Reload
@@ -74,7 +74,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         reloadallmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         for cog in self.bot.extensions:
             reloadallmbed.description = F"{cog}, "
-            self.bot.reload_extension(cog[:-1])
+            self.bot.reload_extension(cog)
 
     # Repeat
     @commands.command(name="repeat", help="Will repeat the given commands the amounts of given time", usage="<time> <command>")
