@@ -77,10 +77,9 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             self.bot.reload_extension(F"config.core.{cog[:-1]}")
 
     # Repeat
-    @commands.command(name="repeat", help="Will repeat the given commands the amounts of time given", usage="<time> <command>")
+    @commands.command(name="repeat", help="Will repeat the given commands the amounts of given time", usage="<time> <command>")
     @commands.is_owner()
     async def repeat(self, ctx:commands.Context, time:int, command:str):
-        print(command)
         for _ in range(1, time+1):
             await self.bot.get_command(str(command))(ctx)
         await ctx.send(F"Successfully repeated `{command}` - `{time}` times")
