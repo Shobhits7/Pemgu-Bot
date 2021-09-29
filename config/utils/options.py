@@ -2,12 +2,10 @@ import discord, random
 
 class Colour():
 
-    @property
     def invis():
         colour = 0x2F3136 or 0x36393E
         return colour
 
-    @property
     def random():
         colours = [
             discord.Colour.blue(),
