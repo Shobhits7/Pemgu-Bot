@@ -17,11 +17,14 @@ class PaginatorButtons(discord.ui.Button):
             await interaction.response.edit_message(embed=self.mbeds[self.page], view=self.view)
         if self.emoji == "⏮" and self.page >= 0:
             self.disabled = False
-            await interaction.response.edit_message( view=self.view)
+            await interaction.response.edit_message(embed=self.mbeds[self.page], view=self.view)
         if self.emoji == "⏹":
             await interaction.message.delete()
         if self.emoji == "⏭":
             self.page += 1
+            await interaction.response.edit_message(embed=self.mbeds[self.page], view=self.view)
+        if self.emoji == "⏭" and self.page == 10:
+            self.disabled = True
             await interaction.response.edit_message(embed=self.mbeds[self.page], view=self.view)
 
 class PaginatorView(discord.ui.View):
