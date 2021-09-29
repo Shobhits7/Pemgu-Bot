@@ -69,11 +69,21 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         reloadallmbed = discord.Embed(
             colour=self.bot.colour,
             title="Successfully reloaded every cog",
+            description="Here is the results",
             timestamp=ctx.message.created_at
         )
         reloadallmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        errors = []
         for cog in self.bot.extension:
-            self.bot.reload_extension(cog)
+            try:
+                reloadallmbed.description += F"{cog} | Fine"
+                self.bot.reload_extension(cog)
+            except Exception as error:
+                reloadallmbed.description += F"{cog} | Bad"
+                errors.append(error)
+        if len(errors) != 0:
+           reloadallmbed.description += F"Errors:\n{', '.join(error for error in errors)}"
+        await ctx.send(embed=reloadallmbed)
 
     # Repeat
     @commands.command(name="repeat", help="Will repeat the given commands the amounts of given time", usage="<time> <command>")
