@@ -24,7 +24,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         try:
             self.bot.load_extension(F"config.core.{cog}")
             await ctx.send(embed=floadmbed)
-        except discord.ExtensionAlreadyLoaded:
+        except commands.ExtensionAlreadyLoaded:
             await ctx.send(embed=bloadmbed)
 
     # Unload
@@ -46,7 +46,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         try:
             self.bot.unload_extension(F"config.core.{cog}")
             await ctx.send(embed=funloadmbed)
-        except discord.ExtensionNotLoaded:
+        except commands.ExtensionNotLoaded:
             await ctx.send(embed=bunloadmbed)
   
     # Reload
