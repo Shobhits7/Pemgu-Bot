@@ -10,7 +10,7 @@ class Bot(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.token = os.getenv("TOKEN")
-        self.prefix = ",m"
+        self.prefix = ";m"
         self.colour = 0x2F3136
 
     async def close(self):
@@ -19,7 +19,7 @@ class Bot(commands.AutoShardedBot):
         await super().close()
 
 bot = Bot(
-    command_prefix=commands.when_mentioned_or(",m"),
+    command_prefix=commands.when_mentioned_or(";m"),
     strip_after_prefix=True,
     case_insensitive=True,
     help_command=help.CustomHelp(),
