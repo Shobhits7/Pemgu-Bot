@@ -37,10 +37,10 @@ class PaginatorView(discord.ui.View):
         )
         self.page = 0
         self.mbeds = [self.homepage]
-        self.add_item(item=PaginatorButtons(emoji="⏯", style=discord.ButtonStyle.green))
-        self.add_item(item=PaginatorButtons(emoji="⏮", style=discord.ButtonStyle.blurple, disabled=True))
-        self.add_item(item=PaginatorButtons(emoji="⏹", style=discord.ButtonStyle.red))
-        self.add_item(item=PaginatorButtons(emoji="⏭", style=discord.ButtonStyle.blurple))
+        self.add_item(item=PaginatorButtons(emoji="⏯", style=discord.ButtonStyle.green, view=self))
+        self.add_item(item=PaginatorButtons(emoji="⏮", style=discord.ButtonStyle.blurple, disabled=True, view=self))
+        self.add_item(item=PaginatorButtons(emoji="⏹", style=discord.ButtonStyle.red, view=self))
+        self.add_item(item=PaginatorButtons(emoji="⏭", style=discord.ButtonStyle.blurple, view=self))
         self.add_item(item=discord.ui.Button(emoji="🧇", label="Add Me", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(item=discord.ui.Button(emoji="🍩", label="Support Server", url="https://discord.gg/bWnjkjyFRz"))
         def gts(command):
