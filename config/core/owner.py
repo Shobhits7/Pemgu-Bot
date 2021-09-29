@@ -84,7 +84,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
                 reloadallmbed.description += F"{cog} | Fine"
             except Exception as error:
                 reloadallmbed.description += F"{cog} | Bad"
-                errors.append(error)
+                errors.append(str(error))
         if len(errors) != 0:
            reloadallmbed.description += F"Errors:\n{', '.join(error for error in errors)}"
         await ctx.send(embed=reloadallmbed)

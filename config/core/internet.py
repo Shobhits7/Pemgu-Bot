@@ -1,7 +1,7 @@
 import discord, os, io
 from discord.ext import commands
 
-class API(commands.Cog, description="Some cool commands that uses internet"):
+class Internet(commands.Cog, description="Some cool commands that uses internet"):
     def __init__(self, bot):
         self.bot = bot
         self.dagpi_headers = {
@@ -196,4 +196,4 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         response = await session.json()
 
 def setup(bot):
-    bot.add_cog(API(bot))
+    bot.add_cog(Internet(bot))
