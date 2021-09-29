@@ -75,6 +75,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         reloadallmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         errors = []
         toreload = sorted(list(self.bot.cogs.keys()))
+        toreload.remove()
         for cog in toreload:
             cog = cog.lower()
             if cog.startswith("on"): cog = cog[2:]
