@@ -80,9 +80,9 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             cog = cog.lower()
             try:
                 self.bot.reload_extension(F"config.core.{cog}")
-                reloadallmbed.description += F"{cog} | Fine"
+                reloadallmbed.description += F"{cog} | Fine\n"
             except Exception as error:
-                reloadallmbed.description += F"{cog} | Bad"
+                reloadallmbed.description += F"{cog} | Bad\n"
                 errors.append(F"{error}\n")
         if len(errors) != 0:
            reloadallmbed.description += ''.join(error for error in errors)
