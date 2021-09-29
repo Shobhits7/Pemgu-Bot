@@ -42,6 +42,7 @@ class CustomHelp(commands.HelpCommand):
             "API": "🌎",
             "Fun": "😹",
             "Game": "🎮",
+            "Math": "🧮",
             "Moderation": "🎩",
             "Music": "🎼",
             "Owner": "👑",
