@@ -137,6 +137,7 @@ class OnError(commands.Cog):
             )
             fmbed.add_field(name="You are the owner of this Server:", value="If you are the owner, and you are trying to use changing command, you can't")
             fmbed.add_field(name="Couldn't send messages to the user", value="The user is not accepting messages from the members in here or just blocked this bot")
+            fmbed.add_filed(name="User's Position:", value="The user is higher than or you")
             fmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             await ctx.send(embed=fmbed)
         else:
