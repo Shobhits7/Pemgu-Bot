@@ -14,7 +14,7 @@ class NitroButton(discord.ui.Button):
                 timestamp=self.ctx.message.created_at
             )
             anitrombed.set_footer(text=self.ctx.author, icon_url=self.ctx.author.display_avatar.url)
-            self.label = "Claimed"
+            self.label = "CLAIMED"
             self.style = discord.ButtonStyle.grey
             self.disabled = True
             await interaction.response.edit_message(embed=anitrombed, view=self.view)
@@ -25,7 +25,7 @@ class NitroView(discord.ui.View):
         super().__init__(timeout=5)
         self.bot = bot
         self.ctx = ctx
-        self.add_item(item=NitroButton(label="Claim", style=discord.ButtonStyle.green, view=self))
+        self.add_item(item=NitroButton(label="ACCPET", style=discord.ButtonStyle.green, view=self))
     async def on_timeout(self):
         for item in self.children:
             if isinstance(item, discord.ui.Button):
