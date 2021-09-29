@@ -11,7 +11,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
     async def counter(self, ctx:commands.Context):
         ctrmbed = discord.Embed(
             colour=self.bot.colour,
-            title="Click the button for counting"
+            description="Click the button for counting"
         )
         ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         view = gv.CounterView(client=self.bot)
@@ -22,8 +22,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
     async def rockpaperscissors(self, ctx:commands.Context):
         rpsmbed = discord.Embed(
             colour=self.bot.colour,
-            title="Started the game",
-            description="Choose your Tool with the buttons:",
+            description="Choose your **tool** with the buttons:",
             timestamp=ctx.message.created_at
         )
         rpsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -35,8 +34,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
     async def guess(self, ctx:commands.Context):
         gsmbed = discord.Embed(
             colour=self.bot.colour,
-            title="Started the game",
-            description="Try to guess now"
+            description="Try to **guess** now"
         )
         gsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         view = gv.GuessView(self.bot, ctx)
