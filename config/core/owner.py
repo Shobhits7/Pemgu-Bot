@@ -74,14 +74,14 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         )
         reloadallmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         errors = []
-        for cog in self.bot.cogs:
+        toreload = self.bot.cogs.keys()
+        for cog in toreload:
             if cog.startswith("On"):
                 cog = cog[2:]
             cog = cog.lower()
             try:
+                self.bot.reload_extension(F"config.core.{cog}")
                 reloadallmbed.description += F"{cog} | Fine"
-                self.bot.unload_extension(F"config.core.{cog}")
-                self.bot.load_extension(F"config.core.{cog}")
             except Exception as error:
                 reloadallmbed.description += F"{cog} | Bad"
                 errors.append(error)
