@@ -59,7 +59,7 @@ class CustomHelp(commands.HelpCommand):
 
     # Help Main
     async def send_bot_help(self, mapping):
-        view = hv.SelectView(self, mapping)
+        view = hv.PaginatorView(self, mapping)
         view.homepage.set_thumbnail(url=self.context.me.display_avatar.url)
         view.homepage.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
         view.homepage.add_field(name="Prefix:", value=self.context.prefix or "In DM you don't need to use prefix", inline=False)
