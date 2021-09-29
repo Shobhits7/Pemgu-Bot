@@ -76,8 +76,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         errors = []
         toreload = list(self.bot.cogs.keys())
         for cog in toreload:
-            if cog.startswith("On"):
-                cog = cog[2:]
+            if cog.startswith("On"): cog = cog[2:]
             cog = cog.lower()
             try:
                 self.bot.reload_extension(F"config.core.{cog}")
@@ -86,7 +85,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
                 reloadallmbed.description += F"{cog} | Bad"
                 errors.append(str(error))
         if len(errors) != 0:
-           reloadallmbed.description += F"Errors:\n{', '.join(error for error in errors)}"
+           reloadallmbed.description += F"Errors:\n{'\n'.join(error for error in errors)}"
         await ctx.send(embed=reloadallmbed)
 
     # Repeat
