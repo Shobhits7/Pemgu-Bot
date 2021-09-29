@@ -39,14 +39,13 @@ class CustomHelp(commands.HelpCommand):
     def __init__(self):
         self.emojis = {
             "Anime": "🍙",
-            "API": "🌎",
             "Fun": "😹",
             "Game": "🎮",
+            "Internet": "🌎",
             "Math": "🧮",
-            "Moderation": "🎩",
-            "Music": "🎼",
-            "Owner": "👑",
             "Meta": "🔧",
+            "Moderation": "🎩",
+            "Owner": "👑",
             "Utility": "🧰",
             "Jishaku": "🎓",
             "No": "❓"
