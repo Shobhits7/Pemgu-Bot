@@ -1,6 +1,6 @@
 import discord
 
-colors = [
+colours = [
         discord.Colour.default(),
         discord.Colour.teal(),
         discord.Colour.dark_teal(),

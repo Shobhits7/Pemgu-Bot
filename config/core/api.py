@@ -72,22 +72,22 @@ class API(commands.Cog, description="Some cool commands that uses internet"):
         pxlmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(file=discord.File(response, filename="pixel.png"), embed=pxlmbed)
 
-    # Colors
-    @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image", usage="[user]")
+    # Colours
+    @commands.command(name="colours", aliases=["clrs"], help="Will give you the colours from the given image", usage="[user]")
     @commands.bot_has_guild_permissions(attach_files=True)
-    async def colors(self, ctx:commands.Context, user:discord.User = None):
+    async def colours(self, ctx:commands.Context, user:discord.User = None):
         user = ctx.author if not user else user
         session = await self.bot.session.get(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.with_format('png')}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
         session.close()
         clrsmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{user} 's image colors",
+            title=F"{user} 's image colours",
             timestamp=ctx.message.created_at
         )
-        clrsmbed.set_image(url="attachment://colors.png")
+        clrsmbed.set_image(url="attachment://colours.png")
         clrsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(file=discord.File(response, filename="colors.png"), embed=clrsmbed)
+        await ctx.send(file=discord.File(response, filename="colours.png"), embed=clrsmbed)
 
     # Tweet
     @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet", usage="<username> <text>")

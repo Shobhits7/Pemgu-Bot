@@ -21,7 +21,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
     @commands.command(name="rockpaperscissors", aliases=["rps"], help="Will start an Rock-Paper-Scissors game")
     async def rockpaperscissors(self, ctx:commands.Context):
         rpsmbed = discord.Embed(
-            colour=self.bot.colour,
+            colour=self.bot.color,
             title="Started the game",
             description="Choose your Tool with the buttons:",
             timestamp=ctx.message.created_at

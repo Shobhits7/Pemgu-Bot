@@ -144,10 +144,12 @@ class GuessView(discord.ui.View):
         self.ctx = ctx
         self.choose = None
         self.number = random.randint(1, 5)
-        row = 1
-        for i in range(1, 6):
+        row = 0
+        for _ in range(1, 6):
             row += 1
-            self.add_item(item=GuessButtons(label=i, style=discord.ButtonStyle.green, row=row, view=self))
+            if row >= 5:
+                row = 1
+            self.add_item(item=GuessButtons(label=_, style=discord.ButtonStyle.green, row=row, view=self))
     
     async def on_timeout(self):
         if self.children:
