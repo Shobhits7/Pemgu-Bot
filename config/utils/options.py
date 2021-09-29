@@ -4,7 +4,7 @@ class Colour():
 
     @property
     def invis():
-        return 0x2F3136 or 0x36393E
+        0x2F3136 or 0x36393E
 
     @property
     def random():
