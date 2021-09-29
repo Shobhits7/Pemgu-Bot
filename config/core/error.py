@@ -141,15 +141,20 @@ class OnError(commands.Cog):
             fmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             await ctx.send(embed=fmbed)
         else:
-            tbmbed = discord.Embed(
+            # tbmbed = discord.Embed(
+            #     colour=self.bot.colour,
+            #     title=F"Error in {ctx.command}",
+            #     description="```py\n",
+            #     timestamp=ctx.message.created_at
+            # )
+            # tbmbed.description += F"{''.join(traceback.format_exception(type(error), error,  error.__traceback__))}\n```"
+            errormbed = discord.Embed(
                 colour=self.bot.colour,
-                title=F"Error in {ctx.command}",
-                description="```py\n",
-                timestamp=ctx.message.created_at
+                title="Error in {0}".format(ctx.command),
+                description=str(error)
             )
-            tbmbed.description += F"{''.join(traceback.format_exception(type(error), error,  error.__traceback__))}\n```"
-            
-            await ctx.send(embed=tbmbed)
+            errormbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            await ctx.send(embed=errormbed)
     
 def setup(bot):
     bot.add_cog(OnError(bot))
