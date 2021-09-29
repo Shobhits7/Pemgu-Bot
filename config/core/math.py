@@ -6,7 +6,7 @@ class Math(commands.Cog, description="Cheating tests with these"):
         self.bot = bot
     
     # Sum
-    @commands.Cog(name="sum", help="Will give the sum for the given 2 numbers", usage="<num1> <num2>")
+    @commands.command(name="sum", help="Will give the sum for the given 2 numbers", usage="<num1> <num2>")
     async def sum(self, ctx:commands.Context, num1:int, num2:int):
         await ctx.send(num1 + num2)
 
