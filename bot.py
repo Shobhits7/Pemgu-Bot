@@ -34,8 +34,6 @@ class MeiBase(commands.AutoShardedBot):
             discord.Colour.darker_gray(),
             discord.Colour.darker_grey(),
             discord.Colour.default(),
-            discord.Colour.from_hsv(),
-            discord.Colour.from_rgb(),
             discord.Colour.fuchsia(),
             discord.Colour.gold(),
             discord.Colour.green(),
