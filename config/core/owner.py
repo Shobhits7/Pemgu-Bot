@@ -72,7 +72,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
             timestamp=ctx.message.created_at
         )
         reloadallmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        for cog in self.bot.cogs:
+        for cog in self.bot.extension:
             self.bot.reload_extension(cog)
 
     # Repeat
