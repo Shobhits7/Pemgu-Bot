@@ -74,7 +74,7 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         reloadallmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         for cog in self.bot.extensions:
             reloadallmbed.description = F"{cog}, "
-            self.bot.reload_extension(F"config.core.{cog[:-1]}")
+            self.bot.reload_extension(cog[:-1])
 
     # Repeat
     @commands.command(name="repeat", help="Will repeat the given commands the amounts of given time", usage="<time> <command>")
