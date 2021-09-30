@@ -9,10 +9,10 @@ class Paginator(discord.ui.View):
 
     @discord.ui.button(emoji="⏮", style=discord.ButtonStyle.green)
     async def previous(self, button:discord.ui.Button, interaction:discord.Interaction):
+        self.page -= 1
         if self.page == 0:
             button.disabled = True
             await interaction.response.edit_message(view=button.view)
-        self.page -= 1
         await interaction.response.edit_message(embed=self.embeds[self.page])
 
     @discord.ui.button(emoji="⏹", style=discord.ButtonStyle.red)
@@ -21,10 +21,10 @@ class Paginator(discord.ui.View):
 
     @discord.ui.button(emoji="⏭", style=discord.ButtonStyle.green)
     async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
+        self.page += 1
         if len(self.embeds) == self.page:
             button.disabled = True
             await interaction.response.edit_message(content="There are no more quotes", view=button.view)
-        self.page += 1
         await interaction.response.edit_message(embed=self.embeds[self.page])
 
     async def on_timeout(self):
