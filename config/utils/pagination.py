@@ -6,7 +6,7 @@ class Paginator(discord.ui.View):
         self.ctx = ctx
         self.page = 1
         self.embeds = embeds
-        self.pagecounter = self.add_item(label="Page: ", style=discord.ButtonStyle.grey, disabled=True)
+        self.pagecounter = self.add_item(discord.ui.Button(label="Page: ", style=discord.ButtonStyle.grey, disabled=True))
 
     @discord.ui.button(emoji="⏮", style=discord.ButtonStyle.green)
     async def previous(self, button:discord.ui.Button, interaction:discord.Interaction):
