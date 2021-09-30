@@ -80,7 +80,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ╰***Nickname:*** {member.nick}
         ╰***Voice:*** {'*Not in a voice*' if not member.voice else member.voice.channel.mention}
         ╰***Server-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}
-        """.replace("\t", "")
+        """.replace("\t\t", "")
         if member.avatar:
             uimbed.set_thumbnail(url=member.display_avatar.url)
         else: uimbed.description += "__**Avatar:**__ User doesn't have a avatar"
@@ -126,7 +126,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         ╰***Channels:*** {len(ctx.guild.channels)}
         ╰***AFK-Channel:*** {'*No AFK channel*' if not ctx.guild.afk_channel else ctx.guild.afk_channel.mention}
         ***AFK-Timeout:*** {ctx.guild.afk_timeout}
-        """.replace("\t", "")
+        """.replace("\t\t", "")
         if ctx.guild.icon:
             simbed.set_thumbnail(url=ctx.guild.icon.url)
         else: simbed.description += "__**Icon:**__ Server doesn't have a icon"
