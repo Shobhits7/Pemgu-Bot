@@ -8,19 +8,23 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # Quote
     @commands.command(name="quote", help="Will send a anime quote")
     async def quote(self, ctx:commands.Context):
-        session = await self.bot.session.get("https://animechan.vercel.app/api/random/")
-        response = await session.json()
-        session.close()
-        quotembed = discord.Embed(
-            colour=self.bot.colour,
-            title="Here is your quote",
-            timestamp=ctx.message.created_at
-        )
-        quotembed.add_field(name="Quote:", value=response["quote"])
-        quotembed.add_field(name="Character:", value=response["character"])
-        quotembed.add_field(name="Series:", value=response["anime"])
-        quotembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=quotembed)
+        quotes = []
+        for _ in range(1, 6):
+            session = await self.bot.session.get("https://animechan.vercel.app/api/random/")
+            response = await session.json()
+            session.close()
+            quotembed = discord.Embed(
+                colour=self.bot.colour,
+                title="Here is your quote",
+                timestamp=ctx.message.created_at
+            )
+            quotembed.add_field(name="Quote:", value=response["quote"])
+            quotembed.add_field(name="Character:", value=response["character"])
+            quotembed.add_field(name="Series:", value=response["anime"])
+            quotembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            quotes.append(quotembed)
+        view = self.bot.paginator(quotes)
+        await ctx.send(embed=quotembed, view=view)
 
     # SFW
     @commands.group(name="sfw", help="Will send a random sfw waifu or husbando image if not specified", invoke_without_command=True)

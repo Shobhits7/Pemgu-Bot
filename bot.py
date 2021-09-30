@@ -1,4 +1,4 @@
-import discord, aiohttp, asyncpg, os, random, config.utils.help as help
+import discord, aiohttp, asyncpg, os, random, config.utils.help as help, config.views.paginator as pagiantor
 from discord.colour import Colour
 from discord.ext import commands
 
@@ -11,6 +11,17 @@ class MeiBase(commands.AutoShardedBot):
         super().__init__(**kwargs)
         self.token = os.getenv("TOKEN")
         self.prefix = ";m"
+
+    async def close(self):
+        if not self.session.closed:
+            await self.session.close()
+        await super().close()
+
+    @classmethod
+    async def paginator(self,  embeds):
+        if not embeds:
+            print("You need to pass a list of embeds for this custom method")
+        return await pagiantor(embeds)
 
     @property
     def colour(self):
@@ -52,11 +63,6 @@ class MeiBase(commands.AutoShardedBot):
         ]
         colour = random.choice(colours)
         return colour
-
-    async def close(self):
-        if not self.session.closed:
-            await self.session.close()
-        await super().close()
 
 bot = MeiBase(
     command_prefix=commands.when_mentioned_or(";m"),
