@@ -75,11 +75,11 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         reloadallmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         errors = []
         toreload = sorted(list(self.bot.cogs.keys()))
-        toreload.remove("Jishaku")
         for cog in toreload:
             cog = cog.lower()
             if cog.startswith("on"): cog = cog[2:]
             try:
+                if cog == "jishaku": self.bot.reload_extension("jishaku")
                 self.bot.reload_extension(F"config.core.{cog}")
                 reloadallmbed.description += F"<:status_online:596576749790429200> - {cog}\n"
             except Exception as error:
