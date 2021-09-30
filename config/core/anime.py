@@ -1,6 +1,25 @@
 import discord
 from discord.ext import commands
-import config.views.paginator as paginator
+
+class Paginator(discord.ui.View):
+    def __init__(self, embeds):
+        super().__init__(timeout=5)
+        self.page = 0
+        self.embeds = embeds
+
+    @discord.ui.button(emoji="⏮", style=discord.ButtonStyle.green)
+    async def previous(self, button:discord.ui.Button, interaction:discord.Interaction):
+        self.page += 1
+        await interaction.response.edit_message(embed=self.embeds[self.page])
+
+    @discord.ui.button(emoji="⏹", style=discord.ButtonStyle.red)
+    async def stop(self, button:discord.ui.Button, interaction:discord.Interaction):
+        await interaction.message.edit()
+
+    @discord.ui.button(emoji="⏭", style=discord.ButtonStyle.green)
+    async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
+        self.page -= 1
+        await interaction.response.edit_message(embed=self.embeds[self.page])
 
 class Anime(commands.Cog, description="Some Weeb shit"):
     def __init__(self, bot):
@@ -24,7 +43,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             quotembed.add_field(name="Series:", value=response["anime"])
             quotembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             quotes.append(quotembed)
-        view = paginator(quotes)
+        view = Paginator(quotes)
         await ctx.send(embed=quotembed, view=view)
 
     # SFW

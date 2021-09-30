@@ -37,6 +37,12 @@ class MinimalHelp(commands.MinimalHelpCommand):
 
 class CustomHelp(commands.HelpCommand):
     def __init__(self):
+        super().__init__(
+            command_attrs={
+                "help": "The help command for this bot",
+                "aliases": ["h", "commands"]
+            }
+        )
         self.emojis = {
             "Anime": "🍙",
             "Fun": "😹",
@@ -50,12 +56,6 @@ class CustomHelp(commands.HelpCommand):
             "Jishaku": "🎓",
             "No": "❓"
         }
-        super().__init__(
-            command_attrs={
-                "help": "The help command for this bot",
-                "aliases": ["h", "commands"]
-            }
-        )
 
     # Help Main
     async def send_bot_help(self, mapping):
