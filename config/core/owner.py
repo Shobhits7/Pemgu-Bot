@@ -6,6 +6,11 @@ class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
         self.bot = bot
         self._last_result = None
 
+    def cleanup_code(self, content):
+        if content.startswith('```') and content.endswith('```'):
+            return '\n'.join(content.split('\n')[1:-1])
+        return content.strip('` \n')
+
     @commands.command(name='eval', help="Evaluates a code", usage="<body>")
     async def _eval(self, ctx, *, body: str):
         env = {
