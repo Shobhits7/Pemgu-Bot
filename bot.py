@@ -18,10 +18,10 @@ class MeiBase(commands.AutoShardedBot):
         await super().close()
 
     @classmethod
-    async def paginator(self,  embeds):
+    async def paginator(self, embeds):
         if not embeds:
             print("You need to pass a list of embeds for this custom method")
-        return await pagiantor(embeds)
+        return pagiantor(embeds)
 
     @property
     def colour(self):

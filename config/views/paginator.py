@@ -1,7 +1,7 @@
 import discord
 
 class Paginator(discord.ui.View):
-    def __init__(self, embeds):
+    def __init__(self, embeds:list):
         super().__init__(timeout=10)
         self.page = 0
         self.embeds = embeds
