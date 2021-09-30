@@ -1,4 +1,4 @@
-import discord, aiohttp, asyncpg, os, random, config.utils.help as help
+import discord, aiohttp, asyncpg, os, random, config.utils.help as help, config.utils.pagination as page
 from discord.colour import Colour
 from discord.ext import commands
 
@@ -16,6 +16,10 @@ class MeiBase(commands.AutoShardedBot):
         if not self.session.closed:
             await self.session.close()
         await super().close()
+
+    @classmethod
+    def paginator(self, ctx, embeds):
+        return page.Paginator(ctx, embeds)
 
     @property
     def colour(self):
