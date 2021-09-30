@@ -24,7 +24,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             quotembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             quotes.append(quotembed)
         view = self.bot.paginator(ctx, quotes)
-        await ctx.send(embed=quotembed, view=view)
+        view.message = await ctx.send(embed=quotembed, view=view)
 
     # SFW
     @commands.group(name="sfw", help="Will send a random sfw waifu or husbando image if not specified", invoke_without_command=True)
