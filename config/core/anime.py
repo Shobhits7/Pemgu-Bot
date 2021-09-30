@@ -21,7 +21,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             quotembed.add_field(name="Quote:", value=response["quote"])
             quotembed.add_field(name="Character:", value=response["character"])
             quotembed.add_field(name="Series:", value=response["anime"])
-            quotembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            quotembed.set_footer(text=F"{ctx.author} | {len(quotes)}", icon_url=ctx.author.display_avatar.url)
             quotes.append(quotembed)
         view = self.bot.paginator(ctx, quotes)
         view.message = await ctx.send(embed=quotembed, view=view)
