@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import config.views.paginator as paginator
 
 class Anime(commands.Cog, description="Some Weeb shit"):
     def __init__(self, bot):
@@ -23,7 +24,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             quotembed.add_field(name="Series:", value=response["anime"])
             quotembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             quotes.append(quotembed)
-        view = self.bot.paginator(quotes)
+        view = paginator(quotes)
         await ctx.send(embed=quotembed, view=view)
 
     # SFW
