@@ -128,7 +128,7 @@ class OnError(commands.Cog):
             )
             npmmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             await ctx.send(embed=npmmbed)
-        elif isinstance(error, commands.CheckFailure) or isinstance(error, commands.CheckAnyFailure):
+        elif isinstance(error, commands.CheckFailure):
             return
         elif isinstance(error, discord.Forbidden):
             fmbed = discord.Embed(
