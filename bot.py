@@ -81,7 +81,8 @@ os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
 
 @bot.check
 async def blacklisted(ctx:commands.Context):
-    if ctx.author.id in blacklist.users: return
+    if ctx.author.id in blacklist.users: raise commands.CheckFailure
+    return True
 
 bot.loop.create_task(aiohttpsession())
 bot.run(bot.token)
