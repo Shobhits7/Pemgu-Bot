@@ -1,4 +1,4 @@
-import discord, aiohttp, asyncpg, os, random, config.utils.help as help, config.utils.pagination as page
+import discord, aiohttp, asyncpg, os, random, config.utils.help as help, config.utils.pagination as page, config.utils.blacklist as blacklist
 from discord.colour import Colour
 from discord.ext import commands
 
@@ -13,8 +13,8 @@ class MeiBase(commands.AutoShardedBot):
         self.prefix = ";m"
 
     async def on_message(self, message:discord.Message):
-        if message.content.startswith(self.prefix) and message.author.id == 770646750804312105:
-            await message.channel.send(F"FUCK OFF LOSER | _to_ {message.author.mention}")
+        if message.author.id in blacklist.users and message.content.startswith(self.prefix):
+            await message.channel.send(F"FUCK OFF LOSER - You are blacklisted | {message.author.mention}")
             return
 
     async def close(self):
