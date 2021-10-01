@@ -1,4 +1,4 @@
-import discord, aiohttp, asyncpg, os, random, config.utils.help as help, config.utils.pagination as page, config.utils.blacklist as blacklist
+import discord, aiohttp, asyncpg, os, random, config.utils.help as help, config.utils.pagination as page
 from discord.colour import Colour
 from discord.ext import commands
 
@@ -79,9 +79,10 @@ bot.load_extension("jishaku")
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
+blacklisted_people = [770646750804312105]
 @bot.check
 async def blacklisted(ctx:commands.Context):
-    if ctx.author.id in blacklist.users: raise commands.CheckFailure
+    if ctx.author.id in blacklisted_people: raise commands.CheckFailure
     return True
 
 bot.loop.create_task(aiohttpsession())
