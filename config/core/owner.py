@@ -12,6 +12,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         return content.strip('` \n')
 
     @commands.command(name='eval', help="Evaluates a code", usage="<body>")
+    @commands.is_owner()
     async def _eval(self, ctx, *, body: str):
         env = {
             'bot': self.bot,
@@ -21,6 +22,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             'guild': ctx.guild,
             'message': ctx.message,
             '_': self._last_result
+
         }
 
         env.update(globals())
