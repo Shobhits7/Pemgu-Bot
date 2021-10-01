@@ -8,7 +8,7 @@ class OnMessage(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message:discord.Message):
         if message.author.bot: return
-        if message.author.id == 770646750804312105:
+        if message.content.startswith(self.bot.prefix) and message.author.id == 770646750804312105:
             return await message.channel.send(F"FUCK OFF LOSER | _to_ {message.author.mention}")
         if F"<@!{self.bot.user.id}>" == message.content or F"<@{self.bot.user.id}>" == message.content:
             ompmbed = discord.Embed(
