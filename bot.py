@@ -1,4 +1,4 @@
-import discord, aiohttp, asyncpg, os, random, config.utils.help as help, config.utils.pagination as page
+import discord, aiohttp, os, random, config.utils.help as help, config.utils.pagination as page
 from discord.colour import Colour
 from discord.ext import commands
 

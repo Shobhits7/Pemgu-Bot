@@ -59,84 +59,84 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
                 await ctx.send(f'```py\n{value}{ret}\n```')
 
     # Load
-    @commands.command(name="load", help="Will load the given cog if it was not already loaded", usage="<cog>")
+    @commands.command(name="load", help="Will load the given module if it was not already loaded", usage="<module>")
     @commands.is_owner()
-    async def load(self, ctx:commands.Context, *, cog):
+    async def load(self, ctx:commands.Context, *, module):
         floadmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"Successfully loaded {cog}.",
+            title=F"Successfully loaded {module}.",
             timestamp=ctx.message.created_at
         )
         floadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         bloadmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{cog} is already loaded.",
+            title=F"{module} is already loaded.",
             timestamp=ctx.message.created_at
         )
         bloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         try:
-            self.bot.load_extension(F"config.core.{cog}")
+            self.bot.load_extension(F"config.core.{module}")
             await ctx.send(embed=floadmbed)
         except commands.ExtensionAlreadyLoaded:
             await ctx.send(embed=bloadmbed)
 
     # Unload
-    @commands.command(name="unload", help="Will unload the given cog if it was already loaded", usage="<cog>")
+    @commands.command(name="unload", help="Will unload the given module if it was already loaded", usage="<module>")
     @commands.is_owner()
-    async def unload(self, ctx:commands.Context, *, cog):
+    async def unload(self, ctx:commands.Context, *, module):
         funloadmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"Successfully unloaded {cog}.",
+            title=F"Successfully unloaded {module}.",
             timestamp=ctx.message.created_at
         )
         funloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         bunloadmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{cog} is not already loaded.",
+            title=F"{module} is not already loaded.",
             timestamp=ctx.message.created_at
         )
         bunloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         try:
-            self.bot.unload_extension(F"config.core.{cog}")
+            self.bot.unload_extension(F"config.core.{module}")
             await ctx.send(embed=funloadmbed)
         except commands.ExtensionNotLoaded:
             await ctx.send(embed=bunloadmbed)
   
     # Reload
-    @commands.command(name="reload", help="Will reload the given cog", usage="<cog>")
+    @commands.group(name="reload", help="Will reload the given module", usage="<module>")
     @commands.is_owner()
-    async def reload(self, ctx:commands.Context, *, cog):
+    async def reload(self, ctx:commands.Context, *, module):
         reloadmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"Successfully reloaded {cog}.",
+            title=F"Successfully reloaded {module}.",
             timestamp=ctx.message.created_at
         )
         reloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        self.bot.reload_extension(F"config.core.{cog}")
+        self.bot.reload_extension(F"config.core.{module}")
         await ctx.send(embed=reloadmbed)
 
-    # ReloadAll
-    @commands.command(name="reloadall", help="Will reload every cog")
+    # All
+    @reload.command(name="reloadall", help="Will reload every module")
     @commands.is_owner()
     async def reloadall(self, ctx:commands.Context):
         reloadallmbed = discord.Embed(
             colour=self.bot.colour,
-            title="<:status_streaming:596576747294818305> Successfully reloaded every cog",
+            title="<:status_streaming:596576747294818305> Successfully reloaded every module",
             description="<:status_offline:596576752013279242> Here is the results:\n",
             timestamp=ctx.message.created_at
         )
         reloadallmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         errors = []
         toreload = list(self.bot.cogs.keys())
-        for cog in toreload:
-            cog = cog.lower()
-            if cog.startswith("on"): cog = cog[2:]
+        for module in toreload:
+            module = module.lower()
+            if module.startswith("on"): module = module[2:]
             try:
-                if cog == "jishaku": self.bot.reload_extension("jishaku")
-                else:  self.bot.reload_extension(F"config.core.{cog}")
-                reloadallmbed.description += F"<:status_online:596576749790429200> - {cog}\n"
+                if module == "jishaku": self.bot.reload_extension("jishaku")
+                else:  self.bot.reload_extension(F"config.core.{module}")
+                reloadallmbed.description += F"<:status_online:596576749790429200> - {module}\n"
             except Exception as error:
-                reloadallmbed.description += F"<:status_dnd:596576774364856321> - {cog}\n"
+                reloadallmbed.description += F"<:status_dnd:596576774364856321> - {module}\n"
                 errors.append(F"<:status_idle:596576773488115722> - {error}\n")
         if len(errors) != 0:
            reloadallmbed.description += ''.join(error for error in errors)
@@ -150,34 +150,18 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             await self.bot.get_command(str(command))(ctx)
         await ctx.send(F"Successfully repeated `{command}` - `{time}` times")
 
-    # Logout
-    @commands.command(name="logout", aliases=["lt"], help="Will logout the bot")
+    # Shutdown
+    @commands.command(name="shutdown",  help="Will shutdown the bot")
     @commands.is_owner()
     async def logout(self, ctx:commands.Context):
-        ltmbed = discord.Embed(
+        shutdownmbed = discord.Embed(
             colour=self.bot.colour,
-            title="Okay, I'm logging out :wave:",
+            title="I'm shutting-down",
             timestamp=ctx.message.created_at
         )
-        ltmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=ltmbed)
+        shutdownmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=shutdownmbed)
         await self.bot.close()
-
-    # Relog
-    @commands.command(name="relog", aliases=["rg"], help="Will Relog the bot")
-    @commands.is_owner()
-    async def relog(self, ctx:commands.Context):
-        def restart():
-            python = sys.executable
-            os.execl(python, python, * sys.argv)
-        rgmbed = discord.Embed(
-            colour=self.bot.colour,
-            title="Okay Relogging :eyes:",
-            timestamp=ctx.message.created_at
-        )
-        rgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=rgmbed)
-        restart()
 
     # Template
     @commands.command(name="template", aliases=["te"], help="Will give the guild's template")
