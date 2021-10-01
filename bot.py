@@ -12,11 +12,6 @@ class MeiBase(commands.AutoShardedBot):
         self.token = os.getenv("TOKEN")
         self.prefix = ";m"
 
-    async def on_message(self, message:discord.Message):
-        if message.author.id in blacklist.users and message.content.startswith(self.prefix):
-            await message.channel.send(F"FUCK OFF LOSER - You are blacklisted | {message.author.mention}")
-            return
-
     async def close(self):
         if not self.session.closed:
             await self.session.close()
