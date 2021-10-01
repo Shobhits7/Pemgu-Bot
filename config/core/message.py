@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from config.utils.blacklist import users
 
 class OnMessage(commands.Cog):
     def __init__(self, bot):
@@ -8,10 +7,6 @@ class OnMessage(commands.Cog):
     
     @commands.Cog.listener()
     async def on_message(self, message:discord.Message):
-        if message.author.bot: return
-        if message.author.id in users and message.content.startswith(self.bot.prefix):
-            await message.channel.send(F"FUCK OFF LOSER - You are blacklisted | {message.author.mention}")
-            return
         if F"<@!{self.bot.user.id}>" == message.content or F"<@{self.bot.user.id}>" == message.content:
             ompmbed = discord.Embed(
                 colour=self.bot.colour,
