@@ -11,6 +11,10 @@ class MeiBase(commands.AutoShardedBot):
         super().__init__(**kwargs)
         self.token = os.getenv("TOKEN")
         self.prefix = ";m"
+        self.used = 0
+
+    async def after_invoke(self):
+        self.used += 1
 
     async def close(self):
         if not self.session.closed:
