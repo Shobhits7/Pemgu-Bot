@@ -7,9 +7,7 @@ class OnProcess(commands.Cog):
         self.bot = bot
     
     async def process_commands(self, message:discord.Message):
-        if message.author.bot:
-            return
-        if message.author.id in users:
+        if message.author.bot or message.author.id in users:
             return
         ctx = await self.get_context(message, cls=commands.Context)
         await self.invoke(ctx)
