@@ -173,6 +173,10 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     # Say
     @commands.command(name="say", help="Will say your message", usage="<text>")
     async def say(self, ctx:commands.Context, *, say):
+        if say.startswith("#"):
+            colour = say[1:]
+        colour = say
+        await ctx.send(embed=discord.Embed(colour=colour, description="Hex Colour test"))
         await ctx.send(F"{say} | {ctx.author.mention}")
 
     # Cleanup

@@ -1,7 +1,7 @@
 import discord, os, sys, io, textwrap, traceback, contextlib
 from discord.ext import commands
 
-class Owner(commands.Cog, description="Only lvlahraam can use these commands"):
+class Owner(commands.Cog, description="Only my Developer can use these commands"):
     def __init__(self, bot):
         self.bot = bot
         self._last_result = None
