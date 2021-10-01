@@ -62,7 +62,7 @@ class CustomHelp(commands.HelpCommand):
         view = hv.SelectView(self, mapping)
         view.homepage.set_thumbnail(url=self.context.me.display_avatar.url)
         view.homepage.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
-        view.homepage.add_filed(name="Used:", value=self.context.bot.use)
+        view.homepage.add_field(name="Used:", value=self.context.bot.use)
         view.homepage.add_field(name="Prefix:", value=self.context.prefix or "In DM you don't need to use prefix", inline=False)
         view.homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THESE WHEN DOING A COMMAND***", inline=False)
         view.message = await self.context.send(embed=view.homepage, view=view)
