@@ -9,7 +9,7 @@ class OnMessage(commands.Cog):
     async def on_message(self, message:discord.Message):
         if message.author.bot: return
         if message.author.id == 770646750804312105:
-            return await message.channel.send("FUCK OFF LOSER")
+            return await message.channel.send(F"FUCK OFF LOSER | _to_ {message.author.mention}")
         if F"<@!{self.bot.user.id}>" == message.content or F"<@{self.bot.user.id}>" == message.content:
             ompmbed = discord.Embed(
                 colour=self.bot.colour,
