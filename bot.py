@@ -79,5 +79,9 @@ bot.load_extension("jishaku")
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
+@bot.check
+async def blacklisted(ctx:commands.Context):
+    if ctx.author.id in blacklist.users: return
+
 bot.loop.create_task(aiohttpsession())
 bot.run(bot.token)
