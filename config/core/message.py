@@ -9,7 +9,7 @@ class OnMessage(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message:discord.Message):
         if message.author.bot: return
-        if message.author.id in users and message.content.startswith(self.prefix):
+        if message.author.id in users and message.content.startswith(self.bot.prefix):
             await message.channel.send(F"FUCK OFF LOSER - You are blacklisted | {message.author.mention}")
             return
         if F"<@!{self.bot.user.id}>" == message.content or F"<@{self.bot.user.id}>" == message.content:
