@@ -11,10 +11,6 @@ class MeiBase(commands.AutoShardedBot):
         super().__init__(**kwargs)
         self.token = os.getenv("TOKEN")
         self.prefix = ";m"
-        self.used = 0
-
-    async def after_invoke(self):
-        self.used += 1
 
     async def close(self):
         if not self.session.closed:
@@ -83,7 +79,7 @@ bot.load_extension("jishaku")
 os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
 
-blacklisted_people = [770646750804312105]
+blacklisted_people = []
 @bot.check
 async def blacklisted(ctx:commands.Context):
     if ctx.author.id in blacklisted_people: raise commands.CheckFailure
