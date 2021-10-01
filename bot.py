@@ -13,7 +13,7 @@ class MeiBase(commands.AutoShardedBot):
         self.prefix = ";m"
 
     async def on_message(self, message:discord.Message):
-        if message.content.startswith(self.bot.prefix) and message.author.id == 770646750804312105:
+        if message.content.startswith(self.prefix) and message.author.id == 770646750804312105:
             await message.channel.send(F"FUCK OFF LOSER | _to_ {message.author.mention}")
             return
 
