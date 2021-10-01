@@ -75,10 +75,6 @@ for core in sorted(os.listdir("./config/core/")):
     if core.endswith(".py"):
         bot.load_extension(F"config.core.{core[:-3]}")
 
-bot.load_extension("jishaku")
-os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
-os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True" 
-
 blacklisted_people = []
 @bot.check
 async def blacklisted(ctx:commands.Context):

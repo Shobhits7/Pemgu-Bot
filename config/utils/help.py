@@ -6,14 +6,14 @@ class MinimalHelp(commands.MinimalHelpCommand):
     def __init__(self):
         self.emojis = {
             "Anime": "🍘",
-            "API": "🌎",
+            "Fun": "😹",
             "Game": "🎮",
+            "Internet": "🌎",
+            "Math": "🧮",
+            "Meta": "🔧",
             "Moderation": "🎩",
-            "Music": "🎼",
             "Owner": "👑",
-            "Setup": "🔧",
             "Utility": "🧰",
-            "Jishaku": "👀",
             "No": "❓"
         }
         super().__init__(
@@ -44,7 +44,7 @@ class CustomHelp(commands.HelpCommand):
             }
         )
         self.emojis = {
-            "Anime": "🍙",
+            "Anime": "🍘",
             "Fun": "😹",
             "Game": "🎮",
             "Internet": "🌎",
@@ -53,7 +53,6 @@ class CustomHelp(commands.HelpCommand):
             "Moderation": "🎩",
             "Owner": "👑",
             "Utility": "🧰",
-            "Jishaku": "🎓",
             "No": "❓"
         }
 

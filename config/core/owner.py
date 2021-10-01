@@ -132,8 +132,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             module = module.lower()
             if module.startswith("on"): module = module[2:]
             try:
-                if module == "jishaku": self.bot.reload_extension("jishaku")
-                else:  self.bot.reload_extension(F"config.core.{module}")
+                self.bot.reload_extension(F"config.core.{module}")
                 reloadallmbed.description += F"<:status_online:596576749790429200> - {module}\n"
             except Exception as error:
                 reloadallmbed.description += F"<:status_dnd:596576774364856321> - {module}\n"
