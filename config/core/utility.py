@@ -1,4 +1,4 @@
-import discord, time, os, inspect
+import discord, time, os, inspect, asyncio
 from discord.ext import commands
 
 class Utility(commands.Cog, description="Useful commands that are open to everyone"):
@@ -174,6 +174,20 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     @commands.command(name="say", help="Will say your message", usage="<text>")
     async def say(self, ctx:commands.Context, *, say):
         await ctx.send(F"{say} | {ctx.author.mention}")
+
+    # Loading
+    @commands.command(name="loading", help="Will show a loading")
+    async def loading(self, ctx:commands.Context):
+        titles = ["Loading... %5", "Loading... %11", "Loading... %17", "Loading... %23", "Loading... 25"]
+        msg = await ctx.send("Loading...")
+        await asyncio.sleep(3)
+        for title in titles:
+            loadingmbed = discord.Embed(
+                colour=self.bot.colour,
+                title=title
+            )
+            await msg.edit(embed=loadingmbed)
+            await asyncio.sleep(5)
 
     # Cleanup
     @commands.command(name="cleanup", aliases=["cu"], help="Will delete bot's messagess")
