@@ -12,6 +12,11 @@ class MeiBase(commands.AutoShardedBot):
         self.token = os.getenv("TOKEN")
         self.prefix = ";m"
 
+    async def on_message(self, message:discord.Message):
+        if message.content.startswith(self.bot.prefix) and message.author.id == 770646750804312105:
+            await message.channel.send(F"FUCK OFF LOSER | _to_ {message.author.mention}")
+            return
+
     async def close(self):
         if not self.session.closed:
             await self.session.close()
