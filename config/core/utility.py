@@ -172,7 +172,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Say
     @commands.command(name="say", help="Will say your message", usage="<text>")
-    async def say(self, ctx:commands.Context, *, say)
+    async def say(self, ctx:commands.Context, *, say):
         await ctx.send(F"{say} | {ctx.author.mention}")
 
     # Cleanup
