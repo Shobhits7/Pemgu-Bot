@@ -115,8 +115,8 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         self.bot.reload_extension(F"config.core.{module}")
         await ctx.send(embed=reloadmbed)
 
-    # All
-    @reload.command(name="reloadall", help="Will reload every module")
+    # ReloadAll
+    @commands.command(name="reloadall", help="Will reload every module")
     @commands.is_owner()
     async def reloadall(self, ctx:commands.Context):
         reloadallmbed = discord.Embed(
