@@ -175,28 +175,6 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     async def say(self, ctx:commands.Context, *, say:str):
         await ctx.send(F"{say} | {ctx.author.mention}")
 
-    # Loading
-    @commands.command(name="loading", help="Will show a loading")
-    async def loading(self, ctx:commands.Context):
-        descriptions = ["Loading... %5", "Loading... %11", "Loading... %17", "Loading... %23", "Loading... 25"]
-        startloadingmbed = discord.Embed(
-            colour=self.bot.colour,
-            description="Starting the loading...",
-            timestamp=ctx.message.created_at
-        )
-        startloadingmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        msg = await ctx.send(embed=startloadingmbed)
-        await asyncio.sleep(3)
-        for description in descriptions:
-            midloadingmbed = discord.Embed(
-                colour=self.bot.colour,
-                description=description,
-                timestamp=ctx.message.created_at
-            )
-            midloadingmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-            await msg.edit(embed=midloadingmbed)
-            await asyncio.sleep(5)
-
     # Cleanup
     @commands.command(name="cleanup", aliases=["cu"], help="Will delete bot's messagess")
     async def cleanup(self, ctx:commands.Context, *, amount:int):
