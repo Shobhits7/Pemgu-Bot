@@ -9,7 +9,6 @@ class MeiBase(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.prefix = ";m"
-        self.modules = []
         self.token = os.getenv("TOKEN")
 
     async def close(self):
@@ -35,9 +34,10 @@ bot = MeiBase(
     allowed_mentions=discord.AllowedMentions.none()
 )
 
+bot.modules = []
 for module in sorted(os.listdir("./config/modules/")):
     if module.endswith(".py"):
-        bot.load_extension(F"config.module.{module[:-3]}")
+        bot.load_extension(F"config.modules.{module[:-3]}")
         bot.modules.append(module[:-3])
 
 bot.load_extension("jishaku")
