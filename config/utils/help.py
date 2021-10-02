@@ -60,10 +60,11 @@ class CustomHelp(commands.HelpCommand):
     # Help Main
     async def send_bot_help(self, mapping):
         view = hv.SelectView(self, mapping)
-        view.homepage.set_thumbnail(url=self.context.me.display_avatar.url)
-        view.homepage.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
+        view.homepage.add_field(name="Buttons:", value="🏡 = The Homepage of this help\n💣 = Will delte this help\n🧇 = The url for adding this bot\n🍩 = The url for the support server for this bot")
         view.homepage.add_field(name="Prefix:", value=self.context.prefix or "In DM you don't need to use prefix", inline=False)
         view.homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THESE WHEN DOING A COMMAND***", inline=False)
+        view.homepage.set_thumbnail(url=self.context.me.display_avatar.url)
+        view.homepage.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
         view.message = await self.context.send(embed=view.homepage, view=view)
         return
 
