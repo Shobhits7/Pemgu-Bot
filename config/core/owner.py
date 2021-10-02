@@ -162,17 +162,17 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         await ctx.send(embed=shutdownmbed)
         await self.bot.close()
 
-    # Avatar
-    @commands.command(name="avatar", help="Will change the bot's avatar")
+    # Edit
+    @commands.command(name="edit", help="Will change the bot's avatar")
     @commands.is_owner()
-    async def avatar(self, ctx:commands.Context, image:discord.Attachment):
+    async def edit(self, ctx:commands.Context, image:discord.Attachment):
         avatar = await image.read()
-        avatarmbed = discord.Embed(
+        editmbed = discord.Embed(
             colour=self.bot.colour,
             title="Successfully changed bot's avatar",
         )
-        avatarmbed.set_image(url="attachments://avatar.png")
-        avatarmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        editmbed.set_image(url="attachments://avatar.png")
+        editmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await self.bot.user.edit(avatar=avatar)
         await ctx.send(file=discord.File(fp=avatar, filename="avatar.png"))
 
