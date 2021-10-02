@@ -6,8 +6,7 @@ async def aiohttpsession():
     print("Making a Session was successful")
 
 class MeiBase(commands.AutoShardedBot):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self):
         self.prefix = ";m"
         self.token = os.getenv("TOKEN")
         self.command_prefix=commands.when_mentioned_or(self.prefix)
