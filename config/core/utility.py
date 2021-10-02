@@ -255,7 +255,6 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     @commands.command(name="source", aliases=["src"], help="Will show the bots source", usage="[command]")
     async def source(self, ctx:commands.Context, command:str=None):
         source_url = "https://github.com/lvlahraam/Mei-Bot"
-        branch = "main"
         if not command:
             return await ctx.send(source_url)
         if command == "help":
@@ -275,8 +274,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         else:
             location = module.replace(".", "/") + ".py"
             source_url = "https://github.com/lvlahraam/Mei-Bot"
-            branch = "main"
-        final_url = F"<{source_url}/blob/{branch}/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}>"
+        final_url = F"<{source_url}/blob/main/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}>"
         await ctx.send(final_url)
 
     # AFK
