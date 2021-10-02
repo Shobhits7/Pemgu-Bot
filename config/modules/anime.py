@@ -8,8 +8,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
     # Quote
     @commands.command(name="quote", help="Will send a anime quote")
     async def quote(self, ctx:commands.Context):
-        quotes = []
-        for _ in range(1, 6):
+        async def job():
             session = await self.bot.session.get("https://animechan.vercel.app/api/random/")
             response = await session.json()
             session.close()
@@ -22,9 +21,9 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             quotembed.add_field(name="Character:", value=response["character"])
             quotembed.add_field(name="Series:", value=response["anime"])
             quotembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-            quotes.append(quotembed)
-        view = self.bot.paginator(self.bot, quotes)
-        view.message = await ctx.send(embed=quotembed, view=view)
+            return quotembed
+        view = self.bot.repeater(self.bot, job)
+        view.message = await ctx.send(embed=(await job), view=view)
 
     # SFW
     @commands.group(name="sfw", help="Will send a random sfw waifu or husbando image if not specified", invoke_without_command=True)

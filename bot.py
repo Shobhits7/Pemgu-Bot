@@ -1,4 +1,5 @@
-import discord, aiohttp, os, random, config.utils.help as help, config.utils.pagination as page, config.utils.options as options
+import discord, aiohttp, os, random
+import config.utils.help as help, config.utils.pagination as page, config.utils.options as options, config.utils.repeater as repeater
 from discord.ext import commands
 
 async def aiohttpsession():
@@ -25,8 +26,12 @@ class MeiBase(commands.AutoShardedBot):
         await super().close()
 
     @classmethod
-    def paginator(self, ctx, embeds):
-        return page.Paginator(ctx, embeds)
+    def paginator(self, embeds):
+        return page.Paginator(self.bot, embeds)
+
+    @classmethod
+    async def repeater(self, job):
+        return repeater.Repeater(self.bot, job)
 
     @property
     def colour(self):
