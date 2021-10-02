@@ -52,51 +52,33 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     @commands.command(name="load", help="Will load the given module if it was not already loaded", usage="<module>")
     @commands.is_owner()
     async def load(self, ctx:commands.Context, *, module:str):
-        floadmbed = discord.Embed(
+        loadmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully loaded {module}.",
             timestamp=ctx.message.created_at
         )
-        floadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        bloadmbed = discord.Embed(
-            colour=self.bot.colour,
-            title=F"{module} is already loaded.",
-            timestamp=ctx.message.created_at
-        )
-        bloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        try:
-            self.bot.load_extension(F"config.core.{module}")
-            await ctx.send(embed=floadmbed)
-        except commands.ExtensionAlreadyLoaded:
-            await ctx.send(embed=bloadmbed)
+        loadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        self.bot.load_extension(F"config.modules.{module}")
+        await ctx.send(embed=loadmbed)
 
     # Unload
     @commands.command(name="unload", help="Will unload the given module if it was already loaded", usage="<module>")
     @commands.is_owner()
     async def unload(self, ctx:commands.Context, *, module:str):
-        funloadmbed = discord.Embed(
+        unloadmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully unloaded {module}.",
             timestamp=ctx.message.created_at
         )
-        funloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        bunloadmbed = discord.Embed(
-            colour=self.bot.colour,
-            title=F"{module} is not already loaded.",
-            timestamp=ctx.message.created_at
-        )
-        bunloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        try:
-            self.bot.unload_extension(F"config.core.{module}")
-            await ctx.send(embed=funloadmbed)
-        except commands.ExtensionNotLoaded:
-            await ctx.send(embed=bunloadmbed)
+        unloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        self.bot.unload_extension(F"config.modules.{module}")
+        await ctx.send(embed=unloadmbed)
   
     # Reload
-    @commands.group(name="reload", help="Will reload the given module", usage="<module|.>")
+    @commands.group(name="reload", help="Will reload the given  or every module", usage="<module|all>")
     @commands.is_owner()
     async def reload(self, ctx:commands.Context, *, module:str):
-        if module == ".":
+        if module == "all":
             allmbed = discord.Embed(
                 colour=self.bot.colour,
                 title="<:status_streaming:596576747294818305> Successfully reloaded every module",
@@ -105,13 +87,9 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             )
             allmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             errors = []
-            toreload = list(self.bot.cogs.keys())
-            for module in toreload:
-                module = module.lower()
-                if module.startswith("on"): module = module[2:]
+            for module in self.bot.modules:
                 try:
-                    if module in ("jishaku"): self.bot.reload_extension("jishaku")
-                    self.bot.reload_extension(F"config.core.{module}")
+                    self.bot.reload_extension(F"config.modules.{module}")
                     allmbed.description += F"<:status_online:596576749790429200> - {module}\n"
                 except Exception as error:
                     allmbed.description += F"<:status_dnd:596576774364856321> - {module}\n"
@@ -120,14 +98,14 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
                 allmbed.description += ''.join(error for error in errors)
             await ctx.send(embed=allmbed)
         else:
-            reloadmbed = discord.Embed(
+            reunloadmbed = discord.Embed(
                 colour=self.bot.colour,
                 title=F"Successfully reloaded {module}.",
                 timestamp=ctx.message.created_at
             )
-            reloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-            self.bot.reload_extension(F"config.core.{module}")
-            await ctx.send(embed=reloadmbed)
+            reunloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            self.bot.reload_extension(F"config.modules.{module}")
+            await ctx.send(embed=reunloadmbed)
         raise commands.BadArgument
 
     # Repeat

@@ -8,9 +8,23 @@ async def aiohttpsession():
 class MeiBase(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.token = os.getenv("TOKEN")
         self.prefix = ";m"
-
+        self.command_prefix=commands.when_mentioned_or(self.prefix),
+        self.strip_after_prefix=True,
+        self.case_insensitive=True,
+        self.help_command=help.CustomHelp(),
+        self.intents=discord.Intents.all(),
+        self.allowed_mentions=discord.AllowedMentions.none()
+        self.token = os.getenv("TOKEN")
+        self.modules = []
+        for module in sorted(os.listdir("./config/modules/")):
+            if module.endswith(".py"):
+                bot.load_extension(F"config.module.{module[:-3]}")
+                self.modules.append(module[:-3])
+        self.load_extension("jishaku")
+        os.environ["JISHAKU_UNDERSCORE"] = "True"
+        os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
+        self.private_channels
     async def close(self):
         if not self.session.closed:
             await self.session.close()
@@ -25,22 +39,7 @@ class MeiBase(commands.AutoShardedBot):
         colour = random.choice(options.colours)
         return colour
 
-bot = MeiBase(
-    command_prefix=commands.when_mentioned_or(";m"),
-    strip_after_prefix=True,
-    case_insensitive=True,
-    help_command=help.CustomHelp(),
-    intents=discord.Intents.all(),
-    allowed_mentions=discord.AllowedMentions.none()
-)
-
-for core in sorted(os.listdir("./config/core/")):
-    if core.endswith(".py"):
-        bot.load_extension(F"config.core.{core[:-3]}")
-
-bot.load_extension("jishaku")
-os.environ["JISHAKU_UNDERSCORE"] = "True"
-os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
+bot = MeiBase()
 
 blacklisted_people = []
 @bot.check
