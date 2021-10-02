@@ -31,7 +31,7 @@ class CounterView(discord.ui.View):
 class RPSButtons(discord.ui.Button):
     def __init__(self, view, **kwargs):
         super().__init__(**kwargs)
-        self.bot = view.bot
+        self.ctx = view.ctx
         self.botoption = view.botoption
         self.useroption = view.useroption
 
@@ -43,19 +43,19 @@ class RPSButtons(discord.ui.Button):
         elif self.label == "Scissors":
             self.useroption = "Scissors"
         tierpsmbed = discord.Embed(
-            colour=self.bot.colour,
+            colour=self.ctx.bot.colour,
             description=F"We both chose **{self.botoption}**, It's a tie",
             timestamp=interaction.message.created_at
         )
         tierpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
         wonrpsmbed = discord.Embed(
-            colour=self.bot.colour,
+            colour=self.ctx.bot.colour,
             description=F"I chose **{self.botoption}**, But, You chose **{self.useroption}**, You won! / I lost",
             timestamp=interaction.message.created_at
         )
         wonrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
         lostrpsmbed = discord.Embed(
-            colour=self.bot.colour,
+            colour=self.ctx.bot.colour,
             description=F"You chose **{self.useroption}**, But, I choose **{self.botoption}**, I won! / You lost!",
             timestamp=interaction.message.created_at
         )
@@ -92,13 +92,13 @@ class RPSView(discord.ui.View):
                 await self.message.edit(view=self)
 
     async def interaction_check(self, interaction:discord.Interaction):
-        if interaction.user.id == interaction.message.author.id:
+        if interaction.user.id == self.ctx.bot.user.id:
             return True
         else:
             icheckmbed = discord.Embed(
-                colour=self.bot.colour,
+                colour=self.ctx.bot.colour,
                 title=F"You can't use this",
-                description=F"<@{interaction.user.id}> - Only <@{interaction.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
+                description=F"<@{interaction.user.id}> - Only <@{self.ctx.bot.user.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
                 timestamp=interaction.message.created_at
             )
             icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
@@ -119,7 +119,7 @@ class GuessButtons(discord.ui.Button):
             self.choose = False
         if self.choose == True:
             truembed = discord.Embed(
-                colour=self.bot.colour,
+                colour=self.ctx.bot.colour,
                 title="You guessed correctly",
                 description=F"The number was {self.number}"
             )
@@ -128,7 +128,7 @@ class GuessButtons(discord.ui.Button):
             await interaction.response.edit_message(embed=truembed, view=self.view)
         if self.choose == False:
             falsembed = discord.Embed(
-                colour=self.bot.colour,
+                colour=self.ctx.bot.colour,
                 title="You guessed incorrectly",
                 description=F"The correct answer was {self.number}"
             )
@@ -137,8 +137,9 @@ class GuessButtons(discord.ui.Button):
             await interaction.response.edit_message(embed=falsembed, view=self.view)
 
 class GuessView(discord.ui.View):
-    def __init__(self):
+    def __init__(self, ctx):
         super().__init__(timeout=5)
+        self.ctx = ctx
         self.choose = None
         self.number = random.randint(1, 5)
         row = 0
@@ -156,13 +157,13 @@ class GuessView(discord.ui.View):
                 await self.message.edit(view=self)
 
     async def interaction_check(self, interaction:discord.Interaction):
-        if interaction.user.id == interaction.message.author.id:
+        if interaction.user.id == self.ctx.bot.user.id:
             return True
         else:
             icheckmbed = discord.Embed(
-                colour=self.bot.colour,
+                colour=self.ctx.bot.colour,
                 title=F"You can't use this",
-                description=F"<@{interaction.user.id}> - Only <@{interaction.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
+                description=F"<@{interaction.user.id}> - Only <@{self.ctx.bot.user.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
                 timestamp=interaction.message.created_at
             )
             icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
@@ -212,7 +213,6 @@ class TicTacToeButton(discord.ui.Button['TicTacToeView']):
             view.stop()
 
         await interaction.response.edit_message(content=content, view=view)
-
 class TicTacToeView(discord.ui.View):
     children: List[TicTacToeButton]
     X = -1

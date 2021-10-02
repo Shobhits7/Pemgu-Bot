@@ -3,11 +3,11 @@ import discord
 class NitroButton(discord.ui.Button):
     def __init__(self, view, **kwargs):
         super().__init__(**kwargs)
-        self.bot = view.bot
+        self.ctx = view.ctx
 
     async def callback(self, interaction:discord.Interaction):
         anitrombed = discord.Embed(
-            colour=self.bot.colour,
+            colour=self.ctx.bot.colour,
             title="Somebody claimed the Nitro.",
             description=F"{interaction.user} claimed the Nitro.",
             timestamp=interaction.message.created_at
@@ -19,9 +19,9 @@ class NitroButton(discord.ui.Button):
         await interaction.response.edit_message(embed=anitrombed, view=self.view)
 
 class NitroView(discord.ui.View):
-    def __init__(self, bot):
+    def __init__(self, ctx):
         super().__init__(timeout=5)
-        self.bot = bot
+        self.ctx = ctx
         self.add_item(item=NitroButton(label="ACCEPT", style=discord.ButtonStyle.green, view=self))
 
     async def on_timeout(self):
