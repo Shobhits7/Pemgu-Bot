@@ -135,8 +135,7 @@ class CustomHelp(commands.HelpCommand):
     async def send_error_message(self, error):
         herrormbed = discord.Embed(
             colour=self.context.bot.colour,
-            title="Help Error",
-            description=error,
+            title=error,
             timestamp=self.context.message.created_at
         )
         herrormbed.set_thumbnail(url=self.context.me.display_avatar.url)
