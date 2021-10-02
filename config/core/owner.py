@@ -162,6 +162,21 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         await ctx.send(embed=shutdownmbed)
         await self.bot.close()
 
+    # Edit
+    @commands.command(name="edit", help="Will edit bot's information to the new given information")
+    @commands.is_owner()
+    async def edit(self, ctx:commands.Context, house:str, image:bytes):
+        avatar = io.BytesIO.read(image)
+        editmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Successfully edited bot's information",
+            description=F"House: {house}\nAvatar:"
+        )
+        editmbed.set_image(url="attachments://avatar.png")
+        editmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await self.bot.user.edit(house=discord.UserFlags.hypesquad_brilliance, avatar=avatar)
+        await ctx.send(file=discord.File(fp=avatar, filename="avatar.png"))
+
     # Template
     @commands.command(name="template", aliases=["te"], help="Will give the guild's template")
     @commands.is_owner()
