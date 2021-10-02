@@ -146,7 +146,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     # Repeat
     @commands.command(name="repeat", help="Will repeat the given commands the amounts of given time", usage="<time> <command>")
     @commands.is_owner()
-    async def repeat(self, ctx:commands.Context, *, time:int, command:str):
+    async def repeat(self, ctx:commands.Context, time:int, command:str):
         for _ in range(1, time+1):
             await self.bot.get_command(str(command))(ctx)
         await ctx.send(F"Successfully repeated `{command}` - `{time}` times")
