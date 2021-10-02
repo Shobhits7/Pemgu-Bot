@@ -1,11 +1,11 @@
 ![Logo](https://cdn.discordapp.com/avatars/844226171972616205/4386a40d6b10f55c1b77b195913f6600.png?size=1024)
-## Information About ieM Discord Bot
+## Information About JakeTheDog Discord Bot
 This is a Discord Bot made by lvlahraam
 
 It's written in Python with Discord.py
 
-## Why it's called Mei
-This name was just happended to come to his mind
+## Why it's called JakeTheDog
+This name was just  to come to his mind
 
 ## Why he made this
 He really Liked Python and programming and he was on Discord 24/7

@@ -6,7 +6,7 @@ async def aiohttpsession():
     bot.session = aiohttp.ClientSession()
     print("Making a Session was successful")
 
-class MeiBase(commands.AutoShardedBot):
+class JakeTheDogBase(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.colour = 0xECA622
@@ -30,7 +30,7 @@ class MeiBase(commands.AutoShardedBot):
     def paginator(self, embeds):
         return page.Paginator(self.bot, embeds)
 
-bot = MeiBase(
+bot = JakeTheDogBase(
     command_prefix=commands.when_mentioned_or(".j"),
     strip_after_prefix=True,
     case_insensitive=True,

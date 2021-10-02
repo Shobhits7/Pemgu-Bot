@@ -11,7 +11,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         abmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{self.bot.user.name} About",
-            description=F"[Click here for source code](https://github.com/lvlahraam/Mei-Bot)\n[Click here for Adding Bot]({discord.utils.oauth_url(client_id=self.bot.user.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))})\n[Click here for Joining Support](https://discord.gg/bWnjkjyFRz)\nIn {len(self.bot.guilds)} Servers\nHas {len(self.bot.commands)} Commands\nOwner is <@{self.bot.owner_id}>",
+            description=F"[Click here for source code](https://github.com/lvlahraam/JakeTheDog-Bot)\n[Click here for Adding Bot]({discord.utils.oauth_url(client_id=self.bot.user.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))})\n[Click here for Joining Support](https://discord.gg/bWnjkjyFRz)\nIn {len(self.bot.guilds)} Servers\nHas {len(self.bot.commands)} Commands\nOwner is <@{self.bot.owner_id}>",
             timestamp=ctx.message.created_at
         )
         abmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -232,7 +232,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     # Source
     @commands.command(name="source", aliases=["src"], help="Will show the bots source", usage="[command]")
     async def source(self, ctx:commands.Context, command:str=None):
-        source_url = "https://github.com/lvlahraam/Mei-Bot"
+        source_url = "https://github.com/lvlahraam/JakeTheDog-Bot"
         if not command:
             return await ctx.send(source_url)
         if command == "help":
@@ -251,7 +251,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             location = os.path.relpath(filename).replace("\\", "/")
         else:
             location = module.replace(".", "/") + ".py"
-            source_url = "https://github.com/lvlahraam/Mei-Bot"
+            source_url = "https://github.com/lvlahraam/JakeTheDog-Bot"
         final_url = F"<{source_url}/blob/main/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}>"
         await ctx.send(final_url)
 
