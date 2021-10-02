@@ -165,7 +165,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     # Edit
     @commands.command(name="edit", help="Will edit bot's information to the new given information")
     @commands.is_owner()
-    async def edit(self, ctx:commands.Context, house:str, image:bytes):
+    async def edit(self, ctx:commands.Context, house:str, image:str):
         avatar = io.BytesIO.read(image)
         editmbed = discord.Embed(
             colour=self.bot.colour,
