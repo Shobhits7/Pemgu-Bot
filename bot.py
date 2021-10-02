@@ -10,6 +10,21 @@ class MeiBase(commands.AutoShardedBot):
         super().__init__(**kwargs)
         self.prefix = ";m"
         self.token = os.getenv("TOKEN")
+        self.command_prefix=commands.when_mentioned_or(self.prefix)
+        self.strip_after_prefix=True
+        self.case_insensitive=True
+        self.help_command=help.CustomHelp()
+        self.intents=discord.Intents.all()
+        self.allowed_mentions=discord.AllowedMentions.none()
+        self.modules = []
+        for module in sorted(os.listdir("./config/modules/")):
+            if module.endswith(".py"):
+                self.load_extension(F"config.modules.{module[:-3]}")
+                self.modules.append(module[:-3])
+        self.load_extension("jishaku")
+        os.environ["JISHAKU_UNDERSCORE"] = "True"
+        os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
+
 
     async def close(self):
         if not self.session.closed:
@@ -25,24 +40,7 @@ class MeiBase(commands.AutoShardedBot):
         colour = random.choice(options.colours)
         return colour
 
-bot = MeiBase(
-    command_prefix=commands.when_mentioned_or(";m"),
-    strip_after_prefix=True,
-    case_insensitive=True,
-    help_command=help.CustomHelp(),
-    intents=discord.Intents.all(),
-    allowed_mentions=discord.AllowedMentions.none()
-)
-
-bot.modules = []
-for module in sorted(os.listdir("./config/modules/")):
-    if module.endswith(".py"):
-        bot.load_extension(F"config.modules.{module[:-3]}")
-        bot.modules.append(module[:-3])
-
-bot.load_extension("jishaku")
-os.environ["JISHAKU_UNDERSCORE"] = "True"
-os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
+bot = MeiBase()
 
 blacklisted_people = []
 @bot.check
