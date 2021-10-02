@@ -176,7 +176,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         )
         editmbed.set_image(url="attachments://avatar.png")
         editmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await self.bot.user.edit(avatar=avatar)
+        # await self.bot.user.edit(avatar=avatar)
         await ctx.send(file=discord.File(fp=avatar, filename="avatar.png"), embed=editmbed)
 
     # Template
