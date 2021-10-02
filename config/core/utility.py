@@ -11,7 +11,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         abmbed = discord.Embed(
             colour=self.bot.colour,
             title="About Bot",
-            description=F"[Click here for Adding Bot]({discord.utils.oauth_url(client_id=self.bot.user.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))})\n[Click here for Joining Support](https://discord.gg/bWnjkjyFRz)\nIn {len(self.bot.guilds)} Servers\nHas {len(self.bot.commands)} Commands\nOwner is lvlahraam#8435",
+            description=F"[Click here for source code](https://github.com/lvlahraam/Mei-Bot)\n[Click here for Adding Bot]({discord.utils.oauth_url(client_id=self.bot.user.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))})\n[Click here for Joining Support](https://discord.gg/bWnjkjyFRz)\nIn {len(self.bot.guilds)} Servers\nHas {len(self.bot.commands)} Commands\nOwner is lvlahraam#8435",
             timestamp=ctx.message.created_at
         )
         abmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -19,7 +19,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Avatar
     @commands.command(name="avatar", aliases=["av"], help="Will show your or another user's avatar", usage="[user]")
-    async def avatar(self, ctx:commands.Context, user:discord.User = None):
+    async def avatar(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
         avmbed = discord.Embed(
             colour=self.bot.colour,
@@ -32,7 +32,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Banner
     @commands.command(name="banner", aliases=["br"], help="Will show your or another user's banner", usage="[user]")
-    async def banner(self, ctx:commands.Context, user:discord.User = None):
+    async def banner(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
         image = await self.bot.fetch_user(user.id)
         brmbed = discord.Embed(
@@ -138,7 +138,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Spotify
     @commands.command(name="spotify", help="Will show your or the given member's spotify activity if possible", usage="[member]")
-    async def spotify(self, ctx:commands.Context, member:discord.Member = None):
+    async def spotify(self, ctx:commands.Context, member:discord.Member=None):
         member = ctx.author if not member else member
         for activity in member.activities:
             if isinstance(activity, discord.Spotify):
@@ -172,7 +172,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Say
     @commands.command(name="say", help="Will say your message", usage="<text>")
-    async def say(self, ctx:commands.Context, say:str):
+    async def say(self, ctx:commands.Context, *, say:str):
         await ctx.send(F"{say} | {ctx.author.mention}")
 
     # Loading
@@ -199,7 +199,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Cleanup
     @commands.command(name="cleanup", aliases=["cu"], help="Will delete bot's messagess")
-    async def cleanup(self, ctx:commands.Context, amount:int):
+    async def cleanup(self, ctx:commands.Context, *, amount:int):
         cumbed = discord.Embed(
             colour=self.bot.colour,
             title=F"Cleaned-up {amount} of bot messages",

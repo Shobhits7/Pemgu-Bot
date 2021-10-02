@@ -41,7 +41,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
 
     # 8Ball
     @commands.command(name="8ball", aliases=["8b"], help="Will give you a random answer", usage="<question>")
-    async def _8ball(self, ctx:commands.Context, question:str):
+    async def _8ball(self, ctx:commands.Context, *, question:str):
         session = await self.bot.session.get("https://api.dagpi.xyz/data/8ball", headers=self.dagpi_headers)
         response = await session.json()
         session.close()
@@ -92,7 +92,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
     # Tweet
     @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet", usage="<username> <text>")
     @commands.bot_has_guild_permissions(attach_files=True)
-    async def tweet(self, ctx:commands.Context, text:str, user:discord.User=None):
+    async def tweet(self, ctx:commands.Context, *, text:str, user:discord.User=None):
         user = ctx.author if not user else user
         session = await self.bot.session.get(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_format('png')}&username={user.name}&text={text}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
@@ -110,7 +110,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
     @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website", usage="<website>")
     @commands.is_owner()
     @commands.bot_has_guild_permissions(attach_files=True)
-    async def screenshot(self, ctx:commands.Context, website:str):
+    async def screenshot(self, ctx:commands.Context, *, website:str):
         session = await self.bot.session.get(F"https://api.screenshotmachine.com?key=a95edd&url={website}&dimension=1024x768")
         response = io.BytesIO(await session.read())
         session.close()
@@ -125,7 +125,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
 
     # Pypi
     @commands.command(name="pypi", help="Will give information about the given lib in pypi")
-    async def pypi(self, ctx:commands.Context, lib:str):
+    async def pypi(self, ctx:commands.Context, *, lib:str):
         session = await self.bot.session.get(F"https://pypi.org/pypi/{lib}/json")
         if session.status != 200:
             await ctx.send("Couldn't find that library in PYPI")
@@ -158,7 +158,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
 
     # Character
     @rickandmorty.command(name="character", aliases=["char"], help="Will show information about the given character", usage="<character's name>")
-    async def character(self, ctx:commands.Context, character:str):
+    async def character(self, ctx:commands.Context, *, character:str):
         session = await self.bot.session.get(F"https://rickandmortyapi.com/api/character/?name={character}")
         if session.status != 200:
             await ctx.send("Couldn't find that character in Rick And Morty")
@@ -185,13 +185,13 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
 
     # Location
     @rickandmorty.command(name="location", aliases=["loc"], help="Will show information about the given location", usage="<location's name>")
-    async def location(self, ctx:commands.Context, location:str):
+    async def location(self, ctx:commands.Context, *, location:str):
         session = await self.bot.session.get("...")
         response = await session.json()
 
     # Episode
     @rickandmorty.command(name="episode", aliases=["ep"], help="Will show information about the given episode", usage="<episode's number>")
-    async def episode(self, ctx:commands.Context, episode:int):
+    async def episode(self, ctx:commands.Context, *, episode:int):
         session = await self.bot.session.get("...")
         response = await session.json()
 

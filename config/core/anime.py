@@ -34,11 +34,11 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         session.close()
         sfwmbed = discord.Embed(
             colour=self.bot.colour,
-            url=F"https://waifu.im/preview/?image={response['file']}",
+            url=F"https://waifu.im/preview/?image={response['tags']['images']['file']}",
             title="Here is your SFW Image",
             timestamp=ctx.message.created_at
         )
-        sfwmbed.set_image(url=response["url"])
+        sfwmbed.set_image(url=response['tags']['images']['url'])
         sfwmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=sfwmbed)
 
@@ -50,11 +50,11 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         session.close()
         wambed = discord.Embed(
             colour=self.bot.colour,
-            url=F"https://waifu.im/preview/?image={response['file']}",
+            url=F"https://waifu.im/preview/?image={response['tags']['images']['file']}",
             title="Here is your SFW Waifu Image",
             timestamp=ctx.message.created_at
         )
-        wambed.set_image(url=response["url"])
+        wambed.set_image(url=response['tags']['images']['url'])
         wambed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=wambed)
     
@@ -66,11 +66,11 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         session.close()
         smaidmbed = discord.Embed(
             colour=self.bot.colour,
-            url=F"https://waifu.im/preview/?image={response['file']}",
+            url=F"https://waifu.im/preview/?image={response['tags']['images']['file']}",
             title="Here is your SFW Maid Image",
             timestamp=ctx.message.created_at
         )
-        smaidmbed.set_image(url=response["url"])
+        smaidmbed.set_image(url=response['tags']['images']['url'])
         smaidmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=smaidmbed)
     
@@ -83,11 +83,11 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         session.close()
         nsfwmbed = discord.Embed(
             colour=self.bot.colour,
-            url=F"https://waifu.im/preview/?image={response['file']}",
+            url=F"https://waifu.im/preview/?image={response['tags']['images']['file']}",
             title="Here is your NSFW Image",
             timestamp=ctx.message.created_at
         )
-        nsfwmbed.set_image(url=response["url"])
+        nsfwmbed.set_image(url=response['tags']['images']['url'])
         nsfwmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=nsfwmbed)
 
@@ -100,11 +100,11 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         session.close()
         assmbed = discord.Embed(
             colour=self.bot.colour,
-            url=F"https://waifu.im/preview/?image={response['file']}",
+            url=F"https://waifu.im/preview/?image={response['tags']['images']['file']}",
             title="Here is your NSFW Ass Image",
             timestamp=ctx.message.created_at
         )
-        assmbed.set_image(url=response["url"])
+        assmbed.set_image(url=response['tags']['images']['url'])
         assmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=assmbed)
 
@@ -117,11 +117,11 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         session.close()
         ecchimbed = discord.Embed(
             colour=self.bot.colour,
-            url=F"https://waifu.im/preview/?image={response['file']}",
+            url=F"https://waifu.im/preview/?image={response['tags']['images']['file']}",
             title="Here is your NSFW Ecchi Image",
             timestamp=ctx.message.created_at
         )
-        ecchimbed.set_image(url=response["url"])
+        ecchimbed.set_image(url=response['tags']['images']['url'])
         ecchimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=ecchimbed)
 
@@ -134,11 +134,11 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         session.close()
         erombed = discord.Embed(
             colour=self.bot.colour,
-            url=F"https://waifu.im/preview/?image={response['file']}",
+            url=F"https://waifu.im/preview/?image={response['tags']['images']['file']}",
             title="Here is your NSFW Ero Image",
             timestamp=ctx.message.created_at
         )
-        erombed.set_image(url=response["url"])
+        erombed.set_image(url=response['tags']['images']['url'])
         erombed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=erombed)
 
@@ -151,11 +151,11 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         session.close()
         hentaimbed = discord.Embed(
             colour=self.bot.colour,
-            url=F"https://waifu.im/preview/?image={response['file']}",
+            url=F"https://waifu.im/preview/?image={response['tags']['images']['file']}",
             title="Here is your NSFW Hentai Image",
             timestamp=ctx.message.created_at
         )
-        hentaimbed.set_image(url=response["url"])
+        hentaimbed.set_image(url=response['tags']['images']['url'])
         hentaimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=hentaimbed)
 
@@ -168,11 +168,11 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         session.close()
         nmaidmbed = discord.Embed(
             colour=self.bot.colour,
-            url=F"https://waifu.im/preview/?image={response['file']}",
+            url=F"https://waifu.im/preview/?image={response['tags']['images']['file']}",
             title="Here is your NSFW Maid Image",
             timestamp=ctx.message.created_at
         )
-        nmaidmbed.set_image(url=response["url"])
+        nmaidmbed.set_image(url=response['tags']['images']['url'])
         nmaidmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=nmaidmbed)
 
@@ -185,11 +185,11 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         session.close()
         milfmbed = discord.Embed(
             colour=self.bot.colour,
-            url=F"https://waifu.im/preview/?image={response['file']}",
+            url=F"https://waifu.im/preview/?image={response['tags']['images']['file']}",
             title="Here is your NSFW Milf Image",
             timestamp=ctx.message.created_at
         )
-        milfmbed.set_image(url=response["url"])
+        milfmbed.set_image(url=response['tags']['images']['url'])
         milfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=milfmbed)
 
@@ -202,11 +202,11 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         session.close()
         oppaimbed = discord.Embed(
             colour=self.bot.colour,
-            url=F"https://waifu.im/preview/?image={response['file']}",
+            url=F"https://waifu.im/preview/?image={response['tags']['images']['file']}",
             title="Here is your NSFW Oppai Image",
             timestamp=ctx.message.created_at
         )
-        oppaimbed.set_image(url=response["url"])
+        oppaimbed.set_image(url=response['tags']['images']['url'])
         oppaimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=oppaimbed)
 
@@ -219,11 +219,11 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         session.close()
         oralmbed = discord.Embed(
             colour=self.bot.colour,
-            url=F"https://waifu.im/preview/?image={response['file']}",
+            url=F"https://waifu.im/preview/?image={response['tags']['images']['file']}",
             title="Here is your NSFW Oral Image",
             timestamp=ctx.message.created_at
         )
-        oralmbed.set_image(url=response["url"])
+        oralmbed.set_image(url=response['tags']['images']['url'])
         oralmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=oralmbed)
 
@@ -236,11 +236,11 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         session.close()
         paizurimbed = discord.Embed(
             colour=self.bot.colour,
-            url=F"https://waifu.im/preview/?image={response['file']}",
+            url=F"https://waifu.im/preview/?image={response['tags']['images']['file']}",
             title="Here is your NSFW Paizuri Image",
             timestamp=ctx.message.created_at
         )
-        paizurimbed.set_image(url=response["url"])
+        paizurimbed.set_image(url=response['tags']['images']['url'])
         paizurimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=paizurimbed)
 
@@ -253,11 +253,11 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         session.close()
         selfiesmbed = discord.Embed(
             colour=self.bot.colour,
-            url=F"https://waifu.im/preview/?image={response['file']}",
+            url=F"https://waifu.im/preview/?image={response['tags']['images']['file']}",
             title="Here is your NSFW Selfies Image",
             timestamp=ctx.message.created_at
         )
-        selfiesmbed.set_image(url=response["url"])
+        selfiesmbed.set_image(url=response['tags']['images']['url'])
         selfiesmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=selfiesmbed)
 
@@ -270,11 +270,11 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         session.close()
         uniformmbed = discord.Embed(
             colour=self.bot.colour,
-            url=F"https://waifu.im/preview/?image={response['file']}",
+            url=F"https://waifu.im/preview/?image={response['tags']['images']['file']}",
             title="Here is your NSFW Uniform Image",
             timestamp=ctx.message.created_at
         )
-        uniformmbed.set_image(url=response["url"])
+        uniformmbed.set_image(url=response['tags']['images']['url'])
         uniformmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=uniformmbed)
 

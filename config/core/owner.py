@@ -13,7 +13,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
 
     @commands.command(name='eval', help="Evaluates a code", usage="<body>")
     @commands.is_owner()
-    async def _eval(self, ctx, body:str):
+    async def _eval(self, ctx, *, body:str):
         env = {
             'bot': self.bot,
             'ctx': ctx,
@@ -27,7 +27,9 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
 
         env.update(globals())
 
-        body = self.cleanup_code(body)
+        if body.startswith('```') and body.endswith('```'):
+            body = '\n'.join(body.split('\n')[1:-1])
+        body = body.strip('` \n')
         stdout = io.StringIO()
 
         to_compile = f'async def func():\n{textwrap.indent(body, "  ")}'
@@ -61,7 +63,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     # Load
     @commands.command(name="load", help="Will load the given module if it was not already loaded", usage="<module>")
     @commands.is_owner()
-    async def load(self, ctx:commands.Context, module:str):
+    async def load(self, ctx:commands.Context, *, module:str):
         floadmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully loaded {module}.",
@@ -83,7 +85,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     # Unload
     @commands.command(name="unload", help="Will unload the given module if it was already loaded", usage="<module>")
     @commands.is_owner()
-    async def unload(self, ctx:commands.Context, module:str):
+    async def unload(self, ctx:commands.Context, *, module:str):
         funloadmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully unloaded {module}.",
@@ -105,7 +107,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     # Reload
     @commands.group(name="reload", help="Will reload the given module", usage="<module>")
     @commands.is_owner()
-    async def reload(self, ctx:commands.Context, module:str):
+    async def reload(self, ctx:commands.Context, *, module:str):
         reloadmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully reloaded {module}.",
@@ -144,7 +146,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     # Repeat
     @commands.command(name="repeat", help="Will repeat the given commands the amounts of given time", usage="<time> <command>")
     @commands.is_owner()
-    async def repeat(self, ctx:commands.Context, time:int, command:str):
+    async def repeat(self, ctx:commands.Context, *, time:int, command:str):
         for _ in range(1, time+1):
             await self.bot.get_command(str(command))(ctx)
         await ctx.send(F"Successfully repeated `{command}` - `{time}` times")
@@ -176,7 +178,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         )
         editmbed.set_image(url="attachments://avatar.png")
         editmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        # await self.bot.user.edit(avatar=avatar)
+        await self.bot.user.edit(avatar=avatar)
         await ctx.send(file=discord.File(fp=avatar.seek(0), filename="avatar.png"), embed=editmbed)
 
     # Template
