@@ -12,7 +12,7 @@ class MeiBase(commands.AutoShardedBot):
         self.command_prefix=commands.when_mentioned_or(self.prefix)
         self.strip_after_prefix=True
         self.case_insensitive=True
-        self.help_command=help.CustomHelp()
+        self._help_command=help.CustomHelp()
         self.intents=discord.Intents.all()
         self.allowed_mentions=discord.AllowedMentions.none()
         self.modules = []
