@@ -6,15 +6,10 @@ async def aiohttpsession():
     print("Making a Session was successful")
 
 class MeiBase(commands.AutoShardedBot):
-    def __init__(self):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.prefix = ";m"
         self.token = os.getenv("TOKEN")
-        self.command_prefix=commands.when_mentioned_or(self.prefix)
-        self.strip_after_prefix=True
-        self.case_insensitive=True
-        self._help_command=help.CustomHelp()
-        self.intents=discord.Intents.all()
-        self.allowed_mentions=discord.AllowedMentions.none()
         self.modules = []
         for module in sorted(os.listdir("./config/modules/")):
             if module.endswith(".py"):
@@ -23,7 +18,6 @@ class MeiBase(commands.AutoShardedBot):
         self.load_extension("jishaku")
         os.environ["JISHAKU_UNDERSCORE"] = "True"
         os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
-
 
     async def close(self):
         if not self.session.closed:
@@ -39,7 +33,14 @@ class MeiBase(commands.AutoShardedBot):
         colour = random.choice(options.colours)
         return colour
 
-bot = MeiBase()
+bot = MeiBase(
+    command_prefix=commands.when_mentioned_or(";m"),
+    strip_after_prefix=True,
+    case_insensitive=True,
+    help_command=help.CustomHelp(),
+    intents=discord.Intents.all(),
+    allowed_mentions=discord.AllowedMentions.none()
+)
 
 blacklisted_people = []
 @bot.check
