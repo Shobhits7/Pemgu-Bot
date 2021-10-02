@@ -6,11 +6,6 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         self.bot = bot
         self._last_result = None
 
-    def cleanup_code(self, content):
-        if content.startswith('```') and content.endswith('```'):
-            return '\n'.join(content.split('\n')[1:-1])
-        return content.strip('` \n')
-
     @commands.command(name='eval', help="Evaluates a code", usage="<body>")
     @commands.is_owner()
     async def _eval(self, ctx, *, body:str):
@@ -22,23 +17,17 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             'guild': ctx.guild,
             'message': ctx.message,
             '_': self._last_result
-
         }
-
         env.update(globals())
-
         if body.startswith('```') and body.endswith('```'):
             body = '\n'.join(body.split('\n')[1:-1])
         body = body.strip('` \n')
         stdout = io.StringIO()
-
         to_compile = f'async def func():\n{textwrap.indent(body, "  ")}'
-
         try:
             exec(to_compile, env)
         except Exception as e:
             return await ctx.send(f'```py\n{e.__class__.__name__}: {e}\n```')
-
         func = env['func']
         try:
             with contextlib.redirect_stdout(stdout):
@@ -52,7 +41,6 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
                 await ctx.message.add_reaction('\u2705')
             except:
                 pass
-
             if ret is None:
                 if value:
                     await ctx.send(f'```py\n{value}\n```')
@@ -105,43 +93,42 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             await ctx.send(embed=bunloadmbed)
   
     # Reload
-    @commands.group(name="reload", help="Will reload the given module", usage="<module>")
+    @commands.group(name="reload", help="Will reload the given module", usage="<module|.>")
     @commands.is_owner()
     async def reload(self, ctx:commands.Context, *, module:str):
-        reloadmbed = discord.Embed(
-            colour=self.bot.colour,
-            title=F"Successfully reloaded {module}.",
-            timestamp=ctx.message.created_at
-        )
-        reloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        self.bot.reload_extension(F"config.core.{module}")
-        await ctx.send(embed=reloadmbed)
-
-    # ReloadAll
-    @commands.command(name="reloadall", help="Will reload every module")
-    @commands.is_owner()
-    async def reloadall(self, ctx:commands.Context):
-        reloadallmbed = discord.Embed(
-            colour=self.bot.colour,
-            title="<:status_streaming:596576747294818305> Successfully reloaded every module",
-            description="<:status_offline:596576752013279242> Here is the results:\n",
-            timestamp=ctx.message.created_at
-        )
-        reloadallmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        errors = []
-        toreload = list(self.bot.cogs.keys())
-        for module in toreload:
-            module = module.lower()
-            if module.startswith("on"): module = module[2:]
-            try:
-                self.bot.reload_extension(F"config.core.{module}")
-                reloadallmbed.description += F"<:status_online:596576749790429200> - {module}\n"
-            except Exception as error:
-                reloadallmbed.description += F"<:status_dnd:596576774364856321> - {module}\n"
-                errors.append(F"<:status_idle:596576773488115722> - {error}\n")
-        if len(errors) != 0:
-           reloadallmbed.description += ''.join(error for error in errors)
-        await ctx.send(embed=reloadallmbed)
+        if module == ".":
+            allmbed = discord.Embed(
+                colour=self.bot.colour,
+                title="<:status_streaming:596576747294818305> Successfully reloaded every module",
+                description="<:status_offline:596576752013279242> Here is the results:\n",
+                timestamp=ctx.message.created_at
+            )
+            allmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            errors = []
+            toreload = list(self.bot.cogs.keys())
+            for module in toreload:
+                module = module.lower()
+                if module.startswith("on"): module = module[2:]
+                try:
+                    if module in ("jishaku"): self.bot.reload_extension("jishaku")
+                    self.bot.reload_extension(F"config.core.{module}")
+                    allmbed.description += F"<:status_online:596576749790429200> - {module}\n"
+                except Exception as error:
+                    allmbed.description += F"<:status_dnd:596576774364856321> - {module}\n"
+                    errors.append(F"<:status_idle:596576773488115722> - {error}\n")
+            if len(errors) != 0:
+                allmbed.description += ''.join(error for error in errors)
+            await ctx.send(embed=allmbed)
+        else:
+            reloadmbed = discord.Embed(
+                colour=self.bot.colour,
+                title=F"Successfully reloaded {module}.",
+                timestamp=ctx.message.created_at
+            )
+            reloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            self.bot.reload_extension(F"config.core.{module}")
+            await ctx.send(embed=reloadmbed)
+        raise commands.BadArgument
 
     # Repeat
     @commands.command(name="repeat", help="Will repeat the given commands the amounts of given time", usage="<time> <command>")

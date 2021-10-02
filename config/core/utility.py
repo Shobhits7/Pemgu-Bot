@@ -258,7 +258,6 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         branch = "main"
         if not command:
             return await ctx.send(source_url)
-
         if command == "help":
             src = type(self.bot.help_command)
             module = src.__module__
@@ -270,7 +269,6 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             src = obj.callback.__code__
             module = obj.callback.__module__
             filename = src.co_filename
-
         lines, firstlineno = inspect.getsourcelines(src)
         if not module.startswith("discord"):
             location = os.path.relpath(filename).replace("\\", "/")
@@ -278,7 +276,6 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             location = module.replace(".", "/") + ".py"
             source_url = "https://github.com/lvlahraam/Mei-Bot"
             branch = "main"
-
         final_url = F"<{source_url}/blob/{branch}/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}>"
         await ctx.send(final_url)
 
