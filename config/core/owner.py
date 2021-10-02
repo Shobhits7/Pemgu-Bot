@@ -13,7 +13,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
 
     @commands.command(name='eval', help="Evaluates a code", usage="<body>")
     @commands.is_owner()
-    async def _eval(self, ctx, *, body: str):
+    async def _eval(self, ctx, body: str):
         env = {
             'bot': self.bot,
             'ctx': ctx,
@@ -61,7 +61,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     # Load
     @commands.command(name="load", help="Will load the given module if it was not already loaded", usage="<module>")
     @commands.is_owner()
-    async def load(self, ctx:commands.Context, *, module):
+    async def load(self, ctx:commands.Context, module:str):
         floadmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully loaded {module}.",
@@ -83,7 +83,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     # Unload
     @commands.command(name="unload", help="Will unload the given module if it was already loaded", usage="<module>")
     @commands.is_owner()
-    async def unload(self, ctx:commands.Context, *, module):
+    async def unload(self, ctx:commands.Context, module:str):
         funloadmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully unloaded {module}.",
@@ -105,7 +105,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     # Reload
     @commands.group(name="reload", help="Will reload the given module", usage="<module>")
     @commands.is_owner()
-    async def reload(self, ctx:commands.Context, *, module):
+    async def reload(self, ctx:commands.Context, module:str):
         reloadmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully reloaded {module}.",

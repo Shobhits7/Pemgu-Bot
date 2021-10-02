@@ -10,7 +10,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(ban_members=True)
     @commands.bot_has_guild_permissions(ban_members=True)
-    async def ban(self, ctx:commands.Context, user:discord.User, *, reason=None):
+    async def ban(self, ctx:commands.Context, user:discord.User, reason:str=None):
         abnmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{user} is now Banned",
@@ -34,7 +34,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(ban_members=True)
     @commands.bot_has_guild_permissions(ban_members=True)
-    async def unban(self, ctx:commands.Context, user:discord.User, *, reason):
+    async def unban(self, ctx:commands.Context, user:discord.User, reason:str=None):
         aunmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{user.name} is now Unbanned",
@@ -57,7 +57,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(kick_members=True)
     @commands.bot_has_guild_permissions(kick_members=True)
-    async def kick(self, ctx:commands.Context, member:discord.Member, *, reason=None):
+    async def kick(self, ctx:commands.Context, member:discord.Member, reason:str=None):
         akcmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{member} is now Kicked",
@@ -129,7 +129,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
-    async def mute(self, ctx:commands.Context, member:discord.Member, *, reason=None):
+    async def mute(self, ctx:commands.Context, member:discord.Member, reason:str=None):
         domtmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully Muted",

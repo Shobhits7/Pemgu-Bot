@@ -50,7 +50,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     # UserInfo
     @commands.command(name="userinfo", aliases=["ui"], help="Will show user info", usage="[user]")
     @commands.guild_only()
-    async def userinfo(self, ctx:commands.Context, *, member:discord.Member = None):
+    async def userinfo(self, ctx:commands.Context, member:discord.Member=None):
         member = ctx.author if not member else member
         image = await self.bot.fetch_user(member.id)
         uimbed = discord.Embed(
@@ -172,7 +172,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Say
     @commands.command(name="say", help="Will say your message", usage="<text>")
-    async def say(self, ctx:commands.Context, *, say):
+    async def say(self, ctx:commands.Context, say:str):
         await ctx.send(F"{say} | {ctx.author.mention}")
 
     # Loading
@@ -253,7 +253,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
 
     # Source
     @commands.command(name="source", aliases=["src"], help="Will show the bots source", usage="[command]")
-    async def source(self, ctx:commands.Context, *, command: str = None):
+    async def source(self, ctx:commands.Context, command:str=None):
         source_url = "https://github.com/lvlahraam/Mei-Bot"
         branch = "main"
         if not command:
