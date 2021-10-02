@@ -14,7 +14,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
             description="Click the button for counting"
         )
         ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        view = gv.CounterView(client=self.bot)
+        view = gv.CounterView(self.bot)
         view.message = await ctx.send(embed=ctrmbed, view=view)
 
     # RockPaperScissors
@@ -26,7 +26,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
             timestamp=ctx.message.created_at
         )
         rpsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        view = gv.RPSView(self.bot, ctx)
+        view = gv.RPSView(self.bot)
         view.message = await ctx.send(embed=rpsmbed, view=view)
 
     # Guess
@@ -37,7 +37,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
             description="Try to **guess** now"
         )
         gsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        view = gv.GuessView(self.bot, ctx)
+        view = gv.GuessView(self.bot)
         view.message = await ctx.send(embed=gsmbed, view=view)
 
     # TicTacToe

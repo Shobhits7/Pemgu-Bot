@@ -23,7 +23,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             quotembed.add_field(name="Series:", value=response["anime"])
             quotembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             quotes.append(quotembed)
-        view = self.bot.paginator(ctx, quotes)
+        view = self.bot.paginator(self.bot, quotes)
         view.message = await ctx.send(embed=quotembed, view=view)
 
     # SFW

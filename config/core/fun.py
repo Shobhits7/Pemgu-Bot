@@ -15,7 +15,7 @@ class Fun(commands.Cog, description="You sad?. Use these to at least have a smil
             timestamp=ctx.message.created_at
         )
         bnitrombed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        view = fv.NitroView(self.bot, ctx)
+        view = fv.NitroView(self.bot)
         view.message = await ctx.send(embed=bnitrombed, view=view)
 
 def setup(bot):

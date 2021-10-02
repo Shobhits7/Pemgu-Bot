@@ -1,9 +1,9 @@
 import discord
 
 class Paginator(discord.ui.View):
-    def __init__(self, ctx, embeds):
+    def __init__(self, bot, embeds):
         super().__init__(timeout=5)
-        self.ctx = ctx
+        self.bot = bot
         self.page = 1
         self.embeds = embeds
 
@@ -35,13 +35,13 @@ class Paginator(discord.ui.View):
             return
 
     async def interaction_check(self, interaction:discord.Interaction):
-        if interaction.user.id == self.ctx.author.id:
+        if interaction.user.id == interaction.message.author.id:
             return True
         icheckmbed = discord.Embed(
-            colour=self.ctx.bot.colour,
+            colour=self.bot.colour,
             title="You can't use this",
-            description=F"<@{interaction.user.id}> - Only <@{self.ctx.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
-            timestamp=self.ctx.message.created_at
+            description=F"<@{interaction.user.id}> - Only <@{interaction.message.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
+            timestamp=interaction.message.created_at
         )
         icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
         await interaction.response.send_message(embed=icheckmbed, ephemeral=True)

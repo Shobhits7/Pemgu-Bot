@@ -75,10 +75,8 @@ class RPSButtons(discord.ui.Button):
                     await interaction.response.edit_message(embed=lostrpsmbed, view=self.view)
 
 class RPSView(discord.ui.View):
-    def __init__(self, bot, ctx):
+    def __init__(self):
         super().__init__(timeout=5)
-        self.bot = bot
-        self.ctx = ctx
         self.botoption = random.choice(["Rock", "Paper", "Scissors"])
         self.useroption = ""
         self.add_item(item=RPSButtons(emoji="🗻", label="Rock", style=discord.ButtonStyle.green, view=self))
@@ -93,13 +91,13 @@ class RPSView(discord.ui.View):
                 await self.message.edit(view=self)
 
     async def interaction_check(self, interaction:discord.Interaction):
-        if interaction.user.id == self.ctx.author.id:
+        if interaction.user.id == interaction.message.author.id:
             return True
         else:
             icheckmbed = discord.Embed(
                 colour=self.bot.colour,
                 title=F"You can't use this",
-                description=F"<@{interaction.user.id}> - Only <@{self.ctx.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
+                description=F"<@{interaction.user.id}> - Only <@{interaction.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
                 timestamp=interaction.message.created_at
             )
             icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
@@ -138,10 +136,8 @@ class GuessButtons(discord.ui.Button):
             await interaction.response.edit_message(embed=falsembed, view=self.view)
 
 class GuessView(discord.ui.View):
-    def __init__(self, bot, ctx):
+    def __init__(self):
         super().__init__(timeout=5)
-        self.bot = bot
-        self.ctx = ctx
         self.choose = None
         self.number = random.randint(1, 5)
         row = 0
@@ -159,13 +155,13 @@ class GuessView(discord.ui.View):
                 await self.message.edit(view=self)
 
     async def interaction_check(self, interaction:discord.Interaction):
-        if interaction.user.id == self.ctx.author.id:
+        if interaction.user.id == interaction.message.author.id:
             return True
         else:
             icheckmbed = discord.Embed(
                 colour=self.bot.colour,
                 title=F"You can't use this",
-                description=F"<@{interaction.user.id}> - Only <@{self.ctx.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
+                description=F"<@{interaction.user.id}> - Only <@{interaction.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
                 timestamp=interaction.message.created_at
             )
             icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
