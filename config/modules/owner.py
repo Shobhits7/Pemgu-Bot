@@ -81,8 +81,8 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         if module == "all":
             allmbed = discord.Embed(
                 colour=self.bot.colour,
-                title="<:status_streaming:596576747294818305> Successfully reloaded every module",
-                description="<:status_offline:596576752013279242> Here is the results:\n",
+                title="<:greyTick:596576672900186113> Successfully reloaded every module",
+                description="",
                 timestamp=ctx.message.created_at
             )
             allmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -90,10 +90,10 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             for module in self.bot.modules:
                 try:
                     self.bot.reload_extension(F"config.modules.{module}")
-                    allmbed.description += F"<:status_online:596576749790429200> - {module}\n"
+                    allmbed.description += F"<:greenTick:596576670815879169> - {module}\n"
                 except Exception as error:
-                    allmbed.description += F"<:status_dnd:596576774364856321> - {module}\n"
-                    errors.append(F"<:status_idle:596576773488115722> - {error}\n")
+                    allmbed.description += F"<:redTick:596576672149667840> - {module}\n"
+                    errors.append(F"<:redTick:596576672149667840> - {error}\n")
             if len(errors) != 0:
                 allmbed.description += ''.join(error for error in errors)
             await ctx.send(embed=allmbed)
