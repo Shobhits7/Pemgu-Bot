@@ -53,6 +53,7 @@ class CustomHelp(commands.HelpCommand):
             "Moderation": "🎩",
             "Owner": "👑",
             "Utility": "🧰",
+            "Jishaku": "🤿",
             "No": "❓"
         }
 
