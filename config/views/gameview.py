@@ -2,11 +2,11 @@ import discord, random
 from typing import List
 
 class CounterView(discord.ui.View):
-    def __init__(self, client):
+    def __init__(self, ctx):
         super().__init__(timeout=5)
+        self.ctx = ctx
         self.clicks = 0
         self.clickers = ""
-        self.client = client
 
     @discord.ui.button(emoji="👏", style=discord.ButtonStyle.green)
     async def click(self, button:discord.ui.Button, interaction:discord.Interaction):
@@ -19,7 +19,7 @@ class CounterView(discord.ui.View):
         for item in self.children:
             self.clear_items()
         ontimeoutmbed = discord.Embed(
-            colour=self.client.colour,
+            colour=self.ctx.bot.colour,
             title=F"Button was clicked: {self.clicks} times",
         )
         if len(self.clickers) != 0 or self.clicks != 0:
@@ -75,9 +75,9 @@ class RPSButtons(discord.ui.Button):
                     await interaction.response.edit_message(embed=lostrpsmbed, view=self.view)
 
 class RPSView(discord.ui.View):
-    def __init__(self, bot):
+    def __init__(self, ctx):
         super().__init__(timeout=5)
-        self.bot = bot
+        self.ctx = ctx
         self.botoption = random.choice(["Rock", "Paper", "Scissors"])
         self.useroption = ""
         self.add_item(item=RPSButtons(emoji="🗻", label="Rock", style=discord.ButtonStyle.green, view=self))
@@ -92,13 +92,13 @@ class RPSView(discord.ui.View):
                 await self.message.edit(view=self)
 
     async def interaction_check(self, interaction:discord.Interaction):
-        if interaction.user.id == self.ctx.bot.user.id:
+        if interaction.user.id == self.ctx.message.author.id:
             return True
         else:
             icheckmbed = discord.Embed(
                 colour=self.ctx.bot.colour,
                 title=F"You can't use this",
-                description=F"<@{interaction.user.id}> - Only <@{self.ctx.bot.user.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
+                description=F"<@{interaction.user.id}> - Only <@{self.ctx.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
                 timestamp=interaction.message.created_at
             )
             icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
@@ -108,7 +108,7 @@ class RPSView(discord.ui.View):
 class GuessButtons(discord.ui.Button):
     def __init__(self, view, **kwargs):
         super().__init__(**kwargs)
-        self.bot = view.bot
+        self.ctx = view.ctx
         self.choose = view.choose
         self.number = view.number
     
@@ -157,13 +157,13 @@ class GuessView(discord.ui.View):
                 await self.message.edit(view=self)
 
     async def interaction_check(self, interaction:discord.Interaction):
-        if interaction.user.id == self.ctx.bot.user.id:
+        if interaction.user.id == self.ctx.message.author.id:
             return True
         else:
             icheckmbed = discord.Embed(
                 colour=self.ctx.bot.colour,
                 title=F"You can't use this",
-                description=F"<@{interaction.user.id}> - Only <@{self.ctx.bot.user.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
+                description=F"<@{interaction.user.id}> - Only <@{self.ctx.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
                 timestamp=interaction.message.created_at
             )
             icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)

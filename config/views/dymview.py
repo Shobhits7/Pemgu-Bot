@@ -42,13 +42,13 @@ class DYMView(discord.ui.View):
             pass
 
     async def interaction_check(self, interaction:discord.Interaction):
-        if interaction.user.id == self.ctx.bot.user.id:
+        if interaction.user.id == self.ctx.message.author.id:
             return True
         else:
             icheckmbed = discord.Embed(
                 colour=self.ctx.bot.colour,
                 title=F"You can't use this",
-                description=F"<@{interaction.user.id}> - Only <@{self.ctx.bot.user.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
+                description=F"<@{interaction.user.id}> - Only <@{self.ctx.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
                 timestamp=interaction.message.created_at
             )
             icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
