@@ -78,7 +78,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     @commands.group(name="reload", help="Will reload the given  or every module", usage="<module|all>")
     @commands.is_owner()
     async def reload(self, ctx:commands.Context, *, module:str):
-        if module == "all":
+        if module == "every":
             allmbed = discord.Embed(
                 colour=self.bot.colour,
                 title="<:greyTick:596576672900186113> Successfully reloaded every module",
@@ -106,7 +106,6 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             reunloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             self.bot.reload_extension(F"config.modules.{module}")
             await ctx.send(embed=reunloadmbed)
-        raise commands.BadArgument
 
     # Repeat
     @commands.command(name="repeat", help="Will repeat the given commands the amounts of given time", usage="<time> <command>")
