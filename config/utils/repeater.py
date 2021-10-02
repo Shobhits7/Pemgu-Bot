@@ -1,7 +1,7 @@
 import discord
 
 class Repeater(discord.ui.View):
-    def __init__(self, bot, job:function):
+    def __init__(self, bot, job):
         super().__init__(timeout=5)
         self.bot = bot
         self.job = job

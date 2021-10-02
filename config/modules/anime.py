@@ -22,7 +22,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
             quotembed.add_field(name="Series:", value=response["anime"])
             quotembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             return quotembed
-        view = self.bot.repeater(self.bot, job)
+        view = self.bot.repeater(job)
         view.message = await ctx.send(embed=(await job), view=view)
 
     # SFW
