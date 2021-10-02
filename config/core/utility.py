@@ -10,8 +10,8 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     async def about(self, ctx:commands.Context):
         abmbed = discord.Embed(
             colour=self.bot.colour,
-            title="About Bot",
-            description=F"[Click here for source code](https://github.com/lvlahraam/Mei-Bot)\n[Click here for Adding Bot]({discord.utils.oauth_url(client_id=self.bot.user.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))})\n[Click here for Joining Support](https://discord.gg/bWnjkjyFRz)\nIn {len(self.bot.guilds)} Servers\nHas {len(self.bot.commands)} Commands\nOwner is lvlahraam#8435",
+            title=F"{self.bot.user.name} About",
+            description=F"[Click here for source code](https://github.com/lvlahraam/Mei-Bot)\n[Click here for Adding Bot]({discord.utils.oauth_url(client_id=self.bot.user.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))})\n[Click here for Joining Support](https://discord.gg/bWnjkjyFRz)\nIn {len(self.bot.guilds)} Servers\nHas {len(self.bot.commands)} Commands\nOwner is <@{self.bot.owner_id}>",
             timestamp=ctx.message.created_at
         )
         abmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
