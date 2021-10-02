@@ -75,8 +75,9 @@ class RPSButtons(discord.ui.Button):
                     await interaction.response.edit_message(embed=lostrpsmbed, view=self.view)
 
 class RPSView(discord.ui.View):
-    def __init__(self):
+    def __init__(self, bot):
         super().__init__(timeout=5)
+        self.bot = bot
         self.botoption = random.choice(["Rock", "Paper", "Scissors"])
         self.useroption = ""
         self.add_item(item=RPSButtons(emoji="🗻", label="Rock", style=discord.ButtonStyle.green, view=self))
