@@ -35,7 +35,7 @@ class RPSButtons(discord.ui.Button):
         self.botoption = view.botoption
         self.useroption = view.useroption
 
-    async def callback(self, interaction: discord.Interaction):
+    async def callback(self, interaction:discord.Interaction):
         if self.label == "Rock":
             self.useroption = "Rock"
         elif self.label == "Paper":

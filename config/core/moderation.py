@@ -177,7 +177,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_messages=True)
     @commands.bot_has_guild_permissions(manage_messages=True)
-    async def purge(self, ctx:commands.Context, amount: int):
+    async def purge(self, ctx:commands.Context, amount:int):
         fpumbed = discord.Embed(
             colour=self.bot.colour,
             title=F"Deleted {amount} amount of messages",

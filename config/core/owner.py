@@ -13,7 +13,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
 
     @commands.command(name='eval', help="Evaluates a code", usage="<body>")
     @commands.is_owner()
-    async def _eval(self, ctx, body: str):
+    async def _eval(self, ctx, body:str):
         env = {
             'bot': self.bot,
             'ctx': ctx,
