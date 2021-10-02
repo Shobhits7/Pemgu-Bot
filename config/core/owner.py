@@ -174,10 +174,10 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             colour=self.bot.colour,
             title="Successfully changed bot's avatar",
         )
-        editmbed.set_image(url="attachments://avatar.png")
+        editmbed.set_image(url=avatar)
         editmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await self.bot.user.edit(avatar=avatar)
-        await ctx.send(file=discord.File(fp=avatar, filename="avatar.png"))
+        await ctx.send(embed=editmbed)
 
     # Template
     @commands.command(name="template", aliases=["te"], help="Will give the guild's template")
