@@ -38,7 +38,7 @@ class MeiBase(commands.AutoShardedBot):
         colour = random.choice(options.colours)
         return colour
 
-bot = MeiBase
+bot = MeiBase()
 
 blacklisted_people = []
 @bot.check
