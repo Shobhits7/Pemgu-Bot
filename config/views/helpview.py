@@ -133,7 +133,7 @@ class SelectView(discord.ui.View):
         self.add_item(item=SelectUI(placeholder="Where do you want to go...", options=options, min_values=1, max_values=1, view=self))
         self.add_item(item=discord.ui.Button(emoji="🧇", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(item=discord.ui.Button(emoji="🍩", url="https://discord.gg/bWnjkjyFRz"))
-        self.add_item(item=discord.ui.Button(emoji="👩‍💻", url="https://github.com/lvlahraam/Mei-Bot"))
+        self.add_item(item=discord.ui.Button(emoji="👨‍💻", url="https://github.com/lvlahraam/Mei-Bot"))
 
     @discord.ui.button(emoji="🏠", style=discord.ButtonStyle.green)
     async def home(self, button:discord.ui.Button, interaction:discord.Interaction):
