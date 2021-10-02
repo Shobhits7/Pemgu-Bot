@@ -169,7 +169,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         if not ctx.message.attachments:
             raise commands.MissingRequiredArgument
         for attachment in ctx.message.attachments[0]:
-            avatar = await attachment.read(use_cached=True)
+            avatar = io.BytesIO(await attachment.read(use_cached=True))
         editmbed = discord.Embed(
             colour=self.bot.colour,
             title="Successfully changed bot's avatar",
@@ -177,7 +177,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         editmbed.set_image(url="attachments://avatar.png")
         editmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         # await self.bot.user.edit(avatar=avatar)
-        await ctx.send(file=discord.File(fp=avatar, filename="avatar.png"), embed=editmbed)
+        await ctx.send(file=discord.File(fp=avatar.seek(0), filename="avatar.png"), embed=editmbed)
 
     # Template
     @commands.command(name="template", aliases=["te"], help="Will give the guild's template")
