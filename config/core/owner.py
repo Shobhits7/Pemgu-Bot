@@ -165,8 +165,11 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     # Edit
     @commands.command(name="edit", help="Will change the bot's avatar")
     @commands.is_owner()
-    async def edit(self, ctx:commands.Context, image:discord.Attachment):
-        avatar = await image.read()
+    async def edit(self, ctx:commands.Context):
+        if not ctx.message.attachments:
+            raise commands.MissingRequiredArgument
+        for attachment in ctx.message.attachments:
+            avatar = await attachment.read()
         editmbed = discord.Embed(
             colour=self.bot.colour,
             title="Successfully changed bot's avatar",
