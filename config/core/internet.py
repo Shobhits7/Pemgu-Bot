@@ -70,7 +70,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
         )
         pxlmbed.set_image(url="attachment://pixel.png")
         pxlmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(file=discord.File(response, filename="pixel.png"), embed=pxlmbed)
+        await ctx.send(file=discord.File(fp=response, filename="pixel.png"), embed=pxlmbed)
 
     # Colours
     @commands.command(name="colours", aliases=["clrs"], help="Will give you the colours from the given image", usage="[user]")
@@ -87,7 +87,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
         )
         clrsmbed.set_image(url="attachment://colours.png")
         clrsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(file=discord.File(response, filename="colours.png"), embed=clrsmbed)
+        await ctx.send(file=discord.File(fp=response, filename="colours.png"), embed=clrsmbed)
 
     # Tweet
     @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet", usage="<username> <text>")
@@ -104,7 +104,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
         )
         twmbed.set_image(url="attachment://tweet.png")
         twmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(file=discord.File(response, filename="tweet.png"), embed=twmbed)
+        await ctx.send(file=discord.File(fp=response, filename="tweet.png"), embed=twmbed)
 
     # Screenshot
     @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website", usage="<website>")
@@ -121,7 +121,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
         )
         ssmbed.set_image(url="attachment://screenshot.png")
         ssmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(file=discord.File(response, filename="screenshot.png"), embed=ssmbed)
+        await ctx.send(file=discord.File(fp=response, filename="screenshot.png"), embed=ssmbed)
 
     # Pypi
     @commands.command(name="pypi", help="Will give information about the given lib in pypi")

@@ -168,7 +168,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     async def edit(self, ctx:commands.Context):
         if not ctx.message.attachments:
             raise commands.MissingRequiredArgument
-        for attachment in ctx.message.attachments:
+        for attachment in ctx.message.attachments[0]:
             avatar = await attachment.read(use_cached=True)
         editmbed = discord.Embed(
             colour=self.bot.colour,
