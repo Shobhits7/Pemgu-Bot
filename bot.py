@@ -9,7 +9,8 @@ async def aiohttpsession():
 class MeiBase(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.prefix = ";m"
+        self.colour = 0xECA622
+        self.prefix = ".j"
         self.token = os.getenv("TOKEN")
         self.modules = []
         for module in sorted(os.listdir("./config/modules/")):
@@ -29,13 +30,8 @@ class MeiBase(commands.AutoShardedBot):
     def paginator(self, embeds):
         return page.Paginator(self.bot, embeds)
 
-    @property
-    def colour(self):
-        colour = random.choice(options.colours)
-        return colour
-
 bot = MeiBase(
-    command_prefix=commands.when_mentioned_or(";m"),
+    command_prefix=commands.when_mentioned_or(".j"),
     strip_after_prefix=True,
     case_insensitive=True,
     help_command=help.CustomHelp(),
