@@ -10,7 +10,7 @@ class OnError(commands.Cog):
     async def on_command_error(self, ctx:commands.Context, error):
         if isinstance(error, commands.CommandInvokeError):
             error = error.original
-        print(traceback.format_exception(type(error), error,  error.__traceback__))
+        traceback.format_exception(type(error), error,  error.__traceback__)
         errormbed = discord.Embed(
             colour=self.bot.colour,
             description=error,
