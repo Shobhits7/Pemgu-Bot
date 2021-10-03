@@ -6,47 +6,48 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         self.bot = bot
         self._last_result = None
 
-    @commands.command(name='eval', help="Evaluates a code", usage="<body>")
+    @commands.command(name="eval", help="Evaluates a code", usage="<body>")
     @commands.is_owner()
     async def _eval(self, ctx, *, body:str):
         env = {
-            'bot': self.bot,
-            'ctx': ctx,
-            'channel': ctx.channel,
-            'author': ctx.author,
-            'guild': ctx.guild,
-            'message': ctx.message,
-            '_': self._last_result
+            "discord": discord,
+            "bot": self.bot,
+            "ctx": ctx,
+            "message": ctx.message,
+            "author": ctx.author,
+            "guild": ctx.guild,
+            "channel": ctx.channel,
+            "_": self._last_result
         }
         env.update(globals())
-        if body.startswith('```') and body.endswith('```'):
-            body = '\n'.join(body.split('\n')[1:-1])
-        body = body.strip('` \n')
+        if body.startswith("```") and body.endswith("```"):
+            body = "\n".join(body.split("\n")[1:-1])
+        body = body.strip("` \n")
         stdout = io.StringIO()
-        to_compile = f'async def func():\n{textwrap.indent(body, "  ")}'
+        to_compile = f"async def func():\n{textwrap.indent(body, '  ')}"
         try:
             exec(to_compile, env)
         except Exception as e:
-            return await ctx.send(f'```py\n{e.__class__.__name__}: {e}\n```')
-        func = env['func']
+            return await ctx.send(f"```py\n{e.__class__.__name__}: {e}\n```")
+        func = env["func"]
         try:
             with contextlib.redirect_stdout(stdout):
                 ret = await func()
         except Exception as e:
             value = stdout.getvalue()
-            await ctx.send(f'```py\n{value}{traceback.format_exc()}\n```')
+            await ctx.send(f"```py\n{value}{traceback.format_exc()}\n```")
         else:
             value = stdout.getvalue()
             try:
-                await ctx.message.add_reaction('\u2705')
+                await ctx.message.add_reaction("\u2705")
             except:
                 pass
             if ret is None:
                 if value:
-                    await ctx.send(f'```py\n{value}\n```')
+                    await ctx.send(f"```py\n{value}\n```")
             else:
                 self._last_result = ret
-                await ctx.send(f'```py\n{value}{ret}\n```')
+                await ctx.send(f"```py\n{value}{ret}\n```")
 
     # Load
     @commands.command(name="load", help="Will load the given cog if it was not already loaded", usage="<cog>")
@@ -116,7 +117,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
                 allmbed.description += F"<:redTick:596576672149667840> - {event}\n"
                 errors.append(F"<:redTick:596576672149667840> - {error}\n")
         if len(errors) != 0:
-            allmbed.description += ''.join(error for error in errors)
+            allmbed.description += "".join(error for error in errors)
         await ctx.send(embed=allmbed)
 
     # Repeat
