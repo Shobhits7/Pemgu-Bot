@@ -41,7 +41,7 @@ for event in sorted(os.listdir("./config/events/")):
         bot.load_extension(F"config.events.{event[:-3]}")
         bot._events.append(event[:-3])
 bot.load_extension("jishaku")
-os.environ["JISHAKU_UNDERSCORE"] = "True"
+os.environ["JISHAKU_UNDERSCORE"] = "FALSE"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
 
 blacklisted_people = [412734157819609090, 718622831788949575]
