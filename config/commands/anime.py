@@ -12,12 +12,11 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         quotembed = self.bot.embeder(
+            url="https://animechan.vercel.app/api/random/",
             title="Here is your quote",
+            description=F"{response['quote']} - {response['character']} | {response['anime']}",
             timestamp=ctx.message.created_at
         )
-        quotembed.add_field(name="Quote:", value=response["quote"])
-        quotembed.add_field(name="Character:", value=response["character"])
-        quotembed.add_field(name="Series:", value=response["anime"])
         quotembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=quotembed)
 
