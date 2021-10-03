@@ -44,7 +44,7 @@ bot = JakeTheDogBase(
     allowed_mentions=discord.AllowedMentions.none()
 )
 
-blacklisted_people = [412734157819609090]
+blacklisted_people = [412734157819609090, 718622831788949575]
 @bot.check
 async def blacklisted(ctx:commands.Context):
     if ctx.author.id in blacklisted_people: raise commands.CheckFailure
