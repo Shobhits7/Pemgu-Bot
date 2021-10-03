@@ -189,9 +189,12 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     # Perms
     @commands.command(name="perms", aliases=["pm"], help="Will show the perms that the bot has in this guild")
     async def perms(self, ctx:commands.Context):
-        pmbed = discord.Embed(colour=self.bot.colour, title="Bot Permissions", timestamp=ctx.message.created_at)
-        pmbed.add_field(name="Allowed", value="\n".join(perm.replace("_", " ").title() for perm, val in ctx.guild.me.guild_permissions if val))
-        pmbed.add_field(name="Not Allowed", value="\n".join(perm.replace("_", " ").title() for perm, val in ctx.guild.me.guild_permissions if not val))
+        pmbed = discord.Embed(colour=self.bot.colour, title="<:greyTick:596576672900186113> Bot Permissions", description="", timestamp=ctx.message.created_at)
+        for perm, val in ctx.guild.me.guild_permissions:
+            if val:
+                pmbed.description += F"<:greenTick:596576670815879169> - {perm.replace('_', ' ').title()}\n"
+            if not val:
+                pmbed.description += F"<:redTick:596576672149667840> - {perm.replace('_', ' ').title()}\n"
         pmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=pmbed)
 
