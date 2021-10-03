@@ -153,7 +153,8 @@ class OnError(commands.Cog):
             enfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             await ctx.send(embed=enfmbed)
         elif isinstance(error, commands.CheckFailure):
-            await ctx.send(F"<:shut:744345896912945214> YOU <:shut:744345896912945214> ARE  <:shut:744345896912945214> IN <:shut:744345896912945214> BLACKLIST <:shut:744345896912945214> YOU <:shut:744345896912945214> S-KID/IDIOT\nSAY <:shut:744345896912945214> YOU <:shut:744345896912945214> ARE <:shut:744345896912945214> SORRY <:shut:744345896912945214> {ctx.author}")
+            await ctx.send(F"<:shut:744345896912945214> YOU <:shut:744345896912945214> ARE  <:shut:744345896912945214> IN <:shut:744345896912945214> BLACKLIST <:shut:744345896912945214> YOU <:shut:744345896912945214> S-KID/IDIOT\nSAY <:shut:744345896912945214> YOU <:shut:744345896912945214> ARE <:shut:744345896912945214> SORRY <:shut:744345896912945214> {ctx.author.mention}")
+            await ctx.send("<:shut:744345896912945214>")
         elif isinstance(error, discord.Forbidden):
             fmbed = discord.Embed(
                 colour=self.bot.colour,
