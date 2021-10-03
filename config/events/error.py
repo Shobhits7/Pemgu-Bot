@@ -10,6 +10,22 @@ class OnError(commands.Cog):
     async def on_command_error(self, ctx:commands.Context, error):
         if isinstance(error, commands.CommandInvokeError):
             error = error.original
+        print(traceback.format_exception(type(error), error,  error.__traceback__))
+        errormbed = discord.Embed(
+            colour=self.bot.colour,
+            description=str(error)
+        )
+        errormbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=errormbed)
+    
+def setup(bot):
+    bot.add_cog(OnError(bot))
+
+class OldOnError():
+    @commands.Cog.listener()
+    async def on_command_error(self, ctx:commands.Context, error):
+        if isinstance(error, commands.CommandInvokeError):
+            error = error.original
         if isinstance(error, commands.NotOwner):
             nombed = discord.Embed(
                 colour=self.bot.colour,
@@ -182,6 +198,3 @@ class OnError(commands.Cog):
             # )
             # errormbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             await ctx.send(embed=tbmbed)
-    
-def setup(bot):
-    bot.add_cog(OnError(bot))
