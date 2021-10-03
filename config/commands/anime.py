@@ -12,6 +12,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         response = await session.json()
         session.close()
         quotembed = self.bot.embeder(
+            ctx=ctx,
             url="https://animechan.vercel.app/api/random/",
             title="Here is your quote",
             description=F"{response['quote']} - {response['character']} | {response['anime']}",
