@@ -32,7 +32,7 @@ class JakeTheDogBase(commands.AutoShardedBot):
         await super().close()
 
     @classmethod
-    def embeder(self, url, title, description, timestamp):
+    def embeder(self, url:None, title:None, description:None, timestamp:None):
         embed = discord.Embed(
             colour=self.colour,
         )
