@@ -14,16 +14,16 @@ class NitroButton(discord.ui.Button):
             timestamp=interaction.message.created_at
         )
         anitrombed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
-        self.label = "⠀⠀⠀⠀⠀⠀⠀⠀CLAIMED⠀⠀⠀⠀⠀⠀⠀⠀"
+        self.label = "⠀⠀⠀⠀⠀⠀⠀⠀⠀CLAIMED⠀⠀⠀⠀⠀⠀⠀⠀⠀"
         self.style = discord.ButtonStyle.grey
         self.disabled = True
         await interaction.response.edit_message(embed=anitrombed, view=self.view)
-        await interaction.response.send_message("https://imgur.com/NQinKJB")
+        await interaction.response.send_message("https://imgur.com/NQinKJB", ephemeral=True)
 class NitroView(discord.ui.View):
     def __init__(self, ctx):
         super().__init__(timeout=3)
         self.ctx = ctx
-        self.add_item(item=NitroButton(label="⠀⠀⠀⠀⠀⠀⠀⠀⠀ACCEPT⠀⠀⠀⠀⠀⠀⠀⠀⠀", style=discord.ButtonStyle.green, view=self))
+        self.add_item(item=NitroButton(label="⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ACCEPT⠀⠀⠀⠀⠀⠀⠀⠀⠀", style=discord.ButtonStyle.green, view=self))
 
     async def on_timeout(self):
         for item in self.children:
