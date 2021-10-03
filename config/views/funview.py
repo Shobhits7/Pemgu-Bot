@@ -21,7 +21,7 @@ class NitroButton(discord.ui.Button):
 
 class NitroView(discord.ui.View):
     def __init__(self, ctx):
-        super().__init__(timeout=1)
+        super().__init__(timeout=3)
         self.ctx = ctx
         self.add_item(item=NitroButton(label="ACCEPT", style=discord.ButtonStyle.green, view=self))
 
