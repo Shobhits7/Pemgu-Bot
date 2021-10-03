@@ -1,22 +1,21 @@
-## Information About JakeTheDog Discord Bot
-This is a Discord Bot made by lvlahraam
+## Information About JakeTheDog
+This is a Discord Bot made by Me aka lvlahraam#8435 on discord and socials
 
+### What language was it made with
 It's written in Python with Discord.py
 
-## Why it's called JakeTheDog
-This name was just to come to his mind
+### Why it's called JakeTheDog
+This name was just to come to my mind
 
-## Why he made this
-He really Liked Python and programming and he was on Discord 24/7
+### Why I made this
+I really Liked Python and programming and he was on Discord 24/7
 
-And he saw alot of people are using and making bots
+And I saw a lot of people are using and making discord bots
 
-So he made his own custom bot so other people can use it
+So I made my own custom bot so other people can use it
 
 ## More things
-*You can get the prefix with mentioning the bot*
-
-*The Bot's Main Prefix is `.j` but you can change it with the `prefix change` command or `prefix reset` to change the prefix to it's original*
+*You can get the prefix with mentioning the bot - currently it's `.j`*
 
 **The Commands:**
 
