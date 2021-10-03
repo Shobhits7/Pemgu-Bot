@@ -17,3 +17,7 @@ So he made his own custom bot so other people can use it
 *You can get the prefix with mentioning the bot*
 
 *The Bot's Main Prefix is `.j` but you can change it with the `prefix change` command or `prefix reset` to change the prefix to it's original*
+
+**The Commands:**
+
+![Commands](https://cdn.discordapp.com/attachments/381963689470984203/894143125495361586/unknown.png)

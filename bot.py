@@ -12,11 +12,16 @@ class JakeTheDogBase(commands.AutoShardedBot):
         self.colour = 0xECA622
         self.prefix = ".j"
         self.token = os.getenv("TOKEN")
-        self.modules = []
-        for module in sorted(os.listdir("./config/modules/")):
-            if module.endswith(".py"):
-                self.load_extension(F"config.modules.{module[:-3]}")
-                self.modules.append(module[:-3])
+        self._commands = []
+        for command in sorted(os.listdir("./config/commands/")):
+            if command.endswith(".py"):
+                self.load_extension(F"config.commands.{command[:-3]}")
+                self._commands.append(command[:-3])
+        self._events = []
+        for event in sorted(os.listdir("./config/events/")):
+            if event.endswith(".py"):
+                self.load_extension(F"config.events.{event[:-3]}")
+                self._events.append(event[:-3])
         self.load_extension("jishaku")
         os.environ["JISHAKU_UNDERSCORE"] = "True"
         os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
