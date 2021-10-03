@@ -1,4 +1,5 @@
 import discord
+from discord import colour
 
 class NitroButton(discord.ui.Button):
     def __init__(self, view, **kwargs):
@@ -20,7 +21,7 @@ class NitroButton(discord.ui.Button):
 
 class NitroView(discord.ui.View):
     def __init__(self, ctx):
-        super().__init__(timeout=5)
+        super().__init__(timeout=1)
         self.ctx = ctx
         self.add_item(item=NitroButton(label="ACCEPT", style=discord.ButtonStyle.green, view=self))
 
@@ -28,6 +29,14 @@ class NitroView(discord.ui.View):
         for item in self.children:
             if isinstance(item, discord.ui.Button):
                 if not item.disabled:
-                    self.clear_items()
-                    self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...",  style=discord.ButtonStyle.red, disabled=True))
-                    await self.message.edit(view=self)
+                    item.label = "EXPIRED"
+                    item.style = discord.ButtonStyle.red
+                    item.disabled = True
+                    ontimeoutmbed = discord.Embed(
+                        colour=self.ctx.bot.colour,
+                        title="THE NITRO HAS EXPIRED",
+                        description="The gift link has either expired or has been revoked.",
+                        timestamp=self.ctx.message.created_at
+                    )
+                    ontimeoutmbed.set_footer(text=self.ctx.author, icon_url=self.ctx.author.display_avatar.url)
+                    await self.message.edit(embed=ontimeoutmbed, view=self)
