@@ -9,22 +9,6 @@ async def aiohttpsession():
 class JakeTheDogBase(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.colour = 0xECA622
-        self.prefix = ".j"
-        self.token = os.getenv("TOKEN")
-        self._commands = []
-        for command in sorted(os.listdir("./config/commands/")):
-            if command.endswith(".py"):
-                self.load_extension(F"config.commands.{command[:-3]}")
-                self._commands.append(command[:-3])
-        self._events = []
-        for event in sorted(os.listdir("./config/events/")):
-            if event.endswith(".py"):
-                self.load_extension(F"config.events.{event[:-3]}")
-                self._events.append(event[:-3])
-        self.load_extension("jishaku")
-        os.environ["JISHAKU_UNDERSCORE"] = "True"
-        os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
 
     async def close(self):
         if not self.session.closed:
@@ -44,6 +28,22 @@ bot = JakeTheDogBase(
     allowed_mentions=discord.AllowedMentions.none()
 )
 
+bot.colour = 0xECA622
+bot.prefix = ".j"
+bot._commands = []
+for command in sorted(os.listdir("./config/commands/")):
+    if command.endswith(".py"):
+        bot.load_extension(F"config.commands.{command[:-3]}")
+        bot._commands.append(command[:-3])
+bot._events = []
+for event in sorted(os.listdir("./config/events/")):
+    if event.endswith(".py"):
+        bot.load_extension(F"config.events.{event[:-3]}")
+        bot._events.append(event[:-3])
+bot.load_extension("jishaku")
+os.environ["JISHAKU_UNDERSCORE"] = "True"
+os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
+
 blacklisted_people = [412734157819609090, 718622831788949575]
 @bot.check
 async def blacklisted(ctx:commands.Context):
@@ -51,4 +51,4 @@ async def blacklisted(ctx:commands.Context):
     return True
 
 bot.loop.create_task(aiohttpsession())
-bot.run(bot.token)
+bot.run(os.getenv("TOKEN"))
