@@ -1,7 +1,0 @@
-git init
-git remote add origin https://github.com/lvlahraam/JakeTheDog-Bot.git
-git config branch.master.remote origin
-git config branch.master.merge refs/heads/main
-rm -fr *
-git pull
-python bot.py

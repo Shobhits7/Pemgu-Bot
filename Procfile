@@ -1,1 +1,1 @@
-worker: startup.txt
+worker: python bot.py
