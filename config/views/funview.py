@@ -13,7 +13,7 @@ class NitroButton(discord.ui.Button):
             description=F"{interaction.user} claimed the Nitro.",
             timestamp=interaction.message.created_at
         )
-        anitrombed.set_footer(text=interaction.message.author, icon_url=interaction.message.author.display_avatar.url)
+        anitrombed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
         self.label = "CLAIMED"
         self.style = discord.ButtonStyle.grey
         self.disabled = True
