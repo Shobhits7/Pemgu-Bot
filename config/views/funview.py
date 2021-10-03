@@ -27,8 +27,7 @@ class NitroView(discord.ui.View):
     async def on_timeout(self):
         for item in self.children:
             if isinstance(item, discord.ui.Button):
-                if item.disabled:
-                    return
-                self.clear_items()
-                self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...", style=discord.ButtonStyle.red, disabled=True))
-                await self.message.edit(view=self)
+                if not item.disabled:
+                    self.clear_items()
+                    self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...",  style=discord.ButtonStyle.red, disabled=True))
+                    await self.message.edit(view=self)
