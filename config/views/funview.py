@@ -18,7 +18,7 @@ class NitroButton(discord.ui.Button):
         self.style = discord.ButtonStyle.grey
         self.disabled = True
         await interaction.response.edit_message(embed=anitrombed, view=self.view)
-        await interaction.response.send_message("https://imgur.com/NQinKJB", ephemeral=True)
+        await interaction.followup("https://imgur.com/NQinKJB", ephemeral=True)
 class NitroView(discord.ui.View):
     def __init__(self, ctx):
         super().__init__(timeout=3)
