@@ -128,8 +128,37 @@ class OnError(commands.Cog):
             )
             npmmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             await ctx.send(embed=npmmbed)
+        elif isinstance(error, commands.ExtensionAlreadyLoaded):
+            ealmbed = discord.Embed(
+                colour=self.bot.colour,
+                title="Extension is already loaded",
+                timestamp=ctx.message.created_at
+            )
+            ealmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            await ctx.send(embed=ealmbed)
+        elif isinstance(error, commands.ExtensionNotLoaded):
+            enlmbed = discord.Embed(
+                colour=self.bot.colour,
+                title="Extension is not loaded",
+                timestamp=ctx.message.created_at
+            )
+            enlmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            await ctx.send(embed=enlmbed)
+        elif isinstance(error, commands.ExtensionNotFound):
+            enfmbed = discord.Embed(
+                colour=self.bot.colour,
+                title="Extension doesn't exist",
+                timestamp=ctx.message.created_at
+            )
+            enfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            await ctx.send(embed=enfmbed)
         elif isinstance(error, commands.CheckFailure):
-            return
+            cfmbed = discord.Embed(
+                colour=self.bot.colour,
+                title="<:shut:744345896912945214> YOU <:shut:744345896912945214> ARE  <:shut:744345896912945214> IN <:shut:744345896912945214> BLACKLIST <:shut:744345896912945214> YOU <:shut:744345896912945214> IDIOT\nSAY <:shut:744345896912945214> YOU <:shut:744345896912945214> ARE <:shut:744345896912945214> SORRY "
+            )
+            cfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            await ctx.send(embed=cfmbed)
         elif isinstance(error, discord.Forbidden):
             fmbed = discord.Embed(
                 colour=self.bot.colour,
