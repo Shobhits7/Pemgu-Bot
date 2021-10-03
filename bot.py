@@ -32,8 +32,23 @@ class JakeTheDogBase(commands.AutoShardedBot):
         await super().close()
 
     @classmethod
+    def embeder(self, url, title, description, timestamp):
+        embed = discord.Embed(
+            colour=self.colour,
+        )
+        if url:
+            embed.url = url
+        if title:
+            embed.title = title
+        if description:
+            embed.description = description
+        if timestamp:
+            embed.timestamp = timestamp
+        return embed
+
+    @classmethod
     def paginator(self, embeds):
-        return page.Paginator(self.bot, embeds)
+        return page.Paginator(self, embeds)
 
 bot = JakeTheDogBase(
     command_prefix=commands.when_mentioned_or(".j"),

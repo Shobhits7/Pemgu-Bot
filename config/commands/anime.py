@@ -11,8 +11,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         session = await self.bot.session.get("https://animechan.vercel.app/api/random/")
         response = await session.json()
         session.close()
-        quotembed = discord.Embed(
-            colour=self.bot.colour,
+        quotembed = self.bot.embeder(
             title="Here is your quote",
             timestamp=ctx.message.created_at
         )
