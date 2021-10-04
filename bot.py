@@ -60,9 +60,15 @@ async def wanted(ctx:commands.Context, user:discord.User=None):
     pfp = Image.open(data)
     pfp = pfp.resize((390, 299))
     wanted.paste(pfp, (390, 299))
-    wanted.save("wanted.png")
-    file = discord.File("wanted.png")
-    await ctx.send(file=file)
+    wanted.save(fp="wanted.png")
+    wantedmbed = discord.Embed(
+        colour=bot.colour,
+        title=F"{user} is now Wanted!",
+        timestamp=ctx.message.created_at
+    )
+    wantedmbed.set_footer(text=user, icon_url=user.display_avatar.url)
+    wantedmbed.set_image("attachment://wanted.png")
+    await ctx.send(embed=wantedmbed, file=discord.File("wanted.png"))
 
 bot.loop.create_task(aiohttpsession())
 bot.run(os.getenv("TOKEN"))
