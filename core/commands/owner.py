@@ -129,6 +129,15 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             await self.bot.process_commands(command)
         await ctx.send(F"Successfully repeated `{command}` - `{time}` times")
 
+    @commands.command(name="disable", help="Disable a command in your code without a database")
+    @commands.is_owner()
+    async def disable(self, ctx:commands.Context, command:str):
+        command = self.bot.get_command(command)
+        if not command.enabled:
+            return await ctx.send(f"This command is already disabled.")
+        command.enabled = False
+        await ctx.send(f"Disabled {command.name} command.")
+
     # Shutdown
     @commands.command(name="shutdown",  help="Will shutdown the bot")
     @commands.is_owner()

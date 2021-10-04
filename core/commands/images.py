@@ -11,11 +11,10 @@ class Images(commands.Cog, description="Free Photoshop, without needing to know 
     async def wanted(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
         wanted = Image.open("./core/images/wanted.gif")
-        asset = user.display_avatar
-        data = BytesIO(await asset.read())
-        pfp = Image.open(data)
-        pfp = pfp.resize((204, 204))
-        wanted.paste(pfp, (108, 200))
+        data = BytesIO(await user.display_avatar.read())
+        image = Image.open(data)
+        image = image.resize((204, 204))
+        wanted.paste(image, (108, 198))
         wanted.save("wanted.gif")
         wantedmbed = discord.Embed(
             colour=self.bot.colour,
