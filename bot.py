@@ -59,7 +59,7 @@ async def wanted(ctx:commands.Context, user:discord.User=None):
     buffer = io.BytesIO(await asset.read())
     pfp = Image.open(buffer)
     pfp = pfp.resize((390, 299))
-    wanted.paste(pfp, (177, 177))
+    wanted.paste(pfp, (200, 350))
     buffer2 = io.BytesIO()
     wanted.save(buffer2, 'png')
     buffer2.seek(0)
