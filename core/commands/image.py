@@ -10,15 +10,16 @@ class Image(commands.Cog, description="Free Photoshop, without needing to know a
     @commands.command(name="wanted")
     async def wanted(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
+        wanted = Image.open("./images/wanted.jpg")
         pfp = user.avatar.url
         buffer = io.BytesIO(await pfp.read())
-        wanted = Image.open("./images/wanted.jpg")
-        final = Image.open(buffer)
-        final = final.resize((300, 300))
-        wanted.paste(final, (70, 2019))
+        image = Image.open(buffer)
+        image = image.resize((300, 300))
+        wanted.paste(image, (70, 2019))
         wanted.save(buffer, "jpg")
         buffer.seek(0)
-        await ctx.send(file=discord.File(fp=buffer, filename="whatever.jpg"))
+        final = io.BytesIO(await image.read())
+        await ctx.send(file=discord.File(fp=final, filename="whatever.jpg"))
 
 def setup(bot):
-    bot.add_cog(Image)
+    bot.add_cog(Image(bot))
