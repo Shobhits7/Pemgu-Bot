@@ -186,9 +186,9 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         await ctx.channel.purge(limit=amount+1, check=lambda m: m.author.id == self.bot.user.id, bulk=False)
         await ctx.send(embed=cumbed, delete_after=2.5)
 
-    # Perms
-    @commands.command(name="perms", aliases=["pm"], help="Will show the perms that the bot has in this guild")
-    async def perms(self, ctx:commands.Context):
+    # Permissions
+    @commands.command(name="permissions", aliases=["permissions"], help="Will show the permissions that the bot has in this guild")
+    async def permissions(self, ctx:commands.Context):
         pmbed = discord.Embed(colour=self.bot.colour, title="<:greyTick:596576672900186113> Bot Permissions", description="", timestamp=ctx.message.created_at)
         for perm, val in ctx.guild.me.guild_permissions:
             if val:
