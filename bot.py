@@ -2,15 +2,15 @@ import discord, aiohttp, os, asyncpg
 import core.utils.help as help, core.utils.pagination as page, core.utils.options as options
 from discord.ext import commands
 
+async def connect_pool_postgres():
+    bot.postgres = asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"))
+    print("Successfully created to the Postgres Pool")
+
 async def get_prefix(bot, message:discord.Message):
     if not message.guild:
         return ""
     prefix = await bot.postgres.fetch("SELECT prefix FROM prefixes WHERE guild_id=$1", message.guild.id)
     return commands.when_mentioned_or(".j") if len(prefix) == 0 else  commands.when_mentioned_or(prefix)
-
-async def connect_pool_postgres():
-    bot.postgres = asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"))
-    print("Successfully created to the Postgres Pool")
 
 async def created_session_aiohttp():
     bot.session = aiohttp.ClientSession()
