@@ -61,7 +61,7 @@ async def wanted(ctx:commands.Context, user:discord.User=None):
     pfp = pfp.resize((14, 20))
     wanted.paste(pfp, (390, 299))
     wanted.save("wanted.png")
-    file = discord.File(fp=data , filename="wanted.png")
+    file = discord.File("wanted.png")
     await ctx.send(file=file)
 
 bot.loop.create_task(aiohttpsession())
