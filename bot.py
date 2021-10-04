@@ -58,7 +58,7 @@ async def wanted(ctx:commands.Context, user:discord.User=None):
     asset = user.display_avatar.with_size(128)
     data = io.BytesIO(await asset.read())
     pfp = Image.open(data)
-    pfp = pfp.resize((14, 20))
+    pfp = pfp.resize((390, 299))
     wanted.paste(pfp, (390, 299))
     wanted.save("wanted.png")
     file = discord.File("wanted.png")
