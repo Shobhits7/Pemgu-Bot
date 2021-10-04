@@ -3,7 +3,7 @@ import core.utils.help as help, core.utils.pagination as page, core.utils.option
 from discord.ext import commands
 
 async def connect_pool_postgres():
-    bot.postgres = asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"))
+    bot.postgres = await asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"))
     print("Successfully created to the Postgres Pool")
 
 async def get_prefix(bot, message:discord.Message):
