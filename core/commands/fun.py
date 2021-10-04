@@ -1,11 +1,12 @@
 import discord
 from discord.ext import commands
-import config.views.funview as fv
+import core.views.funview as fv
 
 class Fun(commands.Cog, description="You sad?. Use these to at least have a smile"):
     def __init__(self, bot):
         self.bot = bot
 
+    # Nitro
     @commands.command(name="nitro", help="Will gift free Nitro")
     async def nitro(self, ctx:commands.Context):
         bnitrombed = discord.Embed(

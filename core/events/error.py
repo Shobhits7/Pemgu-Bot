@@ -1,6 +1,6 @@
 import discord, difflib, traceback
 from discord.ext import commands
-from config.views import dymview
+from core.views import dymview
 
 class OnError(commands.Cog):
     def __init__(self, bot):

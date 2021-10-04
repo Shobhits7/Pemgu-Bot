@@ -6,6 +6,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         self.bot = bot
         self._last_result = None
 
+    # Eval
     @commands.command(name="eval", help="Evaluates a code", usage="<body>")
     @commands.is_owner()
     async def _eval(self, ctx, *, body:str):
@@ -59,7 +60,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             timestamp=ctx.message.created_at
         )
         loadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        self.bot.load_extension(F"config.{cog}")
+        self.bot.load_extension(F"core.{cog}")
         await ctx.send(embed=loadmbed)
 
     # Unload
@@ -72,7 +73,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             timestamp=ctx.message.created_at
         )
         unloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        self.bot.unload_extension(F"config.{cog}")
+        self.bot.unload_extension(F"core.{cog}")
         await ctx.send(embed=unloadmbed)
   
     # Reload
@@ -85,7 +86,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             timestamp=ctx.message.created_at
         )
         reunloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        self.bot.reload_extension(F"config.{cog}")
+        self.bot.reload_extension(F"core.{cog}")
         await ctx.send(embed=reunloadmbed)
 
     # ReloadAll
@@ -103,7 +104,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         allmbed.description += F"<:greyTick:596576672900186113> - Commands:\n"
         for command in self.bot._commands:
             try:
-                self.bot.reload_extension(F"config.commands.{command}")
+                self.bot.reload_extension(F"core.commands.{command}")
                 allmbed.description += F"<:greenTick:596576670815879169> - {command}\n"
             except Exception as error:
                 allmbed.description += F"<:redTick:596576672149667840> - {command}\n"
@@ -111,7 +112,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         allmbed.description += F"<:greyTick:596576672900186113> - Events:\n"
         for event in self.bot._events:
             try:
-                self.bot.reload_extension(F"config.events.{event}")
+                self.bot.reload_extension(F"core.events.{event}")
                 allmbed.description += F"<:greenTick:596576670815879169> - {event}\n"
             except Exception as error:
                 allmbed.description += F"<:redTick:596576672149667840> - {event}\n"
@@ -125,7 +126,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     @commands.is_owner()
     async def repeat(self, ctx:commands.Context, time:int, command:str):
         for _ in range(1, time+1):
-            await self.bot.get_command(str(command))(ctx)
+            await self.bot.process_commands(command)
         await ctx.send(F"Successfully repeated `{command}` - `{time}` times")
 
     # Shutdown

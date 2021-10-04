@@ -152,6 +152,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
         pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=pypimbed)
 
+    # RickAndMorty
     @commands.group(name="rickandmorty", aliases=["ram"], help="Some Rick and Morty commands, use subcommands", invoke_without_command=True)
     async def rickandmorty(self, ctx:commands.Context):
         await ctx.send_help(ctx.command.cog)

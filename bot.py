@@ -1,5 +1,5 @@
 import discord, aiohttp, os, random
-import config.utils.help as help, config.utils.pagination as page, config.utils.options as options
+import core.utils.help as help, core.utils.pagination as page, core.utils.options as options
 from discord.ext import commands
 
 async def aiohttpsession():
@@ -31,14 +31,14 @@ bot = JakeTheDogBase(
 bot.colour = 0xECA622
 bot.prefix = ".j"
 bot._commands = []
-for command in sorted(os.listdir("./config/commands/")):
+for command in sorted(os.listdir("./core/commands/")):
     if command.endswith(".py"):
-        bot.load_extension(F"config.commands.{command[:-3]}")
+        bot.load_extension(F"core.commands.{command[:-3]}")
         bot._commands.append(command[:-3])
 bot._events = []
-for event in sorted(os.listdir("./config/events/")):
+for event in sorted(os.listdir("./core/events/")):
     if event.endswith(".py"):
-        bot.load_extension(F"config.events.{event[:-3]}")
+        bot.load_extension(F"core.events.{event[:-3]}")
         bot._events.append(event[:-3])
 bot.load_extension("jishaku")
 os.environ["JISHAKU_UNDERSCORE"] = "FALSE"
