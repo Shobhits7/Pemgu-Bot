@@ -126,9 +126,9 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     @commands.is_owner()
     async def enable(self, ctx:commands.Context, command:str):
         command = self.bot.get_command(command)
-        if command.enable:
+        if command.enabled:
             return await ctx.send("This command is already enabled")
-        command.enable = True
+        command.enabled = True
         await ctx.send(F"Enabled {command.name} command")
 
     # Disable
@@ -139,7 +139,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         if not command.enabled:
             return await ctx.send("This command is already disabled.")
         command.enabled = False
-        await ctx.send("Disabled {command.name} command.")
+        await ctx.send(F"Disabled {command.name} command.")
 
     # Repeat
     @commands.command(name="repeat", help="Will repeat the given commands the amounts of given time")
