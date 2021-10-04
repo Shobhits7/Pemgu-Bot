@@ -55,11 +55,11 @@ async def blacklisted(ctx:commands.Context):
 async def wanted(ctx:commands.Context, user:discord.User=None):
     user = ctx.author if not user else user
     wanted = Image.open("./core/images/wanted.jpg")
-    asset = user.avatar.with_size(128)
+    asset = user.avatar
     buffer = io.BytesIO(await asset.read())
     pfp = Image.open(buffer)
-    pfp = pfp.resize((390, 299))
-    wanted.paste(pfp, (200, 350))
+    pfp = pfp.resize((200, 350))
+    wanted.paste(pfp, (390, 299))
     buffer2 = io.BytesIO()
     wanted.save(buffer2, 'png')
     buffer2.seek(0)
