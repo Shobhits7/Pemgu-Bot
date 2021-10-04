@@ -51,24 +51,5 @@ async def blacklisted(ctx:commands.Context):
     if ctx.author.id in blacklisted_people: raise commands.CheckFailure
     return True
 
-@bot.command(name="wanted")
-async def wanted(ctx:commands.Context, user:discord.User=None):
-    user = ctx.author if not user else user
-    wanted = Image.open("./core/images/wanted.jpg")
-    asset = user.display_avatar.with_size(128)
-    data = io.BytesIO(await asset.read())
-    pfp = Image.open(data)
-    pfp = pfp.resize((390, 299))
-    wanted.paste(pfp, (390, 299))
-    wanted.save(fp="wanted.png")
-    wantedmbed = discord.Embed(
-        colour=bot.colour,
-        title=F"{user} is now Wanted!",
-        timestamp=ctx.message.created_at
-    )
-    wantedmbed.set_footer(text=user, icon_url=user.display_avatar.url)
-    wantedmbed.set_image(url="attachment://wanted.png")
-    await ctx.send(embed=wantedmbed, file=discord.File("wanted.png"))
-
 bot.loop.create_task(aiohttpsession())
 bot.run(os.getenv("TOKEN"))

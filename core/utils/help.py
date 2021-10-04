@@ -47,6 +47,7 @@ class CustomHelp(commands.HelpCommand):
             "Anime": "🍘",
             "Fun": "😹",
             "Game": "🎮",
+            "Images": "🧪",
             "Internet": "🌎",
             "Math": "🧮",
             "Meta": "🔧",
