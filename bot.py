@@ -60,8 +60,10 @@ async def wanted(ctx:commands.Context, user:discord.User=None):
     pfp = Image.open(buffer)
     pfp = pfp.resize((177, 177))
     wanted.paste(pfp, (390, 299))
-    wanted.save("done_wanted.jpg")
-    await ctx.send(file=discord.File(fp=wanted, filename="done_wanted.jpg"))
+    buffer2 = io.BytesIO()
+    wanted.save(buffer2, 'jpg')
+    buffer2.seek(0)
+    await ctx.send(file=discord.File(fp=buffer2, filename= "wanted.jpg"))
 
 bot.loop.create_task(aiohttpsession())
 bot.run(os.getenv("TOKEN"))
