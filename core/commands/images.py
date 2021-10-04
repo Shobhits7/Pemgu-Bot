@@ -10,8 +10,8 @@ class Images(commands.Cog, description="Free Photoshop, without needing to know 
     @commands.command(name="wanted", help="Will make the user get wanted")
     async def wanted(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
-        wanted = Image.open("./core/images/wanted.jpg")
-        asset = user.display_avatar.with_format("gif")
+        wanted = Image.open("./core/images/wanted.gif")
+        asset = user.display_avatar
         data = BytesIO(await asset.read())
         pfp = Image.open(data)
         pfp = pfp.resize((204, 204))
