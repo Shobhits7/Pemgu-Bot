@@ -15,7 +15,7 @@ class Images(commands.Cog, description="Free Photoshop, without needing to know 
         data = BytesIO(await asset.read())
         pfp = Image.open(data)
         pfp = pfp.resize((204, 204))
-        wanted.paste(pfp, (112, 200))
+        wanted.paste(pfp, (108, 200))
         wanted.save("wanted.png")
         wantedmbed = discord.Embed(
             colour=self.bot.colour,
