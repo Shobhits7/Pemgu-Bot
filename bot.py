@@ -67,7 +67,7 @@ async def wanted(ctx:commands.Context, user:discord.User=None):
         timestamp=ctx.message.created_at
     )
     wantedmbed.set_footer(text=user, icon_url=user.display_avatar.url)
-    wantedmbed.set_image("attachment://wanted.png")
+    wantedmbed.set_image(url="attachment://wanted.png")
     await ctx.send(embed=wantedmbed, file=discord.File("wanted.png"))
 
 bot.loop.create_task(aiohttpsession())
