@@ -187,7 +187,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         await ctx.send(embed=cumbed, delete_after=2.5)
 
     # Permissions
-    @commands.command(name="permissions", aliases=["permissions"], help="Will show the permissions that the bot has in this guild")
+    @commands.command(name="permissions", aliases=["perms"], help="Will show the permissions that the bot has in this guild")
     async def permissions(self, ctx:commands.Context):
         pmbed = discord.Embed(colour=self.bot.colour, title="<:greyTick:596576672900186113> Bot Permissions", description="", timestamp=ctx.message.created_at)
         for perm, val in ctx.guild.me.guild_permissions:
