@@ -1,6 +1,7 @@
-import discord, aiohttp, os, random
+import discord, aiohttp, os, io
 import core.utils.help as help, core.utils.pagination as page, core.utils.options as options
 from discord.ext import commands
+from PIL import Image, ImageFilter
 
 async def aiohttpsession():
     bot.session = aiohttp.ClientSession()
@@ -49,6 +50,20 @@ blacklisted_people = [412734157819609090, 718622831788949575]
 async def blacklisted(ctx:commands.Context):
     if ctx.author.id in blacklisted_people: raise commands.CheckFailure
     return True
+
+@bot.command(name="wanted")
+async def wanted(ctx:commands.Context, user:discord.User=None):
+    user = ctx.author if not user else user
+    wanted = Image.open("./core/images/wanted.jpg")
+    pfp = user.avatar.url
+    buffer = io.BytesIO(await pfp.read())
+    image = Image.open(buffer)
+    image = Image.resize((300, 300))
+    wanted.paste(image, (70, 2019))
+    wanted.save(buffer, "jpg")
+    buffer.seek(0)
+    final = io.BytesIO(await image.read())
+    await ctx.send(file=discord.File(fp=final, filename="wanted.jpg"))
 
 bot.loop.create_task(aiohttpsession())
 bot.run(os.getenv("TOKEN"))
