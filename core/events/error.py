@@ -13,7 +13,7 @@ class OnError(commands.Cog):
         print("".join(traceback.format_exception(type(error), error,  error.__traceback__)))
         errormbed = discord.Embed(
             colour=self.bot.colour,
-            description=error,
+            title=error,
             timestamp=ctx.message.created_at
         )
         errormbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
