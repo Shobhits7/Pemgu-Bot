@@ -55,15 +55,13 @@ async def blacklisted(ctx:commands.Context):
 async def wanted(ctx:commands.Context, user:discord.User=None):
     user = ctx.author if not user else user
     wanted = Image.open("./core/images/wanted.jpg")
-    pfp = user.avatar
-    buffer = io.BytesIO(await pfp.read())
-    image = Image.open(buffer)
-    image = image.resize((300, 300))
-    wanted.paste(image, (70, 2019)) # 390 299
-    wanted.save(buffer, "PNG")
-    buffer.seek(0)
-    final = io.BytesIO(await image.read())
-    await ctx.send(file=discord.File(fp=final, filename="wanted.PNG"))
+    asset = user.avatar.with_size(128)
+    buffer = io.BytesIO(await asset.read())
+    pfp = Image.open(buffer)
+    pfp = pfp.resize((177, 177))
+    wanted.paste(pfp, (390, 299))
+    wanted.save("done_wanted.jpg")
+    await ctx.send(file=discord.File(filename="done_wanted.jpg"))
 
 bot.loop.create_task(aiohttpsession())
 bot.run(os.getenv("TOKEN"))
