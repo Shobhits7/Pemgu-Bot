@@ -40,7 +40,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
         await ctx.send(embed=jkmbed)
 
     # 8Ball
-    @commands.command(name="8ball", aliases=["8b"], help="Will give you a random answer", usage="<question>")
+    @commands.command(name="8ball", aliases=["8b"], help="Will give you a random answer")
     async def _8ball(self, ctx:commands.Context, *, question:str):
         session = await self.bot.session.get("https://api.dagpi.xyz/data/8ball", headers=self.dagpi_headers)
         response = await session.json()
@@ -56,7 +56,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
         await ctx.send(embed=_8bmbed)
 
     # Pixel
-    @commands.command(name="pixel", aliases=["pxl"], help="Will make the given image pixelated", usage="[user]")
+    @commands.command(name="pixel", aliases=["pxl"], help="Will make the given image pixelated")
     @commands.bot_has_guild_permissions(attach_files=True)
     async def pixel(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
@@ -73,7 +73,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
         await ctx.send(file=discord.File(fp=response, filename="pixel.png"), embed=pxlmbed)
 
     # Colours
-    @commands.command(name="colours", aliases=["clrs"], help="Will give you the colours from the given image", usage="[user]")
+    @commands.command(name="colours", aliases=["clrs"], help="Will give you the colours from the given image")
     @commands.bot_has_guild_permissions(attach_files=True)
     async def colours(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
@@ -90,7 +90,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
         await ctx.send(file=discord.File(fp=response, filename="colours.png"), embed=clrsmbed)
 
     # Tweet
-    @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet", usage="<username> <text>")
+    @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet")
     @commands.bot_has_guild_permissions(attach_files=True)
     async def tweet(self, ctx:commands.Context, *, text:str, user:discord.User=None):
         user = ctx.author if not user else user
@@ -107,7 +107,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
         await ctx.send(file=discord.File(fp=response, filename="tweet.png"), embed=twmbed)
 
     # Screenshot
-    @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website", usage="<website>")
+    @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website")
     @commands.is_owner()
     @commands.bot_has_guild_permissions(attach_files=True)
     async def screenshot(self, ctx:commands.Context, *, website:str):
@@ -158,7 +158,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
         await ctx.send_help(ctx.command.cog)
 
     # Character
-    @rickandmorty.command(name="character", aliases=["char"], help="Will show information about the given character", usage="<character's name>")
+    @rickandmorty.command(name="character", aliases=["char"], help="Will show information about the given character")
     async def character(self, ctx:commands.Context, *, character:str):
         session = await self.bot.session.get(F"https://rickandmortyapi.com/api/character/?name={character}")
         if session.status != 200:
@@ -185,13 +185,13 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
         await ctx.send(embed=ramchmbed)
 
     # Location
-    @rickandmorty.command(name="location", aliases=["loc"], help="Will show information about the given location", usage="<location's name>")
+    @rickandmorty.command(name="location", aliases=["loc"], help="Will show information about the given location")
     async def location(self, ctx:commands.Context, *, location:str):
         session = await self.bot.session.get("...")
         response = await session.json()
 
     # Episode
-    @rickandmorty.command(name="episode", aliases=["ep"], help="Will show information about the given episode", usage="<episode's number>")
+    @rickandmorty.command(name="episode", aliases=["ep"], help="Will show information about the given episode")
     async def episode(self, ctx:commands.Context, *, episode:int):
         session = await self.bot.session.get("...")
         response = await session.json()

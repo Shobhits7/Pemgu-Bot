@@ -18,7 +18,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         await ctx.send(embed=abmbed)
 
     # Avatar
-    @commands.command(name="avatar", aliases=["av"], help="Will show your or another user's avatar", usage="[user]")
+    @commands.command(name="avatar", aliases=["av"], help="Will show your or another user's avatar")
     async def avatar(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
         avmbed = discord.Embed(
@@ -31,7 +31,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         await ctx.send(embed=avmbed)
 
     # Banner
-    @commands.command(name="banner", aliases=["br"], help="Will show your or another user's banner", usage="[user]")
+    @commands.command(name="banner", aliases=["br"], help="Will show your or another user's banner")
     async def banner(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
         image = await self.bot.fetch_user(user.id)
@@ -48,7 +48,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         await ctx.send(embed=brmbed)
 
     # UserInfo
-    @commands.command(name="userinfo", aliases=["ui"], help="Will show user info", usage="[user]")
+    @commands.command(name="userinfo", aliases=["ui"], help="Will show user info")
     @commands.guild_only()
     async def userinfo(self, ctx:commands.Context, member:discord.Member=None):
         member = ctx.author if not member else member
@@ -137,7 +137,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         await ctx.send(embed=simbed)
 
     # Spotify
-    @commands.command(name="spotify", help="Will show your or the given member's spotify activity if possible", usage="[member]")
+    @commands.command(name="spotify", help="Will show your or the given member's spotify activity if possible")
     async def spotify(self, ctx:commands.Context, member:discord.Member=None):
         member = ctx.author if not member else member
         for activity in member.activities:
@@ -171,7 +171,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             await ctx.send(embed=badspotifymbed)
 
     # Say
-    @commands.command(name="say", help="Will say your message", usage="<text>")
+    @commands.command(name="say", help="Will say your message")
     async def say(self, ctx:commands.Context, *, say:str):
         await ctx.send(F"{say} | {ctx.author.mention}")
 
@@ -233,7 +233,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         await ctx.send(embed=iembed)
 
     # Source
-    @commands.command(name="source", aliases=["src"], help="Will show the bots source", usage="[command]")
+    @commands.command(name="source", aliases=["src"], help="Will show the bots source")
     async def source(self, ctx:commands.Context, command:str=None):
         source_url = "https://github.com/lvlahraam/JakeTheDog-Bot"
         if not command:

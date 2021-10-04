@@ -7,7 +7,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         self._last_result = None
 
     # Eval
-    @commands.command(name="eval", help="Evaluates a code", usage="<body>")
+    @commands.command(name="eval", help="Evaluates a code")
     @commands.is_owner()
     async def _eval(self, ctx, *, body:str):
         env = {
@@ -51,7 +51,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
                 await ctx.send(f"```py\n{value}{ret}\n```")
 
     # Load
-    @commands.command(name="load", help="Will load the given cog if it was not already loaded", usage="<cog>")
+    @commands.command(name="load", help="Will load the given cog if it was not already loaded")
     @commands.is_owner()
     async def load(self, ctx:commands.Context, *, cog:str):
         loadmbed = discord.Embed(
@@ -64,7 +64,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         await ctx.send(embed=loadmbed)
 
     # Unload
-    @commands.command(name="unload", help="Will unload the given cog if it was already loaded", usage="<cog>")
+    @commands.command(name="unload", help="Will unload the given cog if it was already loaded")
     @commands.is_owner()
     async def unload(self, ctx:commands.Context, *, cog:str):
         unloadmbed = discord.Embed(
@@ -77,7 +77,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         await ctx.send(embed=unloadmbed)
   
     # Reload
-    @commands.group(name="reload", help="Will reload the given  or every cog", usage="<cog|every>")
+    @commands.group(name="reload", help="Will reload the given  or every cog")
     @commands.is_owner()
     async def reload(self, ctx:commands.Context, *, cog:str):
         reunloadmbed = discord.Embed(
@@ -122,7 +122,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         await ctx.send(embed=allmbed)
 
     # Repeat
-    @commands.command(name="repeat", help="Will repeat the given commands the amounts of given time", usage="<time> <command>")
+    @commands.command(name="repeat", help="Will repeat the given commands the amounts of given time")
     @commands.is_owner()
     async def repeat(self, ctx:commands.Context, time:int, command:str):
         for _ in range(1, time+1):

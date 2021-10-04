@@ -6,7 +6,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         self.bot = bot
 
     # Ban
-    @commands.command(name="ban", aliases=["bn"], help="Will ban the user", usage="<user>")
+    @commands.command(name="ban", aliases=["bn"], help="Will ban the user")
     @commands.guild_only()
     @commands.has_guild_permissions(ban_members=True)
     @commands.bot_has_guild_permissions(ban_members=True)
@@ -30,7 +30,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         await ctx.send(embed=abnmbed)
 
     # Unban
-    @commands.command(name="unban", aliases=["un"], help="Will unban the user", usage="<user>")
+    @commands.command(name="unban", aliases=["un"], help="Will unban the user")
     @commands.guild_only()
     @commands.has_guild_permissions(ban_members=True)
     @commands.bot_has_guild_permissions(ban_members=True)
@@ -53,7 +53,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         await ctx.send(embed=aunmbed)
 
     # Kick
-    @commands.command(name="kick", aliases=["kc"], help="Will kick the user", usage="<user>")
+    @commands.command(name="kick", aliases=["kc"], help="Will kick the user")
     @commands.guild_only()
     @commands.has_guild_permissions(kick_members=True)
     @commands.bot_has_guild_permissions(kick_members=True)
@@ -77,7 +77,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         await ctx.send(embed=akcmbed)
 
     # AddRole
-    @commands.command(name="addrole", aliases=["ae"], help="Will add the given role to the given user", usage="<user> <role>")
+    @commands.command(name="addrole", aliases=["ae"], help="Will add the given role to the given user")
     @commands.guild_only()
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
@@ -101,7 +101,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         await ctx.send(embed=faembed)
     
     # RemoveRole
-    @commands.command(name="removerole", aliases=["re"], help="Will remove the given role from the given user", usage="<user> <role>")
+    @commands.command(name="removerole", aliases=["re"], help="Will remove the given role from the given user")
     @commands.guild_only()
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
@@ -125,7 +125,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         await ctx.send(embed=brembed)
 
     # Mute
-    @commands.command(name="mute", aliases=["mt"], help="Will mute the given user", usage="<user>")
+    @commands.command(name="mute", aliases=["mt"], help="Will mute the given user")
     @commands.guild_only()
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
@@ -173,7 +173,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             await ctx.send(embed=domtmbed)
 
     # Purge
-    @commands.command(name="purge", aliases=["pu"], help="Will delete messages", usage="<amount>")
+    @commands.command(name="purge", aliases=["pu"], help="Will delete messages")
     @commands.guild_only()
     @commands.has_guild_permissions(manage_messages=True)
     @commands.bot_has_guild_permissions(manage_messages=True)
