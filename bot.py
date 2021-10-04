@@ -58,7 +58,7 @@ async def wanted(ctx:commands.Context, user:discord.User=None):
     pfp = user.avatar
     buffer = io.BytesIO(await pfp.read())
     image = Image.open(buffer)
-    image = Image.resize((300, 300))
+    image = image.resize((300, 300))
     wanted.paste(image, (70, 2019))
     wanted.save(buffer, "jpg")
     buffer.seek(0)
