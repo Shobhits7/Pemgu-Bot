@@ -13,7 +13,7 @@ async def get_prefix(bot, message:discord.Message):
     if len(prefix) == 0:
         prefix = ".j"
     else: prefix = prefix
-    return commands.when_mentioned_or(prefix)
+    return prefix
 
 async def created_session_aiohttp():
     bot.session = aiohttp.ClientSession()
