@@ -10,23 +10,6 @@ class OnError(commands.Cog):
     async def on_command_error(self, ctx:commands.Context, error):
         if isinstance(error, commands.CommandInvokeError):
             error = error.original
-        print("".join(traceback.format_exception(type(error), error,  error.__traceback__)))
-        errormbed = discord.Embed(
-            colour=self.bot.colour,
-            title=error,
-            timestamp=ctx.message.created_at
-        )
-        errormbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=errormbed)
-    
-def setup(bot):
-    bot.add_cog(OnError(bot))
-
-class OldOnError():
-    @commands.Cog.listener()
-    async def on_command_error(self, ctx:commands.Context, error):
-        if isinstance(error, commands.CommandInvokeError):
-            error = error.original
         if isinstance(error, commands.NotOwner):
             nombed = discord.Embed(
                 colour=self.bot.colour,
@@ -185,17 +168,14 @@ class OldOnError():
             fmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             await ctx.send(embed=fmbed)
         else:
-            tbmbed = discord.Embed(
+            print("".join(traceback.format_exception(type(error), error,  error.__traceback__)))
+            errormbed = discord.Embed(
                 colour=self.bot.colour,
-                title=F"Error in {ctx.command}",
-                description="```py\n",
+                title=error,
                 timestamp=ctx.message.created_at
             )
-            tbmbed.description += F"{''.join(traceback.format_exception(type(error), error,  error.__traceback__))}\n```"
-            # errormbed = discord.Embed(
-            #     colour=self.bot.colour,
-            #     title="Error in {0}".format(ctx.command),
-            #     description=str(error)
-            # )
-            # errormbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-            await ctx.send(embed=tbmbed)
+            errormbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            await ctx.send(embed=errormbed)
+    
+def setup(bot):
+    bot.add_cog(OnError(bot))
