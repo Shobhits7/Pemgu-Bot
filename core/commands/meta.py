@@ -28,7 +28,7 @@ class Meta(commands.Cog, description="For setting up the bot"):
         pfchmbed = discord.Embed(
             colour=self.bot.colour,
             title="Successfully changed prefix to:",
-            description=F"> {prefix}",
+            description=F"> {pre}",
             timestamp=ctx.message.created_at
         )
         pfchmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
