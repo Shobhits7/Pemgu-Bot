@@ -8,7 +8,7 @@ class OnMessage(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message:discord.Message):
         if message.author.bot: return
-        if F"<@{self.bot.user.id}>" == message.content:
+        if self.bot.user == message.content:
             prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", message.guild.id)
             pfmbed = discord.Embed(
                 colour=self.bot.colour,
