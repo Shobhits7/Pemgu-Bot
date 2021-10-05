@@ -121,25 +121,16 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             allmbed.description += "".join(error for error in errors)
         await ctx.send(embed=allmbed)
 
-    # Enable
-    @commands.command(name="enable", help="Will enable the given command")
+    @commands.command(name="toggle", help="Will toggle on and off the given command")
     @commands.is_owner()
-    async def enable(self, ctx:commands.Context, command:str):
-        command = self.bot.get_command(command)
-        if command.enabled:
-            return await ctx.send("This command is already enabled")
-        command.enabled = True
-        await ctx.send(F"Enabled {command.name} command")
-
-    # Disable
-    @commands.command(name="disable", help="Disable a command in your code without a database")
-    @commands.is_owner()
-    async def disable(self, ctx:commands.Context, command:str):
+    async def toggle(self, ctx:commands.Context, command:str):
         command = self.bot.get_command(command)
         if not command.enabled:
-            return await ctx.send("This command is already disabled.")
-        command.enabled = False
-        await ctx.send(F"Disabled {command.name} command.")
+            command.enabled = True
+            await ctx.send(F"Enabled {command.name} command")
+        else:
+            command.enabled = False
+            await ctx.send(F"Disabled {command.name} command.")
 
     # Repeat
     @commands.command(name="repeat", help="Will repeat the given commands the amounts of given time")
