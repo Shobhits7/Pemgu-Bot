@@ -9,7 +9,7 @@ async def create_pool_postgres():
 async def get_prefix(bot, message:discord.Message):
     if not message.guild:
         return ""
-    prefix = await bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", message.guild.id)
+    prefix = await bot.postgres.fetch("SELECT prefix FROM prefixes WHERE guild_id=$1", message.guild.id)
     if not prefix: prefix = bot.prefix
     else: prefix = prefix
     return prefix
@@ -58,7 +58,7 @@ os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
 
 @bot.check
 async def blacklisted(ctx:commands.Context):
-    blacklist = await bot.postgres.fetchval("SELECT user_id FROM blacklist WHERE user_id=$1", ctx.author.id)
+    blacklist = await bot.postgres.fetch("SELECT user_id FROM blacklist WHERE user_id=$1", ctx.author.id)
     if not blacklist: return True
     raise commands.CheckFailure
 

@@ -8,10 +8,8 @@ class OnMessage(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message:discord.Message):
         if message.author.bot: return
-        if message.author.id in (494496285676535811, "494496285676535811"):
-            print(message.content)
-        if self.bot.user.mention in message.content:
-            prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", message.guild.id)
+        if F"<@!{self.bot.user.id}>" in message.content:
+            prefix = await self.bot.postgres.fetch("SELECT prefix FROM prefixes WHERE guild_id=$1", message.guild.id)
             pfmbed = discord.Embed(
                 colour=self.bot.colour,
                 title=F"My Prefix here is:",
