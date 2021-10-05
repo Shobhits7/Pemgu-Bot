@@ -17,7 +17,7 @@ class OnMessage(commands.Cog):
                 timestamp=message.created_at
             )
             pfmbed.set_footer(text=message.author, icon_url=message.author.display_avatar.url)
-            await message.send(embed=pfmbed)
+            await message.channel.send(embed=pfmbed)
 
 def setup(bot):
     bot.add_cog(OnMessage(bot))
