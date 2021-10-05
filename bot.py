@@ -9,9 +9,8 @@ async def connect_pool_postgres():
 async def get_prefix(bot, message:discord.Message):
     if not message.guild:
         return ""
-    prefix = await bot.postgres.fetch("SELECT prefix FROM prefixes WHERE guild_id=$1", message.guild.id)
-    if not prefix:
-        prefix = bot.prefix
+    prefix = await bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", message.guild.id)
+    if not prefix: prefix = bot.prefix
     else: prefix = prefix
     return prefix
 
