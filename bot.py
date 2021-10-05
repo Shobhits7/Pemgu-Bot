@@ -2,7 +2,7 @@ import discord, aiohttp, os, asyncpg
 import core.utils.help as help, core.utils.pagination as page, core.utils.options as options
 from discord.ext import commands
 
-async def connect_pool_postgres():
+async def create_pool_postgres():
     bot.postgres = await asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"))
     print("Successfully created to the Postgres Pool")
 
@@ -14,7 +14,7 @@ async def get_prefix(bot, message:discord.Message):
     else: prefix = prefix
     return prefix
 
-async def created_session_aiohttp():
+async def create_session_aiohttp():
     bot.session = aiohttp.ClientSession()
     print("Successfully created a AioHttp Session ")
 
@@ -62,6 +62,6 @@ async def blacklisted(ctx:commands.Context):
     if ctx.author.id in blacklisted_people: raise commands.CheckFailure
     return True
 
-bot.loop.run_until_complete(connect_pool_postgres())
-bot.loop.create_task(created_session_aiohttp())
+bot.loop.run_until_complete(create_pool_postgres())
+bot.loop.create_task(create_session_aiohttp())
 bot.run(os.getenv("TOKEN"))
