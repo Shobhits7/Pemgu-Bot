@@ -11,7 +11,7 @@ async def get_prefix(bot, message:discord.Message):
         return ""
     prefix = await bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", message.guild.id)
     if not prefix:
-        prefix = ".j"
+        prefix = bot.prefix
     else: prefix = prefix
     return prefix
 
