@@ -32,7 +32,7 @@ class JakeTheDogBase(commands.AutoShardedBot):
         return page.Paginator(self, embeds)
 
 bot = JakeTheDogBase(
-    command_prefix=commands.when_mentioned_or(get_prefix),
+    command_prefix=get_prefix,
     strip_after_prefix=True,
     case_insensitive=True,
     help_command=help.CustomHelp(),
