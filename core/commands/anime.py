@@ -38,7 +38,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         sfwmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=sfwmbed)
 
-    # Waifu
+    # SFW-Waifu
     @sfw.command(name="waifu", help="Will send a random sfw waifu image")
     async def waifu(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/sfw/waifu/")
@@ -54,7 +54,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         wambed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=wambed)
     
-    # SMaid
+    # SFW-Maid
     @sfw.command(name="maid", help="Will send a random sfw maid image")
     async def smaid(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/sfw/maid/")
@@ -87,7 +87,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         nsfwmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=nsfwmbed)
 
-    # Ass
+    # NSFW-Ass
     @nsfw.command(name="ass", help="Will send a random nsfw ass image")
     @commands.is_nsfw()
     async def ass(self, ctx:commands.Context):
@@ -104,7 +104,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         assmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=assmbed)
 
-    # Ecchi
+    # NSFW-Ecchi
     @nsfw.command(name="ecchi", help="Will send a random nsfw ecchi image")
     @commands.is_nsfw()
     async def ecchi(self, ctx:commands.Context):
@@ -121,7 +121,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         ecchimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=ecchimbed)
 
-    # Ero
+    # NSFW-Ero
     @nsfw.command(name="ero", help="Will send a random nsfw ero image")
     @commands.is_nsfw()
     async def ero(self, ctx:commands.Context):
@@ -138,7 +138,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         erombed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=erombed)
 
-    # Hentai
+    # NSFW-Hentai
     @nsfw.command(name="hentai", help="Will send a random nsfw hentai image")
     @commands.is_nsfw()
     async def hentai(self, ctx:commands.Context):
@@ -155,7 +155,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         hentaimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=hentaimbed)
 
-    # NMaid
+    # NSFW-Maid
     @nsfw.command(name="maid", help="Will send a random nsfw maid image")
     @commands.is_nsfw()
     async def nmaid(self, ctx:commands.Context):
@@ -172,7 +172,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         nmaidmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=nmaidmbed)
 
-    # Milf
+    # NSFW-Milf
     @nsfw.command(name="milf", help="Will send a random nsfw milf image")
     @commands.is_nsfw()
     async def milf(self, ctx:commands.Context):
@@ -189,7 +189,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         milfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=milfmbed)
 
-    # Oppai
+    # NSFW-Oppai
     @nsfw.command(name="oppai", help="Will send a random nsfw oppai image")
     @commands.is_nsfw()
     async def oppai(self, ctx:commands.Context):
@@ -206,7 +206,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         oppaimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=oppaimbed)
 
-    # Oral
+    # NSFW-Oral
     @nsfw.command(name="oral", help="Will send a random nsfw oral image")
     @commands.is_nsfw()
     async def oral(self, ctx:commands.Context):
@@ -223,7 +223,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         oralmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=oralmbed)
 
-    # Paizuri
+    # NSFW-Paizuri
     @nsfw.command(name="paizuri", help="Will send a random nsfw paizuri image")
     @commands.is_nsfw()
     async def paizuri(self, ctx:commands.Context):
@@ -240,7 +240,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         paizurimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=paizurimbed)
 
-    # Selfies
+    # NSFW-Selfies
     @nsfw.command(name="selfies", help="Will send a random nsfw selfies image")
     @commands.is_nsfw()
     async def selfies(self, ctx:commands.Context):
@@ -257,7 +257,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         selfiesmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=selfiesmbed)
 
-    # Uniform
+    # NSFW-Uniform
     @nsfw.command(name="uniform", help="Will send a random nsfw uniform image")
     @commands.is_nsfw()
     async def uniform(self, ctx:commands.Context):

@@ -157,7 +157,7 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
     async def rickandmorty(self, ctx:commands.Context):
         await ctx.send_help(ctx.command.cog)
 
-    # Character
+    # RickAndMorty-Character
     @rickandmorty.command(name="character", aliases=["char"], help="Will show information about the given character")
     async def character(self, ctx:commands.Context, *, character:str):
         session = await self.bot.session.get(F"https://rickandmortyapi.com/api/character/?name={character}")
@@ -184,13 +184,13 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
         ramchmbed.set_image(url=response['results'][0]['image'])
         await ctx.send(embed=ramchmbed)
 
-    # Location
+    # RickAndMorty-Location
     @rickandmorty.command(name="location", aliases=["loc"], help="Will show information about the given location")
     async def location(self, ctx:commands.Context, *, location:str):
         session = await self.bot.session.get("...")
         response = await session.json()
 
-    # Episode
+    # RickAndMorty-Episode
     @rickandmorty.command(name="episode", aliases=["ep"], help="Will show information about the given episode")
     async def episode(self, ctx:commands.Context, *, episode:int):
         session = await self.bot.session.get("...")
