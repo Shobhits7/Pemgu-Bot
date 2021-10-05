@@ -56,11 +56,11 @@ bot.load_extension("jishaku")
 os.environ["JISHAKU_UNDERSCORE"] = "FALSE"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
 
-blacklisted_people = [412734157819609090, 718622831788949575]
 @bot.check
 async def blacklisted(ctx:commands.Context):
-    if ctx.author.id in blacklisted_people: raise commands.CheckFailure
-    return True
+    blacklist = await bot.postgres.fetchval("SELECT user_id FROM blacklist WHERE user_id=$1", ctx.author.id)
+    if not blacklist: return True
+    raise commands.CheckFailure
 
 bot.loop.run_until_complete(create_pool_postgres())
 bot.loop.create_task(create_session_aiohttp())

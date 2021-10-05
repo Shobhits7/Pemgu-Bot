@@ -170,6 +170,24 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         await self.bot.user.edit(avatar=avatar)
         await ctx.send(file=discord.File(fp=avatar.seek(0), filename="avatar.png"), embed=editmbed)
 
+    # Blacklist
+    @commands.command(name="blacklist", help="Will put the given user to blacklist")
+    @commands.is_owner()
+    async def blacklist(self, ctx:commands.Context, user:discord.User):
+        blacklisted = await self.bot.postgres.fetchval("SELECT user_id FROM blacklist WHERE user_id=$1", user.id)
+        blacklistmbed = discord.Embed(
+            colour=self.bot.colour,
+            timestamp=ctx.message.created_at
+        )
+        blacklistmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if not blacklisted:
+            await self.bot.postgres.execute("INSERT INTO blacklist(user_id) VALUES($1)", user.id)
+            blacklistmbed.title = F"Added {user} to blacklist"
+        else:
+            await self.bot.postgres.execute("DELETE FROM blacklist WHERE user_id=$1", user.id)
+            blacklistmbed.title = F"Removed {user} from blacklist"
+        await ctx.send(embed=blacklistmbed)
+
     # Template
     @commands.command(name="template", aliases=["te"], help="Will give the guild's template")
     @commands.is_owner()
