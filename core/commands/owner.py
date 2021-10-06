@@ -11,6 +11,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     @commands.is_owner()
     async def _eval(self, ctx, *, body:str):
         env = {
+            "self": self,
             "discord": discord,
             "bot": self.bot,
             "ctx": ctx,
@@ -121,6 +122,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             allmbed.description += "".join(error for error in errors)
         await ctx.send(embed=allmbed)
 
+    # Toggle
     @commands.command(name="toggle", help="Will toggle on and off the given command")
     @commands.is_owner()
     async def toggle(self, ctx:commands.Context, command:str):
@@ -174,7 +176,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     @commands.command(name="blacklist", help="Will put the given user to blacklist")
     @commands.is_owner()
     async def blacklist(self, ctx:commands.Context, user:discord.User):
-        blacklisted = await self.bot.postgres.fetch("SELECT user_id FROM blacklist WHERE user_id=$1", user.id)
+        blacklisted = await self.bot.postgres.fetchval("SELECT user_id FROM blacklist WHERE user_id=$1", user.id)
         blacklistmbed = discord.Embed(
             colour=self.bot.colour,
             timestamp=ctx.message.created_at
