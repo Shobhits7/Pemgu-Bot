@@ -32,10 +32,9 @@ class JakeTheDogBase(commands.AutoShardedBot):
         return page.Paginator(self, embeds)
 
 bot = JakeTheDogBase(
-    slash_commands=True,
-    slash_command_guilds=[804380398296498256],
     command_prefix=get_prefix,
     strip_after_prefix=True,
+    case_insensitive=True,
     help_command=help.CustomHelp(),
     intents=discord.Intents.all(),
     allowed_mentions=discord.AllowedMentions.none()
