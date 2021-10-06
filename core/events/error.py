@@ -49,6 +49,14 @@ class OnError(commands.Cog):
             )
             cocmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             await ctx.send(embed=cocmbed)
+        elif isinstance(error, commands.DisabledCommand):
+            dcmbed = discord.Embed(
+                colour=self.bot.colour,
+                title=F"{ctx.invoked_with} is disabled",
+                timestamp=ctx.message.created_at
+            )
+            dcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            await ctx.send(embed=dcmbed)
         elif isinstance(error, commands.MissingPermissions):
             mpmbed = discord.Embed(
                 colour=self.bot.colour,
