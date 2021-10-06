@@ -50,13 +50,13 @@ class RPSButtons(discord.ui.Button):
         tierpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
         wonrpsmbed = discord.Embed(
             colour=self.ctx.bot.colour,
-            description=F"I chose **{self.botoption}**, But, You chose **{self.useroption}**, You won! / I lost",
+            description=F"You chose **{self.useroption}**, But, I chose **{self.botoption}**, You won! / I lost",
             timestamp=interaction.message.created_at
         )
         wonrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
         lostrpsmbed = discord.Embed(
             colour=self.ctx.bot.colour,
-            description=F"You chose **{self.useroption}**, But, I chose **{self.botoption}**, I won! / You lost!",
+            description=F"I chose **{self.botoption}**, But, You chose **{self.useroption}**, I won! / You lost!",
             timestamp=interaction.message.created_at
         )
         lostrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
