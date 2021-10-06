@@ -58,7 +58,7 @@ os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
 
 @bot.check
 async def blacklisted(ctx:commands.Context):
-    blacklist = await bot.postgres.fetch("SELECT user_id FROM blacklist WHERE user_id=$1", ctx.author.id)
+    blacklist = await bot.postgres.fetchval("SELECT user_id FROM blacklist WHERE user_id=$1", ctx.author.id)
     if not blacklist: return True
     raise commands.CheckFailure
 
