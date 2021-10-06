@@ -33,7 +33,7 @@ class JakeTheDogBase(commands.AutoShardedBot):
 
 bot = JakeTheDogBase(
     slash_commands=True,
-    slash_command_guilds=[804380398296498256],
+    slash_command_guilds=[804380398296498256, 514232441498763279],
     command_prefix=get_prefix,
     strip_after_prefix=True,
     case_insensitive=True,
