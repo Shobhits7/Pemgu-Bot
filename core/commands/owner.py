@@ -102,7 +102,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         )
         allmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         errors = []
-        allmbed.description += F"<:greyTick:596576672900186113> - Commands:\n"
+        allmbed.description += F"<:greyTick:596576672900186113> Commands:\n"
         for command in self.bot._commands:
             try:
                 self.bot.reload_extension(F"core.commands.{command}")
@@ -110,7 +110,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             except Exception as error:
                 allmbed.description += F"<:redTick:596576672149667840> - {command}\n"
                 errors.append(F"<:redTick:596576672149667840> - {error}\n")
-        allmbed.description += F"<:greyTick:596576672900186113> - Events:\n"
+        allmbed.description += F"<:greyTick:596576672900186113> Events:\n"
         for event in self.bot._events:
             try:
                 self.bot.reload_extension(F"core.events.{event}")
