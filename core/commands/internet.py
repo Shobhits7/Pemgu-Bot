@@ -124,9 +124,9 @@ class Internet(commands.Cog, description="Some cool commands that uses internet"
         await ctx.send(file=discord.File(fp=response, filename="screenshot.png"), embed=ssmbed)
 
     # Pypi
-    @commands.command(name="pypi", help="Will give information about the given lib in pypi")
-    async def pypi(self, ctx:commands.Context, *, lib:str):
-        session = await self.bot.session.get(F"https://pypi.org/pypi/{lib}/json")
+    @commands.command(name="pypi", help="Will give information about the given library in pypi")
+    async def pypi(self, ctx:commands.Context, *, library:str):
+        session = await self.bot.session.get(F"https://pypi.org/pypi/{library}/json")
         if session.status != 200:
             await ctx.send("Couldn't find that library in PYPI")
             return
