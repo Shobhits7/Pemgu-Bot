@@ -61,10 +61,6 @@ class CustomHelp(commands.HelpCommand):
     # Help Main
     async def send_bot_help(self, mapping):
         view = hv.SelectView(self, mapping)
-        for cog, commands in mapping.items():
-            name = cog.qualified_name if cog else "No"
-            description = cog.description if cog else "Commands without category"
-            view.homepage.add_field(name=name, value=', '.join(command.name for command in commands))
         view.homepage.add_field(name="Buttons:", value="🏡 = The Homepage of this help\n💣 = Will delete this help\n🧇 = The url for adding this bot\n🍩 = The url for the support server for this bot\n👨‍💻 = The url for the source code on github for this bot")
         view.homepage.add_field(name="Prefix:", value=self.context.prefix or "In DM you don't need to use prefix")
         view.homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THESE WHEN DOING A COMMAND***")
