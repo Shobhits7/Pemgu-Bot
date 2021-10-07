@@ -110,8 +110,6 @@ class SelectUI(discord.ui.Select):
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
                 mbed.set_footer(text="<> is required | [] is optional")
                 await interaction.response.edit_message(embed=mbed)
-        if self.values[0] == "Home":
-            await interaction.response.edit_message(embed=self.homepage)
 
 class SelectView(discord.ui.View):
     def __init__(self, help, mapping):
@@ -194,10 +192,6 @@ class ButtonsUI(discord.ui.Button):
                 mbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
                 mbed.set_footer(text="<> is required | [] is optional")
                 await interaction.response.edit_message(embed=mbed)
-        if self.custom_id == "Home":
-            await interaction.response.edit_message(embed=self.homepage)
-        if self.custom_id == "Delete":
-            await interaction.message.delete()
 
 class ButtonsView(discord.ui.View):
     def __init__(self, help, mapping):
