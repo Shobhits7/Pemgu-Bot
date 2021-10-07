@@ -91,7 +91,7 @@ class SelectUI(discord.ui.Select):
         self.mapping = view.mapping
         self.homepage = view.homepage
 
-    def gts(command):
+    def gts(self, command):
         return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
 
     async def callback(self, interaction:discord.Interaction):
@@ -173,7 +173,7 @@ class ButtonsUI(discord.ui.Button):
         self.mapping = view.mapping
         self.homepage = view.homepage
 
-    def gts(command):
+    def gts(self, command):
         return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
 
     async def callback(self, interaction:discord.Interaction):
