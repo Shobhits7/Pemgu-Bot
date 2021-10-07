@@ -6,6 +6,11 @@ class Fun(commands.Cog, description="You sad?. Use these to at least have a smil
     def __init__(self, bot):
         self.bot = bot
 
+    # Say
+    @commands.command(name="say", help="Will say your message")
+    async def say(self, ctx:commands.Context, *, say:str):
+        await ctx.send(F"{say} | {ctx.author.mention}")
+
     # Nitro
     @commands.command(name="nitro", help="Will gift free Nitro")
     async def nitro(self, ctx:commands.Context):
