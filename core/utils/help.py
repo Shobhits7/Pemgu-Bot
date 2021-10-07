@@ -58,10 +58,6 @@ class CustomHelp(commands.HelpCommand):
             "No": "❓"
         }
 
-    # Get-Command-Signature
-    def gts(self, command):
-        return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
-
     # Help Main
     async def send_bot_help(self, mapping):
         view = hv.SelectView(self, mapping)
@@ -83,7 +79,7 @@ class CustomHelp(commands.HelpCommand):
             timestamp=self.context.message.created_at
         )
         for command in cog.walk_commands():
-            hcogmbed.description += F"• **{self.gts(command)}** - {command.help or 'No help found...'}\n"
+            hcogmbed.description += F"• **{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
         hcogmbed.set_thumbnail(url=self.context.me.display_avatar.url)
         hcogmbed.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
         await self.context.send(embed=hcogmbed)
@@ -93,7 +89,7 @@ class CustomHelp(commands.HelpCommand):
     async def send_command_help(self, command):
         hcmdmbed = discord.Embed(
             colour=self.context.bot.colour,
-            title=self.gts(command),
+            title=self.get_command_signature(command),
             description=command.help or "No help found...",
             timestamp=self.context.message.created_at
         )
@@ -116,14 +112,14 @@ class CustomHelp(commands.HelpCommand):
         can_run = "No"
         hgroupmbed = discord.Embed(
             colour=self.context.bot.colour,
-            title=self.gts(group),
+            title=self.get_command_signature(group),
             description=F"{group.help or 'No help found...'}\n\n",
             timestamp=self.context.message.created_at
         )
         hgroupmbed.set_thumbnail(url=self.context.me.display_avatar.url)
         hgroupmbed.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
         for command in group.commands:
-            hgroupmbed.description += F"• **{self.gts(command)}** - {command.help or 'No help found...'}\n"
+            hgroupmbed.description += F"• **{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
         if cog := command.cog:
             hgroupmbed.add_field(name="Category", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name}")
             with contextlib.suppress(commands.CommandError):

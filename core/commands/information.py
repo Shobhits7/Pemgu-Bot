@@ -5,6 +5,18 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     def __init__(self, bot):
         self.bot = bot
 
+    # About
+    @commands.command(name="about", aliases=["ab"], help="Will show the bot's information")
+    async def about(self, ctx:commands.Context):
+        abmbed = discord.Embed(
+            colour=self.bot.colour,
+            title=F"{self.bot.user.name} About",
+            description=F"[Click here for source code](https://github.com/lvlahraam/JakeTheDog-Bot)\n[Click here for Adding Bot]({discord.utils.oauth_url(client_id=self.bot.user.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))})\n[Click here for Joining Support](https://discord.gg/bWnjkjyFRz)\nIn {len(self.bot.guilds)} Servers\nHas {len(self.bot.commands)} Commands\nOwner is <@{self.bot.owner_id}>",
+            timestamp=ctx.message.created_at
+        )
+        abmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=abmbed)
+
     # Avatar
     @commands.command(name="avatar", aliases=["av"], help="Will show your or another user's avatar")
     async def avatar(self, ctx:commands.Context, user:discord.User=None):
@@ -28,10 +40,8 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             title=F"{user} Banner",
             timestamp=ctx.message.created_at
         )
-        if image.banner and image.banner.url:
-            brmbed.set_image(url=image.banner.url)
-        else:
-            brmbed.description = "The user doesn't have a banner"
+        if image.banner and image.banner.url: brmbed.set_image(url=image.banner.url)
+        else: brmbed.description = "The user doesn't have a banner"
         brmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=brmbed)
 
@@ -69,14 +79,26 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         ***Voice:*** {'*Not in a voice*' if not member.voice else member.voice.channel.mention}
         ***Server-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}
         """.replace("\t\t", "╰")
-        if member.avatar:
-            uimbed.set_thumbnail(url=member.display_avatar.url)
+        if member.avatar: uimbed.set_thumbnail(url=member.display_avatar.url)
         else: uimbed.description += "__**Avatar:**__ User doesn't have a avatar"
-        if image.banner:
-            uimbed.set_image(url=image.banner.url)
+        if image.banner: uimbed.set_image(url=image.banner.url)
         else: uimbed.description += "__**Banner:**__ User doesn't have a banner"
         uimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=uimbed)
+
+    # Icon
+    @commands.command(name="icon", aliases=["ic"], help="Will show the server's icon")
+    @commands.guild_only()
+    async def icon(self, ctx:commands.Context):
+        icmbed = discord.Embed(
+            colour=self.bot.colour,
+            title=F"{ctx.guild.name} 's Icon",
+            timestamp=ctx.message.created_at
+        )
+        icmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if ctx.guild.icon: icmbed.set_thumbnail(url=ctx.guild.icon.url)
+        else: icmbed.description = "__**Icon:**__ Server doesn't have a icon"
+        await ctx.send(embed=icmbed)
 
     # ServerInfo
     @commands.command(name="serverinfo", aliases=["si"], help="Will show the server's info")
@@ -115,11 +137,9 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         ***AFK-Channel:*** {'*No AFK channel*' if not ctx.guild.afk_channel else ctx.guild.afk_channel.mention}
         ***AFK-Timeout:*** {ctx.guild.afk_timeout}
         """.replace("\t\t", "╰")
-        if ctx.guild.icon:
-            simbed.set_thumbnail(url=ctx.guild.icon.url)
+        if ctx.guild.icon: simbed.set_thumbnail(url=ctx.guild.icon.url)
         else: simbed.description += "__**Icon:**__ Server doesn't have a icon"
-        if ctx.guild.banner:
-            simbed.set_image(url=ctx.guild.banner.url)
+        if ctx.guild.banner: simbed.set_image(url=ctx.guild.banner.url)
         else: simbed.description += "__**Banner:**__ Server doesn't have a banner"
         simbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=simbed)

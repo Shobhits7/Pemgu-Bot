@@ -5,18 +5,6 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     def __init__(self, bot):
         self.bot = bot
 
-    # About
-    @commands.command(name="about", aliases=["ab"], help="Will show the bot's information")
-    async def about(self, ctx:commands.Context):
-        abmbed = discord.Embed(
-            colour=self.bot.colour,
-            title=F"{self.bot.user.name} About",
-            description=F"[Click here for source code](https://github.com/lvlahraam/JakeTheDog-Bot)\n[Click here for Adding Bot]({discord.utils.oauth_url(client_id=self.bot.user.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))})\n[Click here for Joining Support](https://discord.gg/bWnjkjyFRz)\nIn {len(self.bot.guilds)} Servers\nHas {len(self.bot.commands)} Commands\nOwner is <@{self.bot.owner_id}>",
-            timestamp=ctx.message.created_at
-        )
-        abmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=abmbed)
-
     # Say
     @commands.command(name="say", help="Will say your message")
     async def say(self, ctx:commands.Context, *, say:str):
