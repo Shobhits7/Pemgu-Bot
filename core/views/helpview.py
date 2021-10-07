@@ -91,9 +91,10 @@ class SelectUI(discord.ui.Select):
         self.mapping = view.mapping
         self.homepage = view.homepage
 
+    def gts(command):
+        return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
+
     async def callback(self, interaction:discord.Interaction):
-        def gts(command):
-            return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
@@ -102,7 +103,7 @@ class SelectUI(discord.ui.Select):
                 mbed = discord.Embed(
                     colour=self.help.context.bot.colour,
                     title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
-                    description=F"{description}\n\n{''.join(gts(command) for command in cmds)}",
+                    description=F"{description}\n\n{''.join(self.gts(command) for command in cmds)}",
                     timestamp=self.help.context.message.created_at
                 )
                 mbed.set_thumbnail(url=self.help.context.me.display_avatar.url)
@@ -131,15 +132,15 @@ class SelectView(discord.ui.View):
                 option = discord.SelectOption(emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓', label=name, description=description, value=name)
                 options.append(option)
         self.add_item(item=SelectUI(placeholder="Where do you want to go...", options=options, min_values=1, max_values=1, view=self))
-        self.add_item(item=discord.ui.Button(emoji="🧇", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
-        self.add_item(item=discord.ui.Button(emoji="🍩", url="https://discord.gg/bWnjkjyFRz"))
-        self.add_item(item=discord.ui.Button(emoji="👨‍💻", url="https://github.com/lvlahraam/JakeTheDog-Bot"))
+        self.add_item(item=discord.ui.Button(emoji="🧇", label="Invite", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
+        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support", url="https://discord.gg/bWnjkjyFRz"))
+        self.add_item(item=discord.ui.Button(emoji="👨‍💻", label="Github", url="https://github.com/lvlahraam/JakeTheDog-Bot"))
 
-    @discord.ui.button(emoji="🏠", style=discord.ButtonStyle.green)
+    @discord.ui.button(emoji="🏠", label="Home", style=discord.ButtonStyle.green)
     async def home(self, button:discord.ui.Button, interaction:discord.Interaction):
         await interaction.response.edit_message(embed=self.homepage)
 
-    @discord.ui.button(emoji="💣", style=discord.ButtonStyle.red)
+    @discord.ui.button(emoji="💣", label="Delete", style=discord.ButtonStyle.red)
     async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
         await interaction.message.delete()
 
@@ -174,9 +175,10 @@ class ButtonsUI(discord.ui.Button):
         self.mapping = view.mapping
         self.homepage = view.homepage
 
+    def gts(command):
+        return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
+
     async def callback(self, interaction:discord.Interaction):
-        def gts(command):
-            return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
@@ -185,7 +187,7 @@ class ButtonsUI(discord.ui.Button):
                 mbed = discord.Embed(
                     colour=self.help.context.bot.colour,
                     title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
-                    description=F"{description}\n\n{''.join(gts(command) for command in cmds)}",
+                    description=F"{description}\n\n{''.join(self.gts(command) for command in cmds)}",
                     timestamp=self.help.context.message.created_at
                 )
                 mbed.set_thumbnail(url=self.help.context.me.display_avatar.url)
@@ -208,14 +210,21 @@ class ButtonsView(discord.ui.View):
             description="For more help or information use and click on the buttons.",
             timestamp=self.help.context.message.created_at
         )
-        self.add_item(item=ButtonsUI(emoji="🏠", label="Home", style=discord.ButtonStyle.green, custom_id="Home", view=self))
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             if not name.startswith("On"):
                 self.add_item(item=ButtonsUI(emoji=self.help.emojis.get(name), label=name, style=discord.ButtonStyle.blurple, custom_id=name, view=self))
-        self.add_item(item=ButtonsUI(emoji="💣", label="Delete", style=discord.ButtonStyle.red, custom_id="Delete", view=self))
         self.add_item(item=discord.ui.Button(emoji="🧇", label="Invite", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(item=discord.ui.Button(emoji="🍩", label="Support", url="https://discord.gg/bWnjkjyFRz"))
+        self.add_item(item=discord.ui.Button(emoji="👨‍💻", label="Github", url="https://github.com/lvlahraam/JakeTheDog-Bot"))
+
+    @discord.ui.button(emoji="🏠", label="Home", style=discord.ButtonStyle.green)
+    async def home(self, button:discord.ui.Button, interaction:discord.Interaction):
+        await interaction.response.edit_message(embed=self.homepage)
+
+    @discord.ui.button(emoji="💣", label="Delete", style=discord.ButtonStyle.red)
+    async def delete(self, button:discord.ui.Button, interaction:discord.Interaction):
+        await interaction.message.delete()
 
     async def on_timeout(self):
         try:

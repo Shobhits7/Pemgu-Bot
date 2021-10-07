@@ -1,17 +1,17 @@
-import discord
+import discord, io
 from discord.ext import commands
-from io import BytesIO
 from PIL import Image, ImageFilter
 
 class Images(commands.Cog, description="Free Photoshop, without needing to know PSD"):
     def __init__(self, bot):
         self.bot = bot
-    
+
+    # Wanted
     @commands.command(name="wanted", help="Will make the user get wanted")
     async def wanted(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
         wanted = Image.open("./core/images/wanted.jpg")
-        data = BytesIO(await user.display_avatar.read())
+        data = io.BytesIO(await user.display_avatar.read())
         image = Image.open(data)
         image = image.resize((204, 204))
         wanted.paste(image, (108, 198))

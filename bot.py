@@ -1,4 +1,4 @@
-import discord, aiohttp, os, asyncpg
+import discord, asyncpg, os, aiohttp
 import core.utils.help as help, core.utils.pagination as page, core.utils.options as options
 from discord.ext import commands
 

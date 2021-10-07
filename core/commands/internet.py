@@ -4,9 +4,7 @@ from discord.ext import commands
 class Internet(commands.Cog, description="Some cool commands that uses internet"):
     def __init__(self, bot):
         self.bot = bot
-        self.dagpi_headers = {
-            "Authorization": os.getenv("DAGPI")
-        }
+        self.dagpi_headers = {"Authorization": os.getenv("DAGPI")}
 
     # Roast
     @commands.command(name="roast", aliases=["rst"], help="Will roast you or the given user")

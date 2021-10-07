@@ -1,10 +1,9 @@
-import discord, os, sys, io, textwrap, traceback, contextlib
+import discord, io, textwrap, contextlib, traceback
 from discord.ext import commands
 
 class Owner(commands.Cog, description="Only my Developer can use these commands"):
     def __init__(self, bot):
         self.bot = bot
-        self._last_result = None
 
     # Eval
     @commands.command(name="eval", help="Evaluates a code")
@@ -19,7 +18,6 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             "author": ctx.author,
             "guild": ctx.guild,
             "channel": ctx.channel,
-            "_": self._last_result
         }
         env.update(globals())
         if body.startswith("```") and body.endswith("```"):
@@ -48,7 +46,6 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
                 if value:
                     await ctx.send(f"```py\n{value}\n```")
             else:
-                self._last_result = ret
                 await ctx.send(f"```py\n{value}{ret}\n```")
 
     # Load
