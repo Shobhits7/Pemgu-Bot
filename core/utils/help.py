@@ -59,7 +59,7 @@ class CustomHelp(commands.HelpCommand):
         }
 
     # Get-Command-Signature
-    def gts(command):
+    def gts(self, command):
         return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
 
     # Help Main
