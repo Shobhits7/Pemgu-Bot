@@ -109,7 +109,6 @@ class CustomHelp(commands.HelpCommand):
 
     # Help Group
     async def send_group_help(self, group):
-        can_run = "No"
         hgroupmbed = discord.Embed(
             colour=self.context.bot.colour,
             title=self.get_command_signature(group),
@@ -122,10 +121,11 @@ class CustomHelp(commands.HelpCommand):
             hgroupmbed.description += F"• **{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
         if cog := command.cog:
             hgroupmbed.add_field(name="Category", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name}")
-            with contextlib.suppress(commands.CommandError):
-                if await command.can_run(self.context):
-                    can_run = "Yes"
-            hgroupmbed.add_field(name="Usable", value=can_run)
+        can_run = "No"
+        with contextlib.suppress(commands.CommandError):
+            if await command.can_run(self.context):
+                can_run = "Yes"
+        hgroupmbed.add_field(name="Usable", value=can_run)
         if command._buckets and (cooldown := command._buckets._cooldown):
             hgroupmbed.add_field(name="Cooldown", value=F"{cooldown.rate} per {cooldown.per:.0f} seconds")
         await self.context.send(embed=hgroupmbed)

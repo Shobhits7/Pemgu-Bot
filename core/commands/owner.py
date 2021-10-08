@@ -78,6 +78,34 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     @commands.group(name="reload", help="Will reload the given  or every cog")
     @commands.is_owner()
     async def reload(self, ctx:commands.Context, *, cog:str):
+        if cog in ("all", "every"):
+            allmbed = discord.Embed(
+                colour=self.bot.colour,
+                title="Successfully reloaded every cog",
+                description="",
+                timestamp=ctx.message.created_at
+            )
+            allmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            errors = []
+            allmbed.description += F"<:greyTick:596576672900186113> Commands:\n"
+            for command in self.bot._commands:
+                try:
+                    self.bot.reload_extension(F"core.commands.{command}")
+                    allmbed.description += F"<:greenTick:596576670815879169> - {command}\n"
+                except Exception as error:
+                    allmbed.description += F"<:redTick:596576672149667840> - {command}\n"
+                    errors.append(F"<:redTick:596576672149667840> - {error}\n")
+            allmbed.description += F"<:greyTick:596576672900186113> Events:\n"
+            for event in self.bot._events:
+                try:
+                    self.bot.reload_extension(F"core.events.{event}")
+                    allmbed.description += F"<:greenTick:596576670815879169> - {event}\n"
+                except Exception as error:
+                    allmbed.description += F"<:redTick:596576672149667840> - {event}\n"
+                    errors.append(F"<:redTick:596576672149667840> - {error}\n")
+            if len(errors) != 0:
+                allmbed.description += "".join(error for error in errors)
+            return await ctx.send(embed=allmbed)
         reunloadmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully reloaded {cog}.",
@@ -86,38 +114,6 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         reunloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         self.bot.reload_extension(F"core.{cog}")
         await ctx.send(embed=reunloadmbed)
-
-    # ReloadAll
-    @commands.command(name="reloadall", help="Will reload every available cog")
-    @commands.is_owner()
-    async def reloadall(self, ctx:commands.Context):
-        allmbed = discord.Embed(
-            colour=self.bot.colour,
-            title="Successfully reloaded every cog",
-            description="",
-            timestamp=ctx.message.created_at
-        )
-        allmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        errors = []
-        allmbed.description += F"<:greyTick:596576672900186113> Commands:\n"
-        for command in self.bot._commands:
-            try:
-                self.bot.reload_extension(F"core.commands.{command}")
-                allmbed.description += F"<:greenTick:596576670815879169> - {command}\n"
-            except Exception as error:
-                allmbed.description += F"<:redTick:596576672149667840> - {command}\n"
-                errors.append(F"<:redTick:596576672149667840> - {error}\n")
-        allmbed.description += F"<:greyTick:596576672900186113> Events:\n"
-        for event in self.bot._events:
-            try:
-                self.bot.reload_extension(F"core.events.{event}")
-                allmbed.description += F"<:greenTick:596576670815879169> - {event}\n"
-            except Exception as error:
-                allmbed.description += F"<:redTick:596576672149667840> - {event}\n"
-                errors.append(F"<:redTick:596576672149667840> - {error}\n")
-        if len(errors) != 0:
-            allmbed.description += "".join(error for error in errors)
-        await ctx.send(embed=allmbed)
 
     # Toggle
     @commands.command(name="toggle", help="Will toggle on and off the given command")
