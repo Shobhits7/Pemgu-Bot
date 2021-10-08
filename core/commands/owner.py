@@ -168,7 +168,22 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     # Blacklist
     @commands.command(name="blacklist", help="Will put the given user to blacklist")
     @commands.is_owner()
-    async def blacklist(self, ctx:commands.Context, user:discord.User):
+    async def blacklist(self, ctx:commands.Context, user:discord.User=None):
+        if not user:
+            allmbed = discord.Embed(
+                colour=self.bot.colour,
+                title="Current Users in Blacklist",
+                description="",
+                timestamp=ctx.message.created_at
+            )
+            allmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            blacklisted = await self.bot.postgres.fetch("SELECT * FROM blacklist")
+            if len(blacklisted) != 0:
+                for stuff in blacklisted:
+                    user = self.bot.get_user(stuff["user_id"])
+                    allmbed.description += F"{user.mention}\n"
+            else: allmbed.description += "Currently Nobody is Blacklisted"
+            await ctx.send(embed=allmbed)
         blacklisted = await self.bot.postgres.fetchval("SELECT user_id FROM blacklist WHERE user_id=$1", user.id)
         blacklistmbed = discord.Embed(
             colour=self.bot.colour,
@@ -182,23 +197,6 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             await self.bot.postgres.execute("DELETE FROM blacklist WHERE user_id=$1", user.id)
             blacklistmbed.title = F"Removed {user} from blacklist"
         await ctx.send(embed=blacklistmbed)
-
-    # Blacklisted
-    @commands.command(name="blacklisted", help="Will show the users in the blacklist")
-    @commands.is_owner()
-    async def blacklisted(self, ctx:commands.Context):
-        blacklistedmbed = discord.Embed(
-            colour=self.bot.colour,
-            title="Current Users in Blacklist",
-            description="",
-            timestamp=ctx.message.created_at
-        )
-        blacklistedmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        blacklisted = await self.bot.postgres.fetch("SELECT * FROM blacklist")
-        for stuff in blacklisted:
-            user = self.bot.get_user(stuff["user_id"])
-            blacklistedmbed.description += F"{user.mention}\n"
-        await ctx.send(embed=blacklistedmbed)
 
     # Screenshot
     @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website")
