@@ -182,8 +182,9 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
                 for stuff in blacklisted:
                     user = self.bot.get_user(stuff["user_id"])
                     allmbed.description += F"{user.mention}\n"
-            else: allmbed.description += "Currently Nobody is Blacklisted"
+            else: allmbed.description += "Nobody is in Blacklist"
             await ctx.send(embed=allmbed)
+            return
         blacklisted = await self.bot.postgres.fetchval("SELECT user_id FROM blacklist WHERE user_id=$1", user.id)
         blacklistmbed = discord.Embed(
             colour=self.bot.colour,
