@@ -75,7 +75,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         await ctx.send(embed=unloadmbed)
   
     # Reload
-    @commands.group(name="reload", help="Will reload the given  or every cog")
+    @commands.command(name="reload", help="Will reload the given  or every cog")
     @commands.is_owner()
     async def reload(self, ctx:commands.Context, *, cog:str):
         if cog in ("all", "every"):
