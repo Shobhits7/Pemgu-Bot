@@ -100,10 +100,11 @@ class Meta(commands.Cog, description="Control the bot with this like a real robo
             timestamp=ctx.message.created_at
         )
         for permission, value in ctx.me.guild_permissions:
+            permission = permission.replace("_", " ").replace("guild", "server").title()
             if value:
-                permsmbed.description += F"{allowed_emote} - {permission.replace('_', ' ').title()}\n"
+                permsmbed.description += F"{allowed_emote} - {permission}\n"
             if not value:
-                permsmbed.description += F"{denied_emote} - {permission.replace('_', ' ').title()}\n"
+                permsmbed.description += F"{denied_emote} - {permission}\n"
         permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=permsmbed)
 
