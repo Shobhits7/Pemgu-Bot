@@ -89,18 +89,24 @@ class Meta(commands.Cog, description="Control the bot with this like a real robo
     @commands.command(name="permissions", aliases=["perms"], help="Will show the permissions that the bot has in this guild")
     async def permissions(self, ctx:commands.Context):
         allowed = []
+        allowed_emote = "<a:y_:891733484459163729>"
         denied = []
+        denied_emote = "<a:n_:891733484933120021>"
         for permission, value in ctx.me.guild_permissions:
-            permission.replace("_", " ")
-            permission.replace("guild", "server")
-            permission.title()
+            permission.replace("_", " ").replace("guild", "server").title()
             if value:
-                allowed.append(F"<:greenTick:596576670815879169> - {permission}")
+                allowed.append(F"{allowed_emote} - {permission}")
             if not value:
-                allowed.append(F"<:redTick:596576672149667840> - {permission}")
+                denied.append(F"{denied_emote} - {permission}")
+        if f"{allowed_emote} Administrator" in allowed:
+            allowed = [f"{allowed_emote} Administrator"]
+        if len(denied) == 0:
+            denied = [f"{denied_emote} None"]
+        allowed = '\n'.join(allowed)
+        denied = '\n'.join(denied)
         permsmbed = discord.Embed(colour=self.bot.colour, title="<:greyTick:596576672900186113> Bot Permissions", description="", timestamp=ctx.message.created_at)
-        permsmbed.add_field(name="Allowed:", value="\n".join(allowed))
-        permsmbed.add_field(name="Denied:", value="\n".join(denied))
+        permsmbed.add_field(name="Allowed:", value=F"{allowed}", inline=True)
+        permsmbed.add_field(name="Denied:", value=F"{denied}", inline=True)
         permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=permsmbed)
 
