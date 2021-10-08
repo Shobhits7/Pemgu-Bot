@@ -183,6 +183,22 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             blacklistmbed.title = F"Removed {user} from blacklist"
         await ctx.send(embed=blacklistmbed)
 
+    # Blacklisted
+    @commands.command(name="blacklisted", help="Will show the users in the blacklist")
+    @commands.is_owner()
+    async def blacklisted(self, ctx:commands.Context):
+        blacklistedmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Current Users in Blacklist",
+            description="",
+            timestamp=ctx.message.created_at
+        )
+        blacklistedmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        blacklisted = await self.bot.postgres.fetch("SELECT * FROM blacklist")
+        for user in blacklisted:
+            blacklistedmbed.description += user
+        await ctx.send(embed=blacklisted)
+
     # Screenshot
     @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website")
     @commands.is_owner()
