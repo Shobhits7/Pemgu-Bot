@@ -72,10 +72,9 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         uimbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{member}'s' Information",
-            description="`Global-Information` is for the user in discord\n`Server-Information` is for the user in server",
             timestamp=ctx.message.created_at
         )
-        uimbed.description += F"""
+        uimbed.description = F"""
         __**Global-Information:**__
         ***Username:*** {member.name}
         ***Discriminator:*** {member.discriminator}
@@ -125,10 +124,9 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         simbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{ctx.guild}'s Information",
-            description="`Owner-Information` is for the user that owns this server\n`Server-Information` is for the actual server",
             timestamp=ctx.message.created_at
         )
-        simbed.description += F"""
+        simbed.description = F"""
         __**Owner-Information:**__
         ***Username:*** {ctx.guild.owner.name}
         ***Discriminator:*** {ctx.guild.owner.discriminator}
