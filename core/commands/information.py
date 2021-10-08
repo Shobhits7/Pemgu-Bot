@@ -95,11 +95,10 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         ***Nickname:*** {member.nick}
         ***Voice:*** {'*Not in a voice*' if not member.voice else member.voice.channel.mention}
         ***Server-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}
-        """.replace("\t\t", "╰")
-        if member.avatar: uimbed.set_thumbnail(url=member.display_avatar.url)
-        else: uimbed.description += "__**Avatar:**__ User doesn't have a avatar"
+        """.replace("\t", "")
+        uimbed.set_author(name=member, icon_url=member.display_avatar.url)
+        if member.guild_avatar: uimbed.set_thumbnail(url=member.guild_avatar.url)
         if image.banner: uimbed.set_image(url=image.banner.url)
-        else: uimbed.description += "__**Banner:**__ User doesn't have a banner"
         uimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=uimbed)
 
