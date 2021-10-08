@@ -58,7 +58,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             timestamp=ctx.message.created_at
         )
         loadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        self.bot.load_extension(F"core.{cog}")
+        self.bot.load_extension(cog)
         await ctx.send(embed=loadmbed)
 
     # Unload
@@ -71,7 +71,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             timestamp=ctx.message.created_at
         )
         unloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        self.bot.unload_extension(F"core.{cog}")
+        self.bot.unload_extension(cog)
         await ctx.send(embed=unloadmbed)
   
     # Reload
@@ -112,7 +112,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             timestamp=ctx.message.created_at
         )
         reunloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        self.bot.reload_extension(F"core.{cog}")
+        self.bot.reload_extension(cog)
         await ctx.send(embed=reunloadmbed)
 
     # Toggle
