@@ -60,7 +60,7 @@ class CustomHelp(commands.HelpCommand):
 
     # Help Main
     async def send_bot_help(self, mapping):
-        view = hv.PaginatorView(self, mapping)
+        view = hv.ButtonsView(self, mapping)
         view.homepage.add_field(name="Prefix:", value=self.context.prefix or "In DM you don't need to use prefix")
         view.homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THESE WHEN DOING A COMMAND***")
         view.homepage.set_thumbnail(url=self.context.me.display_avatar.url)
