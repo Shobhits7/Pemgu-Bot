@@ -195,8 +195,9 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         )
         blacklistedmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         blacklisted = await self.bot.postgres.fetch("SELECT * FROM blacklist")
-        for user in blacklisted:
-            blacklistedmbed.description += user
+        for stuff in blacklisted:
+            user = self.bot.get_user(stuff["user_id"])
+            blacklistedmbed.description += F"{user.mention}\n"
         await ctx.send(embed=blacklisted)
 
     # Screenshot
