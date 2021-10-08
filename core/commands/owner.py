@@ -77,8 +77,8 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     # Reload
     @commands.command(name="reload", help="Will reload the given  or every cog")
     @commands.is_owner()
-    async def reload(self, ctx:commands.Context, *, cog:str="all"):
-        if cog == "all":
+    async def reload(self, ctx:commands.Context, *, cog:str=None):
+        if not cog:
             allmbed = discord.Embed(
                 colour=self.bot.colour,
                 title="Successfully reloaded every cog",
