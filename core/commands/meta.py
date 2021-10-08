@@ -89,8 +89,8 @@ class Meta(commands.Cog, description="Control the bot with this like a real robo
     @commands.command(name="permissions", aliases=["perms"], help="Will show the permissions that the bot has in this guild")
     async def permissions(self, ctx:commands.Context):
         permsmbed = discord.Embed(colour=self.bot.colour, title="<:greyTick:596576672900186113> Bot Permissions", description="", timestamp=ctx.message.created_at)
-        permsmbed.add_field(name="Allowed:", value="<:greenTick:596576670815879169> - \n".join(perms.replace('_', ' ').title() for perms, val in ctx.me.guild_permissions if val))
-        permsmbed.add_field(name="Not-Allowed:", value="<:redTick:596576672149667840> - \n".join(perms.replace('_', ' ').title() for perms, val in ctx.me.guild_permissions if not val))
+        permsmbed.add_field(name="Allowed:", value="\n - <:greenTick:596576670815879169>".join(perms.replace('_', ' ').title() for perms, val in ctx.me.guild_permissions if val))
+        permsmbed.add_field(name="Not-Allowed:", value="\n - <:redTick:596576672149667840>".join(perms.replace('_', ' ').title() for perms, val in ctx.me.guild_permissions if not val))
         permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=permsmbed)
 
