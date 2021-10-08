@@ -168,7 +168,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
     # Blacklist
     @commands.command(name="blacklist", help="Will put the given user to blacklist")
     @commands.is_owner()
-    async def blacklist(self, ctx:commands.Context, user:discord.User=None):
+    async def blacklist(self, ctx:commands.Context, user:discord.User=None, *, reason:str=None):
         if not user:
             allmbed = discord.Embed(
                 colour=self.bot.colour,
@@ -179,9 +179,9 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             allmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             blacklisted = await self.bot.postgres.fetch("SELECT * FROM blacklist")
             if len(blacklisted) != 0:
-                for stuff in blacklisted:
-                    user = self.bot.get_user(stuff["user_id"])
-                    allmbed.description += F"{user.mention}\n"
+                for users in blacklisted:
+                    user = self.bot.get_user(users["user_id"])
+                    allmbed.description += F"{user.mention} - {users['reason']}\n"
             else: allmbed.description += "Nobody is in Blacklist"
             await ctx.send(embed=allmbed)
             return
@@ -192,7 +192,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         )
         blacklistmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if not blacklisted:
-            await self.bot.postgres.execute("INSERT INTO blacklist(user_name,user_disc,user_id) VALUES($1,$2,$3)", user.name, user.discriminator, user.id)
+            await self.bot.postgres.execute("INSERT INTO blacklist(user_name,user_disc,user_id,reason) VALUES($1,$2,$3,$4)", user.name, user.discriminator, user.id, reason)
             blacklistmbed.title = F"Added {user} to blacklist"
         else:
             await self.bot.postgres.execute("DELETE FROM blacklist WHERE user_id=$1", user.id)
