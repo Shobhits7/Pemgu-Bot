@@ -89,9 +89,9 @@ class Meta(commands.Cog, description="Control the bot with this like a real robo
     @commands.command(name="permissions", aliases=["perms"], help="Will show the permissions that the bot has in this guild")
     async def permissions(self, ctx:commands.Context):
         allowed = []
-        allowed_emote = "<a:y_:891733484459163729>"
+        allowed_emote = "<:greenTick:596576670815879169>"
         denied = []
-        denied_emote = "<a:n_:891733484933120021>"
+        denied_emote = "<:redTick:596576672149667840>"
         for permission, value in ctx.me.guild_permissions:
             permission.replace("_", " ").replace("guild", "server").title()
             if value:
