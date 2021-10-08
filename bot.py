@@ -1,5 +1,5 @@
 import discord, asyncpg, os, aiohttp, inspect
-import config.utils.help as help, config.utils.pagination as page, config.utils.options as options
+import core.utils.help as help, core.utils.pagination as page, core.utils.options as options
 from discord.ext import commands
 
 async def create_pool_postgres():
@@ -48,9 +48,16 @@ bot = JakeTheDogBase(
 
 bot.colour = 0xECA622
 bot.prefix = ".j"
-for core in sorted(os.listdir("./config/core/")):
-    if core.endswith(".py"):
-        bot.load_extension(F"config.core.{core[:-3]}")
+bot._commands = []
+for command in sorted(os.listdir("./core/commands/")):
+    if command.endswith(".py"):
+        bot.load_extension(F"core.commands.{command[:-3]}")
+        bot._commands.append(command[:-3])
+bot._events = []
+for event in sorted(os.listdir("./core/events/")):
+    if event.endswith(".py"):
+        bot.load_extension(F"core.events.{event[:-3]}")
+        bot._events.append(event[:-3])
 bot.load_extension("jishaku")
 os.environ["JISHAKU_UNDERSCORE"] = "FALSE"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
