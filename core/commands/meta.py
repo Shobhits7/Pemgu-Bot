@@ -88,14 +88,11 @@ class Meta(commands.Cog, description="Control the bot with this like a real robo
     # Permissions
     @commands.command(name="permissions", aliases=["perms"], help="Will show the permissions that the bot has in this guild")
     async def permissions(self, ctx:commands.Context):
-        pmbed = discord.Embed(colour=self.bot.colour, title="<:greyTick:596576672900186113> Bot Permissions", description="", timestamp=ctx.message.created_at)
-        for perm, val in ctx.guild.me.guild_permissions:
-            if val:
-                pmbed.description += F"<:greenTick:596576670815879169> - {perm.replace('_', ' ').title()}\n"
-            if not val:
-                pmbed.description += F"<:redTick:596576672149667840> - {perm.replace('_', ' ').title()}\n"
-        pmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=pmbed)
+        permsmbed = discord.Embed(colour=self.bot.colour, title="<:greyTick:596576672900186113> Bot Permissions", description="", timestamp=ctx.message.created_at)
+        permsmbed.add_field(name="Allowed:", value=F"<:greenTick:596576670815879169> - {'\n'.join(perms.replace('_', ' ').title() for perms, val in ctx.me.guild_permissions if val)}")
+        permsmbed.add_field(name="Allowed:", value=F"<:redTick:596576672149667840> - {'\n'.join(perms.replace('_', ' ').title() for perms, val in ctx.me.guild_permissions if not val)}")
+        permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=permsmbed)
 
     # Invite
     @commands.command(name="invite", aliases=["ie"], help="Will make a send the link for adding  the bot")
