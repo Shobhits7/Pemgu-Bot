@@ -52,13 +52,13 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     @commands.command(name="banner", aliases=["br"], help="Will show your or another user's banner")
     async def banner(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
-        image = await self.bot.fetch_user(user.id)
+        fetch = await self.bot.fetch_user(user.id)
         brmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{user}'s Banner",
             timestamp=ctx.message.created_at
         )
-        if image.banner and image.banner.url: brmbed.set_image(url=image.banner.url)
+        if fetch.banner: brmbed.set_image(url=fetch.banner.url)
         else: brmbed.description = "The user doesn't have a banner"
         brmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=brmbed)
@@ -68,9 +68,9 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     @commands.guild_only()
     async def userinfo(self, ctx:commands.Context, member:discord.Member=None):
         member = ctx.author if not member else member
-        image = await self.bot.fetch_user(member.id)
+        fetch = await self.bot.fetch_user(member.id)
         uimbed = discord.Embed(
-            colour=self.bot.colour,
+            colour=self.bot.colour if not fetch.accent_colour else fetch.accent_colour,
             title=F"{member}'s' Information",
             timestamp=ctx.message.created_at
         )
@@ -98,7 +98,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         """.replace("\t", "")
         uimbed.set_author(name=member, icon_url=member.display_avatar.url)
         if member.guild_avatar: uimbed.set_thumbnail(url=member.guild_avatar.url)
-        if image.banner: uimbed.set_image(url=image.banner.url)
+        if fetch.banner: uimbed.set_image(url=fetch.banner.url)
         uimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=uimbed)
 
