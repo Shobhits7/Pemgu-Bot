@@ -100,7 +100,7 @@ class Meta(commands.Cog, description="Control the bot with this like a real robo
             timestamp=ctx.message.created_at
         )
         for permission, value in ctx.me.guild_permissions:
-            permission = permission.replace("_", " ").replace("guild", "server").title()
+            permission = permission.replace("_", " ").title()
             if value:
                 permsmbed.description += F"{allowed_emote} - {permission}\n"
             if not value:
