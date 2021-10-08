@@ -1,6 +1,6 @@
 import discord, contextlib
 from discord.ext import commands
-import core.views.helpview as hv
+import config.views.helpview as hv
 
 class MinimalHelp(commands.MinimalHelpCommand):
     def __init__(self):

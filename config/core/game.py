@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import core.views.gameview as gv
+import config.views.gameview as gv
 
 class Game(commands.Cog, description="If you are bored... use these"):
     def __init__(self, bot):

@@ -88,20 +88,15 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             allmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             errors = []
             allmbed.description += F"<:greyTick:596576672900186113> Commands:\n"
-            for command in self.bot._commands:
+            cogs = list(self.bot.cogs.keys())
+            for cog in cogs:
+                cog = cog.lower()
+                if cog.startswith("On"): cog = cog[1:]
                 try:
-                    self.bot.reload_extension(F"core.commands.{command}")
-                    allmbed.description += F"<:greenTick:596576670815879169> - {command}\n"
+                    self.bot.reload_extension(F"config.commands.{cog}")
+                    allmbed.description += F"<:greenTick:596576670815879169> - {cog}\n"
                 except Exception as error:
-                    allmbed.description += F"<:redTick:596576672149667840> - {command}\n"
-                    errors.append(F"<:redTick:596576672149667840> - {error}\n")
-            allmbed.description += F"<:greyTick:596576672900186113> Events:\n"
-            for event in self.bot._events:
-                try:
-                    self.bot.reload_extension(F"core.events.{event}")
-                    allmbed.description += F"<:greenTick:596576670815879169> - {event}\n"
-                except Exception as error:
-                    allmbed.description += F"<:redTick:596576672149667840> - {event}\n"
+                    allmbed.description += F"<:redTick:596576672149667840> - {cog}\n"
                     errors.append(F"<:redTick:596576672149667840> - {error}\n")
             if len(errors) != 0:
                 allmbed.description += "".join(error for error in errors)
