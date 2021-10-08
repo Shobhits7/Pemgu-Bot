@@ -65,7 +65,7 @@ class CustomHelp(commands.HelpCommand):
         view.homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THESE WHEN DOING A COMMAND***")
         view.homepage.set_thumbnail(url=self.context.me.display_avatar.url)
         view.homepage.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
-        view.message = await self.context.send(embed=view.homepage, view=view, ephemeral=True)
+        view.message = await self.context.send(embed=view.homepage, view=view)
         return
 
     # Help Cog
