@@ -198,7 +198,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         for stuff in blacklisted:
             user = self.bot.get_user(stuff["user_id"])
             blacklistedmbed.description += F"{user.mention}\n"
-        await ctx.send(embed=blacklisted)
+        await ctx.send(embed=blacklistedmbed)
 
     # Screenshot
     @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website")
