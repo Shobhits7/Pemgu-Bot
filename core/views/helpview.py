@@ -15,16 +15,10 @@ class PaginatorButtons(discord.ui.Button):
         if self.emoji == "⏮":
             self.page -= 1
             await interaction.response.edit_message(embed=self.mbeds[self.page], view=self.view)
-        if self.emoji == "⏮" and self.page >= 0:
-            self.disabled = False
-            await interaction.response.edit_message(embed=self.mbeds[self.page], view=self.view)
         if self.emoji == "⏹":
             await interaction.message.delete()
         if self.emoji == "⏭":
             self.page += 1
-            await interaction.response.edit_message(embed=self.mbeds[self.page], view=self.view)
-        if self.emoji == "⏭" and self.page == 10:
-            self.disabled = True
             await interaction.response.edit_message(embed=self.mbeds[self.page], view=self.view)
 
 class PaginatorView(discord.ui.View):
@@ -40,18 +34,11 @@ class PaginatorView(discord.ui.View):
         )
         self.page = 0
         self.mbeds = [self.homepage]
-        self.add_item(item=PaginatorButtons(emoji="⏯", style=discord.ButtonStyle.green, view=self))
-        self.add_item(item=PaginatorButtons(emoji="⏮", style=discord.ButtonStyle.blurple, disabled=True, view=self))
-        self.add_item(item=PaginatorButtons(emoji="⏹", style=discord.ButtonStyle.red, view=self))
-        self.add_item(item=PaginatorButtons(emoji="⏭", style=discord.ButtonStyle.blurple, view=self))
-        self.add_item(item=discord.ui.Button(emoji="🧇", label="Invite", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
-        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support", url="https://discord.gg/bWnjkjyFRz"))
         def gts(command):
             return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
         for cog, commands in self.mapping.items():
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category"
-            cmds = cog.walk_commands() if cog else commands
             if not name.startswith("On"):
                 mbed = discord.Embed(
                         colour=self.help.context.bot.colour,
@@ -63,6 +50,13 @@ class PaginatorView(discord.ui.View):
                 mbed.set_author(name=self.help.context.author, icon_url=self.help.context.author.display_avatar.url)
                 mbed.set_footer(text=F"<> is required | [] is optional | Page: {len(self.mbeds)}")
                 self.mbeds.append(mbed)
+        self.add_item(item=PaginatorButtons(emoji="⏯", style=discord.ButtonStyle.green, view=self))
+        self.add_item(item=PaginatorButtons(emoji="⏮", style=discord.ButtonStyle.blurple, disabled=True, view=self))
+        self.add_item(item=PaginatorButtons(emoji="⏹", style=discord.ButtonStyle.red, view=self))
+        self.add_item(item=PaginatorButtons(emoji="⏭", style=discord.ButtonStyle.blurple, view=self))
+        self.add_item(item=discord.ui.Button(emoji="🧇", label="Invite", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
+        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support", url="https://discord.gg/bWnjkjyFRz"))
+        self.add_item(item=discord.ui.Button(emoji="👨‍💻", label="Github", url="https://github.com/lvlahraam/JakeTheDog-Bot"))
 
     async def on_timeout(self):
         try:
