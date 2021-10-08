@@ -88,9 +88,19 @@ class Meta(commands.Cog, description="Control the bot with this like a real robo
     # Permissions
     @commands.command(name="permissions", aliases=["perms"], help="Will show the permissions that the bot has in this guild")
     async def permissions(self, ctx:commands.Context):
+        allowed = []
+        denied = []
+        for permission, value in ctx.me.guild_permissions:
+            permission.replace("_", " ")
+            permission.replace("guild", "server")
+            permission.title()
+            if value:
+                allowed.append(F"<:greenTick:596576670815879169> - {permission}")
+            if not value:
+                allowed.append(F"<:redTick:596576672149667840> - {permission}")
         permsmbed = discord.Embed(colour=self.bot.colour, title="<:greyTick:596576672900186113> Bot Permissions", description="", timestamp=ctx.message.created_at)
-        permsmbed.add_field(name="Allowed:", value="\n - <:greenTick:596576670815879169>".join(perms.replace('_', ' ').title() for perms, val in ctx.me.guild_permissions if val))
-        permsmbed.add_field(name="Not-Allowed:", value="\n - <:redTick:596576672149667840>".join(perms.replace('_', ' ').title() for perms, val in ctx.me.guild_permissions if not val))
+        permsmbed.add_field(name="Allowed:", value="\n".join(allowed))
+        permsmbed.add_field(name="Denied:", value="\n".join(denied))
         permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=permsmbed)
 
