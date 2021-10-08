@@ -93,15 +93,18 @@ class Meta(commands.Cog, description="Control the bot with this like a real robo
         allowed_emote = "<:allow:896062865071566898>"
         denied = []
         denied_emote = "<:deny:896062993090084974>"
+        permsmbed = discord.Embed(
+            colour=self.bot.colour,
+            title=F"{ok_emote} Bot Permissions",
+            description="",
+            timestamp=ctx.message.created_at
+        )
         for permission, value in ctx.me.guild_permissions:
             permission.replace("_", " ").title()
             if value:
-                allowed.append(F"{allowed_emote} - {permission}\n")
+                permsmbed.description += F"{allowed_emote} - {permission}\n"
             if not value:
-                denied.append(F"{denied_emote} - {permission}\n")
-        permsmbed = discord.Embed(colour=self.bot.colour, title=F"{ok_emote} Bot Permissions", timestamp=ctx.message.created_at)
-        permsmbed.add_field(name="Allowed:", value="\n".join(allow for allow in allowed), inline=True)
-        permsmbed.add_field(name="Denied:", value="\n".join(deny for deny in denied), inline=True)
+                permsmbed.description += F"{denied_emote} - {permission}\n"
         permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=permsmbed)
 
