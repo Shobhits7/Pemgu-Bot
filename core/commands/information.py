@@ -41,7 +41,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         user = ctx.author if not user else user
         avmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{user} Avatar",
+            title=F"{user}'s Avatar",
             timestamp=ctx.message.created_at
         )
         avmbed.set_image(url=user.display_avatar.url)
@@ -55,7 +55,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         image = await self.bot.fetch_user(user.id)
         brmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{user} Banner",
+            title=F"{user}'s Banner",
             timestamp=ctx.message.created_at
         )
         if image.banner and image.banner.url: brmbed.set_image(url=image.banner.url)
@@ -71,7 +71,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         image = await self.bot.fetch_user(member.id)
         uimbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{member} Information",
+            title=F"{member}'s' Information",
             description="`Global-Information` is for the user in discord\n`Server-Information` is for the user in server",
             timestamp=ctx.message.created_at
         )
@@ -110,7 +110,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     async def icon(self, ctx:commands.Context):
         icmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{ctx.guild.name} 's Icon",
+            title=F"{ctx.guild}'s Icon",
             timestamp=ctx.message.created_at
         )
         icmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -124,7 +124,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     async def serverinfo(self, ctx:commands.Context):
         simbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{ctx.guild.name} 's Information",
+            title=F"{ctx.guild}'s Information",
             description="`Owner-Information` is for the user that owns this server\n`Server-Information` is for the actual server",
             timestamp=ctx.message.created_at
         )
@@ -137,7 +137,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in ctx.guild.owner.public_flags if enabled])}
         ***Registered:*** {discord.utils.format_dt(ctx.guild.owner.created_at, style="F")} ({discord.utils.format_dt(ctx.guild.owner.created_at, style="R")})
         __**Server-Information:**__
-        ***Name:*** {ctx.guild.name}
+        ***Name:*** {ctx.guild}
         ***ID:*** {ctx.guild.id}
         ***Description:*** {'*No Description*' if not ctx.guild.description else ctx.guild.description}
         ***Created-At:*** {discord.utils.format_dt(ctx.guild.created_at, style="F")} ({discord.utils.format_dt(ctx.guild.created_at, style="R")})
