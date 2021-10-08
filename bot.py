@@ -48,9 +48,9 @@ bot = JakeTheDogBase(
 
 bot.colour = 0xECA622
 bot.prefix = ".j"
-for command in sorted(os.listdir("./config/core/")):
-    if command.endswith(".py"):
-        bot.load_extension(F"config.commands.{command[:-3]}")
+for core in sorted(os.listdir("./config/core/")):
+    if core.endswith(".py"):
+        bot.load_extension(F"config.core.{core[:-3]}")
 bot.load_extension("jishaku")
 os.environ["JISHAKU_UNDERSCORE"] = "FALSE"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
