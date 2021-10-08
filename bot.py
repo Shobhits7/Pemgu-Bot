@@ -1,4 +1,4 @@
-import discord, asyncpg, os, aiohttp
+import discord, asyncpg, os, aiohttp, inspect
 import core.utils.help as help, core.utils.pagination as page, core.utils.options as options
 from discord.ext import commands
 
@@ -26,6 +26,10 @@ class JakeTheDogBase(commands.AutoShardedBot):
         if not self.session.closed:
             await self.session.close()
         await super().close()
+
+    @classmethod
+    def unindent(self, text):
+        return inspect.cleandoc(text)
 
     @classmethod
     def paginator(self, embeds):

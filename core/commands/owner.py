@@ -187,6 +187,23 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             blacklistmbed.title = F"Removed {user} from blacklist"
         await ctx.send(embed=blacklistmbed)
 
+    # Screenshot
+    @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website")
+    @commands.is_owner()
+    @commands.bot_has_guild_permissions(attach_files=True)
+    async def screenshot(self, ctx:commands.Context, *, website:str):
+        session = await self.bot.session.get(F"https://api.screenshotmachine.com?key=a95edd&url={website}&dimension=1024x768")
+        response = io.BytesIO(await session.read())
+        session.close()
+        ssmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Here is your screenshot",
+            timestamp=ctx.message.created_at
+        )
+        ssmbed.set_image(url="attachment://screenshot.png")
+        ssmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(file=discord.File(fp=response, filename="screenshot.png"), embed=ssmbed)
+
     # Template
     @commands.command(name="template", aliases=["te"], help="Will give the guild's template")
     @commands.is_owner()

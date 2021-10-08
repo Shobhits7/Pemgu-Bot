@@ -1,7 +1,7 @@
 import discord, time, os, inspect
 from discord.ext import commands
 
-class Meta(commands.Cog, description="For setting up the bot"):
+class Meta(commands.Cog, description="Control the bot with this like a real robot"):
     def __init__(self, bot):
         self.bot = bot
 

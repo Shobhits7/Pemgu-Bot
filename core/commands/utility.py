@@ -5,6 +5,36 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     def __init__(self, bot):
         self.bot = bot
 
+    # PYPI
+    @commands.command(name="pypi", help="Will give information about the given library in PYPI")
+    async def pypi(self, ctx:commands.Context, *, library:str):
+        session = await self.bot.session.get(F"https://pypi.org/pypi/{library}/json")
+        if session.status != 200:
+            await ctx.send("Couldn't find that library in PYPI")
+            return
+        response = await session.json()
+        session.close()
+        pypimbed = discord.Embed(
+            colour=self.bot.colour,
+            url=response['info']['package_url'],
+            title=response['info']['name'],
+            description=response['info']['summary'],
+            timestamp=ctx.message.created_at
+        )
+        pypimbed.add_field(name="Author Info:", value=F"Name: {response['info']['author']}\nEmail:{response['info']['author_email']}", inline=False)
+        pypimbed.add_field(name="Package Info:", value=self.bot.unindent(
+            F"""**Version:** {response['info']['version']}
+            **Download URL:** {response['info']['download_url']}
+            **Documentation URL:** {response['info']['docs_url']}
+            **Home Page:** {response['info']['home_page']}
+            **Yanked:** {response['info']['yanked']} - {response['info']['yanked_reason']}
+            **Keywords:** {response['info']['keywords']}
+            **License:** {response['info']['license']}"""), inline=False)
+        pypimbed.add_field(name="Classifiers:", value=",\n    ".join(classifier for classifier in response['info']['classifiers']), inline=False)
+        pypimbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/873478114183880704/887470965188091944/pypilogo.png")
+        pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=pypimbed)
+
     # AFK
     @commands.command(name="afk", help="Will make you AFK")
     @commands.guild_only()

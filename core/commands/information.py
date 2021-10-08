@@ -1,9 +1,10 @@
-import discord, time
+import discord, time, os, io
 from discord.ext import commands
 
 class Information(commands.Cog, description="Stalking people is wrong and bad!"):
     def __init__(self, bot):
         self.bot = bot
+        self.dagpi_headers = {"Authorization": os.getenv("DAGPI")}
 
     # About
     @commands.command(name="about", aliases=["ab"], help="Will show the bot's information")
@@ -16,6 +17,23 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         )
         abmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=abmbed)
+
+    # Colours
+    @commands.command(name="colours", aliases=["clrs"], help="Will give you the colours from the given image")
+    @commands.bot_has_guild_permissions(attach_files=True)
+    async def colours(self, ctx:commands.Context, user:discord.User=None):
+        user = ctx.author if not user else user
+        session = await self.bot.session.get(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.with_format('png')}", headers=self.dagpi_headers)
+        response = io.BytesIO(await session.read())
+        session.close()
+        clrsmbed = discord.Embed(
+            colour=self.bot.colour,
+            title=F"{user} 's image colours",
+            timestamp=ctx.message.created_at
+        )
+        clrsmbed.set_image(url="attachment://colours.png")
+        clrsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(file=discord.File(fp=response, filename="colours.png"), embed=clrsmbed)
 
     # Avatar
     @commands.command(name="avatar", aliases=["av"], help="Will show your or another user's avatar")
@@ -177,6 +195,50 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             )
             badspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             await ctx.send(embed=badspotifymbed)
+
+    # RickAndMorty
+    @commands.group(name="rickandmorty", aliases=["ram"], help="Some Rick and Morty commands, use subcommands", invoke_without_command=True)
+    async def rickandmorty(self, ctx:commands.Context):
+        await ctx.send_help(ctx.command.cog)
+
+    # RickAndMorty-Character
+    @rickandmorty.command(name="character", aliases=["char"], help="Will show information about the given character")
+    async def character(self, ctx:commands.Context, *, character:str):
+        session = await self.bot.session.get(F"https://rickandmortyapi.com/api/character/?name={character}")
+        if session.status != 200:
+            await ctx.send("Couldn't find that character in Rick And Morty")
+            return
+        response = await session.json()
+        session.close()
+        ramchmbed = discord.Embed(
+            colour=self.bot.colour,
+            url=response['results'][0]['url'],
+            title=F"{response['results'][0]['name']} 's Information",
+            timestamp=ctx.message.created_at,
+        )
+        ramchmbed.description = F"""
+        Stauts: {response['results'][0]['status']}
+        Species: {response['results'][0]['species']}
+        Type: {'Unknown' if not response['results'][0]['type'] else response['results'][0]['type']}
+        Gender: {response['results'][0]['gender']}
+        Origin: {response['results'][0]['origin']['name']}
+        Location: {response['results'][0]['location']['name']}
+        Created: {response['results'][0]['created']}
+        """.replace("\t", "")
+        ramchmbed.set_image(url=response['results'][0]['image'])
+        await ctx.send(embed=ramchmbed)
+
+    # RickAndMorty-Location
+    @rickandmorty.command(name="location", aliases=["loc"], help="Will show information about the given location")
+    async def location(self, ctx:commands.Context, *, location:str):
+        session = await self.bot.session.get("...")
+        response = await session.json()
+
+    # RickAndMorty-Episode
+    @rickandmorty.command(name="episode", aliases=["ep"], help="Will show information about the given episode")
+    async def episode(self, ctx:commands.Context, *, episode:int):
+        session = await self.bot.session.get("...")
+        response = await session.json()
 
 def setup(bot):
     bot.add_cog(Information(bot))
