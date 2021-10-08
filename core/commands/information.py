@@ -145,7 +145,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         ***File-Size-Limit:*** {ctx.guild.filesize_limit}
         ***Members:*** {ctx.guild.member_count}
         ***Default-Role:*** {ctx.guild.default_role.mention}
-        ***Boost-Role:*** {ctx.guild.premium_subscriber_role.mention}
+        ***Boost-Role:*** {'*No boost-role*'}
         ***Boosters:*** {ctx.guild.premium_subscription_count}
         ***Tier:*** {ctx.guild.premium_tier}
         ***Categories:*** {len(ctx.guild.categories)}
