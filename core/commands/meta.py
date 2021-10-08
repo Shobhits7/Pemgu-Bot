@@ -94,20 +94,14 @@ class Meta(commands.Cog, description="Control the bot with this like a real robo
         denied = []
         denied_emote = "<:n_:896062993090084974>"
         for permission, value in ctx.me.guild_permissions:
-            permission.replace("_", " ").replace("guild", "server").title()
+            permission.replace("_", " ").title()
             if value:
-                allowed.append(F"{allowed_emote} - {permission}")
+                allowed.append(F"{allowed_emote} - {permission}\n")
             if not value:
-                denied.append(F"{denied_emote} - {permission}")
-        if f"{allowed_emote} Administrator" in allowed:
-            allowed = [f"{allowed_emote} Administrator"]
-        if len(denied) == 0:
-            denied = [f"{denied_emote} None"]
-        allowed = '\n'.join(allowed)
-        denied = '\n'.join(denied)
-        permsmbed = discord.Embed(colour=self.bot.colour, title=F"{ok_emote} Bot Permissions", description="", timestamp=ctx.message.created_at)
-        permsmbed.add_field(name="Allowed:", value=F"{allowed}", inline=True)
-        permsmbed.add_field(name="Denied:", value=F"{denied}", inline=True)
+                denied.append(F"{denied_emote} - {permission}\n")
+        permsmbed = discord.Embed(colour=self.bot.colour, title=F"{ok_emote} Bot Permissions", timestamp=ctx.message.created_at)
+        permsmbed.add_field(name="Allowed:", value="\n".join(allow for allow in allowed), inline=True)
+        permsmbed.add_field(name="Denied:", value="\n".join(deny for deny in denied), inline=True)
         permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=permsmbed)
 
