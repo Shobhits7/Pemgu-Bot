@@ -1,6 +1,6 @@
 import discord, os, io
 from discord.ext import commands
-import config.views.funview as fv
+import core.views.funview as fv
 
 class Fun(commands.Cog, description="You sad?. Use these to at least have a smile"):
     def __init__(self, bot):
