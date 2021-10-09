@@ -24,7 +24,7 @@ class Todo(commands.Cog, description="If you are so lazy to do stuff, use these"
         tasks = []
         counter = 1
         for stuff in todos:
-            tasks.append(F"{counter} - {stuff['task']}\n")
+            tasks.append(F"{counter} - {stuff['task']} | {discord.utils.format_dt(stuff['time'], style='f')} ({discord.utils.format_dt(stuff['time'], style='R')})\n")
             counter += 1
         fintodombed = discord.Embed(
             colour=self.bot.colour,
@@ -38,11 +38,12 @@ class Todo(commands.Cog, description="If you are so lazy to do stuff, use these"
     # Add
     @todo.command(name="add", help="Will add the given task to your tasks")
     async def add(self, ctx:commands.Context, *, task:str):
-        await self.bot.postgres.execute("INSERT INTO todos(user_name,user_id,task) VALUES($1,$2,$3)", ctx.author.name, ctx.author.id, task)
+        time = discord.utils.utcnow()
+        await self.bot.postgres.execute("INSERT INTO todos(user_name,user_id,task,time) VALUES($1,$2,$3,$4)", ctx.author.name, ctx.author.id, task, time)
         addmbed = discord.Embed(
             colour=self.bot.colour,
             title="Successfully added:",
-            description=F"> {task}\n**To your tasks**",
+            description=F"> {task} - {discord.utils.format_dt(time, style='f')} ({discord.utils.format_dt(time, style='R')})\n**To your tasks**",
             timestamp=ctx.message.created_at
         )
         addmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
