@@ -4,11 +4,13 @@ from discord.ext import commands
 class Todo(commands.Cog, description="If you are so lazy to do stuff, use these"):
     def __init__(self, bot):
         self.bot = bot
-    
+
+    # Todo
     @commands.group(name="todo", help="Consider using subcommands", invoke_without_command=True)
     async def todo(self, ctx:commands.Context):
         await ctx.send_help("Todo")
 
+    # List
     @todo.command(name="list", help="Will show your tasks list")
     async def list(self, ctx:commands.Context):
         badtodombed = discord.Embed(
@@ -33,18 +35,20 @@ class Todo(commands.Cog, description="If you are so lazy to do stuff, use these"
         fintodombed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
         await ctx.send(embed=fintodombed)
 
+    # Add
     @todo.command(name="add", help="Will add the given task to your tasks")
     async def add(self, ctx:commands.Context, *, task:str):
         await self.bot.postgres.execute("INSERT INTO todos(user_name,user_id,task) VALUES($1,$2,$3)", ctx.author.name, ctx.author.id, task)
         addmbed = discord.Embed(
             colour=self.bot.colour,
-            title="Successfully added,",
+            title="Successfully added:",
             description=F"> {task}\n**To your tasks**",
             timestamp=ctx.message.created_at
         )
         addmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
         await ctx.send(embed=addmbed)
 
+    # Remove
     @todo.command(name="remove", help="Will remove the given task from your tasks")
     async def remove(self, ctx:commands.Context, *, task:str):
         badremovembed = discord.Embed(
