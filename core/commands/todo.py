@@ -11,15 +11,16 @@ class Todo(commands.Cog, description="If you are so lazy to do stuff, use these"
         await ctx.send_help("Todo")
 
     # List
-    @todo.command(name="list", help="Will show your tasks list")
-    async def list(self, ctx:commands.Context):
+    @todo.command(name="list", help="Will show your or another user's tasks list")
+    async def list(self, ctx:commands.Context, user:discord.User=None):
+        user = ctx.author if not user else user
         badtodombed = discord.Embed(
             colour=self.bot.colour,
-            title="You currently don't have any tasks",
+            title=F"{user} currently doesn't have any tasks",
             timestamp=ctx.message.created_at
         )
         badtodombed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
-        todos = await self.bot.postgres.fetch("SELECT * FROM todos WHERE user_id=$1", ctx.author.id)
+        todos = await self.bot.postgres.fetch("SELECT * FROM todos WHERE user_id=$1", user)
         if not todos: return await ctx.send(embed=badtodombed)
         tasks = []
         counter = 1
@@ -28,7 +29,7 @@ class Todo(commands.Cog, description="If you are so lazy to do stuff, use these"
             counter += 1
         fintodombed = discord.Embed(
             colour=self.bot.colour,
-            title="Your current tasks:",
+            title=F"{user}'s current tasks:",
             description="".join(task for task in tasks),
             timestamp=ctx.message.created_at
         )
