@@ -146,7 +146,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         finlcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if peroverwrites in channel.overwrites:
+        if channel.overwrites == peroverwrites:
             await channel.edit(overwrites=newoverwrites)
             return await ctx.send(embed=finlcmbed)
         await ctx.send(embed=badlcmbed)
@@ -159,7 +159,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     async def unlock(self, ctx:commands.Context, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
         peroverwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)}
-        newoverwrites = {ctx.guild.default_role:discord.PermissionOverwrite(send_messages=True)}
+        newoverwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=True)}
         badulcmbed = discord.Embed(
             colour=self.bot.colour,
             title="Is already unlocked",
@@ -174,7 +174,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         finulcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if peroverwrites in channel.overwrites:
+        if channel.overwrites == peroverwrites:
             await channel.edit(overwrites=newoverwrites)
             return await ctx.send(embed=finulcmbed)
         await ctx.send(embed=badulcmbed)
