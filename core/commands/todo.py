@@ -11,27 +11,27 @@ class Todo(commands.Cog, description="If you are so lazy to do stuff, use these"
 
     @todo.command(name="list", help="Will show your tasks list")
     async def list(self, ctx:commands.Context):
-        tasks = []
-        counter = 1
         badtodombed = discord.Embed(
             colour=self.bot.colour,
             title="You currently don't have any tasks",
             timestamp=ctx.message.created_at
         )
         badtodombed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
-        todombed = discord.Embed(
+        todos = await self.bot.postgres.fetch("SELECT * FROM todos WHERE user_id=$1", ctx.author.id)
+        if not todos: return await ctx.send(embed=badtodombed)
+        tasks = []
+        counter = 1
+        for stuff in todos:
+            tasks.append(F"{counter} - {stuff['task']}\n")
+            counter += 1
+        fintodombed = discord.Embed(
             colour=self.bot.colour,
             title="Your current tasks:",
             description="".join(task for task in tasks),
             timestamp=ctx.message.created_at
         )
-        todombed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
-        todos = await self.bot.postgres.fetch("SELECT * FROM todos WHERE user_id=$1", ctx.author.id)
-        if not todos: return await ctx.send("")
-        for stuff in todos:
-            tasks.append(F"{counter} - {stuff['task']}\n")
-            counter += 1
-        await ctx.send(embed=todombed)
+        fintodombed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
+        await ctx.send(embed=fintodombed)
 
     @todo.command(name="add", help="Will add the given task to your tasks")
     async def add(self, ctx:commands.Context, *, task:str):
