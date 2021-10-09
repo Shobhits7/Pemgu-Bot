@@ -95,8 +95,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         )
         baembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if role in member.roles:
-            await ctx.send(embed=baembed)
-            return
+            return await ctx.send(embed=baembed)
         await member.add_roles(role)
         await ctx.send(embed=faembed)
     
@@ -114,15 +113,65 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         frembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         brembed = discord.Embed(
             colour=self.bot.colour,
-            title=F"The member don't have the {role} role",
+            title=F"The member doesn't have the {role} role",
             timestamp=ctx.message.created_at
         )
         brembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if role in member.roles:
             await member.remove_roles(role)
-            await ctx.send(embed=frembed)
-            return
+            return await ctx.send(embed=frembed)
         await ctx.send(embed=brembed)
+
+    # Lock
+    @commands.command(name="lock", aliases=["lc"], help="Will lock the given channel")
+    @commands.guild_only()
+    @commands.has_guild_permissions(manage_channels=True)
+    @commands.bot_has_guild_permissions(manage_channels=True)
+    async def lock(self, ctx:commands.Context, channel:discord.TextChannel=None):
+        channel = ctx.channel if not channel else channel
+        badlcmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Is already locked:",
+            description=channel.mention,
+            timestamp=ctx.message.created_at
+        )
+        badlcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        finlcmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Locked:",
+            description=channel.mention,
+            timestamp=ctx.message.created_at
+        )
+        finlcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if ctx.guild.default_role not in channel.overwrites:
+            await channel.edit(overwrites={ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)})
+            return await ctx.send(embed=finlcmbed)
+        await ctx.send(embed=badlcmbed)
+
+    @commands.command(name="unlock", aliases=["ulc"], help="Will unlock the given channel")
+    @commands.guild_only()
+    @commands.has_guild_permissions(manage_channels=True)
+    @commands.bot_has_guild_permissions(manage_channels=True)
+    async def unlock(self, ctx:commands.Context, channel:discord.TextChannel=None):
+        channel = ctx.channel if not channel else channel
+        badulcmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Is already unlocked",
+            description=channel.mention,
+            timestamp=ctx.message.created_at
+        )
+        badulcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        finulcmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Unlocked:",
+            description=channel.mention,
+            timestamp=ctx.message.created_at
+        )
+        finulcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if ctx.guild.default_role in channel.overwrites:
+            await channel.edit(overwrites={ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)})
+            return await ctx.send(embed=finulcmbed)
+        await ctx.send(embed=badulcmbed)
 
     # Mute
     @commands.command(name="mute", aliases=["mt"], help="Will mute the given user")
