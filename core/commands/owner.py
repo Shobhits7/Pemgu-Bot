@@ -94,7 +94,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
                     allmbed.description += F"<:greenTick:596576670815879169> - {command}\n"
                 except Exception as error:
                     allmbed.description += F"<:redTick:596576672149667840> - {command}\n"
-                    errors.append(F"<:redTick:596576672149667840> - {error}\n")
+                    allmbed.description += F"<:redTick:596576672149667840> - {error}\n"
             allmbed.description += F"<:greyTick:596576672900186113> Events:\n"
             for event in self.bot._events:
                 try:
@@ -102,9 +102,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
                     allmbed.description += F"<:greenTick:596576670815879169> - {event}\n"
                 except Exception as error:
                     allmbed.description += F"<:redTick:596576672149667840> - {event}\n"
-                    errors.append(F"<:redTick:596576672149667840> - {error}\n")
-            if not errors:
-                allmbed.description += "".join(error for error in errors)
+                    allmbed.description += F"<:redTick:596576672149667840> - {error}\n"
             return await ctx.send(embed=allmbed)
         reunloadmbed = discord.Embed(
             colour=self.bot.colour,
@@ -180,12 +178,12 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             allmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             blacklisted = await self.bot.postgres.fetch("SELECT * FROM blacklist")
             if not blacklisted:
+                allmbed.description += "Nobody is in Blacklist"
+            else:
                 for users in blacklisted:
                     user = self.bot.get_user(users["user_id"])
                     allmbed.description += F"{user.mention} - {users['reason']}\n"
-            else: allmbed.description += "Nobody is in Blacklist"
-            await ctx.send(embed=allmbed)
-            return
+            return await ctx.send(embed=allmbed)
         blacklisted = await self.bot.postgres.fetchval("SELECT user_id FROM blacklist WHERE user_id=$1", user.id)
         blacklistmbed = discord.Embed(
             colour=self.bot.colour,
