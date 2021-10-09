@@ -8,9 +8,14 @@ class Fun(commands.Cog, description="You sad?. Use these to at least have a smil
         self.dagpi_headers = {"Authorization": os.getenv("DAGPI")}
 
     # Say
-    @commands.command(name="say", help="Will say your message")
-    async def say(self, ctx:commands.Context, *, say:str):
-        await ctx.send(F"{say} | {ctx.author.mention}")
+    @commands.command(name="say", help="Will say your text")
+    async def say(self, ctx:commands.Context, *, text:str):
+        await ctx.send(F"{text} | {ctx.author.mention}")
+
+    # Sarcasm
+    @commands.command(name="sarcasm", help="Will say your text in a sarcastic way")
+    async def sarcasm(self, ctx:commands.Context, *, text:str):
+        await ctx.send(F"{''.join(c.upper() if i % 2 == 0 else c for i, c in enumerate(text))} | {ctx.author.mention}")
 
     # Nitro
     @commands.command(name="nitro", help="Will gift free Nitro")
