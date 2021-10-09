@@ -11,8 +11,8 @@ class Todo(commands.Cog, description="If you are so lazy to do stuff, use these"
         tasks = []
         counter = 1
         if not todos: return await ctx.send("You currently don't have any tasks")
-        for task in todos:
-            tasks.append(F"{counter} - {task}\n")
+        for stuff in todos:
+            tasks.append(F"{counter} - {stuff['task']}\n")
             counter += 1
         todombed = discord.Embed(
             colour=self.bot.colour,
