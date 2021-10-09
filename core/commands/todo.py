@@ -23,5 +23,17 @@ class Todo(commands.Cog, description="If you are so lazy to do stuff, use these"
         todombed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
         await ctx.send(embed=todombed)
 
+    @todo.command(name="add", help="Will add the given task to your tasks")
+    async def add(self, ctx:commands.Context, *, task:str):
+        await self.bot.postgres.execute("INSERT INTO todos(user_name,user_id,task) VALUES($1,$2,$3)", ctx.author.name, ctx.author.id, task)
+        addmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Successfully added,",
+            description=F"> {task}\n**To your tasks**",
+            timestamp=ctx.message.created_at
+        )
+        addmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
+        await ctx.send(embed=addmbed)
+
 def setup(bot):
     bot.add_cog(Todo(bot))
