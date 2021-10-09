@@ -130,7 +130,8 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.bot_has_guild_permissions(manage_channels=True)
     async def lock(self, ctx:commands.Context, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
-        overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)}
+        peroverwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=True)}
+        newoverwrites = {ctx.guild.default_role:discord.PermissionOverwrite(send_messages=False)}
         badlcmbed = discord.Embed(
             colour=self.bot.colour,
             title="Is already locked:",
@@ -145,8 +146,8 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         finlcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if channel.overwrites != overwrites:
-            await channel.edit(overwrites=overwrites)
+        if peroverwrites in channel.overwrites:
+            await channel.edit(overwrites=newoverwrites)
             return await ctx.send(embed=finlcmbed)
         await ctx.send(embed=badlcmbed)
 
@@ -157,7 +158,8 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.bot_has_guild_permissions(manage_channels=True)
     async def unlock(self, ctx:commands.Context, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
-        overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)}
+        peroverwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)}
+        newoverwrites = {ctx.guild.default_role:discord.PermissionOverwrite(send_messages=True)}
         badulcmbed = discord.Embed(
             colour=self.bot.colour,
             title="Is already unlocked",
@@ -172,8 +174,8 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         finulcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if channel.overwrites != overwrites:
-            await channel.edit(overwrites=overwrites)
+        if peroverwrites in channel.overwrites:
+            await channel.edit(overwrites=newoverwrites)
             return await ctx.send(embed=finulcmbed)
         await ctx.send(embed=badulcmbed)
 
