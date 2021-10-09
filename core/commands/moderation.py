@@ -130,8 +130,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.bot_has_guild_permissions(manage_channels=True)
     async def lock(self, ctx:commands.Context, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
-        peroverwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=True)}
-        newoverwrites = {ctx.guild.default_role:discord.PermissionOverwrite(send_messages=False)}
+        overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)}
         badlcmbed = discord.Embed(
             colour=self.bot.colour,
             title="Is already locked:",
@@ -146,11 +145,12 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         finlcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if channel.overwrites == peroverwrites:
-            await channel.edit(overwrites=newoverwrites)
-            return await ctx.send(embed=finlcmbed)
-        await ctx.send(embed=badlcmbed)
+        if channel.overwrites == overwrites:
+            return await ctx.send(embed=badlcmbed)
+        await channel.edit(overwrites=overwrites)
+        await ctx.send(embed=finlcmbed)
 
+    # Unlock
     @commands.command(name="unlock", aliases=["ulc"], help="Will unlock the given channel", hidden=True)
     @commands.is_owner()
     @commands.guild_only()
@@ -158,8 +158,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.bot_has_guild_permissions(manage_channels=True)
     async def unlock(self, ctx:commands.Context, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
-        peroverwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)}
-        newoverwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=True)}
+        overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=True)}
         badulcmbed = discord.Embed(
             colour=self.bot.colour,
             title="Is already unlocked",
@@ -174,10 +173,10 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         finulcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if channel.overwrites == peroverwrites:
-            await channel.edit(overwrites=newoverwrites)
-            return await ctx.send(embed=finulcmbed)
-        await ctx.send(embed=badulcmbed)
+        if channel.overwrites == overwrites:
+            return await ctx.send(embed=badulcmbed)
+        await channel.edit(overwrites=overwrites)
+        await ctx.send(embed=finulcmbed)
 
     # Mute
     @commands.command(name="mute", aliases=["mt"], help="Will mute the given user")

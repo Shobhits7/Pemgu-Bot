@@ -103,7 +103,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
                 except Exception as error:
                     allmbed.description += F"<:redTick:596576672149667840> - {event}\n"
                     errors.append(F"<:redTick:596576672149667840> - {error}\n")
-            if len(errors) != 0:
+            if not errors:
                 allmbed.description += "".join(error for error in errors)
             return await ctx.send(embed=allmbed)
         reunloadmbed = discord.Embed(
@@ -179,7 +179,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
             )
             allmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             blacklisted = await self.bot.postgres.fetch("SELECT * FROM blacklist")
-            if len(blacklisted) != 0:
+            if not blacklisted:
                 for users in blacklisted:
                     user = self.bot.get_user(users["user_id"])
                     allmbed.description += F"{user.mention} - {users['reason']}\n"
