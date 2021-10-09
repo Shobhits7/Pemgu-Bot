@@ -86,7 +86,6 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
                 timestamp=ctx.message.created_at
             )
             allmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-            errors = []
             allmbed.description += F"<:greyTick:596576672900186113> Commands:\n"
             for command in self.bot._commands:
                 try:
