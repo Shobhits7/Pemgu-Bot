@@ -192,7 +192,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         )
         blacklistmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if not blacklisted:
-            await self.bot.postgres.execute("INSERT INTO blacklist(user_name,user_disc,user_id,reason) VALUES($1,$2,$3,$4)", user.name, user.discriminator, user.id, reason)
+            await self.bot.postgres.execute("INSERT INTO blacklist(user_name,user_id,reason) VALUES($1,$2,$3)", user.name, user.id, reason)
             blacklistmbed.title = F"Added {user} to blacklist"
         else:
             await self.bot.postgres.execute("DELETE FROM blacklist WHERE user_id=$1", user.id)

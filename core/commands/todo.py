@@ -7,7 +7,7 @@ class Todo(commands.Cog, description="If you are so lazy to do stuff, use these"
     
     @commands.group(name="todo", help="Will show your list of tasks, consider using subcommands", invoke_without_command=True)
     async def todo(self, ctx:commands.Context):
-        todos = await self.bot.fetch("SELECT * FROM todos WHERE user_id=$1", ctx.author.id)
+        todos = await self.bot.postgres.fetch("SELECT * FROM todos WHERE user_id=$1", ctx.author.id)
         tasks = []
         counter = 1
         if not todos: return await ctx.send("You currently don't have any tasks")
