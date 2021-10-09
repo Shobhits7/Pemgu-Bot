@@ -123,7 +123,8 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         await ctx.send(embed=brembed)
 
     # Lock
-    @commands.command(name="lock", aliases=["lc"], help="Will lock the given channel")
+    @commands.command(name="lock", aliases=["lc"], help="Will lock the given channel", hidden=True)
+    @commands.is_owner()
     @commands.guild_only()
     @commands.has_guild_permissions(manage_channels=True)
     @commands.bot_has_guild_permissions(manage_channels=True)
@@ -148,7 +149,8 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             return await ctx.send(embed=finlcmbed)
         await ctx.send(embed=badlcmbed)
 
-    @commands.command(name="unlock", aliases=["ulc"], help="Will unlock the given channel")
+    @commands.command(name="unlock", aliases=["ulc"], help="Will unlock the given channel", hidden=True)
+    @commands.is_owner()
     @commands.guild_only()
     @commands.has_guild_permissions(manage_channels=True)
     @commands.bot_has_guild_permissions(manage_channels=True)
