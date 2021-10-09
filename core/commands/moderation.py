@@ -130,6 +130,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.bot_has_guild_permissions(manage_channels=True)
     async def lock(self, ctx:commands.Context, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
+        overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)}
         badlcmbed = discord.Embed(
             colour=self.bot.colour,
             title="Is already locked:",
@@ -144,8 +145,8 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         finlcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if ctx.guild.default_role not in channel.overwrites:
-            await channel.edit(overwrites={ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)})
+        if channel.overwrites != overwrites:
+            await channel.edit(overwrites=overwrites)
             return await ctx.send(embed=finlcmbed)
         await ctx.send(embed=badlcmbed)
 
@@ -156,7 +157,6 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.bot_has_guild_permissions(manage_channels=True)
     async def unlock(self, ctx:commands.Context, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
-        overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)}
         badulcmbed = discord.Embed(
             colour=self.bot.colour,
             title="Is already unlocked",
@@ -171,8 +171,8 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         finulcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if channel.overwrites != overwrites:
-            await channel.edit(overwrites=overwrites)
+        if ctx.guild.default_role in channel.overwrites:
+            await channel.edit(overwrites={ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)})
             return await ctx.send(embed=finulcmbed)
         await ctx.send(embed=badulcmbed)
 
