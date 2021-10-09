@@ -49,10 +49,10 @@ class CustomHelp(commands.HelpCommand):
             "Game": "🎮",
             "Images": "📷",
             "Information": "🔎",
-            "Internet": "🌎",
             "Meta": "🔧",
             "Moderation": "🎩",
             "Owner": "👑",
+            "Todo": "📝",
             "Utility": "🧰",
             "Jishaku": "🤿",
             "No": "❓"
