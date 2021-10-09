@@ -140,7 +140,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         badlcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         finlcmbed = discord.Embed(
             colour=self.bot.colour,
-            title="Locked:",
+            title="Successfully Locked:",
             description=channel.mention,
             timestamp=ctx.message.created_at
         )
@@ -157,6 +157,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.bot_has_guild_permissions(manage_channels=True)
     async def unlock(self, ctx:commands.Context, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
+        overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)}
         badulcmbed = discord.Embed(
             colour=self.bot.colour,
             title="Is already unlocked",
@@ -166,13 +167,13 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         badulcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         finulcmbed = discord.Embed(
             colour=self.bot.colour,
-            title="Unlocked:",
+            title="Successfully Unlocked:",
             description=channel.mention,
             timestamp=ctx.message.created_at
         )
         finulcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if ctx.guild.default_role in channel.overwrites:
-            await channel.edit(overwrites={ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)})
+        if channel.overwrites != overwrites:
+            await channel.edit(overwrites=overwrites)
             return await ctx.send(embed=finulcmbed)
         await ctx.send(embed=badulcmbed)
 
