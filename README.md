@@ -15,7 +15,7 @@ And I saw a lot of people are using and making discord bots
 So I made my own custom bot so other people can use it
 
 ## More things
-*You can get the prefix with mentioning the bot - currently it's `.m`*
+*You can get the prefix with mentioning the bot - currently it's `.k`*
 
 **The Commands:**
 

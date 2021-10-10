@@ -47,7 +47,7 @@ bot = JakeTheDogBase(
 )
 
 bot.colour = 0x2F3136 or 0x36393E
-bot.prefix = ".m"
+bot.prefix = ".k"
 bot._commands = []
 for command in sorted(os.listdir("./core/commands/")):
     if command.endswith(".py"):
