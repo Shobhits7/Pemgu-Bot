@@ -30,6 +30,22 @@ class Fun(commands.Cog, description="You sad?. Use these to at least have a smil
         view = fv.NitroView(ctx)
         view.message = await ctx.send(embed=bnitrombed, view=view)
 
+    # Meme
+    @commands.command(name="meme", aliases=["me"], help="Will show a random meme")
+    async def meme(self, ctx:commands.Context):
+        session = await self.bot.session.get("https://some-random-api.ml/meme")
+        response = await session.json()
+        session.close()
+        membed = discord.Embed(
+            colour=self.bot.colour,
+            title="Here is a random meme for you",
+            description=F"{response['caption']} - {response['category']}",
+            timestamp=ctx.message.created_at
+        )
+        membed.set_image(url=response['image'])
+        membed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=membed)
+
     # Roast
     @commands.command(name="roast", aliases=["rst"], help="Will roast you or the given user")
     async def roast(self, ctx:commands.Context, user:discord.User=None):
