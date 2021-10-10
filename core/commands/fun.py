@@ -39,7 +39,7 @@ class Fun(commands.Cog, description="You sad?. Use these to at least have a smil
         membed = discord.Embed(
             colour=self.bot.colour,
             title="Here is a random meme for you",
-            description=F"{response['caption']} - {response['category']}",
+            description=F"{response['caption']} - {response['category'].title()}",
             timestamp=ctx.message.created_at
         )
         membed.set_image(url=response['image'])
