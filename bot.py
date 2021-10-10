@@ -59,9 +59,7 @@ for event in sorted(os.listdir("./core/events/")):
         bot.load_extension(F"core.events.{event[:-3]}")
         bot._events.append(event[:-3])
 bot.load_extension("jishaku")
-os.environ["JISHAKU_UNDERSCORE"] = "True"
-os.environ["JISHAKU_RETAIN"] = "True"
-os.environ["JISHAKU_HIDE"] = "True"
+os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
 
 @bot.check

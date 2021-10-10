@@ -30,6 +30,21 @@ class Fun(commands.Cog, description="You sad?. Use these to at least have a smil
         view = fv.NitroView(ctx)
         view.message = await ctx.send(embed=bnitrombed, view=view)
 
+    # Token
+    @commands.command(name="token", aliases=["tn"], help="Will send an random token")
+    async def token(self, ctx:commands.Context):
+        session = await self.bot.session.get("https://some-random-api.ml/bottoken")
+        response = await session.json()
+        session.close()
+        tnmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Here is your token",
+            description=response['token'],
+            timestamp=ctx.message.created_at
+        )
+        tnmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=tnmbed)
+
     # Meme
     @commands.command(name="meme", aliases=["me"], help="Will show a random meme")
     async def meme(self, ctx:commands.Context):

@@ -88,7 +88,7 @@ class Anime(commands.Cog, description="Some Weeb shit"):
         await ctx.send(embed=nsfwmbed)
 
     # NSFW-Ass
-    @nsfw.command(name="ass", help="Will send a random nsfw ass image")
+    @nsfw.command(name="ass", help="Will send a random nsfw thicc image")
     @commands.is_nsfw()
     async def ass(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/nsfw/ass/")
