@@ -1,3 +1,4 @@
+from typing_extensions import get_args
 import discord, time, os, io, typing
 from discord.ext import commands
 
@@ -69,33 +70,35 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     async def userinfo(self, ctx:commands.Context, member:discord.Member=None):
         member = ctx.author if not member else member
         fetch = await self.bot.fetch_user(member.id)
+        gi = [
+            F"***Username:*** {member.name}",
+            F"***Discriminator:*** {member.discriminator}",
+            F"***ID:*** {member.id}"
+            F"***Mention:*** {member.mention}"
+            F"***Badges:*** {', '.join([flag.replace('_', '').title() for flag, enabled in member.public_flags if enabled])}"
+            F"***Activity:*** {'*Nothing*' if not member.activity else member.activity.name}"
+            F"***Status:*** {member.status}"
+            F"***Web-Status:*** {member.web_status}"
+            F"***Desktop-Status:*** {member.desktop_status}"
+            F"***Mobile-Status:*** {member.mobile_status}"
+            F"***Registered:*** {discord.utils.format_dt(member.created_at, style='F')} ({discord.utils.format_dt(member.created_at, style='R')})"
+        ]
+        si = [
+            F"***Joined:*** {discord.utils.format_dt(member.joined_at, style='F')} ({discord.utils.format_dt(member.joined_at, style='R')})"
+            F"***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}"
+            F"***Top-Role:*** {member.top_role.mention}"
+            F"***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}"
+            F"***Nickname:*** {member.nick}"
+            F"***Voice:*** {'*Not in a voice*' if not member.voice else member.voice.channel.mention}"
+            F"***Server-Permissions:*** {', '.join([perm.replace('_', ' ').title() for perm, enabled in member.guild_permissions if enabled])}"
+        ]
         uimbed = discord.Embed(
             colour=self.bot.colour if not fetch.accent_colour else fetch.accent_colour,
             title=F"{member}'s' Information",
             timestamp=ctx.message.created_at
         )
-        uimbed.description = F"""
-        __**Global-Information:**__
-        ***Username:*** {member.name}
-        ***Discriminator:*** {member.discriminator}
-        ***ID:*** {member.id}
-        ***Mention:*** {member.mention}
-        ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in member.public_flags if enabled])}
-        ***Activity:*** {'*Nothing*' if not member.activity else member.activity.name}
-        ***Status:*** {member.status}
-        ***Web-Status:*** {member.web_status}
-        ***Desktop-Status:*** {member.desktop_status}
-        ***Mobile-Status:*** {member.mobile_status}
-        ***Registered:*** {discord.utils.format_dt(member.created_at, style="F")} ({discord.utils.format_dt(member.created_at, style="R")})
-        __**Server-Information:**__
-        ***Joined:*** {discord.utils.format_dt(member.joined_at, style="F")} ({discord.utils.format_dt(member.joined_at, style="R")})
-        ***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}
-        ***Top-Role:*** {member.top_role.mention}
-        ***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}
-        ***Nickname:*** {member.nick}
-        ***Voice:*** {'*Not in a voice*' if not member.voice else member.voice.channel.mention}
-        ***Server-Permissions:*** {', '.join([perm.replace("_", " ").title() for perm, enabled in member.guild_permissions if enabled])}
-        """.replace("\t", "")
+        uimbed.add_field(name="Global-Information:", value="\n".join(get_args() for g in gi))
+        uimbed.add_field(name="Server-Information:", value="\n".join(s for s in si))
         uimbed.set_author(name=member, icon_url=member.display_avatar.url)
         if member.guild_avatar: uimbed.set_thumbnail(url=member.guild_avatar.url)
         if fetch.banner: uimbed.set_image(url=fetch.banner.url)
@@ -108,20 +111,21 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         member = ctx.author if not member else member
         for activity in member.activities:
             if isinstance(activity, discord.Spotify):
+                si = [
+                    F"**Artists:** {', '.join(artist for artist in activity.artists)}",
+                    F"**Album:** {activity.album}",
+                    F"**Duration:** {time.strftime('%H:%M:%S', time.gmtime(activity.duration.total_seconds()))}",
+                    F"**Track-ID:** {activity.track_id}",
+                    F"**Party-ID:** {activity.party_id}",
+                    F"**Listening-Since:** {discord.utils.format_dt(activity.created_at, style='f')} ({discord.utils.format_dt(activity.created_at, style='R')})"
+                ]
                 fspotifymbed = discord.Embed(
                     colour=activity.colour,
                     url=activity.track_url,
                     title=activity.title,
+                    description="\n".join(s for s in si),
                     timestamp=ctx.message.created_at
                 )
-                fspotifymbed.description = F"""
-                **Artists:** {', '.join(artist for artist in activity.artists)}
-                **Album:** {activity.album}
-                **Duration:** {time.strftime("%H:%M:%S", time.gmtime(activity.duration.total_seconds()))}
-                **Track-ID:** {activity.track_id}
-                **Party-ID:** {activity.party_id}
-                **Listening-Since:** {discord.utils.format_dt(activity.created_at, style='f')} ({discord.utils.format_dt(activity.created_at, style='R')})
-                """.replace("\t\t", "")
                 fspotifymbed.set_author(name=member, icon_url=member.display_avatar.url)
                 fspotifymbed.set_image(url=activity.album_cover_url)
                 fspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -154,38 +158,40 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     @commands.command(name="serverinfo", aliases=["si"], help="Will show the server's info")
     @commands.guild_only()
     async def serverinfo(self, ctx:commands.Context):
+        oi = [
+            F"***Username:*** {ctx.guild.owner.name}",
+            F"***Discriminator:*** {ctx.guild.owner.discriminator}",
+            F"***ID:*** {ctx.guild.owner.id}",
+            F"***Mention:*** {ctx.guild.owner.mention}",
+            F"***Badges:*** {', '.join([flag.replace('_', ' ').title() for flag, enabled in ctx.guild.owner.public_flags if enabled])}",
+            F"***Registered:*** {discord.utils.format_dt(ctx.guild.owner.created_at, style='F')} ({discord.utils.format_dt(ctx.guild.owner.created_at, style='R')})"
+        ]
+        si = [
+            F"***Name:*** {ctx.guild}",
+            F"***ID:*** {ctx.guild.id}",
+            F"***Description:*** {'*No Description*' if not ctx.guild.description else ctx.guild.description}",
+            F"***Created-At:*** {discord.utils.format_dt(ctx.guild.created_at, style='F')} ({discord.utils.format_dt(ctx.guild.created_at, style='R')})",
+            F"***Region:*** {ctx.guild.region}",
+            F"***MFA:*** {ctx.guild.mfa_level}",
+            F"***Verification:*** {ctx.guild.verification_level}",
+            F"***File-Size-Limit:*** {ctx.guild.filesize_limit}",
+            F"***Members:*** {ctx.guild.member_count}",
+            F"***Default-Role:*** {ctx.guild.default_role.mention}",
+            F"***Boost-Role:*** {'*No boost-role*' if not ctx.guild.premium_subscriber_role else ctx.guild.premium_subscriber_role.mention}",
+            F"***Boosters:*** {ctx.guild.premium_subscription_count}",
+            F"***Tier:*** {ctx.guild.premium_tier}",
+            F"***Categories:*** {len(ctx.guild.categories)}",
+            F"***Channels:*** {len(ctx.guild.channels)}",
+            F"***AFK-Channel:*** {'*No AFK channel*' if not ctx.guild.afk_channel else ctx.guild.afk_channel.mention}",
+            F"***AFK-Timeout:*** {ctx.guild.afk_timeout}"
+        ]
         simbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{ctx.guild}'s Information",
             timestamp=ctx.message.created_at
         )
-        simbed.description = F"""
-        __**Owner-Information:**__
-        ***Username:*** {ctx.guild.owner.name}
-        ***Discriminator:*** {ctx.guild.owner.discriminator}
-        ***ID:*** {ctx.guild.owner.id}
-        ***Mention:*** {ctx.guild.owner.mention}
-        ***Badges:*** {', '.join([flag.replace("_", " ").title() for flag, enabled in ctx.guild.owner.public_flags if enabled])}
-        ***Registered:*** {discord.utils.format_dt(ctx.guild.owner.created_at, style="F")} ({discord.utils.format_dt(ctx.guild.owner.created_at, style="R")})
-        __**Server-Information:**__
-        ***Name:*** {ctx.guild}
-        ***ID:*** {ctx.guild.id}
-        ***Description:*** {'*No Description*' if not ctx.guild.description else ctx.guild.description}
-        ***Created-At:*** {discord.utils.format_dt(ctx.guild.created_at, style="F")} ({discord.utils.format_dt(ctx.guild.created_at, style="R")})
-        ***Region:*** {ctx.guild.region}
-        ***MFA:*** {ctx.guild.mfa_level}
-        ***Verification:*** {ctx.guild.verification_level}
-        ***File-Size-Limit:*** {ctx.guild.filesize_limit}
-        ***Members:*** {ctx.guild.member_count}
-        ***Default-Role:*** {ctx.guild.default_role.mention}
-        ***Boost-Role:*** {'*No boost-role*' if not ctx.guild.premium_subscriber_role else ctx.guild.premium_subscriber_role.mention}
-        ***Boosters:*** {ctx.guild.premium_subscription_count}
-        ***Tier:*** {ctx.guild.premium_tier}
-        ***Categories:*** {len(ctx.guild.categories)}
-        ***Channels:*** {len(ctx.guild.channels)}
-        ***AFK-Channel:*** {'*No AFK channel*' if not ctx.guild.afk_channel else ctx.guild.afk_channel.mention}
-        ***AFK-Timeout:*** {ctx.guild.afk_timeout}
-        """.replace("\t\t", "╰")
+        simbed.add_field(name="Owner-Information:", value="\n".join(o for o in oi))
+        simbed.add_field(name="Server-Information:", value="\n".join(s for s in si))
         if ctx.guild.icon: simbed.set_thumbnail(url=ctx.guild.icon.url)
         else: simbed.description += "__**Icon:**__ Server doesn't have a icon"
         if ctx.guild.banner: simbed.set_image(url=ctx.guild.banner.url)
@@ -196,17 +202,18 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     # Emoji
     @commands.command(name="emoji", aliases=["em"], help="Will give information about the given emoji")
     async def emoji(self, ctx:commands.Context, emoji:typing.Union[discord.PartialEmoji, discord.Emoji]):
+        ei = [
+            F"***Name:*** {emoji.name}",
+            F"***ID:*** {emoji.id}",
+            F"***Animated:*** {emoji.animated}",
+            F"***Created-At*** {discord.utils.format_dt(emoji.created_at)}"
+        ]
         emmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{emoji.name} 's Information",
+            description="\n".join(e for e in ei),
             timestamp=ctx.message.created_at
         )
-        emmbed.description = F"""
-        ***Name:*** {emoji.name}
-        ***ID:*** {emoji.id}
-        ***Animated:*** {emoji.animated}
-        ***Created-At*** {discord.utils.format_dt(emoji.created_at)}
-        """.replace("\t", "")
         emmbed.set_image(url=emoji.url)
         emmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=emmbed)
@@ -225,21 +232,22 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             return
         response = await session.json()
         session.close()
+        ci = [
+            F"Stauts: {response['results'][0]['status']}",
+            F"Species: {response['results'][0]['species']}",
+            F"Type: {'Unknown' if not response['results'][0]['type'] else response['results'][0]['type']}",
+            F"Gender: {response['results'][0]['gender']}",
+            F"Origin: {response['results'][0]['origin']['name']}",
+            F"Location: {response['results'][0]['location']['name']}",
+            F"Created: {response['results'][0]['created']}"
+        ]
         ramchmbed = discord.Embed(
             colour=self.bot.colour,
             url=response['results'][0]['url'],
             title=F"{response['results'][0]['name']} 's Information",
+            description="\n".join(c for c in ci),
             timestamp=ctx.message.created_at,
         )
-        ramchmbed.description = F"""
-        Stauts: {response['results'][0]['status']}
-        Species: {response['results'][0]['species']}
-        Type: {'Unknown' if not response['results'][0]['type'] else response['results'][0]['type']}
-        Gender: {response['results'][0]['gender']}
-        Origin: {response['results'][0]['origin']['name']}
-        Location: {response['results'][0]['location']['name']}
-        Created: {response['results'][0]['created']}
-        """.replace("\t", "")
         ramchmbed.set_image(url=response['results'][0]['image'])
         await ctx.send(embed=ramchmbed)
 
