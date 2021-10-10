@@ -37,7 +37,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     async def unban(self, ctx:commands.Context, user:discord.User, *, reason:str=None):
         aunmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{user.name} is now Unbanned",
+            title=F"{user} is now Unbanned",
             timestamp=ctx.message.created_at
         )
         aunmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)

@@ -29,7 +29,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         session.close()
         clrsmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{user} 's image colours",
+            title=F"{user}'s image colours",
             timestamp=ctx.message.created_at
         )
         clrsmbed.set_image(url="attachment://colours.png")
@@ -213,7 +213,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         ]
         emmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{emoji.name} 's Information",
+            title=F"{emoji.name}'s Information",
             description="\n".join(e for e in ei),
             timestamp=ctx.message.created_at
         )
@@ -247,7 +247,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         ramchmbed = discord.Embed(
             colour=self.bot.colour,
             url=response['results'][0]['url'],
-            title=F"{response['results'][0]['name']} 's Information",
+            title=F"{response['results'][0]['name']}'s Information",
             description="\n".join(c for c in ci),
             timestamp=ctx.message.created_at,
         )

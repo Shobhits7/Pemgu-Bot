@@ -25,7 +25,7 @@ class Fun(commands.Cog, description="You sad?. Use these to at least have a smil
         size = F"8{'='*amount}D"
         ppmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{user.name} 's PP Size:",
+            title=F"{user}'s PP Size:",
             description=size,
             timestamp=ctx.message.created_at
         )
@@ -138,14 +138,14 @@ class Fun(commands.Cog, description="You sad?. Use these to at least have a smil
     # Tweet
     @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet")
     @commands.bot_has_guild_permissions(attach_files=True)
-    async def tweet(self, ctx:commands.Context, *, text:str, user:discord.User=None):
+    async def tweet(self, ctx:commands.Context, user:discord.User=None, *, text:str):
         user = ctx.author if not user else user
         session = await self.bot.session.get(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_format('png')}&username={user.name}&text={text}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
         session.close()
         twmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"{user} 's tweet",
+            title=F"{user}'s tweet",
             timestamp=ctx.message.created_at
         )
         twmbed.set_image(url="attachment://tweet.png")
