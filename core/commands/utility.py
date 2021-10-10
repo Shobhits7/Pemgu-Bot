@@ -21,15 +21,17 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             description=response['info']['summary'],
             timestamp=ctx.message.created_at
         )
+        pi = [
+            F"***Version:*** {response['info']['version']}",
+            F"***Download URL:*** {response['info']['download_url']}",
+            F"***Documentation URL:*** {response['info']['docs_url']}",
+            F"***Home Page:*** {response['info']['home_page']}",
+            F"***Yanked:*** {response['info']['yanked']} - {response['info']['yanked_reason']}",
+            F"***Keywords:*** {response['info']['keywords']}",
+            F"***License:*** {response['info']['license']}"
+        ]
         pypimbed.add_field(name="Author Info:", value=F"Name: {response['info']['author']}\nEmail:{response['info']['author_email']}", inline=False)
-        pypimbed.add_field(name="Package Info:", value=self.bot.unindent(
-            F"""**Version:** {response['info']['version']}
-            **Download URL:** {response['info']['download_url']}
-            **Documentation URL:** {response['info']['docs_url']}
-            **Home Page:** {response['info']['home_page']}
-            **Yanked:** {response['info']['yanked']} - {response['info']['yanked_reason']}
-            **Keywords:** {response['info']['keywords']}
-            **License:** {response['info']['license']}"""), inline=False)
+        pypimbed.add_field(name="Package Info:", value="\n".join(p for p in pi), inline=False)
         pypimbed.add_field(name="Classifiers:", value=",\n    ".join(classifier for classifier in response['info']['classifiers']), inline=False)
         pypimbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/873478114183880704/887470965188091944/pypilogo.png")
         pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
