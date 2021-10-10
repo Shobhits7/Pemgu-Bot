@@ -10,36 +10,7 @@ class OnError(commands.Cog):
     async def on_command_error(self, ctx:commands.Context, error):
         if isinstance(error, commands.CommandInvokeError):
             error = error.original
-        if isinstance(error, commands.CheckFailure):
-            await ctx.send(F"<:shut:744345896912945214> YOU <:shut:744345896912945214> ARE  <:shut:744345896912945214> IN <:shut:744345896912945214> BLACKLIST <:shut:744345896912945214> YOU <:shut:744345896912945214> S-KID/IDIOT\nSAY <:shut:744345896912945214> YOU <:shut:744345896912945214> ARE <:shut:744345896912945214> SORRY <:shut:744345896912945214> {ctx.author.mention}")
-            await ctx.send("<:shut:744345896912945214>")
-        else:
-            print("".join(traceback.format_exception(type(error), error,  error.__traceback__)))
-            errormbed = discord.Embed(
-                colour=self.bot.colour,
-                title=error,
-                timestamp=ctx.message.created_at
-            )
-            errormbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-            await ctx.send(embed=errormbed)
-    
-def setup(bot):
-    bot.add_cog(OnError(bot))
-
-class OldError:
-        @commands.Cog.listener()
-        async def on_command_error(self, ctx:commands.Context, error):
-            if isinstance(error, commands.CommandInvokeError):
-                error = error.original
-            if isinstance(error, commands.NotOwner):
-                nombed = discord.Embed(
-                    colour=self.bot.colour,
-                    title="You are not the owner of this bot",
-                    timestamp=ctx.message.created_at
-                )
-                nombed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=nombed)
-            elif isinstance(error, commands.CommandNotFound):
+        if isinstance(error, commands.CommandNotFound):
                 cmd = ctx.invoked_with
                 cmds = [cmd.name for cmd in self.bot.commands]
                 matches = difflib.get_close_matches(cmd, cmds)
@@ -62,146 +33,32 @@ class OldError:
                     view.message = await ctx.send(embed=matcnfmbed)
                 else:
                     await ctx.send(embed=nmatcnfmbed)
-            elif isinstance(error, commands.CommandOnCooldown):
-                cocmbed = discord.Embed(
-                    colour=self.bot.colour,
-                    title=F"Command {ctx.invoked_with} on Cooldown",
-                    timestamp=ctx.message.created_at
-                )
-                cocmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=cocmbed)
-            elif isinstance(error, commands.DisabledCommand):
-                dcmbed = discord.Embed(
-                    colour=self.bot.colour,
-                    title=F"{ctx.invoked_with} is disabled",
-                    timestamp=ctx.message.created_at
-                )
-                dcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=dcmbed)
-            elif isinstance(error, commands.MissingPermissions):
-                mpmbed = discord.Embed(
-                    colour=self.bot.colour,
-                    title=F"You don't have permission for {ctx.invoked_with}",
-                    timestamp=ctx.message.created_at
-                )
-                mpmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=mpmbed)
-            elif isinstance(error, commands.BotMissingPermissions):
-                bmpmbed = discord.Embed(
-                    colour=self.bot.colour,
-                    title=F"Bot does not have permission for {ctx.invoked_with}",
-                    timestamp=ctx.message.created_at
-                )
-                bmpmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=bmpmbed)
-            elif isinstance(error, commands.MissingRequiredArgument):
-                mrambed = discord.Embed(
-                    colour=self.bot.colour,
-                    title="Please pass an argument",
-                    timestamp=ctx.message.created_at
-                )
-                mrambed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=mrambed)
-            elif isinstance(error, commands.BadArgument):
-                bambed = discord.Embed(
-                    colour=self.bot.colour,
-                    title="Please pass an correct argument",
-                    timestamp=ctx.message.created_at
-                )
-                bambed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=bambed)
-            elif isinstance(error, commands.UserNotFound):
-                unfmbed = discord.Embed(
-                    colour=self.bot.colour,
-                    title="Couldn't find the given user",
-                    timestamp=ctx.message.created_at
-                )
-                unfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=unfmbed)
-            elif isinstance(error, commands.MemberNotFound):
-                mnfmbed = discord.Embed(
-                    colour=self.bot.colour,
-                    title="Couldn't find the given member",
-                    timestamp=ctx.message.created_at
-                )
-                mnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=mnfmbed)
-            elif isinstance(error, commands.RoleNotFound):
-                rnfmbed = discord.Embed(
-                    colour=self.bot.colour,
-                    title="Couldn't find the given role",
-                    timestamp=ctx.message.created_at
-                )
-                rnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=rnfmbed)
-            elif isinstance(error, commands.NSFWChannelRequired):
-                nsfwcr = discord.Embed(
-                    colour=self.bot.colour,
-                    title=F"{ctx.invoked_with} is only possible in NSFW channels"
-                )
-                nsfwcr.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=nsfwcr)
-            elif isinstance(error, commands.PrivateMessageOnly):
-                pmombed = discord.Embed(
-                    colour=self.bot.colour,
-                    title=F"{ctx.invoked_with} can only be used in DMs",
-                    timestamp=ctx.message.created_at
-                )
-                pmombed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=pmombed)
-            elif isinstance(error, commands.NoPrivateMessage):
-                npmmbed = discord.Embed(
-                    colour=self.bot.colour,
-                    title=F"Can't use {ctx.invoked_with} in DMs",
-                    timestamp=ctx.message.created_at
-                )
-                npmmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=npmmbed)
-            elif isinstance(error, commands.ExtensionAlreadyLoaded):
-                ealmbed = discord.Embed(
-                    colour=self.bot.colour,
-                    title="Extension is already loaded",
-                    timestamp=ctx.message.created_at
-                )
-                ealmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=ealmbed)
-            elif isinstance(error, commands.ExtensionNotLoaded):
-                enlmbed = discord.Embed(
-                    colour=self.bot.colour,
-                    title="Extension is not loaded",
-                    timestamp=ctx.message.created_at
-                )
-                enlmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=enlmbed)
-            elif isinstance(error, commands.ExtensionNotFound):
-                enfmbed = discord.Embed(
-                    colour=self.bot.colour,
-                    title="Extension doesn't exist",
-                    timestamp=ctx.message.created_at
-                )
-                enfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=enfmbed)
-            elif isinstance(error, commands.CheckFailure):
-                await ctx.send(F"<:shut:744345896912945214> YOU <:shut:744345896912945214> ARE  <:shut:744345896912945214> IN <:shut:744345896912945214> BLACKLIST <:shut:744345896912945214> YOU <:shut:744345896912945214> S-KID/IDIOT\nSAY <:shut:744345896912945214> YOU <:shut:744345896912945214> ARE <:shut:744345896912945214> SORRY <:shut:744345896912945214> {ctx.author.mention}")
-                await ctx.send("<:shut:744345896912945214>")
-            elif isinstance(error, discord.Forbidden):
-                fmbed = discord.Embed(
-                    colour=self.bot.colour,
-                    title="Forbidden Error",
-                    description="The problem is one of the options down below",
-                    timestamp=ctx.message.created_at
-                )
-                fmbed.add_field(name="You are the owner of this Server:", value="If you are the owner, and you are trying to use a changing info command, you can't")
-                fmbed.add_field(name="Couldn't send messages to the user", value="The user is not accepting messages from the members in here or just have this bot blocked")
-                fmbed.add_field(name="User's Role/Permission:", value="The user's role/position is higher than me or you")
-                fmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=fmbed)
-            else:
-                print("".join(traceback.format_exception(type(error), error,  error.__traceback__)))
-                errormbed = discord.Embed(
-                    colour=self.bot.colour,
-                    title=error,
-                    timestamp=ctx.message.created_at
-                )
-                errormbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=errormbed)
+        elif isinstance(error, commands.CheckFailure):
+            await ctx.send(F"<:shut:744345896912945214> YOU <:shut:744345896912945214> ARE  <:shut:744345896912945214> IN <:shut:744345896912945214> BLACKLIST <:shut:744345896912945214> YOU <:shut:744345896912945214> S-KID/IDIOT\nSAY <:shut:744345896912945214> YOU <:shut:744345896912945214> ARE <:shut:744345896912945214> SORRY <:shut:744345896912945214> {ctx.author.mention}")
+            await ctx.send("<:shut:744345896912945214>")
+        else:
+            print("".join(traceback.format_exception(type(error), error,  error.__traceback__)))
+            errors = {
+                commands.NotOwner: "You are not the owner of this bot",
+                commands.CommandOnCooldown: F"Command {ctx.invoked_with} on Cooldown",
+                commands.DisabledCommand: F"{ctx.invoked_with} is disabled",
+                commands.UserNotFound: "Couldn't find the given user",
+                commands.MemberNotFound: "Couldn't find the given member",
+                commands.RoleNotFound: "Couldn't find the given role",
+                commands.NSFWChannelRequired: F"{ctx.invoked_with} is only possible in NSFW channels",
+                commands.PrivateMessageOnly: F"{ctx.invoked_with} can only be used in DMs",
+                commands.NoPrivateMessage: F"Can't use {ctx.invoked_with} in DMs",
+                commands.CheckFailure: F"<:shut:744345896912945214> YOU <:shut:744345896912945214> ARE  <:shut:744345896912945214> IN <:shut:744345896912945214> BLACKLIST <:shut:744345896912945214> YOU <:shut:744345896912945214> S-KID/IDIOT\nSAY <:shut:744345896912945214> YOU <:shut:744345896912945214> ARE <:shut:744345896912945214> SORRY <:shut:744345896912945214> {ctx.author.mention}",
+                discord.Forbidden: "Your problem is one of the problems mentioned below\n\nYou are the owner of this Server:\nIf you are the owner, and you are trying to use a changing info command, you can't\n\nCouldn't send messages to the user:\nThe user is not accepting messages from the members in here or just have this bot blocked\n\nUser's Position:\nThe user's position is higher than me or you"
+            }
+            errormbed = discord.Embed(
+                colour=self.bot.colour,
+                title="There was is a problem",
+                description=errors[error] if error in errors else error,
+                timestamp=ctx.message.created_at
+            )
+            errormbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            await ctx.send(embed=errormbed)
+    
+def setup(bot):
+    bot.add_cog(OnError(bot))
