@@ -97,8 +97,8 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             title=F"{member}'s' Information",
             timestamp=ctx.message.created_at
         )
-        uimbed.add_field(name="Global-Information:", value="\n".join(g for g in gi))
-        uimbed.add_field(name="Server-Information:", value="\n".join(s for s in si))
+        uimbed.add_field(name="Global-Information:", value="\n".join(g for g in gi), inline=False)
+        uimbed.add_field(name="Server-Information:", value="\n".join(s for s in si), inline=False)
         uimbed.set_author(name=member, icon_url=member.display_avatar.url)
         if member.guild_avatar: uimbed.set_thumbnail(url=member.guild_avatar.url)
         if fetch.banner: uimbed.set_image(url=fetch.banner.url)
@@ -190,8 +190,8 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             title=F"{ctx.guild}'s Information",
             timestamp=ctx.message.created_at
         )
-        simbed.add_field(name="Owner-Information:", value="\n".join(o for o in oi))
-        simbed.add_field(name="Server-Information:", value="\n".join(s for s in si))
+        simbed.add_field(name="Owner-Information:", value="\n".join(o for o in oi), inline=False)
+        simbed.add_field(name="Server-Information:", value="\n".join(s for s in si), inline=False)
         if ctx.guild.icon: simbed.set_thumbnail(url=ctx.guild.icon.url)
         else: simbed.description += "__**Icon:**__ Server doesn't have a icon"
         if ctx.guild.banner: simbed.set_image(url=ctx.guild.banner.url)
