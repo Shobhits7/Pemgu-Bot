@@ -201,11 +201,14 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
 
     # EmojiInfo
     @commands.command(name="emojiinfo", aliases=["ei"], help="Will give information about the given emoji")
-    async def emoji(self, ctx:commands.Context, emoji:typing.Union[discord.PartialEmoji, discord.Emoji]):
+    async def emoji(self, ctx:commands.Context, emoji:discord.Emoji):
         ei = [
             F"***Name:*** {emoji.name}",
             F"***ID:*** {emoji.id}",
             F"***Animated:*** {emoji.animated}",
+            F"***Requires-Colons:*** {emoji.require_colons}",
+            F"***Available:*** {emoji.available}",
+            F"***Twitch:*** {emoji.managed}",
             F"***Created-At*** {discord.utils.format_dt(emoji.created_at)}"
         ]
         emmbed = discord.Embed(
