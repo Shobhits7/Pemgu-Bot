@@ -134,7 +134,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         else:
             badspotifymbed = discord.Embed(
                 colour=self.bot.colour,
-                title=F"{member} is not listenning to Spotify",
+                title=F"{member} is not listening to Spotify",
                 timestamp=ctx.message.created_at
             )
             badspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
