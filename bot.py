@@ -28,12 +28,13 @@ class JakeTheDogBase(commands.AutoShardedBot):
         await super().close()
 
     @classmethod
-    def unindent(self, text):
-        return inspect.cleandoc(text)
-
-    @classmethod
-    def paginator(self, embeds):
-        return page.Paginator(self, embeds)
+    def embed(self, ctx:commands.Context, url, title, desc):
+        k = discord.Embed()
+        if url: k.url = url
+        if title: k.title = title
+        if desc: k.desc = desc
+        k.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        return k
 
 bot = JakeTheDogBase(
     slash_commands=True,
