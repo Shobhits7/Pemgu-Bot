@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import core.utils.context as ctx
 import core.views.gameview as gv
 
 class Game(commands.Cog, description="If you are bored... use these"):
@@ -8,12 +9,11 @@ class Game(commands.Cog, description="If you are bored... use these"):
 
     # Counter
     @commands.command(name="counter", aliases=["ctr"], help="Will start an counter")
-    async def counter(self, ctx:commands.Context):
+    async def counter(self, ctx:ctx.JakeTheDogContext):
         ctrmbed = discord.Embed(
             colour=self.bot.colour,
             description="Click the button for counting"
         )
-        ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         view = gv.CounterView(ctx)
         view.message = await ctx.send(embed=ctrmbed, view=view)
 
