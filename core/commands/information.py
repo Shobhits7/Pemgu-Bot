@@ -12,7 +12,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         abmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{self.bot.user.name} About",
-            description=F"[Click here for source code](https://github.com/lvlahraam/JakeTheDog-Bot)\n[Click here for Adding Bot]({discord.utils.oauth_url(client_id=self.bot.user.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))})\n[Click here for Joining Support](https://discord.gg/bWnjkjyFRz)\nIn {len(self.bot.guilds)} Servers\nHas {len(self.bot.commands)} Commands\nOwner is <@{self.bot.owner_id}>",
+            description=F"[Click here for Source Code](https://github.com/lvlahraam/JakeTheDog-Bot)\n[Click here for Adding Bot]({discord.utils.oauth_url(client_id=self.bot.user.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))})\n[Click here for Joining Support](https://discord.gg/bWnjkjyFRz)\nIn {len(self.bot.guilds)} Servers\nHas {len(self.bot.commands)} Commands\nOwner is <@{self.bot.owner_id}>",
             timestamp=ctx.message.created_at
         )
         abmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
