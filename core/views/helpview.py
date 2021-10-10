@@ -121,7 +121,7 @@ class SelectView(discord.ui.View):
             name = cog.qualified_name if cog else "No"
             description = cog.description if cog else "Commands without category..."
             if not name.startswith("On"):
-                option = discord.SelectOption(emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓', label=name, description=description, value=name)
+                option = discord.SelectOption(emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓', label=F"{name} Category", description=description, value=name)
                 options.append(option)
         self.add_item(item=SelectUI(placeholder="Where do you want to go...", options=options, min_values=1, max_values=1, view=self))
         self.add_item(item=discord.ui.Button(emoji="🧇", label="Invite", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
