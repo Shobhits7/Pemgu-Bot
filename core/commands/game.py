@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import core.utils.context as ctx
+from core.utils.context import  JakeTheDogContext as jtdc
 import core.views.gameview as gv
 
 class Game(commands.Cog, description="If you are bored... use these"):
@@ -9,7 +9,7 @@ class Game(commands.Cog, description="If you are bored... use these"):
 
     # Counter
     @commands.command(name="counter", aliases=["ctr"], help="Will start an counter")
-    async def counter(self, ctx:ctx.JakeTheDogContext):
+    async def counter(self, ctx:jtdc):
         ctrmbed = discord.Embed(
             colour=self.bot.colour,
             description="Click the button for counting"
