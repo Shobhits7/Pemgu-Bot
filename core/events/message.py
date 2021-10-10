@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from core.utils.context import  JakeTheDogContext as jtdc
 
 class OnMessage(commands.Cog):
     def __init__(self, bot):
@@ -19,8 +18,6 @@ class OnMessage(commands.Cog):
             )
             pfmbed.set_footer(text=message.author, icon_url=message.author.display_avatar.url)
             await message.channel.send(embed=pfmbed)
-        ctx = await self.get_context(message, cls=jtdc)
-        await self.invoke(ctx)
 
 def setup(bot):
     bot.add_cog(OnMessage(bot))
