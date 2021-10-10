@@ -73,24 +73,24 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         gi = [
             F"***Username:*** {member.name}",
             F"***Discriminator:*** {member.discriminator}",
-            F"***ID:*** {member.id}"
-            F"***Mention:*** {member.mention}"
-            F"***Badges:*** {', '.join([flag.replace('_', '').title() for flag, enabled in member.public_flags if enabled])}"
-            F"***Activity:*** {'*Nothing*' if not member.activity else member.activity.name}"
-            F"***Status:*** {member.status}"
-            F"***Web-Status:*** {member.web_status}"
-            F"***Desktop-Status:*** {member.desktop_status}"
-            F"***Mobile-Status:*** {member.mobile_status}"
+            F"***ID:*** {member.id}",
+            F"***Mention:*** {member.mention}",
+            F"***Badges:*** {', '.join([flag.replace('_', '').title() for flag, enabled in member.public_flags if enabled])}",
+            F"***Activity:*** {'*Nothing*' if not member.activity else member.activity.name}",
+            F"***Status:*** {member.status}",
+            F"***Web-Status:*** {member.web_status}",
+            F"***Desktop-Status:*** {member.desktop_status}",
+            F"***Mobile-Status:*** {member.mobile_status}",
             F"***Registered:*** {discord.utils.format_dt(member.created_at, style='F')} ({discord.utils.format_dt(member.created_at, style='R')})"
         ]
         si = [
-            F"***Joined:*** {discord.utils.format_dt(member.joined_at, style='F')} ({discord.utils.format_dt(member.joined_at, style='R')})"
-            F"***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}"
-            F"***Top-Role:*** {member.top_role.mention}"
-            F"***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}"
-            F"***Nickname:*** {member.nick}"
-            F"***Voice:*** {'*Not in a voice*' if not member.voice else member.voice.channel.mention}"
-            F"***Server-Permissions:*** {', '.join([perm.replace('_', ' ').title() for perm, enabled in member.guild_permissions if enabled])}"
+            F"***Joined:*** {discord.utils.format_dt(member.joined_at, style='F')} ({discord.utils.format_dt(member.joined_at, style='R')})",
+            F"***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}",
+            F"***Top-Role:*** {member.top_role.mention}",
+            F"***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}",
+            F"***Nickname:*** {member.nick}",
+            F"***Voice:*** {'*Not in a voice*' if not member.voice else member.voice.channel.mention}",
+            F"***Server-Permissions:*** {', '.join([perm.replace('_', ' ').title() for perm, enabled in member.guild_permissions if enabled])}",
         ]
         uimbed = discord.Embed(
             colour=self.bot.colour if not fetch.accent_colour else fetch.accent_colour,
