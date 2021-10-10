@@ -199,8 +199,8 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         simbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=simbed)
 
-    # Emoji
-    @commands.command(name="emoji", aliases=["em"], help="Will give information about the given emoji")
+    # EmojiInfo
+    @commands.command(name="emojiinfo", aliases=["ei"], help="Will give information about the given emoji")
     async def emoji(self, ctx:commands.Context, emoji:typing.Union[discord.PartialEmoji, discord.Emoji]):
         ei = [
             F"***Name:*** {emoji.name}",
