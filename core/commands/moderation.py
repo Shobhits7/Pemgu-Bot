@@ -81,7 +81,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
-    async def addrole(self, ctx:commands.Context, member:discord.Member, role:discord.Role):
+    async def addrole(self, ctx:commands.Context, member:commands.Greedy(discord.Member)=None, role:commands.Greedy(discord.Role)=None):
         faembed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully added the {role} role",
@@ -104,7 +104,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
-    async def removerole(self, ctx:commands.Context, member:discord.Member, role:discord.Role):
+    async def removerole(self, ctx:commands.Context, member:commands.Greedy(discord.Member)=None, role:commands.Greedy(discord.Role)=None):
         frembed = discord.Embed(
             colour=self.bot.colour,
             title=F"Successfully removed the {role} role",
@@ -128,7 +128,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_channels=True)
     @commands.bot_has_guild_permissions(manage_channels=True)
-    async def lock(self, ctx:commands.Context, channel:discord.TextChannel=None):
+    async def lock(self, ctx:commands.Context, channel:commands.Greedy(discord.TextChannel)=None):
         channel = ctx.channel if not channel else channel
         overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)}
         badlcmbed = discord.Embed(
@@ -156,7 +156,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_channels=True)
     @commands.bot_has_guild_permissions(manage_channels=True)
-    async def unlock(self, ctx:commands.Context, channel:discord.TextChannel=None):
+    async def unlock(self, ctx:commands.Context, channel:commands.Greedy(discord.TextChannel)=None):
         channel = ctx.channel if not channel else channel
         overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=True)}
         badulcmbed = discord.Embed(
