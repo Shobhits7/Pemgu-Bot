@@ -47,7 +47,7 @@ bot = JakeTheDogBase(
     allowed_mentions=discord.AllowedMentions.none()
 )
 
-bot.colour = 0x2F3136 or 0x36393E
+bot.colour = 0xECA622
 bot.prefix = ".j"
 bot._commands = []
 for command in sorted(os.listdir("./core/commands/")):
