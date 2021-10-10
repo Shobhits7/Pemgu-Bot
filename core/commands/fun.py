@@ -17,6 +17,20 @@ class Fun(commands.Cog, description="You sad?. Use these to at least have a smil
     async def sarcasm(self, ctx:commands.Context, *, text:str):
         await ctx.send(F"{''.join(c.upper() if i % 2 == 0 else c for i, c in enumerate(text))} | {ctx.author.mention}")
 
+    # PP
+    @commands.command(name="pp", help="Will tell your pp's size")
+    async def pp(self, ctx:commands.Context, user:discord.User=None):
+        user = ctx.author if not user else user
+        size = F"8{'='*len(str(user.id))}D"
+        ppmbed = discord.Embed(
+            colour=self.bot.colour,
+            title=F"{user.name} 's PP Size:",
+            description=size,
+            timestamp=ctx.message.created_at
+        )
+        ppmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=ppmbed)
+
     # Counter
     @commands.command(name="counter", aliases=["ctr"], help="Will start an counter")
     async def counter(self, ctx:commands.Context):
