@@ -195,7 +195,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
 
     # Emoji
     @commands.command(name="emoji", aliases=["em"], help="Will give information about the given emoji")
-    async def emoji(self, ctx:commands.Context, emoji=discord.Emoji):
+    async def emoji(self, ctx:commands.Context, emoji:discord.PartialEmoji):
         emmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{emoji.name} 's Information",
@@ -205,7 +205,8 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         ***Name:*** {emoji.name}
         ***ID:*** {emoji.id}
         ***Animated:*** {emoji.animated}
-        ***Created-At*** {discord.utils.format_dt(emoji.created_at)}"""
+        ***Created-At*** {discord.utils.format_dt(emoji.created_at)}
+        """.replace("\t", "")
         emmbed.set_image(url=emoji.url)
         emmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=emmbed)
