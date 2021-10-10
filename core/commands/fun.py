@@ -32,6 +32,7 @@ class Fun(commands.Cog, description="You sad?. Use these to at least have a smil
 
     # Token
     @commands.command(name="token", aliases=["tn"], help="Will send an random token")
+    @commands.is_owner()
     async def token(self, ctx:commands.Context):
         session = await self.bot.session.get("https://some-random-api.ml/bottoken")
         response = await session.json()
