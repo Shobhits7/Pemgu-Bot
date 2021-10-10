@@ -29,12 +29,12 @@ class JakeTheDogBase(commands.AutoShardedBot):
 
     @classmethod
     def embed(self, ctx:commands.Context, url, title, desc):
-        k = discord.Embed()
-        if url: k.url = url
-        if title: k.title = title
-        if desc: k.desc = desc
-        k.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        return k
+        jtd = discord.Embed()
+        if url: jtd.url = url
+        if title: jtd.title = title
+        if desc: jtd.desc = desc
+        jtd.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        return jtd
 
 bot = JakeTheDogBase(
     slash_commands=True,
@@ -48,7 +48,7 @@ bot = JakeTheDogBase(
 )
 
 bot.colour = 0x2F3136 or 0x36393E
-bot.prefix = ".k"
+bot.prefix = ".j"
 bot._commands = []
 for command in sorted(os.listdir("./core/commands/")):
     if command.endswith(".py"):
