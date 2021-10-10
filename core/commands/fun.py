@@ -1,4 +1,4 @@
-import discord, os, io
+import discord, os, io, random
 from discord.ext import commands
 import core.views.funview as fv
 
@@ -21,7 +21,8 @@ class Fun(commands.Cog, description="You sad?. Use these to at least have a smil
     @commands.command(name="pp", help="Will tell your pp's size")
     async def pp(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
-        size = F"8{'='*len(str(user.id))}D"
+        amount = len(str(user.id)) + random.randint(1, 30)
+        size = F"8{'='*amount}D"
         ppmbed = discord.Embed(
             colour=self.bot.colour,
             title=F"{user.name} 's PP Size:",
