@@ -209,7 +209,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             F"***Requires-Colons:*** {emoji.require_colons}",
             F"***Available:*** {emoji.available}",
             F"***Twitch:*** {emoji.managed}",
-            F"***Created-At*** {discord.utils.format_dt(emoji.created_at)}"
+            F"***Created-At:*** {discord.utils.format_dt(emoji.created_at)}"
         ]
         emmbed = discord.Embed(
             colour=self.bot.colour,
