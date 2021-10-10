@@ -6,17 +6,6 @@ class Game(commands.Cog, description="If you are bored... use these"):
     def __init__(self, bot):
         self.bot = bot
 
-    # Counter
-    @commands.command(name="counter", aliases=["ctr"], help="Will start an counter")
-    async def counter(self, ctx:commands.Context):
-        ctrmbed = discord.Embed(
-            colour=self.bot.colour,
-            description="Click the button for counting"
-        )
-        ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        view = gv.CounterView(ctx)
-        view.message = await ctx.send(content="Clap the button", embed=ctrmbed, view=view)
-
     # RockPaperScissors
     @commands.command(name="rockpaperscissors", aliases=["rps"], help="Will start an Rock-Paper-Scissors game")
     async def rockpaperscissors(self, ctx:commands.Context):

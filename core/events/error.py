@@ -50,7 +50,7 @@ class OnError(commands.Cog):
             }
             errormbed = discord.Embed(
                 colour=self.bot.colour,
-                title="😡 There was is a problem 😡",
+                title="❌ There was is a problem ❓",
                 description=errors[error] if error in errors else error,
                 timestamp=ctx.message.created_at
             )

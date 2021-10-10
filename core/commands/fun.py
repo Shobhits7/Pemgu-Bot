@@ -17,6 +17,17 @@ class Fun(commands.Cog, description="You sad?. Use these to at least have a smil
     async def sarcasm(self, ctx:commands.Context, *, text:str):
         await ctx.send(F"{''.join(c.upper() if i % 2 == 0 else c for i, c in enumerate(text))} | {ctx.author.mention}")
 
+    # Counter
+    @commands.command(name="counter", aliases=["ctr"], help="Will start an counter")
+    async def counter(self, ctx:commands.Context):
+        ctrmbed = discord.Embed(
+            colour=self.bot.colour,
+            description="Click the button for counting"
+        )
+        ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        view = fv.CounterView(ctx)
+        view.message = await ctx.send(content="Clap the button", embed=ctrmbed, view=view)
+
     # Nitro
     @commands.command(name="nitro", help="Will gift free Nitro")
     async def nitro(self, ctx:commands.Context):
