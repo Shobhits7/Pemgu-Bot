@@ -42,6 +42,7 @@ class OnError(commands.Cog):
                 commands.UserNotFound: "Couldn't find the given user",
                 commands.MemberNotFound: "Couldn't find the given member",
                 commands.RoleNotFound: "Couldn't find the given role",
+                commands.EmojiNotFound: "Couldn't find the the given emoji",
                 commands.NSFWChannelRequired: F"**{ctx.invoked_with}** is only possible in NSFW channels",
                 commands.PrivateMessageOnly: F"**{ctx.invoked_with}** can only be used in DMs",
                 commands.NoPrivateMessage: F"Can't use **{ctx.invoked_with}** in DMs",
