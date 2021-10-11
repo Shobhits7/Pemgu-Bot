@@ -6,7 +6,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         self.bot = bot
 
     # Prefix
-    @commands.group(name="prefix", aliases=["pf"], help="Will tell you the prefix for this guild", invoke_without_command=True)
+    @commands.group(name="prefix", aliases=["pf"], help="Will tell the prefix for this guild", invoke_without_command=True)
     @commands.guild_only()
     async def prefix(self, ctx:commands.Context):
         prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", ctx.guild.id)
