@@ -41,20 +41,11 @@ class NitroButton(discord.ui.Button):
             timestamp=interaction.message.created_at
         )
         anitrombed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
-        cnitrombed = discord.Embed(
-            colour=self.ctx.bot.colour,
-            title="Get 4K-Rick-Rolled",
-            timestamp=interaction.message.created_at
-        )
-        cnitrombed.set_author(name="Rick Astley", url="https://i.imgur.com/NQinKJB.mp4", icon_url="https://i.imgur.com/NQinKJB.mp4")
-        cnitrombed.set_thumbnail(url="https://i.imgur.com/NQinKJB.mp4")
-        cnitrombed.set_image(url="https://i.imgur.com/NQinKJB.mp4")
-        cnitrombed.set_footer(text="Rick Astley", icon_url="https://i.imgur.com/NQinKJB.mp4")
         self.label = "CLAIMED"
         self.style = discord.ButtonStyle.grey
         self.disabled = True
         await interaction.response.edit_message(embed=anitrombed, view=self.view)
-        await interaction.followup.send(embed=cnitrombed, ephemeral=True)
+        await interaction.followup.send(content="https://i.imgur.com/NQinKJB.mp4", ephemeral=True)
 class NitroView(discord.ui.View):
     def __init__(self, ctx):
         super().__init__(timeout=3)
