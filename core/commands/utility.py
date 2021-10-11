@@ -23,6 +23,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
             colour=self.bot.colour,
             timestamp=ctx.message.created_at
         )
+        pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         session = await self.bot.session.get(F"https://pypi.org/pypi/{library}/json")
         if session.status != 200:
             pypimbed.title = "Couldn't find that library in PYPI"
@@ -44,8 +45,6 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         pypimbed.add_field(name="Author Info:", value=F"Name: {response['info']['author']}\nEmail:{response['info']['author_email']}", inline=False)
         pypimbed.add_field(name="Package Info:", value="\n".join(p for p in pi), inline=False)
         pypimbed.add_field(name="Classifiers:", value=",\n    ".join(classifier for classifier in response['info']['classifiers']), inline=False)
-        pypimbed.set_thumbnail(url="https://cdn.discordapp.com/attachments/873478114183880704/887470965188091944/pypilogo.png")
-        pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=pypimbed)
 
     # AFK
