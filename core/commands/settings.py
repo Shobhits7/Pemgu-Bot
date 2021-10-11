@@ -34,7 +34,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         if text == self.bot.prefix: await self.bot.postgres.execute("DELETE FROM prefixes WHERE guild_id=$1", ctx.guild.id)
         else: prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", ctx.guild.id)
         if not prefix: await self.bot.postgres.execute("INSERT INTO prefixes(guild_name,guild_id,prefix) VALUES ($1,$2,$3)", ctx.guild.name, ctx.guild.id, text)
-        else: await self.bot.postgres.execute("UPDATE prefixes SET prefix=$1 WHERE guild_name=$2 AND guild_id=$3", text, ctx.guild.name, ctx.guild.id)
+        else: await self.bot.postgres.execute("UPDATE prefixes SET prefix=$1 WHERE guild_id=$2", text, ctx.guild.id)
         await ctx.send(embed=pfchmbed)
 
     # Prefix-Reset
@@ -83,7 +83,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         welchmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         welcome = await self.bot.postgres.fetchval("SELECT * FROM welcome WHERE guild_id=$1", ctx.guild.id)
         if not welcome:
-            await self.bot.postgres.execute("INSERT INTO welcome(guild_name,guild_id,msg) VALUES($1,$2,$3)", ctx.guild.name, ctx.guild.id, "Welcome to")
+            await self.bot.postgres.execute("INSERT INTO welcome(guild_name,guild_id,msg) VALUES($1,$2,$3)", ctx.guild.name, ctx.guild.id, "Welcome to .guild .member")
             welchmbed.title = "Welcome has been turned on"
         else:
             await self.bot.postgres.execute("DELETE FROM welcome WHERE guild_id=$1", ctx.guild.id)
@@ -91,10 +91,10 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         await ctx.send(embed=welchmbed)
 
     # Welcome-Message
-    @welcome.command(name="message", aliases=["msg"], help="Will change the main welcome message to the new given message")
+    @welcome.command(name="message", aliases=["msg"], help="Will change the main welcome message to the new given message, please input .guild and .member")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
-    async def message(self, ctx:commands.Context, *, msg):
+    async def message(self, ctx:commands.Context, *, msg:str):
         welmsgmbed = discord.Embed(
             colour=self.bot.colour,
             timestamp=ctx.message.created_at
@@ -106,7 +106,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
             welmsgmbed.title = "Welcome message has been changed to:"
             welmsgmbed.description = F"> {msg}"
         else:
-            await self.bot.postgres.execute("UPDATE welcome SET msg=$1 WHERE guild_name=$2 AND guild_id=$3", msg, ctx.guild.name, ctx.guild.id)
+            await self.bot.postgres.execute("UPDATE welcome SET msg=$1 WHERE guild_id=$2", msg, ctx.guild.id)
             welmsgmbed.title = "Welcome message has been changed to:"
             welmsgmbed.description = F"> {msg}"
         await ctx.send(embed=welmsgmbed)
