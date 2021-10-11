@@ -245,9 +245,9 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         )
         bpumbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if amount > 100:
-            return await ctx.send(embed=bpumbed, delete_after=2.5)
+            return await ctx.send(embed=bpumbed, delete_after=5)
         await ctx.channel.purge(limit=amount+1)
-        await ctx.send(embed=fpumbed, delete_after=2.5)
+        await ctx.send(embed=fpumbed, delete_after=5)
 
 def setup(bot):
     bot.add_cog(Moderation(bot))

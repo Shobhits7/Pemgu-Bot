@@ -51,12 +51,12 @@ class OnError(commands.Cog):
             }
             errormbed = discord.Embed(
                 colour=self.bot.colour,
-                title="❌ There was is a problem ❓",
+                title="❌ There was a problem ❓",
                 description=errors[error] if error in errors else error,
                 timestamp=ctx.message.created_at
             )
             errormbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-            await ctx.send(embed=errormbed, delete_after=2.5)
+            await ctx.send(embed=errormbed, delete_after=5)
     
 def setup(bot):
     bot.add_cog(OnError(bot))

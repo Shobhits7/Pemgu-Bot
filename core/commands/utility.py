@@ -14,7 +14,7 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
         )
         cumbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.channel.purge(limit=amount+1, check=lambda m: m.author.id == self.bot.user.id, bulk=False)
-        await ctx.send(embed=cumbed, delete_after=2.5)
+        await ctx.send(embed=cumbed, delete_after=5)
 
     # PYPI
     @commands.command(name="pypi", help="Will give information about the given library in PYPI")
