@@ -82,6 +82,7 @@ class CustomHelp(commands.HelpCommand):
             hcogmbed.description += F"• **{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
         hcogmbed.set_thumbnail(url=self.context.me.display_avatar.url)
         hcogmbed.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
+        hcogmbed.set_footer(text="<> is required | [] is optional")
         await self.context.send(embed=hcogmbed)
         return
 
@@ -95,6 +96,7 @@ class CustomHelp(commands.HelpCommand):
         )
         hcmdmbed.set_thumbnail(url=self.context.me.display_avatar.url)
         hcmdmbed.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
+        hcmdmbed.set_footer(text="<> is required | [] is optional")
         if cog := command.cog:
             hcmdmbed.add_field(name="Category:", value=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name}")
         can_run = "No"
@@ -117,6 +119,7 @@ class CustomHelp(commands.HelpCommand):
         )
         hgroupmbed.set_thumbnail(url=self.context.me.display_avatar.url)
         hgroupmbed.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
+        hgroupmbed.set_footer(text="<> is required | [] is optional")
         for command in group.commands:
             hgroupmbed.description += F"• **{self.get_command_signature(command)}** - {command.help or 'No help found...'}\n"
         if cog := command.cog:
