@@ -23,7 +23,6 @@ class Member(commands.Cog):
                 description="\n".join(m for m in mi),
                 timestamp=discord.utils.utcnow()
             )
-            omjmbed.set_author(name=member.guild.name, icon_url=member.guild.icon.url)
             omjmbed.set_image(url=member.display_avatar.url)
             omjmbed.set_footer(text=self.bot.user.name, icon_url=self.bot.user.avatar.url)
             await member.guild.system_channel.send(content=F"{msg} {member.guild.name} {member.mention}", embed=omjmbed)
