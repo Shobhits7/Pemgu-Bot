@@ -20,7 +20,7 @@ class Todo(commands.Cog, description="If you are so lazy to do stuff, use these"
             timestamp=ctx.message.created_at
         )
         badtodombed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
-        todos = await self.bot.postgres.fetch("SELECT * FROM todos WHERE user_id=$1", user)
+        todos = await self.bot.postgres.fetch("SELECT * FROM todos WHERE user_id=$1", user.id)
         if not todos: return await ctx.send(embed=badtodombed)
         tasks = []
         counter = 1
