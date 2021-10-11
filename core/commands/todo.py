@@ -47,7 +47,7 @@ class Todo(commands.Cog, description="If you are so lazy to do stuff, use these"
 
     # Remove
     @todo.command(name="remove", help="Will remove the given task from your tasks")
-    async def remove(self, ctx:commands.Context, *, task:int):
+    async def remove(self, ctx:commands.Context, *, task:str):
         removembed = discord.Embed(
             colour=self.bot.colour,
             timestamp=ctx.message.created_at
@@ -60,14 +60,15 @@ class Todo(commands.Cog, description="If you are so lazy to do stuff, use these"
             return await ctx.send(embed=removembed)
         for stuff in todos:
             tasks.append(stuff["task"])
-        todo = await self.bot.postgres.fetchval("SELECT task FROM todos WHERE user_id=$1 AND task=$2", ctx.author.id, tasks[task])
+        task = tasks[task] or task
+        todo = await self.bot.postgres.fetchval("SELECT task FROM todos WHERE user_id=$1 AND task=$2", ctx.author.id, task)
         if not todo:
             removembed.title = "Is not in your tasks:"
-            removembed.description = F"> {tasks[task]}"
+            removembed.description = F"> {task}"
             return await ctx.send(embed=removembed)
         removembed.title = "Successfully removed:"
-        removembed.description = F"> {tasks[task]}\n**From your tasks**"
-        await self.bot.postgres.execute("DELETE FROM todos WHERE user_id=$1 AND task=$2", ctx.author.id, tasks[task])
+        removembed.description = F"> {task}\n**From your tasks**"
+        await self.bot.postgres.execute("DELETE FROM todos WHERE user_id=$1 AND task=$2", ctx.author.id, task)
         await ctx.send(embed=removembed)
 
 def setup(bot):
