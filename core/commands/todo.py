@@ -63,7 +63,7 @@ class Todo(commands.Cog, description="If you are so lazy to do stuff, use these"
         todo = await self.bot.postgres.fetchval("SELECT task FROM todos WHERE user_id=$1 AND task=$2", ctx.author.id, tasks[number])
         if not todo:
             removembed.title = "Is not in your tasks:"
-            removembed.description = F"> {tasks[number]}"
+            removembed.description = F"> {number}\n**Check your tasks.**"
             return await ctx.send(embed=removembed)
         removembed.title = "Successfully removed:"
         removembed.description = F"> {tasks[number]}\n**From your tasks**"
