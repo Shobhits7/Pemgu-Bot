@@ -47,7 +47,7 @@ class Todo(commands.Cog, description="If you are so lazy to do stuff, use these"
 
     # Remove
     @todo.command(name="remove", help="Will remove the given task from your tasks")
-    async def remove(self, ctx:commands.Context, *, number:str):
+    async def remove(self, ctx:commands.Context, *, number:int):
         removembed = discord.Embed(
             colour=self.bot.colour,
             timestamp=ctx.message.created_at
