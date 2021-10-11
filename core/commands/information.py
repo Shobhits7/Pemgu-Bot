@@ -108,6 +108,10 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     @commands.command(name="spotify", help="Will show your or the given member's spotify activity if possible")
     async def spotify(self, ctx:commands.Context, member:discord.Member=None):
         member = ctx.author if not member else member
+        spotifymbed = discord.Embed(
+            timestamp=ctx.message.created_at
+        )
+        spotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         for activity in member.activities:
             if isinstance(activity, discord.Spotify):
                 si = [
@@ -118,26 +122,18 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
                     F"**Party-ID:** {activity.party_id}",
                     F"**Listening-Since:** {discord.utils.format_dt(activity.created_at, style='f')} ({discord.utils.format_dt(activity.created_at, style='R')})"
                 ]
-                fspotifymbed = discord.Embed(
-                    colour=activity.colour,
-                    url=activity.track_url,
-                    title=activity.title,
-                    description="\n".join(s for s in si),
-                    timestamp=ctx.message.created_at
-                )
-                fspotifymbed.set_author(name=member, icon_url=member.display_avatar.url)
-                fspotifymbed.set_image(url=activity.album_cover_url)
-                fspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-                await ctx.send(embed=fspotifymbed)
+                spotifymbed.colour = activity.colour
+                spotifymbed.url = activity.track_url
+                spotifymbed.title = activity.title
+                spotifymbed.description = "\n".join(s for s in si)
+                spotifymbed.set_author(name=member, icon_url=member.display_avatar.url)
+                spotifymbed.set_image(url=activity.album_cover_url)
+                await ctx.send(embed=spotifymbed)
                 break
         else:
-            badspotifymbed = discord.Embed(
-                colour=self.bot.colour,
-                title=F"{member} is not listening to Spotify",
-                timestamp=ctx.message.created_at
-            )
-            badspotifymbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-            await ctx.send(embed=badspotifymbed)
+            spotifymbed.colour = self.bot.colour
+            spotifymbed.title = F"{member} is not listening to Spotify"
+            await ctx.send(embed=spotifymbed)
 
     # Icon
     @commands.command(name="icon", aliases=["ic"], help="Will show the server's icon")

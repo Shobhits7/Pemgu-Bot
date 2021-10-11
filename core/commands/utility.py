@@ -19,19 +19,19 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     # PYPI
     @commands.command(name="pypi", help="Will give information about the given library in PYPI")
     async def pypi(self, ctx:commands.Context, *, library:str):
-        session = await self.bot.session.get(F"https://pypi.org/pypi/{library}/json")
-        if session.status != 200:
-            await ctx.send("Couldn't find that library in PYPI")
-            return
-        response = await session.json()
-        session.close()
         pypimbed = discord.Embed(
             colour=self.bot.colour,
-            url=response['info']['package_url'],
-            title=response['info']['name'],
-            description=response['info']['summary'],
             timestamp=ctx.message.created_at
         )
+        session = await self.bot.session.get(F"https://pypi.org/pypi/{library}/json")
+        if session.status != 200:
+            pypimbed.title = "Couldn't find that library in PYPI"
+            return await ctx.send(embed=pypimbed)
+        response = await session.json()
+        session.close()
+        pypimbed.url = response['info']['package_url'],
+        pypimbed.title = response['info']['name'],
+        pypimbed.description = response['info']['summary'],
         pi = [
             F"***Version:*** {response['info']['version']}",
             F"***Download URL:*** {response['info']['download_url']}",

@@ -82,22 +82,17 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
     async def addrole(self, ctx:commands.Context, member:discord.Member, role:discord.Role):
-        faembed = discord.Embed(
+        aembed = discord.Embed(
             colour=self.bot.colour,
-            title=F"Successfully added the {role} role",
             timestamp=ctx.message.created_at
         )
-        faembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        baembed = discord.Embed(
-            colour=self.bot.colour,
-            title=F"The member already has the {role} role",
-            timestamp=ctx.message.created_at
-        )
-        baembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        aembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if role in member.roles:
-            return await ctx.send(embed=baembed)
+            aembed.title = F"The member already has the {role} role"
+            return await ctx.send(embed=aembed)
+        aembed.title = F"Successfully added the {role} role"
         await member.add_roles(role)
-        await ctx.send(embed=faembed)
+        await ctx.send(embed=aembed)
     
     # RemoveRole
     @commands.command(name="removerole", aliases=["re"], help="Will remove the given role from the given user")
@@ -105,22 +100,17 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
     async def removerole(self, ctx:commands.Context, member:discord.Member, role:discord.Role):
-        frembed = discord.Embed(
+        rembed = discord.Embed(
             colour=self.bot.colour,
-            title=F"Successfully removed the {role} role",
             timestamp=ctx.message.created_at
         )
-        frembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        brembed = discord.Embed(
-            colour=self.bot.colour,
-            title=F"The member doesn't have the {role} role",
-            timestamp=ctx.message.created_at
-        )
-        brembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        rembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if role in member.roles:
+            rembed.title = F"Successfully removed the {role} role"
             await member.remove_roles(role)
-            return await ctx.send(embed=frembed)
-        await ctx.send(embed=brembed)
+            return await ctx.send(embed=rembed)
+        rembed.title = F"The member doesn't have the {role} role"
+        await ctx.send(embed=rembed)
 
     # Lock
     @commands.command(name="lock", aliases=["lc"], help="Will lock the given channel", hidden=True)
@@ -131,24 +121,18 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     async def lock(self, ctx:commands.Context, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
         overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)}
-        badlcmbed = discord.Embed(
+        lcmbed = discord.Embed(
             colour=self.bot.colour,
-            title="Is already locked:",
             description=channel.mention,
             timestamp=ctx.message.created_at
         )
-        badlcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        finlcmbed = discord.Embed(
-            colour=self.bot.colour,
-            title="Successfully Locked:",
-            description=channel.mention,
-            timestamp=ctx.message.created_at
-        )
-        finlcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        lcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if channel.overwrites == overwrites:
-            return await ctx.send(embed=badlcmbed)
+            lcmbed.title = "Is already locked:"
+            return await ctx.send(embed=lcmbed)
         await channel.edit(overwrites=overwrites)
-        await ctx.send(embed=finlcmbed)
+        lcmbed.title = "Successfully Locked:"
+        await ctx.send(embed=lcmbed)
 
     # Unlock
     @commands.command(name="unlock", aliases=["ulc"], help="Will unlock the given channel", hidden=True)
@@ -159,24 +143,18 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     async def unlock(self, ctx:commands.Context, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
         overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=True)}
-        badulcmbed = discord.Embed(
+        ulcmbed = discord.Embed(
             colour=self.bot.colour,
-            title="Is already unlocked",
             description=channel.mention,
             timestamp=ctx.message.created_at
         )
-        badulcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        finulcmbed = discord.Embed(
-            colour=self.bot.colour,
-            title="Successfully Unlocked:",
-            description=channel.mention,
-            timestamp=ctx.message.created_at
-        )
-        finulcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        ulcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if channel.overwrites == overwrites:
-            return await ctx.send(embed=badulcmbed)
+            ulcmbed.title = "Is already unlocked:"
+            return await ctx.send(embed=ulcmbed)
+        ulcmbed.title = "Successfully Unlocked:"
         await channel.edit(overwrites=overwrites)
-        await ctx.send(embed=finulcmbed)
+        await ctx.send(embed=ulcmbed)
 
     # Mute
     @commands.command(name="mute", aliases=["mt"], help="Will mute the given user")
@@ -184,20 +162,11 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
     async def mute(self, ctx:commands.Context, member:discord.Member, *, reason:str=None):
-        domtmbed = discord.Embed(
+        mtmbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"Successfully Muted",
-            description=F"Muted: {member.mention}\nReason: {reason}",
             timestamp=ctx.message.created_at
         )
-        domtmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        unmtmbed = discord.Embed(
-            colour=self.bot.colour,
-            title=F"Successfully Un-Muted",
-            description=F"UnMuted: {member.mention}\nReason: {reason}",
-            timestamp=ctx.message.created_at
-        )
-        unmtmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        mtmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         for role in ctx.guild.roles:
             if role.name == "Muted":
                 muterole = role
@@ -220,11 +189,15 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
                 if not channel.permissions_synced:
                     await channel.set_permissions(muterole, add_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False, create_instant_invite=False, create_public_threads=False, create_private_threads=False)
         if muterole in member.roles:
+            mtmbed.title = F"Successfully Un-Muted"
+            mtmbed.description = F"UnMuted: {member.mention}\nReason: {reason}"
             await member.remove_roles(muterole, reason=F"UnMuted by {ctx.author}, Because: {reason}")
-            await ctx.send(embed=unmtmbed)
+            await ctx.send(embed=mtmbed)
         else:
+            mtmbed.title = F"Successfully Muted"
+            mtmbed.description = F"Muted: {member.mention}\nReason: {reason}"
             await member.add_roles(muterole, reason=F"Muted by {ctx.author}, Because: {reason}")
-            await ctx.send(embed=domtmbed)
+            await ctx.send(embed=mtmbed)
 
     # Purge
     @commands.command(name="purge", aliases=["pu"], help="Will delete messages")
@@ -232,22 +205,17 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.has_guild_permissions(manage_messages=True)
     @commands.bot_has_guild_permissions(manage_messages=True)
     async def purge(self, ctx:commands.Context, *, amount:int):
-        fpumbed = discord.Embed(
+        pumbed = discord.Embed(
             colour=self.bot.colour,
-            title=F"Deleted {amount} amount of messages",
             timestamp=ctx.message.created_at
         )
-        fpumbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        bpumbed = discord.Embed(
-            colour=self.bot.colour,
-            title="Can't clear more than 100 messages",
-            timestamp=ctx.message.created_at
-        )
-        bpumbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        pumbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if amount > 100:
-            return await ctx.send(embed=bpumbed, delete_after=5)
+            pumbed.title = "Can't clear more than 100 messages"
+            return await ctx.send(embed=pumbed, delete_after=5)
+        pumbed.title = F"Deleted {amount} amount of messages"
         await ctx.channel.purge(limit=amount+1)
-        await ctx.send(embed=fpumbed, delete_after=5)
+        await ctx.send(embed=pumbed, delete_after=5)
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
