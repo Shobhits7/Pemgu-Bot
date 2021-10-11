@@ -68,7 +68,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         else:
             msg = await self.bot.postgres.fetchval("SELECT msg FROM welcome WHERE guild_id=$1", ctx.guild.id)
             welmbed.title = "Current status for welcome"
-            welmbed.description = F">Turned On\n> {msg}"
+            welmbed.description = F"> Turned On\n> {msg}"
         await ctx.send(embed=welmbed)
 
     # Welcome-Change
