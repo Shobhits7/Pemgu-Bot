@@ -221,6 +221,89 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         emmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=emmbed)
 
+    # Ping
+    @commands.command(name="ping", aliases=["pi"], help="Will show bot's ping")
+    async def ping(self, ctx:commands.Context):
+        unpimbed = discord.Embed(
+            colour=self.bot.colour,
+            title="🎾 Pinging...",
+            timestamp=ctx.message.created_at
+        )
+        unpimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        start = time.perf_counter()
+        unpimsg = await ctx.send(embed=unpimbed)
+        end = time.perf_counter()
+        dopimbed = discord.Embed(
+            colour=self.bot.colour,
+            title="🏓 Pong:",
+            description=F"Websocket: {self.bot.latency * 1000}ms\nTyping: {(end - start) * 1000}ms",
+            timestamp=ctx.message.created_at
+        )
+        dopimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await unpimsg.edit(embed=dopimbed)
+
+    # Permissions
+    @commands.command(name="permissions", aliases=["perms"], help="Will show the permissions that the bot has in this guild")
+    async def permissions(self, ctx:commands.Context):
+        ok_emote = "<:fine:896063337958350919>"
+        allowed = []
+        allowed_emote = "<:allow:896062865071566898>"
+        denied = []
+        denied_emote = "<:deny:896062993090084974>"
+        permsmbed = discord.Embed(
+            colour=self.bot.colour,
+            title=F"{ok_emote} Bot Permissions",
+            description="",
+            timestamp=ctx.message.created_at
+        )
+        for permission, value in ctx.me.guild_permissions:
+            permission = permission.replace("_", " ").title()
+            if value:
+                permsmbed.description += F"{allowed_emote} - {permission}\n"
+            if not value:
+                permsmbed.description += F"{denied_emote} - {permission}\n"
+        permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=permsmbed)
+
+    # Invite
+    @commands.command(name="invite", aliases=["ie"], help="Will make a send the link for adding  the bot")
+    async def invite(self, ctx:commands.Context):
+        iembed = discord.Embed(
+            colour=self.bot.colour,
+            title="Here is the invite link for adding the bot",
+            url=discord.utils.oauth_url(client_id=self.bot.user.id, scopes=("bot", "applications.commands"), permissions=discord.Permissions(administrator=True)),
+            description="Thank you for adding and inviting me!",
+            timestamp=ctx.message.created_at
+        )
+        iembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=iembed)
+
+    # Source
+    @commands.command(name="source", aliases=["src"], help="Will show the bots source")
+    async def source(self, ctx:commands.Context, command:str=None):
+        source_url = "https://github.com/lvlahraam/JakeTheDog-Bot"
+        if not command:
+            return await ctx.send(source_url)
+        if command == "help":
+            src = type(self.bot.help_command)
+            module = src.__module__
+            filename = inspect.getsourcefile(src)
+        else:
+            obj = self.bot.get_command(command.replace(".", " "))
+            if not obj:
+                return await ctx.send("Could not find command.")
+            src = obj.callback.__code__
+            module = obj.callback.__module__
+            filename = src.co_filename
+        lines, firstlineno = inspect.getsourcelines(src)
+        if not module.startswith("discord"):
+            location = os.path.relpath(filename).replace("\\", "/")
+        else:
+            location = module.replace(".", "/") + ".py"
+            source_url = "https://github.com/lvlahraam/JakeTheDog-Bot"
+        final_url = F"<{source_url}/blob/main/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}>"
+        await ctx.send(final_url)
+
     # RickAndMorty
     @commands.group(name="rickandmorty", aliases=["ram"], help="Some Rick and Morty commands, use subcommands", invoke_without_command=True)
     async def rickandmorty(self, ctx:commands.Context):

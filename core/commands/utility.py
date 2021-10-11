@@ -5,6 +5,17 @@ class Utility(commands.Cog, description="Useful commands that are open to everyo
     def __init__(self, bot):
         self.bot = bot
 
+    # Cleanup
+    @commands.command(name="cleanup", aliases=["cu"], help="Will delete bot's messagess")
+    async def cleanup(self, ctx:commands.Context, *, amount:int):
+        cumbed = discord.Embed(
+            colour=self.bot.colour,
+            title=F"Cleaned-up {amount} of bot messages",
+        )
+        cumbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.channel.purge(limit=amount+1, check=lambda m: m.author.id == self.bot.user.id, bulk=False)
+        await ctx.send(embed=cumbed, delete_after=2.5)
+
     # PYPI
     @commands.command(name="pypi", help="Will give information about the given library in PYPI")
     async def pypi(self, ctx:commands.Context, *, library:str):
