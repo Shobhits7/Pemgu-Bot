@@ -54,10 +54,22 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         await ctx.send(embed=pfrsmbed)
 
     # Welcome
-    @commands.group(name="welcome", aliases=["wel"], help="Will tell the status for welcome")
+    @commands.group(name="welcome", aliases=["wel"], help="Will tell the status for welcome", invoke_without_command=True)
     @commands.guild_only()
     async def welcome(self, ctx:commands.Context):
-        await ctx.send_help("welcome")
+        welmbed = discord.Embed(
+            colour=self.bot.colour,
+            timestamp=ctx.message.created_at
+        )
+        welmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        welcome = await self.bot.postgres.fetchval("SELECT * FROM welcome WHERE guild_id=$1", ctx.guild.id)
+        if not welcome:
+            welmbed.title = "Welcome is currently turned off"
+        else:
+            msg = await self.bot.postgres.fetchval("SELECT msg FROM welcome WHERE guild_id=$1", ctx.guild.id)
+            welmbed.title = "Current status for welcome"
+            welmbed.description = F">Turned On\n> {msg}"
+        await ctx.send(embed=welmbed)
 
     # Welcome-Change
     @welcome.command(name="change", aliases=["ch"], help="Will turn off or on the welcome")
@@ -71,7 +83,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         welchmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         welcome = await self.bot.postgres.fetchval("SELECT * FROM welcome WHERE guild_id=$1", ctx.guild.id)
         if not welcome:
-            await self.bot.postgres.execute("INSERT INTO welcome(guild_name,guild_id,msg) VALUES($1,$2,$3)", ctx.guild.name, ctx.guild.id, "No")
+            await self.bot.postgres.execute("INSERT INTO welcome(guild_name,guild_id,msg) VALUES($1,$2,$3)", ctx.guild.name, ctx.guild.id, "Welcome to ")
             welchmbed.title = "Welcome has been turned on"
         else:
             await self.bot.postgres.execute("DELETE FROM welcome WHERE guild_id=$1", ctx.guild.id)
