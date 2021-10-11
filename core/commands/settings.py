@@ -83,7 +83,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         welchmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         welcome = await self.bot.postgres.fetchval("SELECT * FROM welcome WHERE guild_id=$1", ctx.guild.id)
         if not welcome:
-            await self.bot.postgres.execute("INSERT INTO welcome(guild_name,guild_id,msg) VALUES($1,$2,$3)", ctx.guild.name, ctx.guild.id, "Welcome to ")
+            await self.bot.postgres.execute("INSERT INTO welcome(guild_name,guild_id,msg) VALUES($1,$2,$3)", ctx.guild.name, ctx.guild.id, "Welcome to")
             welchmbed.title = "Welcome has been turned on"
         else:
             await self.bot.postgres.execute("DELETE FROM welcome WHERE guild_id=$1", ctx.guild.id)
