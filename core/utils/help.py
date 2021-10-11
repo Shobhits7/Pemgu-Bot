@@ -52,7 +52,6 @@ class CustomHelp(commands.HelpCommand):
             "Moderation": "🎩",
             "Owner": "👑",
             "Settings": "🔧",
-            "Todo": "📝",
             "Utility": "🧰",
             "Jishaku": "🤿",
             "No": "❓"
