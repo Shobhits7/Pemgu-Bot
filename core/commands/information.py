@@ -1,5 +1,4 @@
-from typing_extensions import get_args
-import discord, time, os, io, typing
+import discord, time, os, io, inspect
 from discord.ext import commands
 
 class Information(commands.Cog, description="Stalking people is wrong and bad!"):

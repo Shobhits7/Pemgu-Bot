@@ -1,4 +1,4 @@
-import discord, time, os, inspect
+import discord
 from discord.ext import commands
 
 class Settings(commands.Cog, description="Setting up the bot with these!"):
