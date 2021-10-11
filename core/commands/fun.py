@@ -1,7 +1,6 @@
-import discord, os, io, random
+import discord, os, io, random, typing
 from discord.ext import commands
 import core.views.funview as fv
-
 class Fun(commands.Cog, description="You sad?. Use these to at least have a smile"):
     def __init__(self, bot):
         self.bot = bot
@@ -138,7 +137,7 @@ class Fun(commands.Cog, description="You sad?. Use these to at least have a smil
     # Tweet
     @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet")
     @commands.bot_has_guild_permissions(attach_files=True)
-    async def tweet(self, ctx:commands.Context, user:discord.User=None, *, text:str):
+    async def tweet(self, ctx:commands.Context, user:typing.Optional[discord.User]=None, *, text:str):
         user = ctx.author if not user else user
         session = await self.bot.session.get(F"https://api.dagpi.xyz/image/tweet/?url={user.avatar.with_format('png')}&username={user.name}&text={text}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())

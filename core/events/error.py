@@ -56,7 +56,7 @@ class OnError(commands.Cog):
                 timestamp=ctx.message.created_at
             )
             errormbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-            await ctx.send(embed=errormbed, delete_after=5)
+            await ctx.send(embed=errormbed)
     
 def setup(bot):
     bot.add_cog(OnError(bot))
