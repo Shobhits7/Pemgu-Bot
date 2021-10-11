@@ -7,7 +7,13 @@ class OnConnect(commands.Cog):
     
     @commands.Cog.listener()
     async def on_connect(self):
-        print(F"---------------------------------------------------\nLogged in as: {self.bot.user} - {self.bot.user.id}\nMain prefix is: {self.bot.prefix}\nServers bot is in: {len(self.bot.guilds)}\nThe Bot is online now\n---------------------------------------------------")
+        oni = [
+            F"Logged in as: {self.bot.user} - {self.bot.user.id}",
+            F"Main prefix is: {self.bot.prefix}",
+            F"Servers bot is in: {len(self.bot.guilds)}",
+            "The Bot is online now"
+        ]
+        print("\n".join(o for o in oni))
         await self.bot.change_presence(activity=discord.Game(name=F"@{self.bot.user.name} for prefix | {self.bot.prefix} help for help"))
 
 def setup(bot):
