@@ -64,10 +64,10 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         welmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         welcome = await self.bot.postgres.fetchval("SELECT * FROM welcome WHERE guild_id=$1", ctx.guild.id)
         if not welcome:
-            welmbed.title = "Welcome is currently turned off"
+            welmbed.title = "Welcome is turned off"
         else:
             msg = await self.bot.postgres.fetchval("SELECT msg FROM welcome WHERE guild_id=$1", ctx.guild.id)
-            welmbed.title = "Current status for welcome"
+            welmbed.title = "Status for welcome"
             welmbed.description = F"> Turned On\n> {msg}"
         await ctx.send(embed=welmbed)
 

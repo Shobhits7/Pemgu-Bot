@@ -28,7 +28,7 @@ class Todo(commands.Cog, description="If you are so lazy to do stuff, use these"
         for stuff in todos:
             tasks.append(F"{counter} - {stuff['task']}\n")
             counter += 1
-        listmbed.title=F"{user}'s current tasks:"
+        listmbed.title=F"{user}'s tasks:"
         listmbed.description="".join(task for task in tasks)
         await ctx.send(embed=listmbed)
 

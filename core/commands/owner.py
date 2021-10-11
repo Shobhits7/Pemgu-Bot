@@ -169,7 +169,7 @@ class Owner(commands.Cog, description="Only my Developer can use these commands"
         if not user:
             allmbed = discord.Embed(
                 colour=self.bot.colour,
-                title="Current Users in Blacklist",
+                title="Users in Blacklist",
                 description="",
                 timestamp=ctx.message.created_at
             )
