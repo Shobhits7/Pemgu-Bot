@@ -130,8 +130,8 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         if channel.overwrites == overwrites:
             lcmbed.title = "Is already locked:"
             return await ctx.send(embed=lcmbed)
-        await channel.edit(overwrites=overwrites)
         lcmbed.title = "Successfully Locked:"
+        await channel.edit(overwrites=overwrites)
         await ctx.send(embed=lcmbed)
 
     # Unlock
