@@ -59,4 +59,4 @@ class OnMember(commands.Cog):
         pass
 
 def setup(bot):
-    bot.add_cog(Member(bot))
+    bot.add_cog(OnMember(bot))
