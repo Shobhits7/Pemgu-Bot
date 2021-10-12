@@ -87,22 +87,6 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         membed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=membed)
 
-    # Roast
-    @commands.command(name="roast", aliases=["rst"], help="Will roast you or the given user")
-    async def roast(self, ctx:commands.Context, user:discord.User=None):
-        user = ctx.author if not user else user
-        session = await self.bot.session.get("https://api.dagpi.xyz/data/roast", headers=self.dagpi_headers)
-        response = await session.json()
-        session.close()
-        rstmbed = discord.Embed(
-            colour=self.bot.colour,
-            title=F"Roasting {user}",
-            description=response['roast'],
-            timestamp=ctx.message.created_at
-        )
-        rstmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=rstmbed)
-
     # Joke
     @commands.command(name="joke", aliases=["jk"], help="Will tell you a random joke")
     async def joke(self, ctx:commands.Context):
@@ -117,6 +101,21 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         )
         jkmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=jkmbed)
+
+    # Fact
+    @commands.command(name="fact", aliases=["fc"], help="Will tell you a random fact")
+    async def fact(self, ctx:commands.Context):
+        session = await self.bot.session.get("https://api.dagpi.xyz/data/fact", headers=self.dagpi_headers)
+        response = await session.json()
+        session.close()
+        fcmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Here is a random fact",
+            description=response["fact"],
+            timestamp=ctx.message.created_at
+        )
+        fcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=fcmbed)
 
     # 8Ball
     @commands.command(name="8ball", aliases=["8b"], help="Will give you a random answer")
@@ -133,6 +132,22 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         _8bmbed.add_field(name="Your Question:", value=question)
         _8bmbed.add_field(name="Your Answer:", value=response["response"])
         await ctx.send(embed=_8bmbed)
+
+    # Roast
+    @commands.command(name="roast", aliases=["rst"], help="Will roast you or the given user")
+    async def roast(self, ctx:commands.Context, user:discord.User=None):
+        user = ctx.author if not user else user
+        session = await self.bot.session.get("https://api.dagpi.xyz/data/roast", headers=self.dagpi_headers)
+        response = await session.json()
+        session.close()
+        rstmbed = discord.Embed(
+            colour=self.bot.colour,
+            title=F"Roasting {user}",
+            description=response['roast'],
+            timestamp=ctx.message.created_at
+        )
+        rstmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=rstmbed)
 
     # Tweet
     @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet")

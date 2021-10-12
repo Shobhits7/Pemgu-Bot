@@ -37,7 +37,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         tasks = []
         counter = 0
         for stuff in notes:
-            tasks.append(F"{counter} - {stuff['task']}\n")
+            tasks.append(F"{counter}. {stuff['task']}\n")
             counter += 1
         listmbed.title=F"{user}'s tasks:"
         listmbed.description="".join(task for task in tasks)
@@ -118,26 +118,21 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     @commands.has_guild_permissions(change_nickname=True)
     @commands.bot_has_guild_permissions(manage_nicknames=True)
     async def afk(self, ctx:commands.Context):
-        unafkmbed = discord.Embed(
+        afkmbed  = discord.Embed(
             colour=self.bot.colour,
-            title="Your name has been changed to it's original",
             timestamp=ctx.message.created_at
         )
-        unafkmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        doafkmbed = discord.Embed(
-            colour=self.bot.colour,
-            title="Doing AFK",
-            description="Your name has been now changed to `AFK`",
-            timestamp=ctx.message.created_at
-        )
-        doafkmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        afkmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if ctx.author.nick == "AFK":
+            afkmbed.title = "Name has been changed to it's original"
             await ctx.author.edit(nick=None)
-            return await ctx.send(embed=unafkmbed)
+            return await ctx.send(embed=afkmbed)
+        afkmbed.title = "Doing AFK"
+        afkmbed.description = "Name has been now changed to AFK"
         await ctx.author.edit(nick="AFK")
-        await ctx.send(embed=doafkmbed)
+        await ctx.send(embed=afkmbed)
         if ctx.author.voice:
-            doafkmbed.description += "\nNow moving you to AFK voice channel"
+            afkmbed.description += "\nNow moving you to AFK voice channel"
             await ctx.author.move_to(ctx.guild.afk_channel)
 
 def setup(bot):
