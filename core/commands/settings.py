@@ -111,5 +111,63 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
             welmsgmbed.description = F"> {msg}"
         await ctx.send(embed=welmsgmbed)
 
+    # Goodbye
+    @commands.group(name="goodbye", aliases=["bye"], help="Will tell the status for goodbye", invoke_without_command=True)
+    @commands.guild_only()
+    async def goodbye(self, ctx:commands.Context):
+        byembed = discord.Embed(
+            colour=self.bot.colour,
+            timestamp=ctx.message.created_at
+        )
+        byembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        goodbye = await self.bot.postgres.fetchval("SELECT * FROM goodbye WHERE guild_id=$1", ctx.guild.id)
+        if not goodbye:
+            byembed.title = "Goodbye is turned off"
+        else:
+            msg = await self.bot.postgres.fetchval("SELECT msg FROM goodbye WHERE guild_id=$1", ctx.guild.id)
+            byembed.title = "Status for goodbye"
+            byembed.description = F"> Turned On\n> {msg}"
+        await ctx.send(embed=byembed)
+
+    # Goodbye-Change
+    @goodbye.command(name="change", aliases=["ch"], help="Will turn off or on the goodbye")
+    @commands.guild_only()
+    @commands.has_guild_permissions(administrator=True)
+    async def change(self, ctx:commands.Context):
+        byechmbed = discord.Embed(
+            colour=self.bot.colour,
+            timestamp=ctx.message.created_at
+        )
+        byechmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        goodbye = await self.bot.postgres.fetchval("SELECT * FROM goodbye WHERE guild_id=$1", ctx.guild.id)
+        if not goodbye:
+            await self.bot.postgres.execute("INSERT INTO goodbye(guild_name,guild_id,msg) VALUES($1,$2,$3)", ctx.guild.name, ctx.guild.id, "Thank you .member for being here .guild")
+            byechmbed.title = "Goodbye has been turned on"
+        else:
+            await self.bot.postgres.execute("DELETE FROM goodbye WHERE guild_id=$1", ctx.guild.id)
+            byechmbed.title = "Goodbye has been turned off"
+        await ctx.send(embed=byechmbed)
+
+    # Goodbye-Message
+    @goodbye.command(name="message", aliases=["msg"], help="Will change the main goodbye message to the new given message, please input .guild and .member")
+    @commands.guild_only()
+    @commands.has_guild_permissions(administrator=True)
+    async def message(self, ctx:commands.Context, *, msg:str):
+        byemsgmbed = discord.Embed(
+            colour=self.bot.colour,
+            timestamp=ctx.message.created_at
+        )
+        byemsgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        goodbye = await self.bot.postgres.fetchval("SELECT * FROM goodbye WHERE guild_id=$1", ctx.guild.id)
+        if not goodbye:
+            await self.bot.postgres.execute("INSERT INTO goodbye(guild_name,guild_id,msg) VALUES($1,$2,$3)", ctx.guild.name, ctx.guild.id, msg)
+            byemsgmbed.title = "Goodbye message has been changed to:"
+            byemsgmbed.description = F"> {msg}"
+        else:
+            await self.bot.postgres.execute("UPDATE goodbye SET msg=$1 WHERE guild_id=$2", msg, ctx.guild.id)
+            byemsgmbed.title = "Goodbye message has been changed to:"
+            byemsgmbed.description = F"> {msg}"
+        await ctx.send(embed=byemsgmbed)
+
 def setup(bot):
     bot.add_cog(Settings(bot))
