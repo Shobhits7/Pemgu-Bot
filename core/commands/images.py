@@ -2,7 +2,7 @@ import discord, io
 from discord.ext import commands
 from PIL import Image, ImageFilter
 
-class Images(commands.Cog, description="Free Photoshop, without needing to know PSD"):
+class Images(commands.Cog, description="Free Photoshop without needing to know PSD!"):
     def __init__(self, bot):
         self.bot = bot
 

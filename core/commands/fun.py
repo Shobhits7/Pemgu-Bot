@@ -1,7 +1,7 @@
 import discord, os, io, random, typing
 from discord.ext import commands
 import core.views.funview as fv
-class Fun(commands.Cog, description="You sad?. Use these to at least have a smile"):
+class Fun(commands.Cog, description="You sad? Use these to at least have a smile!"):
     def __init__(self, bot):
         self.bot = bot
         self.dagpi_headers = {"Authorization": os.getenv("DAGPI")}

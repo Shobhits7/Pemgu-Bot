@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class Anime(commands.Cog, description="Some Weeb shit"):
+class Anime(commands.Cog, description="Some Weeb shit?!"):
     def __init__(self, bot):
         self.bot = bot
     

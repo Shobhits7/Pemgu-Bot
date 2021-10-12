@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class Utility(commands.Cog, description="Useful commands that are open to everyone"):
+class Utility(commands.Cog, description="Useful stuff that are open to everyone"):
     def __init__(self, bot):
         self.bot = bot
 

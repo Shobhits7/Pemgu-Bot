@@ -1,7 +1,7 @@
 import discord, io, textwrap, contextlib, traceback
 from discord.ext import commands
 
-class Owner(commands.Cog, description="Only my Developer can use these commands"):
+class Owner(commands.Cog, description="Only my Developer can use these!"):
     def __init__(self, bot):
         self.bot = bot
 

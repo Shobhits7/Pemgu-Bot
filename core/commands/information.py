@@ -188,9 +188,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         simbed.add_field(name="Owner-Information:", value="\n".join(o for o in oi), inline=False)
         simbed.add_field(name="Server-Information:", value="\n".join(s for s in si), inline=False)
         if ctx.guild.icon: simbed.set_thumbnail(url=ctx.guild.icon.url)
-        else: simbed.description += "__**Icon:**__ Server doesn't have a icon"
         if ctx.guild.banner: simbed.set_image(url=ctx.guild.banner.url)
-        else: simbed.description += "__**Banner:**__ Server doesn't have a banner"
         simbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=simbed)
 
@@ -241,9 +239,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     @commands.command(name="permissions", aliases=["perms"], help="Will show the permissions that the bot has in this guild")
     async def permissions(self, ctx:commands.Context):
         ok_emote = "<:fine:896063337958350919>"
-        allowed = []
         allowed_emote = "<:allow:896062865071566898>"
-        denied = []
         denied_emote = "<:deny:896062993090084974>"
         permsmbed = discord.Embed(
             colour=self.bot.colour,
