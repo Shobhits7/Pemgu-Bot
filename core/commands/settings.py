@@ -75,7 +75,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @welcome.command(name="change", aliases=["ch"], help="Will turn off or on the welcome")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
-    async def change(self, ctx:commands.Context):
+    async def welcome_change(self, ctx:commands.Context):
         welchmbed = discord.Embed(
             colour=self.bot.colour,
             timestamp=ctx.message.created_at
@@ -94,21 +94,19 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @welcome.command(name="message", aliases=["msg"], help="Will change the main welcome message to the new given message, please input .guild and .member")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
-    async def message(self, ctx:commands.Context, *, msg:str):
+    async def welcome_message(self, ctx:commands.Context, *, msg:str):
         welmsgmbed = discord.Embed(
             colour=self.bot.colour,
+            title = "Welcome message has been changed to:",
+            description = F"> {msg}",
             timestamp=ctx.message.created_at
         )
         welmsgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         welcome = await self.bot.postgres.fetchval("SELECT * FROM welcome WHERE guild_id=$1", ctx.guild.id)
         if not welcome:
             await self.bot.postgres.execute("INSERT INTO welcome(guild_name,guild_id,msg) VALUES($1,$2,$3)", ctx.guild.name, ctx.guild.id, msg)
-            welmsgmbed.title = "Welcome message has been changed to:"
-            welmsgmbed.description = F"> {msg}"
         else:
             await self.bot.postgres.execute("UPDATE welcome SET msg=$1 WHERE guild_id=$2", msg, ctx.guild.id)
-            welmsgmbed.title = "Welcome message has been changed to:"
-            welmsgmbed.description = F"> {msg}"
         await ctx.send(embed=welmsgmbed)
 
     # Goodbye
@@ -133,7 +131,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @goodbye.command(name="change", aliases=["ch"], help="Will turn off or on the goodbye")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
-    async def change(self, ctx:commands.Context):
+    async def goodbye_change(self, ctx:commands.Context):
         byechmbed = discord.Embed(
             colour=self.bot.colour,
             timestamp=ctx.message.created_at
@@ -152,7 +150,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @goodbye.command(name="message", aliases=["msg"], help="Will change the main goodbye message to the new given message, please input .guild and .member")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
-    async def message(self, ctx:commands.Context, *, msg:str):
+    async def goodbye_message(self, ctx:commands.Context, *, msg:str):
         byemsgmbed = discord.Embed(
             colour=self.bot.colour,
             timestamp=ctx.message.created_at
