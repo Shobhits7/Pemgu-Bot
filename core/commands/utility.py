@@ -16,36 +16,31 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         await ctx.channel.purge(limit=amount+1, check=lambda m: m.author.id == self.bot.user.id, bulk=False)
         await ctx.send(embed=cumbed, delete_after=5)
 
-    # Note
-    @commands.group(name="note", help="Consider using subcommands", invoke_without_command=True)
-    async def note(self, ctx:commands.Context):
-        await ctx.send_help("note")
-
-    # List
-    @note.command(name="list", help="Will show your or another user's notes")
-    async def list(self, ctx:commands.Context, user:discord.User=None):
+    # Notes
+    @commands.group(name="notes", help="Will show all of your or the given user's notes", invoke_without_command=True)
+    async def notes(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
-        listmbed = discord.Embed(
+        notesmbed = discord.Embed(
             colour=self.bot.colour,
             timestamp=ctx.message.created_at
         )
-        listmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
+        notesmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
         notes = await self.bot.postgres.fetch("SELECT * FROM notes WHERE user_id=$1", user.id)
         if not notes: 
-            listmbed.title = F"{user} doesn't have any tasks"
-            return await ctx.send(embed=listmbed)
+            notesmbed.title = F"{user} doesn't have any tasks"
+            return await ctx.send(embed=notesmbed)
         tasks = []
         counter = 0
         for stuff in notes:
             tasks.append(F"{counter}. {stuff['task']}\n")
             counter += 1
-        listmbed.title=F"{user}'s tasks:"
-        listmbed.description="".join(task for task in tasks)
-        await ctx.send(embed=listmbed)
+        notesmbed.title=F"{user}'s tasks:"
+        notesmbed.description="".join(task for task in tasks)
+        await ctx.send(embed=notesmbed)
 
     # Add
-    @note.command(name="add", help="Will add the given task to your notes")
-    async def add(self, ctx:commands.Context, *, task:str):
+    @notes.command(name="add", aliases=["+"], help="Will add the given task to your notes")
+    async def notes_add(self, ctx:commands.Context, *, task:str):
         await self.bot.postgres.execute("INSERT INTO notes(user_name,user_id,task) VALUES($1,$2,$3)", ctx.author.name, ctx.author.id, task)
         addmbed = discord.Embed(
             colour=self.bot.colour,
@@ -57,8 +52,8 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         await ctx.send(embed=addmbed)
 
     # Remove
-    @note.command(name="remove", help="Will remove the given task from your notes")
-    async def remove(self, ctx:commands.Context, *, number:int):
+    @notes.command(name="remove", aliases=["-"], help="Will remove the given task from your notes")
+    async def notes_remove(self, ctx:commands.Context, *, number:int):
         removembed = discord.Embed(
             colour=self.bot.colour,
             timestamp=ctx.message.created_at
