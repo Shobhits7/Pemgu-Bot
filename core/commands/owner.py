@@ -78,39 +78,33 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
     @commands.command(name="reload", help="Will reload the given  or every cog")
     @commands.is_owner()
     async def reload(self, ctx:commands.Context, *, cog:str=None):
+        reloadmbed = discord.Embed(
+            colour=self.bot.colour,
+            timestamp=ctx.message.created_at
+        )
         if not cog:
-            allmbed = discord.Embed(
-                colour=self.bot.colour,
-                title="Successfully reloaded every cog",
-                description="",
-                timestamp=ctx.message.created_at
-            )
-            allmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-            allmbed.description += F"<:greyTick:596576672900186113> Commands:\n"
+            reloadmbed.title = "Successfully reloaded every cog"
+            reloadmbed.description = ""
+            reloadmbed.description += F"<:greyTick:596576672900186113> Commands:\n"
             for command in self.bot._commands:
                 try:
                     self.bot.reload_extension(F"core.commands.{command}")
-                    allmbed.description += F"<:greenTick:596576670815879169> - {command}\n"
+                    reloadmbed.description += F"<:greenTick:596576670815879169> - {command}\n"
                 except Exception as error:
-                    allmbed.description += F"<:redTick:596576672149667840> - {command}\n"
-                    allmbed.description += F"<:redTick:596576672149667840> - {error}\n"
-            allmbed.description += F"<:greyTick:596576672900186113> Events:\n"
+                    reloadmbed.description += F"<:redTick:596576672149667840> - {command}\n"
+                    reloadmbed.description += F"<:redTick:596576672149667840> - {error}\n"
+            reloadmbed.description += F"<:greyTick:596576672900186113> Events:\n"
             for event in self.bot._events:
                 try:
                     self.bot.reload_extension(F"core.events.{event}")
-                    allmbed.description += F"<:greenTick:596576670815879169> - {event}\n"
+                    reloadmbed.description += F"<:greenTick:596576670815879169> - {event}\n"
                 except Exception as error:
-                    allmbed.description += F"<:redTick:596576672149667840> - {event}\n"
-                    allmbed.description += F"<:redTick:596576672149667840> - {error}\n"
-            return await ctx.send(embed=allmbed)
-        reunloadmbed = discord.Embed(
-            colour=self.bot.colour,
-            title=F"Successfully reloaded {cog}.",
-            timestamp=ctx.message.created_at
-        )
-        reunloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+                    reloadmbed.description += F"<:redTick:596576672149667840> - {event}\n"
+                    reloadmbed.description += F"<:redTick:596576672149667840> - {error}\n"
+            return await ctx.send(embed=reloadmbed)
+        reloadmbed.title = F"Successfully reloaded {cog}."
         self.bot.reload_extension(cog)
-        await ctx.send(embed=reunloadmbed)
+        await ctx.send(embed=reloadmbed)
 
     # Toggle
     @commands.command(name="toggle", help="Will toggle on and off the given command")
@@ -167,21 +161,21 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
     async def blacklist(self, ctx:commands.Context, user:discord.User=None, *, reason:str=None):
         if not reason: reason = "No reason was provided"
         if not user:
-            allmbed = discord.Embed(
+            reloadmbed = discord.Embed(
                 colour=self.bot.colour,
                 title="Users in Blacklist",
                 description="",
                 timestamp=ctx.message.created_at
             )
-            allmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            reloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             blacklisted = await self.bot.postgres.fetch("SELECT * FROM blacklist")
             if not blacklisted:
-                allmbed.description += "Nobody is in Blacklist"
+                reloadmbed.description += "Nobody is in Blacklist"
             else:
                 for users in blacklisted:
                     user = self.bot.get_user(users["user_id"])
-                    allmbed.description += F"{user.mention} - {users['reason']}\n"
-            return await ctx.send(embed=allmbed)
+                    reloadmbed.description += F"{user.mention} - {users['reason']}\n"
+            return await ctx.send(embed=reloadmbed)
         blacklisted = await self.bot.postgres.fetchval("SELECT user_id FROM blacklist WHERE user_id=$1", user.id)
         blacklistmbed = discord.Embed(
             colour=self.bot.colour,

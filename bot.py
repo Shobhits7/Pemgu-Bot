@@ -1,5 +1,5 @@
 import discord, asyncpg, os, aiohttp, inspect
-import core.utils.help as help, core.utils.pagination as page, core.utils.options as options
+import core.utils.help as help
 from discord.ext import commands
 
 async def create_pool_postgres():
@@ -37,8 +37,6 @@ class JakeTheDogBase(commands.AutoShardedBot):
         return jtd
 
 bot = JakeTheDogBase(
-    slash_commands=True,
-    slash_command_guilds=[804380398296498256, 896009160603357224],
     command_prefix=get_prefix,
     strip_after_prefix=True,
     case_insensitive=True,
