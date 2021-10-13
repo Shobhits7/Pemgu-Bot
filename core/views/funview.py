@@ -7,9 +7,10 @@ class CounterView(discord.ui.View):
         self.clicks = 0
         self.clickers = ""
 
-    @discord.ui.button(emoji="🥊", style=discord.ButtonStyle.green)
+    @discord.ui.button(emoji="🥊", label="PUNCH", style=discord.ButtonStyle.green)
     async def click(self, button:discord.ui.Button, interaction:discord.Interaction):
         labels=[
+            "PUNCH",
             "BREAK",
             "SMASH",
             "SMASH",
