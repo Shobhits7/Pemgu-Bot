@@ -28,13 +28,13 @@ class OnMessage(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_edit(self, before:discord.Message, after:discord.Message):
-        self.bot.emsgs.append()
+        self.bot.esnipe.append()
         emsgmbed = discord.Embed(
             colour=self.bot.colour,
             description=F"***Before:***\n**{before.content}**\n{discord.utils.format_dt(discord.utils.utcnow(), style='F')} ({discord.utils.format_dt(discord.utils.utcnow(), style='R')})\n\n***After:***\n{after.content}**\n{discord.utils.format_dt(discord.utils.utcnow(), style='F')} ({discord.utils.format_dt(discord.utils.utcnow(), style='R')})"
         )
         emsgmbed.set_author(name=F"{before.author} - {before.author.id}", icon_url=before.author.display_avatar.url)
-        self.bot.emsgs.append(emsgmbed)
+        self.bot.esnipe.append(emsgmbed)
 
 def setup(bot):
     bot.add_cog(OnMessage(bot))
