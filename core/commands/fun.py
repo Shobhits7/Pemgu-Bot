@@ -31,8 +31,8 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
             dmsgmbed.title = F"Couldn't find the {number}th message"
             return await ctx.send(embed=dmsgmbed)
         dmsgmbed.title = F"{number}th Deleted Message"
-        dmsgmbed.description = F"**{dsnipe.content}**  | {dsnipe.channel.mention}"
-        dmsgmbed.set_author(name=F"{dsnipe.author} - {dsnipe.author.id}", icon_url=dsnipe.author.display_avatar.url)
+        dmsgmbed.description = F"**{dsnipe.get('message').content}**  | {dsnipe.get('message').channel.mention}"
+        dmsgmbed.set_author(name=F"{dsnipe.get('message').author} - {dsnipe.get('message').author.id}", icon_url=dsnipe.get('message').author.display_avatar.url)
         await ctx.send(embed=dmsgmbed)
 
     # PP
