@@ -28,18 +28,14 @@ class CounterView(discord.ui.View):
         else: ontimeoutmbed.description = "Nobody clicked the buttons"
         await self.message.edit(embed=ontimeoutmbed, view=self)
 
-class NitroButton(discord.ui.Button):
-    def __init__(self, view, **kwargs):
-        super().__init__(**kwargs)
-        self.ctx = view.ctx
-
-    async def callback(self, interaction:discord.Interaction):
-        await interaction.followup.send(content="https://i.imgur.com/NQinKJB.mp4", ephemeral=True)
 class NitroView(discord.ui.View):
     def __init__(self, ctx):
         super().__init__(timeout=3)
         self.ctx = ctx
-        self.add_item(item=NitroButton(label="ACCEPT", style=discord.ButtonStyle.green, view=self))
+
+    @discord.ui.button(label="ACCEPT", style=discord.ButtonStyle.green)
+    async def accept(self, button:discord.ui.Button, interaction:discord.Interaction):
+        await interaction.followup.send(content="https://imgur.com/NQinKJB", ephemeral=True)
 
     async def on_timeout(self):
         for item in self.children:
