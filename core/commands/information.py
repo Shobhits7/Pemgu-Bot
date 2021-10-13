@@ -10,7 +10,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     @commands.command(name="about", aliases=["ab"], help="Will show the bot's information")
     async def about(self, ctx:commands.Context):
         ai = [
-            F"[Source Code](https://github.com/lvlahraam/JakeTheDog-Bot)",
+            F"[Source Code](https://github.com/lvlahraam/Pemgu-Bot)",
             F"[Invite]({discord.utils.oauth_url(client_id=self.bot.user.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))})",
             "[Support](https://discord.gg/bWnjkjyFRz)",
             F"Discord.PY Version {discord.__version__}"
@@ -281,7 +281,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     # Source
     @commands.command(name="source", aliases=["src"], help="Will show the bots source")
     async def source(self, ctx:commands.Context, command:str=None):
-        source_url = "https://github.com/lvlahraam/JakeTheDog-Bot"
+        source_url = "https://github.com/lvlahraam/Pemgu-Bot"
         if not command:
             return await ctx.send(source_url)
         if command == "help":
@@ -300,7 +300,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             location = os.path.relpath(filename).replace("\\", "/")
         else:
             location = module.replace(".", "/") + ".py"
-            source_url = "https://github.com/lvlahraam/JakeTheDog-Bot"
+            source_url = "https://github.com/lvlahraam/Pemgu-Bot"
         final_url = F"<{source_url}/blob/main/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}>"
         await ctx.send(final_url)
 

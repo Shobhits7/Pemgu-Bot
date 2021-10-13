@@ -18,7 +18,7 @@ async def create_session_aiohttp():
     bot.session = aiohttp.ClientSession()
     print("Successfully created a AioHttp Session ")
 
-class JakeTheDogBase(commands.AutoShardedBot):
+class PemguBase(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.colour = 0x2F3136 or 0x36393E
@@ -51,7 +51,7 @@ class JakeTheDogBase(commands.AutoShardedBot):
         jtd.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         return jtd
 
-bot = JakeTheDogBase(
+bot = PemguBase(
     command_prefix=get_prefix,
     strip_after_prefix=True,
     case_insensitive=True,
