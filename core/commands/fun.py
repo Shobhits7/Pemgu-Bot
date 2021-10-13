@@ -19,8 +19,10 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     # Snipe
     @commands.group(name="snipe", help="Will show the last deleted message")
     @commands.guild_only()
-    async def snipe(self, ctx:commands.Context, number:int=0):
-        snipembed = self.bot.dmsgs[number]
+    async def snipe(self, ctx:commands.Context, number:int):
+        number = 0 if not number else number
+        dmsgs = reversed(self.bot.dmsgs)
+        snipembed = dmsgs[number]
         snipembed.title = F"Last {number} Deleted Message"
         snipembed.timestamp = ctx.message.created_at
         snipembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -29,8 +31,10 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     # Snipe-Edit
     @snipe.command(name="edit", help="Will show the last edited message")
     @commands.guild_only()
-    async def snipe_edit(self, ctx:commands.Context, number:int=0):
-        snipeeditmbed = self.bot.emsgs[number]
+    async def snipe_edit(self, ctx:commands.Context, number:int):
+        number = 0 if not number else number
+        emsgs = reversed(self.bot.emsgs)
+        snipeeditmbed = emsgs[number]
         snipeeditmbed.title = F"Last {number} Edited Message"
         snipeeditmbed.timestamp = ctx.message.created_at
         snipeeditmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
