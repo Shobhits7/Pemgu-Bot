@@ -27,7 +27,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         await ctx.send(embed=snipembed)
 
     # Snipe-Edit
-    @commands.group(name="edit", help="Will show the last edited message")
+    @snipe.command(name="edit", help="Will show the last edited message")
     @commands.guild_only()
     async def snipe_edit(self, ctx:commands.Context, number:int=0):
         snipeeditmbed = self.bot.emsgs[number]
