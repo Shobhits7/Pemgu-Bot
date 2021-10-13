@@ -74,14 +74,14 @@ class Notes(commands.Cog, description="Taking notes with these for lazy people!"
         )
         clearmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
         notes = await self.bot.postgres.fetch("SELECT * FROM notes WHERE user_id=$1", ctx.author.id)
-        tasks = []
         if not notes:
             clearmbed.title = "You don't have any tasks"
             return await ctx.send(embed=clearmbed)
+        tasks = []
         for stuff in notes:
             tasks.append(stuff["task"])
         for task in tasks:
-            await self.bot.postgres.execute("DELETE FROM notes WHERE task=$1 AND user_id=$1", task, ctx.author.id)
+            await self.bot.postgres.execute("DELETE FROM notes WHERE task=$1 AND user_id=$2", task, ctx.author.id)
         clearmbed.title = "Successfully removed:"
         clearmbed.description = "**Every Task**"
         await ctx.send(embed=clearmbed)
