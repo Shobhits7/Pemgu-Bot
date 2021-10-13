@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from core.views.confirm import Confirm
 
 class Utility(commands.Cog, description="Useful stuff that are open to everyone"):
     def __init__(self, bot):
@@ -135,9 +136,13 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     async def notes_clear(self, ctx:commands.Context):
         clearmbed = discord.Embed(
             colour=self.bot.colour,
+            title="Choose your option:",
             timestamp=ctx.message.created_at
         )
         clearmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
+        view = Confirm(ctx)
+        if not view.value:
+            return await ctx.send(embed=clearmbed, view=view)
         notes = await self.bot.postgres.fetch("SELECT * FROM notes WHERE user_id=$1", ctx.author.id)
         if not notes:
             clearmbed.title = "You don't have any tasks"
@@ -149,7 +154,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             await self.bot.postgres.execute("DELETE FROM notes WHERE task=$1 AND user_id=$2", task, ctx.author.id)
         clearmbed.title = "Successfully removed:"
         clearmbed.description = "**Every Task**"
-        await ctx.send(embed=clearmbed)
+        await ctx.send(embed=clearmbed, view=view)
 
 def setup(bot):
     bot.add_cog(Utility(bot))
