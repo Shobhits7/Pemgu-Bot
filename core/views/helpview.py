@@ -37,7 +37,7 @@ class PaginatorView(discord.ui.View):
         def gts(command):
             return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
+            name = cog.qualified_name if cog else "Alone"
             description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
                 mbed = discord.Embed(
@@ -90,7 +90,7 @@ class SelectUI(discord.ui.Select):
 
     async def callback(self, interaction:discord.Interaction):
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
+            name = cog.qualified_name if cog else "Alone"
             description = cog.description if cog else "Commands without category"
             cmds = cog.walk_commands() if cog else commands
             if self.values[0] == name:
@@ -118,7 +118,7 @@ class SelectView(discord.ui.View):
         )
         options = []
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
+            name = cog.qualified_name if cog else "Alone"
             description = cog.description if cog else "Commands without category..."
             if not name.startswith("On"):
                 option = discord.SelectOption(emoji=self.help.emojis.get(name) if self.help.emojis.get(name) else '❓', label=F"{name} Category", description=description, value=name)
@@ -160,7 +160,7 @@ class SelectView(discord.ui.View):
         await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
         return False
 
-class ButtonsUI(discord.ui.Button):
+class ButtonUI(discord.ui.Button):
     def __init__(self, view, **kwargs):
         super().__init__(**kwargs)
         self.help = view.help
@@ -172,7 +172,7 @@ class ButtonsUI(discord.ui.Button):
 
     async def callback(self, interaction:discord.Interaction):
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
+            name = cog.qualified_name if cog else "Alone"
             description = cog.description if cog else "Commands without category"
             cmds = cog.walk_commands() if cog else commands
             if self.custom_id == name:
@@ -187,7 +187,7 @@ class ButtonsUI(discord.ui.Button):
                 mbed.set_footer(text="<> is required | [] is optional")
                 await interaction.response.edit_message(embed=mbed)
 
-class ButtonsView(discord.ui.View):
+class ButtonView(discord.ui.View):
     def __init__(self, help, mapping):
         super().__init__(timeout=15)
         self.help = help
@@ -199,9 +199,9 @@ class ButtonsView(discord.ui.View):
             timestamp=self.help.context.message.created_at
         )
         for cog, commands in self.mapping.items():
-            name = cog.qualified_name if cog else "No"
+            name = cog.qualified_name if cog else "Alone"
             if not name.startswith("On"):
-                self.add_item(item=ButtonsUI(emoji=self.help.emojis.get(name), label=name, style=discord.ButtonStyle.blurple, custom_id=name, view=self))
+                self.add_item(item=ButtonUI(emoji=self.help.emojis.get(name), label=name, style=discord.ButtonStyle.blurple, custom_id=name, view=self))
         self.add_item(item=discord.ui.Button(emoji="🧇", label="Invite", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
         self.add_item(item=discord.ui.Button(emoji="🍩", label="Support", url="https://discord.gg/bWnjkjyFRz"))
         self.add_item(item=discord.ui.Button(emoji="👨‍💻", label="Github", url="https://github.com/lvlahraam/JakeTheDog-Bot"))
@@ -216,8 +216,10 @@ class ButtonsView(discord.ui.View):
 
     async def on_timeout(self):
         try:
-            self.clear_items()
-            self.add_item(item=discord.ui.Button(emoji="❌", label="Disabled due to timeout...", style=discord.ButtonStyle.red, disabled=True))
+            for item in self.children:
+                if isinstance(item, discord.ui.Select):
+                    item.placeholder = "Disabled due to being timed out..."
+                item.disabled = True
             await self.message.edit(view=self)
         except discord.NotFound:
             return

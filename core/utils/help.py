@@ -54,12 +54,12 @@ class CustomHelp(commands.HelpCommand):
             "Settings": "🔧",
             "Utility": "🧰",
             "Jishaku": "🤿",
-            "No": "❓"
+            "Alone": "🔮"
         }
 
     # Help Main
     async def send_bot_help(self, mapping):
-        view = hv.SelectView(self, mapping)
+        view = hv.ButtonView(self, mapping)
         view.homepage.add_field(name="Prefix:", value=self.context.prefix or "In DM you don't need to use prefix")
         view.homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THESE WHEN DOING A COMMAND***")
         view.homepage.set_thumbnail(url=self.context.me.display_avatar.url)
@@ -69,12 +69,10 @@ class CustomHelp(commands.HelpCommand):
 
     # Help Cog
     async def send_cog_help(self, cog):
-        name = cog.qualified_name if cog else "No"
-        description = cog.description if cog else "Commands without category"
         hcogmbed = discord.Embed(
             colour=self.context.bot.colour,
-            title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category [{len(cog.get_commands())}]",
-            description=F"{description}\n\n",
+            title=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name} Category [{len(cog.get_commands())}]",
+            description=F"{cog.description}\n\n",
             timestamp=self.context.message.created_at
         )
         for command in cog.walk_commands():
