@@ -8,15 +8,15 @@ class Confirm(discord.ui.View):
 
     @discord.ui.button(label="Confirm", style=discord.ButtonStyle.green)
     async def confirm(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await interaction.message.delete()
         await interaction.response.send_message("Confirming", ephemeral=True)
         self.value = True
-        self.stop()
 
     @discord.ui.button(label="Cancel", style=discord.ButtonStyle.red)
     async def cancel(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await interaction.message.delete()
         await interaction.response.send_message("Cancelling", ephemeral=True)
         self.value = False
-        self.stop()
 
     async def on_timeout(self):
         await self.message.delete()
