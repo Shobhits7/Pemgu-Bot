@@ -9,7 +9,7 @@ class Confirm(discord.ui.View):
     @discord.ui.button(label="Confirm", style=discord.ButtonStyle.green)
     async def confirm(self, button: discord.ui.Button, interaction: discord.Interaction):
         self.clear_items()
-        await interaction.response.edit_message(content="Cancelled", view=button.view)
+        await interaction.response.edit_message(content="Confirmed", view=button.view)
         self.value = True
 
     @discord.ui.button(label="Cancel", style=discord.ButtonStyle.red)
