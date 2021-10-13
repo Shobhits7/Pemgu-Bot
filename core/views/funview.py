@@ -1,5 +1,4 @@
-import discord
-from discord import colour
+import discord, random
 
 class CounterView(discord.ui.View):
     def __init__(self, ctx):
@@ -10,6 +9,18 @@ class CounterView(discord.ui.View):
 
     @discord.ui.button(emoji="🥊", style=discord.ButtonStyle.green)
     async def click(self, button:discord.ui.Button, interaction:discord.Interaction):
+        labels=[
+            "BREAK",
+            "SMASH",
+            "SMASH",
+            "SHATTER",
+            "FRACTURE",
+            "BEAT UP",
+            "KICK"
+        ]
+        if button.label in labels:
+            random.choice(labels)
+            await interaction.message.edit(view=button.view)
         self.clicks += 1
         if str(interaction.user) in self.clickers:
             pass
