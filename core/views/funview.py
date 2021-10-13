@@ -34,17 +34,6 @@ class NitroButton(discord.ui.Button):
         self.ctx = view.ctx
 
     async def callback(self, interaction:discord.Interaction):
-        anitrombed = discord.Embed(
-            colour=self.ctx.bot.colour,
-            title="Somebody claimed the Nitro.",
-            description=F"{interaction.user} claimed the Nitro.",
-            timestamp=interaction.message.created_at
-        )
-        anitrombed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
-        self.label = "CLAIMED"
-        self.style = discord.ButtonStyle.grey
-        self.disabled = True
-        await interaction.response.edit_message(embed=anitrombed, view=self.view)
         await interaction.followup.send(content="https://i.imgur.com/NQinKJB.mp4", ephemeral=True)
 class NitroView(discord.ui.View):
     def __init__(self, ctx):

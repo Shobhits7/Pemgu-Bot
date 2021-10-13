@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from core.views.confirm import Confirm
+from core.views import confirm
 
 class Utility(commands.Cog, description="Useful stuff that are open to everyone"):
     def __init__(self, bot):
@@ -140,7 +140,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             timestamp=ctx.message.created_at
         )
         clearmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
-        view = Confirm(ctx)
+        view = confirm.Confirm(ctx)
         if not view.value:
             return await ctx.send(embed=clearmbed, view=view)
         notes = await self.bot.postgres.fetch("SELECT * FROM notes WHERE user_id=$1", ctx.author.id)
