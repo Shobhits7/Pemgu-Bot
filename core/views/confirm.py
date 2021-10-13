@@ -2,7 +2,7 @@ import discord
 
 class Confirm(discord.ui.View):
     def __init__(self, ctx):
-        super().__init__()
+        super().__init__(timeout=10)
         self.value = None
 
     @discord.ui.button(label="Confirm", style=discord.ButtonStyle.green)
