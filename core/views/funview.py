@@ -35,7 +35,7 @@ class NitroView(discord.ui.View):
 
     @discord.ui.button(label="ACCEPT", style=discord.ButtonStyle.green)
     async def accept(self, button:discord.ui.Button, interaction:discord.Interaction):
-        await interaction.followup.send(content="https://imgur.com/NQinKJB", ephemeral=True)
+        await interaction.response.send_message(content="https://imgur.com/NQinKJB", ephemeral=True)
 
     async def on_timeout(self):
         for item in self.children:
