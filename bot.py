@@ -21,6 +21,23 @@ async def create_session_aiohttp():
 class JakeTheDogBase(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.colour = 0x2F3136 or 0x36393E
+        self.prefix = ".m"
+        self.dmsgs = []
+        self.emsgs = []
+        self._commands = []
+        for command in sorted(os.listdir("./core/commands/")):
+            if command.endswith(".py"):
+                self.load_extension(F"core.commands.{command[:-3]}")
+                self._commands.append(command[:-3])
+        self._events = []
+        for event in sorted(os.listdir("./core/events/")):
+            if event.endswith(".py"):
+                self.load_extension(F"core.events.{event[:-3]}")
+                self._events.append(event[:-3])
+        self.load_extension("jishaku")
+        os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
+        os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
 
     async def close(self):
         if not self.session.closed:
@@ -44,22 +61,6 @@ bot = JakeTheDogBase(
     intents=discord.Intents.all(),
     allowed_mentions=discord.AllowedMentions.none()
 )
-
-bot.colour = 0x2F3136 or 0x36393E
-bot.prefix = ".m"
-bot._commands = []
-for command in sorted(os.listdir("./core/commands/")):
-    if command.endswith(".py"):
-        bot.load_extension(F"core.commands.{command[:-3]}")
-        bot._commands.append(command[:-3])
-bot._events = []
-for event in sorted(os.listdir("./core/events/")):
-    if event.endswith(".py"):
-        bot.load_extension(F"core.events.{event[:-3]}")
-        bot._events.append(event[:-3])
-bot.load_extension("jishaku")
-os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
-os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
 
 @bot.check
 async def blacklisted(ctx:commands.Context):
