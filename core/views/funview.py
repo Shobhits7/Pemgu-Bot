@@ -21,6 +21,7 @@ class CounterView(discord.ui.View):
         ]
         label = random.choice(labels)
         while label == self.click.label:
+            label = random.choice(labels)
             button.label = label
         await interaction.message.edit(view=button.view)
         self.clicks += 1
