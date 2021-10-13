@@ -139,14 +139,14 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             timestamp=ctx.message.created_at
         )
         clearmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
+        notes = await self.bot.postgres.fetch("SELECT * FROM notes WHERE user_id=$1", ctx.author.id)
+        if not notes:
+            clearmbed.title = "You don't have any tasks"
+            return await ctx.send(embed=clearmbed)
         view = cum.Confirm(ctx)
         view.message = await ctx.send(content="Choose your options:", view=view)
         await view.wait()
         if view.value:
-            notes = await self.bot.postgres.fetch("SELECT * FROM notes WHERE user_id=$1", ctx.author.id)
-            if not notes:
-                clearmbed.title = "You don't have any tasks"
-                return await ctx.send(embed=clearmbed)
             tasks = []
             for stuff in notes:
                 tasks.append(stuff["task"])
