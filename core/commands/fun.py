@@ -20,7 +20,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     @commands.group(name="snipe", help="Will show the last deleted message")
     @commands.guild_only()
     async def snipe(self, ctx:commands.Context, number:int=None):
-        number = 0 if not number else number
+        number = -0 if not number else number
         snipembed = self.bot.dmsgs[-number]
         snipembed.title = F"Last {number} Deleted Message"
         snipembed.timestamp = ctx.message.created_at
@@ -31,7 +31,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     @snipe.command(name="edit", help="Will show the last edited message")
     @commands.guild_only()
     async def snipe_edit(self, ctx:commands.Context, number:int=None):
-        number = 0 if not number else number
+        number = -0 if not number else number
         snipeeditmbed = self.bot.emsgs[-number]
         snipeeditmbed.title = F"Last {number} Edited Message"
         snipeeditmbed.timestamp = ctx.message.created_at
