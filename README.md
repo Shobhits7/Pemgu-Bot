@@ -1,10 +1,10 @@
-## Information About JakeTheDog
+## Information About Pemgu
 This is a Discord Bot made by Me aka lvlahraam#8435 on discord and socials
 
 ### What language was it made with
 It's written in Python with Discord.py
 
-### Why it's called JakeTheDog
+### Why it's called Pemgu
 This name was just to come to my mind
 
 ### Why I made this
@@ -15,7 +15,7 @@ And I saw a lot of people are using and making discord bots
 So I made my own custom bot so other people can use it
 
 ## More things
-*You can get the prefix with mentioning the bot - currently it's `.j`*
+*You can get the prefix with mentioning the bot - currently it's `.m`*
 
 **The Commands:**
 
