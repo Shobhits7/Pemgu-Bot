@@ -136,17 +136,17 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     async def notes_clear(self, ctx:commands.Context):
         clearmbed = discord.Embed(
             colour=self.bot.colour,
-            title="Choose your option:",
             timestamp=ctx.message.created_at
         )
         clearmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
         view = cum.Confirm(ctx)
+        view.message = await ctx.send(content="Choose your options:", view=view)
         if not view.value:
-            return await ctx.send(embed=clearmbed, view=view)
+            return await view.message.delete()
         notes = await self.bot.postgres.fetch("SELECT * FROM notes WHERE user_id=$1", ctx.author.id)
         if not notes:
             clearmbed.title = "You don't have any tasks"
-            return await ctx.send(embed=clearmbed)
+            return await view.message.edit(embed=clearmbed)
         tasks = []
         for stuff in notes:
             tasks.append(stuff["task"])
@@ -154,7 +154,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             await self.bot.postgres.execute("DELETE FROM notes WHERE task=$1 AND user_id=$2", task, ctx.author.id)
         clearmbed.title = "Successfully removed:"
         clearmbed.description = "**Every Task**"
-        await ctx.send(embed=clearmbed, view=view)
+        await view.message.edit(embed=clearmbed, view=view)
 
 def setup(bot):
     bot.add_cog(Utility(bot))
