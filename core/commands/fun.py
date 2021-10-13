@@ -22,17 +22,17 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     async def snipe(self, ctx:commands.Context, number:int=None):
         number = -1 if not number else number
         dsnipe = self.bot.dsnipe[str(ctx.channel.id)][number]
+        for _ in dsnipe:
+            message = dsnipe[str(_)]
+            break
         dmsgmbed = discord.Embed(
             colour=self.bot.colour,
             timestamp=ctx.message.created_at
         )
         dmsgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if not dsnipe:
-            dmsgmbed.title = F"Couldn't find the {number}th message"
-            return await ctx.send(embed=dmsgmbed)
         dmsgmbed.title = F"{number}th Deleted Message"
-        dmsgmbed.description = F"**{dsnipe.get('message').content}**  | {dsnipe.get('message').channel.mention}"
-        dmsgmbed.set_author(name=F"{dsnipe.get('message').author} - {dsnipe.get('message').author.id}", icon_url=dsnipe.get('message').author.display_avatar.url)
+        dmsgmbed.description = F"**{message.content}**  | {message.channel.mention}"
+        dmsgmbed.set_author(name=F"{message.author} - {message.author.id}", icon_url=message.author.display_avatar.url)
         await ctx.send(embed=dmsgmbed)
 
     # PP
