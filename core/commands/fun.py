@@ -21,7 +21,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     @commands.guild_only()
     async def snipe(self, ctx:commands.Context, number:int=0):
         snipembed = self.bot.dmsgs[number]
-        snipembed.title = F"Last {number} Edited Message"
+        snipembed.title = F"Last {number} Deleted Message"
         snipembed.timestamp = ctx.message.created_at
         snipembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=snipembed)
