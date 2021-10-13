@@ -17,7 +17,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         await ctx.send(F"{''.join(c.upper() if i % 2 == 0 else c for i, c in enumerate(text))} | {ctx.author.mention}")
 
     # Snipe
-    @commands.group(name="snipe", help="Will show the last deleted message")
+    @commands.group(name="snipe", help="Will show the last deleted message", invoke_without_command=True)
     @commands.guild_only()
     async def snipe(self, ctx:commands.Context, number:int=None):
         number = -0 if not number else number
