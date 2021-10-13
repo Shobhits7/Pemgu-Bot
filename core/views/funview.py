@@ -22,7 +22,7 @@ class CounterView(discord.ui.View):
         while button.label in labels:
             label = random.choice(labels)
             button.label = label
-            await interaction.response.edit_message(view=button.view)
+            await interaction.message.edit(view=button.view)
         self.clicks += 1
         if str(interaction.user) in self.clickers:
             pass
