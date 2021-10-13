@@ -16,28 +16,6 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     async def sarcasm(self, ctx:commands.Context, *, text:str):
         await ctx.send(F"{''.join(c.upper() if i % 2 == 0 else c for i, c in enumerate(text))} | {ctx.author.mention}")
 
-    # Snipe
-    @commands.command(name="snipe", help="Will show the last deleted message")
-    @commands.guild_only()
-    async def snipe(self, ctx:commands.Context, number:int=None):
-        number = -1 if not number else number
-        snipembed = self.bot.dmsgs[-number]
-        snipembed.title = F"Last {number} Deleted Message"
-        snipembed.timestamp = ctx.message.created_at
-        snipembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=snipembed)
-
-    # Snipe-Edit
-    @commands.command(name="snipeedit", help="Will show the last edited message")
-    @commands.guild_only()
-    async def snipe_edit(self, ctx:commands.Context, number:int=None):
-        number = -1 if not number else number
-        snipeeditmbed = self.bot.emsgs[-number]
-        snipeeditmbed.title = F"Last {number} Edited Message"
-        snipeeditmbed.timestamp = ctx.message.created_at
-        snipeeditmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=snipeeditmbed)
-
     # PP
     @commands.command(name="pp", help="Will tell your pp's size")
     async def pp(self, ctx:commands.Context, user:discord.User=None):

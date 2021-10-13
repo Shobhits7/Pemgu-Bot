@@ -23,8 +23,6 @@ class JakeTheDogBase(commands.AutoShardedBot):
         super().__init__(**kwargs)
         self.colour = 0x2F3136 or 0x36393E
         self.prefix = ".m"
-        self.dmsgs = []
-        self.emsgs = []
         self._commands = []
         for command in sorted(os.listdir("./core/commands/")):
             if command.endswith(".py"):
