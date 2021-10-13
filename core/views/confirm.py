@@ -19,7 +19,10 @@ class Confirm(discord.ui.View):
         self.value = False
 
     async def on_timeout(self):
-        await self.message.delete()
+        try:
+            await self.message.delete()
+        except discord.NotFound:
+            pass
     
     async def interaction_check(self, interaction:discord.Interaction):
         if interaction.user.id == self.ctx.message.author.id:
