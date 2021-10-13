@@ -139,22 +139,6 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         await ctx.send(embed=shutdownmbed)
         await self.bot.close()
 
-    # Edit
-    @commands.command(name="edit", help="Will change the bot's avatar")
-    @commands.is_owner()
-    async def edit(self, ctx:commands.Context):
-        if not ctx.message.attachments:
-            raise commands.MissingRequiredArgument
-        avatar = io.BytesIO(await ctx.message.attachments[0].read(use_cached=True))
-        editmbed = discord.Embed(
-            colour=self.bot.colour,
-            title="Successfully changed bot's avatar",
-        )
-        editmbed.set_image(url="attachments://avatar.png")
-        editmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await self.bot.user.edit(avatar=avatar)
-        await ctx.send(file=discord.File(fp=avatar.seek(0), filename="avatar.png"), embed=editmbed)
-
     # Blacklist
     @commands.command(name="blacklist", help="Will put the given user to blacklist")
     @commands.is_owner()

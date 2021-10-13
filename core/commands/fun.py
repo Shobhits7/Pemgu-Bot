@@ -20,29 +20,21 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     @commands.group(name="snipe", help="Will show the last deleted message")
     @commands.guild_only()
     async def snipe(self, ctx:commands.Context, number:int=0):
-        msgs = self.bot.dmsgs
-        snipembed = discord.Embed(
-            colour=self.bot.colour,
-            title=F"Last {number} Deleted Message",
-            description=msgs[number],
-            timestamp=ctx.message.created_at
-        )
+        snipembed = self.bot.dmsgs[number]
+        snipembed.title = F"Last {number} Edited Message"
+        snipembed.timestamp = ctx.message.created_at
         snipembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=snipembed)
 
     # Snipe-Edit
-    @commands.group(name="snipe edit", help="Will show the last edited message")
+    @commands.group(name="edit", help="Will show the last edited message")
     @commands.guild_only()
     async def snipe_edit(self, ctx:commands.Context, number:int=0):
-        msgs = self.bot.emsgs
-        snipembed = discord.Embed(
-            colour=self.bot.colour,
-            title=F"Last {number} Edited Message",
-            description=msgs[number],
-            timestamp=ctx.message.created_at
-        )
-        snipembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=snipembed)
+        snipeeditmbed = self.bot.emsgs[number]
+        snipeeditmbed.title = F"Last {number} Edited Message"
+        snipeeditmbed.timestamp = ctx.message.created_at
+        snipeeditmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=snipeeditmbed)
 
     # PP
     @commands.command(name="pp", help="Will tell your pp's size")
