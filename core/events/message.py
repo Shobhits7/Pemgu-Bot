@@ -23,7 +23,6 @@ class OnMessage(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message:discord.Message):
-        self.bot.ddsnipe[str(message.channel.id)] = {}
         self.bot.dsnipe[str(message.channel.id)] = []
         self.bot.dsnipe[str(message.channel.id)].append({str(message.id): message})
 

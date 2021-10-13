@@ -19,10 +19,10 @@ class CounterView(discord.ui.View):
             "BEAT UP",
             "KICK"
         ]
-        while button.label in labels:
-            label = random.choice(labels)
+        label = random.choice(labels)
+        while label == self.click.label:
             button.label = label
-            await interaction.message.edit(view=button.view)
+        await interaction.message.edit(view=button.view)
         self.clicks += 1
         if str(interaction.user) in self.clickers:
             pass
