@@ -19,7 +19,8 @@ class CounterView(discord.ui.View):
             "KICK"
         ]
         if button.label in labels:
-            random.choice(labels)
+            label = random.choice(labels)
+            button.label = label
             await interaction.message.edit(view=button.view)
         self.clicks += 1
         if str(interaction.user) in self.clickers:
