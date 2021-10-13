@@ -1,4 +1,4 @@
-import discord, random
+import discord
 
 class CounterView(discord.ui.View):
     def __init__(self, ctx):
