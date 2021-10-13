@@ -19,4 +19,18 @@ So I made my own custom bot so other people can use it
 
 **The Commands:**
 
-![Commands](https://cdn.discordapp.com/attachments/381963689470984203/894143125495361586/unknown.png)
+![Commands](https://cdn.discordapp.com/attachments/381963689470984203/897758185295867904/unknown.png)
+
+**Welcomer & Goodbyer:**
+
+For setting up the welcomer you just need to do `welcome change` it will turn on the welcomer
+
+and you can change the message with `welcomer message <your message>`
+
+Just to make sure that you put `.guild` and `.member` in `your message`
+
+`.guild` for the guild name in the message
+`.member` for mentioning the user in the message
+
+These goes for goodbyer as well
+`goodbye change` and `goodbye message`
