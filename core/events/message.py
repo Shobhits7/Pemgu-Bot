@@ -24,7 +24,6 @@ class OnMessage(commands.Cog):
     @commands.Cog.listener()
     async def on_message_delete(self, message:discord.Message):
         counter = 0
-        self.bot.dsnipe = {}
         self.bot.dsnipe[str(message.channel.id)] = {"counter": {str(counter): {"message": message}}}
         counter += 1
 
