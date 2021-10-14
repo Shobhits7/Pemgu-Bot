@@ -146,9 +146,6 @@ class CustomHelp(commands.HelpCommand):
 class DannyHelp(commands.HelpCommand):
     COLOUR = discord.Colour.blurple()
 
-    def get_ending_note(self):
-        return 'Use {0}{1} [command] for more info on a command.'.format(self.clean_prefix, self.invoked_with)
-
     def get_command_signature(self, command):
         return '{0.qualified_name} {0.signature}'.format(command)
 
@@ -165,10 +162,7 @@ class DannyHelp(commands.HelpCommand):
                 value = '\u2002'.join(c.name for c in commands)
                 if cog and cog.description:
                     value = '{0}\n{1}'.format(cog.description, value)
-
                 embed.add_field(name=name, value=value)
-
-        embed.set_footer(text=self.get_ending_note())
         await self.get_destination().send(embed=embed)
 
     async def send_cog_help(self, cog):
@@ -180,7 +174,6 @@ class DannyHelp(commands.HelpCommand):
         for command in filtered:
             embed.add_field(name=self.get_command_signature(command), value=command.short_doc or '...', inline=False)
 
-        embed.set_footer(text=self.get_ending_note())
         await self.get_destination().send(embed=embed)
 
     async def send_group_help(self, group):
@@ -192,6 +185,4 @@ class DannyHelp(commands.HelpCommand):
             filtered = await self.filter_commands(group.commands, sort=True)
             for command in filtered:
                 embed.add_field(name=self.get_command_signature(command), value=command.short_doc or '...', inline=False)
-
-        embed.set_footer(text=self.get_ending_note())
         await self.get_destination().send(embed=embed)
