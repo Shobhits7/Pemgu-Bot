@@ -19,8 +19,8 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     # Snipe
     @commands.command(name="snipe", help="Will show the last deleted message")
     @commands.guild_only()
-    async def snipe(self, ctx:commands.Context, number:str=None):
-        dsnipe = self.bot.dsnipe[str(ctx.channel.id)].get("counter")[str(number)]
+    async def snipe(self, ctx:commands.Context, number:int=1):
+        dsnipe = self.bot.dsnipe[-number]
         dmsgmbed = discord.Embed(
             colour=self.bot.colour,
             timestamp=ctx.message.created_at
@@ -30,8 +30,8 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
             dmsgmbed.title = F"There is no {number}th"
             return await ctx.send(embed=dmsgmbed)
         dmsgmbed.title = F"Last Deleted Message"
-        dmsgmbed.description = F"**{dsnipe.get('message').content}**  | {dsnipe.get('message').channel.mention}"
-        dmsgmbed.set_author(name=F"{dsnipe.get('message').author} - {dsnipe.get('message').author.id}", icon_url=dsnipe.get('message').author.display_avatar.url)
+        dmsgmbed.description = F"**{dsnipe.content}**  | {dsnipe.channel.mention}"
+        dmsgmbed.set_author(name=F"{dsnipe.author} - {dsnipe.author.id}", icon_url=dsnipe.author.display_avatar.url)
         await ctx.send(embed=dmsgmbed)
 
     # PP

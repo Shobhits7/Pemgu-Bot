@@ -4,7 +4,7 @@ from discord.ext import commands
 class OnMessage(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.bot.dsnipe = {}
+        self.bot.dsnipe = []
         self.bot.esnipe = {}
     
     @commands.Cog.listener()
@@ -23,9 +23,7 @@ class OnMessage(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, message:discord.Message):
-        counter = 0
-        self.bot.dsnipe[str(message.channel.id)] = {"counter": {str(counter): {"message": message}}}
-        counter += 1
+        self.bot.dsnipe.append(message)
 
 def setup(bot):
     bot.add_cog(OnMessage(bot))
