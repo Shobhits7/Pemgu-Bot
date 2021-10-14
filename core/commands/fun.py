@@ -26,7 +26,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
             timestamp=ctx.message.created_at
         )
         dmsgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if dsnipe != number:
+        if KeyError(dsnipe):
             dmsgmbed.title = F"There is no {number}th"
             return await ctx.send(embed=dmsgmbed)
         dmsgmbed.title = F"Last Deleted Message"
@@ -75,7 +75,6 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
 
     # Token
     @commands.command(name="token", aliases=["tn"], help="Will send an random token")
-    @commands.is_owner()
     async def token(self, ctx:commands.Context):
         session = await self.bot.session.get("https://some-random-api.ml/bottoken")
         response = await session.json()
