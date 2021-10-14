@@ -80,30 +80,36 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             timestamp=ctx.message.created_at
         )
         notembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
-        notes = await self.bot.postgres.fetch("SELECT * FROM notes WHERE user_id=$1", user.id)
+        notes = await self.bot.postgres.fetch("SELECT task FROM notes WHERE user_id=$1", user.id)
         if not notes: 
-            notembed.title = F"{user} doesn't have any tasks"
+            notembed.title = F"{user} doesn't have any note"
             return await ctx.send(embed=notembed)
         tasks = []
         counter = 0
         for stuff in notes:
             tasks.append(F"{counter}. {stuff['task']}\n")
             counter += 1
-        notembed.title=F"{user}'s tasks:"
+        notembed.title=F"{user}'s notes:"
         notembed.description="".join(task for task in tasks)
         await ctx.send(embed=notembed)
 
     # Add
     @notes.command(name="add", aliases=["+"], help="Will add the given task to your notes")
     async def notes_add(self, ctx:commands.Context, *, task:str):
-        await self.bot.postgres.execute("INSERT INTO notes(user_name,user_id,task) VALUES($1,$2,$3)", ctx.author.name, ctx.author.id, task)
         addmbed = discord.Embed(
             color=self.bot.color,
-            title="Successfully added:",
-            description=F"> {task}\n**To your notes**",
             timestamp=ctx.message.created_at
         )
         addmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
+        await ctx.send(embed=addmbed)
+        note = await self.bot.postgres.fetchval("SELECT task FROM notes WHERE task=$1 AND user_id=$2", task, ctx.author.id)
+        if not note:
+            addmbed.title = "Is already in your notes:"
+            addmbed.description = F"> {task}"
+            return await ctx.send(embed=addmbed)
+        await self.bot.postgres.execute("INSERT INTO notes(user_name,user_id,task) VALUES($1,$2,$3)", ctx.author.name, ctx.author.id, task)
+        addmbed.title = "Successfully added:"
+        addmbed.description = F"> {task}\n**To your notes**"
         await ctx.send(embed=addmbed)
 
     # Remove
@@ -115,20 +121,20 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         )
         removembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
         notes = await self.bot.postgres.fetch("SELECT * FROM notes WHERE user_id=$1", ctx.author.id)
-        tasks = []
         if not notes:
-            removembed.title = "You don't have any tasks"
+            removembed.title = "You don't have any note"
             return await ctx.send(embed=removembed)
+        tasks = []
         for stuff in notes:
             tasks.append(stuff["task"])
         note = await self.bot.postgres.fetchval("SELECT task FROM notes WHERE user_id=$1 AND task=$2", ctx.author.id, tasks[number])
         if not note:
-            removembed.title = "Is not in your tasks:"
-            removembed.description = F"> {number}\n**Check your tasks.**"
+            removembed.title = "Is not in your notes:"
+            removembed.description = F"> {number}\n**Check your notes.**"
             return await ctx.send(embed=removembed)
-        removembed.title = "Successfully removed:"
-        removembed.description = F"> {tasks[number]}\n**From your tasks**"
         await self.bot.postgres.execute("DELETE FROM notes WHERE user_id=$1 AND task=$2", ctx.author.id, tasks[number])
+        removembed.title = "Successfully removed:"
+        removembed.description = F"> {tasks[number]}\n**From your notes**"
         await ctx.send(embed=removembed)
 
     # Clear
@@ -139,9 +145,9 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             timestamp=ctx.message.created_at
         )
         clearmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
-        notes = await self.bot.postgres.fetch("SELECT * FROM notes WHERE user_id=$1", ctx.author.id)
+        notes = await self.bot.postgres.fetch("SELECT task FROM notes WHERE user_id=$1", ctx.author.id)
         if not notes:
-            clearmbed.title = "You don't have any tasks"
+            clearmbed.title = "You don't have any note"
             return await ctx.send(embed=clearmbed)
         view = cum.Confirm(ctx)
         view.message = await ctx.send(content="Choose your options:", view=view)
