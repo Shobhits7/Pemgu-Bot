@@ -20,7 +20,7 @@ class OnMember(commands.Cog):
                 F"***Registered:*** {discord.utils.format_dt(member.created_at, style='F')} ({discord.utils.format_dt(member.created_at, style='R')})"
             ]
             omjmbed = discord.Embed(
-                colour=self.bot.colour if not fetch.accent_colour else fetch.accent_colour,
+                color=self.bot.color if not fetch.accent_color else fetch.accent_color,
                 title="A new member has appeared",
                 description=msg,
                 timestamp=discord.utils.utcnow()
@@ -46,7 +46,7 @@ class OnMember(commands.Cog):
                 F"***Registered:*** {discord.utils.format_dt(member.created_at, style='F')} ({discord.utils.format_dt(member.created_at, style='R')})"
             ]
             omjmbed = discord.Embed(
-                colour=self.bot.colour if not fetch.accent_colour else fetch.accent_colour,
+                color=self.bot.color if not fetch.accent_color else fetch.accent_color,
                 title="A member has been lost",
                 description=msg,
                 timestamp=discord.utils.utcnow()

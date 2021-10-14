@@ -19,7 +19,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             F"Owner is <@{self.bot.owner_id}>"
         ]
         abmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"{self.bot.user.name} About",
             description="\n".join(a for a in ai),
             timestamp=ctx.message.created_at
@@ -27,29 +27,29 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         abmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=abmbed)
 
-    # Colours
-    @commands.command(name="colours", aliases=["clrs"], help="Will give you the colours from the given image")
+    # colors
+    @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image")
     @commands.bot_has_guild_permissions(attach_files=True)
-    async def colours(self, ctx:commands.Context, user:discord.User=None):
+    async def colors(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
         session = await self.bot.session.get(F"https://api.dagpi.xyz/image/colors/?url={user.avatar.with_format('png')}", headers=self.dagpi_headers)
         response = io.BytesIO(await session.read())
         session.close()
         clrsmbed = discord.Embed(
-            colour=self.bot.colour,
-            title=F"{user}'s image colours",
+            color=self.bot.color,
+            title=F"{user}'s image colors",
             timestamp=ctx.message.created_at
         )
-        clrsmbed.set_image(url="attachment://colours.png")
+        clrsmbed.set_image(url="attachment://colors.png")
         clrsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(file=discord.File(fp=response, filename="colours.png"), embed=clrsmbed)
+        await ctx.send(file=discord.File(fp=response, filename="colors.png"), embed=clrsmbed)
 
     # Avatar
     @commands.command(name="avatar", aliases=["av"], help="Will show your or another user's avatar")
     async def avatar(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
         avmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"{user}'s Avatar",
             timestamp=ctx.message.created_at
         )
@@ -63,7 +63,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         user = ctx.author if not user else user
         fetch = await self.bot.fetch_user(user.id)
         brmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"{user}'s Banner",
             timestamp=ctx.message.created_at
         )
@@ -101,7 +101,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             F"***Server-Permissions:*** {', '.join([perm.replace('_', ' ').title() for perm, enabled in member.guild_permissions if enabled])}",
         ]
         uimbed = discord.Embed(
-            colour=self.bot.colour if not fetch.accent_colour else fetch.accent_colour,
+            color=self.bot.color if not fetch.accent_color else fetch.accent_color,
             title=F"{member}'s' Information",
             timestamp=ctx.message.created_at
         )
@@ -131,7 +131,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
                     F"**Party-ID:** {activity.party_id}",
                     F"**Listening-Since:** {discord.utils.format_dt(activity.created_at, style='f')} ({discord.utils.format_dt(activity.created_at, style='R')})"
                 ]
-                spotifymbed.colour = activity.colour
+                spotifymbed.color = activity.color
                 spotifymbed.url = activity.track_url
                 spotifymbed.title = activity.title
                 spotifymbed.description = "\n".join(s for s in si)
@@ -140,7 +140,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
                 await ctx.send(embed=spotifymbed)
                 break
         else:
-            spotifymbed.colour = self.bot.colour
+            spotifymbed.color = self.bot.color
             spotifymbed.title = F"{member} is not listening to Spotify"
             await ctx.send(embed=spotifymbed)
 
@@ -149,7 +149,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     @commands.guild_only()
     async def icon(self, ctx:commands.Context):
         icmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"{ctx.guild}'s Icon",
             timestamp=ctx.message.created_at
         )
@@ -190,7 +190,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             F"***AFK-Timeout:*** {ctx.guild.afk_timeout}"
         ]
         simbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"{ctx.guild}'s Information",
             timestamp=ctx.message.created_at
         )
@@ -214,7 +214,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             F"***Created-At:*** {discord.utils.format_dt(emoji.created_at)}"
         ]
         emmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"{emoji.name}'s Information",
             description="\n".join(e for e in ei),
             timestamp=ctx.message.created_at
@@ -227,7 +227,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     @commands.command(name="ping", aliases=["pi"], help="Will show bot's ping")
     async def ping(self, ctx:commands.Context):
         unpimbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="🎾 Pinging...",
             timestamp=ctx.message.created_at
         )
@@ -236,7 +236,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         unpimsg = await ctx.send(embed=unpimbed)
         end = time.perf_counter()
         dopimbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="🏓 Pong:",
             description=F"Websocket: {self.bot.latency * 1000}ms\nTyping: {(end - start) * 1000}ms",
             timestamp=ctx.message.created_at
@@ -251,7 +251,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         allowed_emote = "<:allow:896062865071566898>"
         denied_emote = "<:deny:896062993090084974>"
         permsmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"{ok_emote} Bot Permissions",
             description="",
             timestamp=ctx.message.created_at
@@ -269,7 +269,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     @commands.command(name="invite", aliases=["ie"], help="Will make a send the link for adding  the bot")
     async def invite(self, ctx:commands.Context):
         iembed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="Here is the invite link for adding the bot",
             url=discord.utils.oauth_url(client_id=self.bot.user.id, scopes=("bot", "applications.commands"), permissions=discord.Permissions(administrator=True)),
             description="Thank you for adding and inviting me!",
@@ -328,7 +328,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             F"Created: {response['results'][0]['created']}"
         ]
         ramchmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             url=response['results'][0]['url'],
             title=F"{response['results'][0]['name']}'s Information",
             description="\n".join(c for c in ci),

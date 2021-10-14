@@ -53,7 +53,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
     @commands.is_owner()
     async def load(self, ctx:commands.Context, *, cog:str):
         loadmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"Successfully loaded {cog}.",
             timestamp=ctx.message.created_at
         )
@@ -66,7 +66,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
     @commands.is_owner()
     async def unload(self, ctx:commands.Context, *, cog:str):
         unloadmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"Successfully unloaded {cog}.",
             timestamp=ctx.message.created_at
         )
@@ -79,7 +79,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
     @commands.is_owner()
     async def reload(self, ctx:commands.Context, *, cog:str=None):
         reloadmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         if not cog:
@@ -131,7 +131,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
     @commands.is_owner()
     async def logout(self, ctx:commands.Context):
         shutdownmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="I'm shutting-down",
             timestamp=ctx.message.created_at
         )
@@ -146,7 +146,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         if not reason: reason = "No reason was provided"
         if not user:
             reloadmbed = discord.Embed(
-                colour=self.bot.colour,
+                color=self.bot.color,
                 title="Users in Blacklist",
                 description="",
                 timestamp=ctx.message.created_at
@@ -162,7 +162,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
             return await ctx.send(embed=reloadmbed)
         blacklisted = await self.bot.postgres.fetchval("SELECT user_id FROM blacklist WHERE user_id=$1", user.id)
         blacklistmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         blacklistmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -183,7 +183,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         response = io.BytesIO(await session.read())
         session.close()
         ssmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="Here is your screenshot",
             timestamp=ctx.message.created_at
         )
@@ -199,7 +199,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
     @commands.bot_has_guild_permissions(manage_guild=True)
     async def template(self, ctx:commands.Context):
         tembed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="Please check your DM",
             timestamp=ctx.message.created_at
         )

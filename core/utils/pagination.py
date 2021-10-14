@@ -38,7 +38,7 @@ class Paginator(discord.ui.View):
         if interaction.user.id == self.ctx.message.author.id:
             return True
         icheckmbed = discord.Embed(
-            colour=self.ctx.bot.colour,
+            color=self.ctx.bot.color,
             title="You can't use this",
             description=F"<@{interaction.user.id}> - Only <@{self.ctx.message.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
             timestamp=interaction.message.created_at

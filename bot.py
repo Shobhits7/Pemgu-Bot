@@ -21,7 +21,7 @@ async def create_session_aiohttp():
 class PemguBase(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.colour = 0x2F3136 or 0x36393E
+        self.color = 0x1D4E9A or 0x4879CE or 0x142966 or 0x093C84
         self.prefix = ".m"
         self._commands = []
         for command in sorted(os.listdir("./core/commands/")):

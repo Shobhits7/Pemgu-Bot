@@ -10,7 +10,7 @@ class Game(commands.Cog, description="Arcade but without having to go outside!")
     @commands.command(name="rockpaperscissors", aliases=["rps"], help="Will start an Rock-Paper-Scissors game")
     async def rockpaperscissors(self, ctx:commands.Context):
         rpsmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             description="Choose your **tool** with the buttons:",
             timestamp=ctx.message.created_at
         )
@@ -22,7 +22,7 @@ class Game(commands.Cog, description="Arcade but without having to go outside!")
     @commands.command(name="guess", aliases=["gs"], help="Will start an guessing game")
     async def guess(self, ctx:commands.Context):
         gsmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             description="Try to **guess** now"
         )
         gsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)

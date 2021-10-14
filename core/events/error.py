@@ -15,14 +15,14 @@ class OnError(commands.Cog):
                 cmds = [cmd.name for cmd in self.bot.commands]
                 matches = difflib.get_close_matches(cmd, cmds)
                 matcnfmbed = discord.Embed(
-                    colour=self.bot.colour,
+                    color=self.bot.color,
                     title=F"Couldn't find command called: {cmd}.",
                     description=F"Maybe you meant:\n{' - '.join([match for match in matches])}",
                     timestamp=ctx.message.created_at
                 )
                 matcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
                 nmatcnfmbed = discord.Embed(
-                    colour=self.bot.colour,
+                    color=self.bot.color,
                     title=F"Couldn't find command called: {cmd}.",
                     description=F"Use help command to know what command you're looking for",
                     timestamp=ctx.message.created_at
@@ -39,7 +39,7 @@ class OnError(commands.Cog):
                 commands.CheckFailure: F"<:shut:744345896912945214> YOU <:shut:744345896912945214> ARE  <:shut:744345896912945214> IN <:shut:744345896912945214> BLACKLIST <:shut:744345896912945214> YOU <:shut:744345896912945214> S-KID/IDIOT\nSAY <:shut:744345896912945214> YOU <:shut:744345896912945214> ARE <:shut:744345896912945214> SORRY <:shut:744345896912945214> {ctx.author.mention}",
             }
             errormbed = discord.Embed(
-                colour=self.bot.colour,
+                color=self.bot.color,
                 title="❌ There was a problem",
                 description=error if not errors.get(error, None) else errors.get(error),
                 timestamp=ctx.message.created_at

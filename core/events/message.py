@@ -13,7 +13,7 @@ class OnMessage(commands.Cog):
         if message.content in (F"<@{self.bot.user.id}>", F"<@!{self.bot.user.id}>"):
             prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", message.guild.id)
             pfmbed = discord.Embed(
-                colour=self.bot.colour,
+                color=self.bot.color,
                 title=F"My Prefix here is:",
                 description=F"> {self.bot.prefix if not prefix else prefix}",
                 timestamp=message.created_at

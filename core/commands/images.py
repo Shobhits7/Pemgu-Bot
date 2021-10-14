@@ -17,7 +17,7 @@ class Images(commands.Cog, description="Free Photoshop without needing to know P
         wanted.paste(image, (108, 198))
         wanted.save("wanted.jpg")
         wantedmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"{user} is now Wanted!",
             timestamp=ctx.message.created_at
         )

@@ -11,7 +11,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     async def prefix(self, ctx:commands.Context):
         prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", ctx.guild.id)
         pfmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"My Prefix here is:",
             description=F"> {self.bot.prefix if not prefix else prefix}",
             timestamp=ctx.message.created_at
@@ -25,7 +25,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.has_guild_permissions(administrator=True)
     async def prefix_change(self, ctx:commands.Context, *, text:str):
         pfchmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="Successfully changed prefix to:",
             description=F"> {text}",
             timestamp=ctx.message.created_at
@@ -45,7 +45,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", ctx.guild.id)
         if prefix: await self.bot.postgres.execute("DELETE FROM prefixes WHERE guild_id=$1", ctx.guild.id)
         pfrsmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="Successfully resetted to:",
             description=F"> {self.bot.prefix}",
             timestamp=ctx.message.created_at
@@ -58,7 +58,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.guild_only()
     async def welcome(self, ctx:commands.Context):
         welmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         welmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -77,7 +77,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.has_guild_permissions(administrator=True)
     async def welcome_change(self, ctx:commands.Context):
         welchmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         welchmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -96,7 +96,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.has_guild_permissions(administrator=True)
     async def welcome_message(self, ctx:commands.Context, *, msg:str):
         welmsgmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title = "Welcome message has been changed to:",
             description = F"> {msg}",
             timestamp=ctx.message.created_at
@@ -114,7 +114,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.guild_only()
     async def goodbye(self, ctx:commands.Context):
         byembed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         byembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -133,7 +133,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.has_guild_permissions(administrator=True)
     async def goodbye_change(self, ctx:commands.Context):
         byechmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         byechmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -152,7 +152,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.has_guild_permissions(administrator=True)
     async def goodbye_message(self, ctx:commands.Context, *, msg:str):
         byemsgmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         byemsgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)

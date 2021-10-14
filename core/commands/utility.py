@@ -10,7 +10,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     @commands.command(name="cleanup", aliases=["cu"], help="Will delete bot's messagess")
     async def cleanup(self, ctx:commands.Context, *, amount:int):
         cumbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"Cleaned-up {amount} of bot messages",
         )
         cumbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -21,7 +21,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     @commands.command(name="pypi", help="Will give information about the given library in PYPI")
     async def pypi(self, ctx:commands.Context, *, library:str):
         pypimbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -55,7 +55,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     @commands.bot_has_guild_permissions(manage_nicknames=True)
     async def afk(self, ctx:commands.Context):
         afkmbed  = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         afkmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -76,7 +76,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     async def notes(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
         notembed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         notembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
@@ -98,7 +98,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     async def notes_add(self, ctx:commands.Context, *, task:str):
         await self.bot.postgres.execute("INSERT INTO notes(user_name,user_id,task) VALUES($1,$2,$3)", ctx.author.name, ctx.author.id, task)
         addmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="Successfully added:",
             description=F"> {task}\n**To your notes**",
             timestamp=ctx.message.created_at
@@ -110,7 +110,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     @notes.command(name="remove", aliases=["-"], help="Will remove the given task from your notes")
     async def notes_remove(self, ctx:commands.Context, *, number:int):
         removembed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         removembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
@@ -135,7 +135,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     @notes.command(name="clear", aliases=["="], help="Will clear your notes")
     async def notes_clear(self, ctx:commands.Context):
         clearmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         clearmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)

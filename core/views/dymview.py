@@ -14,7 +14,7 @@ class DYMButtons(discord.ui.Button):
                 await self.ctx.bot.process_commands(command)
         if self.label == "Delete":
             deletembed = discord.Embed(
-                colour=self.ctx.bot.colour,
+                color=self.ctx.bot.color,
                 title="Deleted the message",
                 timestamp=interaction.message.created_at
             )
@@ -47,7 +47,7 @@ class DYMView(discord.ui.View):
             return True
         else:
             icheckmbed = discord.Embed(
-                colour=self.ctx.bot.colour,
+                color=self.ctx.bot.color,
                 title=F"You can't use this",
                 description=F"<@{interaction.user.id}> - Only <@{self.ctx.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
                 timestamp=interaction.message.created_at

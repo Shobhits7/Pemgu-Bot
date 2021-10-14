@@ -23,7 +23,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         number = -1 if not number else number
         dsnipe = self.bot.dsnipe[-number]
         dmsgmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         dmsgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -39,7 +39,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         amount = len(str(user.id)) + random.randint(1, 30)
         size = F"8{'='*amount}D"
         ppmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"{user}'s PP Size:",
             description=size,
             timestamp=ctx.message.created_at
@@ -51,7 +51,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     @commands.command(name="counter", aliases=["ctr"], help="Will start an counter")
     async def counter(self, ctx:commands.Context):
         ctrmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             description="Click the button for counting"
         )
         ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -62,7 +62,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     @commands.command(name="nitro", help="Will gift free Nitro")
     async def nitro(self, ctx:commands.Context):
         bnitrombed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="A WILD NITRO GIFT APPEARS?!",
             description="Expires in 48 hours\nClick the button for claiming Nitro:.",
             timestamp=ctx.message.created_at
@@ -78,7 +78,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         response = await session.json()
         session.close()
         tnmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="Here is your token",
             description=response['token'],
             timestamp=ctx.message.created_at
@@ -93,7 +93,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         response = await session.json()
         session.close()
         membed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="Here is a random meme for you",
             description=F"{response['caption']} - {response['category'].title()}",
             timestamp=ctx.message.created_at
@@ -109,7 +109,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         response = await session.json()
         session.close()
         jkmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="Here is a random joke",
             description=response["joke"],
             timestamp=ctx.message.created_at
@@ -124,7 +124,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         response = await session.json()
         session.close()
         fcmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="Here is a random fact",
             description=response["fact"],
             timestamp=ctx.message.created_at
@@ -139,7 +139,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         response = await session.json()
         session.close()
         _8bmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="Here is your answer",
             timestamp=ctx.message.created_at
         )
@@ -156,7 +156,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         response = await session.json()
         session.close()
         rstmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"Roasting {user}",
             description=response['roast'],
             timestamp=ctx.message.created_at
@@ -173,7 +173,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         response = io.BytesIO(await session.read())
         session.close()
         twmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"{user}'s tweet",
             timestamp=ctx.message.created_at
         )

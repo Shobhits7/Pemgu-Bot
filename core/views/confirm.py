@@ -28,7 +28,7 @@ class Confirm(discord.ui.View):
             return True
         else:
             icheckmbed = discord.Embed(
-                colour=self.ctx.bot.colour,
+                color=self.ctx.bot.color,
                 title=F"You can't use this",
                 description=F"<@{interaction.user.id}> - Only <@{self.ctx.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
                 timestamp=interaction.message.created_at

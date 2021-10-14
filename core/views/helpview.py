@@ -27,7 +27,7 @@ class PaginatorView(discord.ui.View):
         self.help = help
         self.mapping = mapping
         self.homepage = discord.Embed(
-            colour=self.help.context.bot.colour,
+            color=self.help.context.bot.color,
             title=F"{self.help.context.me.name}'s Help",
             description="For more help or information use the buttons to change pages.",
             timestamp=self.help.context.message.created_at
@@ -41,7 +41,7 @@ class PaginatorView(discord.ui.View):
             description = cog.description if cog else "Commands without category"
             if not name.startswith("On"):
                 mbed = discord.Embed(
-                        colour=self.help.context.bot.colour,
+                        color=self.help.context.bot.color,
                         title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
                         description=F"{description}\n\n{''.join(gts(command) for command in commands)}",
                         timestamp=self.help.context.message.created_at
@@ -68,7 +68,7 @@ class PaginatorView(discord.ui.View):
         if interaction.user.id == self.help.context.author.id:
             return True
         icheckmbed = discord.Embed(
-            colour=self.help.context.bot.colour,
+            color=self.help.context.bot.color,
             title="You can't use this",
             description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
             timestamp=self.help.context.message.created_at
@@ -95,7 +95,7 @@ class SelectUI(discord.ui.Select):
             cmds = cog.walk_commands() if cog else commands
             if self.values[0] == name:
                 mbed = discord.Embed(
-                    colour=self.help.context.bot.colour,
+                    color=self.help.context.bot.color,
                     title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
                     description=F"{description}\n\n{''.join(self.gts(command) for command in cmds)}",
                     timestamp=self.help.context.message.created_at
@@ -111,7 +111,7 @@ class SelectView(discord.ui.View):
         self.help = help
         self.mapping = mapping
         self.homepage = discord.Embed(
-            colour=self.help.context.bot.colour,
+            color=self.help.context.bot.color,
             title=F"{self.help.context.me.name}'s Help",
             description="For more help or information use the menu.",
             timestamp=self.help.context.message.created_at
@@ -150,7 +150,7 @@ class SelectView(discord.ui.View):
         if interaction.user.id == self.help.context.author.id:
             return True
         icheckmbed = discord.Embed(
-            colour=self.help.context.bot.colour,
+            color=self.help.context.bot.color,
             title="You can't use this",
             description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
             timestamp=self.help.context.message.created_at
@@ -177,7 +177,7 @@ class ButtonUI(discord.ui.Button):
             cmds = cog.walk_commands() if cog else commands
             if self.custom_id == name:
                 mbed = discord.Embed(
-                    colour=self.help.context.bot.colour,
+                    color=self.help.context.bot.color,
                     title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
                     description=F"{description}\n\n{''.join(self.gts(command) for command in cmds)}",
                     timestamp=self.help.context.message.created_at
@@ -193,7 +193,7 @@ class ButtonView(discord.ui.View):
         self.help = help
         self.mapping = mapping
         self.homepage = discord.Embed(
-            colour=self.help.context.bot.colour,
+            color=self.help.context.bot.color,
             title=F"{self.help.context.me.name}'s Help",
             description="For more help or information use and click on the buttons.",
             timestamp=self.help.context.message.created_at
@@ -228,7 +228,7 @@ class ButtonView(discord.ui.View):
         if interaction.user.id == self.help.context.author.id:
             return True
         icheckmbed = discord.Embed(
-            colour=self.help.context.bot.colour,
+            color=self.help.context.bot.color,
             title="You can't use this",
             description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
             timestamp=self.help.context.message.created_at

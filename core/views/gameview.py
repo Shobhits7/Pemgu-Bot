@@ -16,19 +16,19 @@ class RPSButtons(discord.ui.Button):
         elif self.label == "Scissors":
             self.useroption = "Scissors"
         tierpsmbed = discord.Embed(
-            colour=self.ctx.bot.colour,
+            color=self.ctx.bot.color,
             description=F"We both chose **{self.botoption}**, It's a tie :/ :|",
             timestamp=interaction.message.created_at
         )
         tierpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
         wonrpsmbed = discord.Embed(
-            colour=self.ctx.bot.colour,
+            color=self.ctx.bot.color,
             description=F"You chose **{self.useroption}**, But, I chose **{self.botoption}**, You won :) / I lost :(",
             timestamp=interaction.message.created_at
         )
         wonrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
         lostrpsmbed = discord.Embed(
-            colour=self.ctx.bot.colour,
+            color=self.ctx.bot.color,
             description=F"I chose **{self.botoption}**, But, You chose **{self.useroption}**, I won :) / You lost :(",
             timestamp=interaction.message.created_at
         )
@@ -69,7 +69,7 @@ class RPSView(discord.ui.View):
             return True
         else:
             icheckmbed = discord.Embed(
-                colour=self.ctx.bot.colour,
+                color=self.ctx.bot.color,
                 title=F"You can't use this",
                 description=F"<@{interaction.user.id}> - Only <@{self.ctx.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
                 timestamp=interaction.message.created_at
@@ -92,7 +92,7 @@ class GuessButtons(discord.ui.Button):
             self.choose = False
         if self.choose == True:
             truembed = discord.Embed(
-                colour=self.ctx.bot.colour,
+                color=self.ctx.bot.color,
                 title="You guessed correctly",
                 description=F"The number was {self.number}"
             )
@@ -101,7 +101,7 @@ class GuessButtons(discord.ui.Button):
             await interaction.response.edit_message(embed=truembed, view=self.view)
         if self.choose == False:
             falsembed = discord.Embed(
-                colour=self.ctx.bot.colour,
+                color=self.ctx.bot.color,
                 title="You guessed incorrectly",
                 description=F"The correct answer was {self.number}"
             )
@@ -134,7 +134,7 @@ class GuessView(discord.ui.View):
             return True
         else:
             icheckmbed = discord.Embed(
-                colour=self.ctx.bot.colour,
+                color=self.ctx.bot.color,
                 title=F"You can't use this",
                 description=F"<@{interaction.user.id}> - Only <@{self.ctx.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
                 timestamp=interaction.message.created_at

@@ -12,14 +12,14 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.bot_has_guild_permissions(ban_members=True)
     async def ban(self, ctx:commands.Context, user:discord.User, *, reason:str=None):
         abnmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"{user} is now Banned",
             description=F"For reason: {reason}",
             timestamp=ctx.message.created_at
         )
         abnmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         ubnmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"Dear {user}"
         )
         ubnmbed.add_field(name=F"You were banned from:", value=F"{ctx.guild.id}")
@@ -36,13 +36,13 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.bot_has_guild_permissions(ban_members=True)
     async def unban(self, ctx:commands.Context, user:discord.User, *, reason:str=None):
         aunmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"{user} is now Unbanned",
             timestamp=ctx.message.created_at
         )
         aunmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         uunmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"Dear {user}"
         )
         uunmbed.add_field(name=F"You were unbanned from:", value=F"{ctx.guild.id}")
@@ -59,14 +59,14 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.bot_has_guild_permissions(kick_members=True)
     async def kick(self, ctx:commands.Context, member:discord.Member, *, reason:str=None):
         akcmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"{member} is now Kicked",
             description=F"For reason: {reason}",
             timestamp=ctx.message.created_at
         )
         akcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         ukcmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title=F"Dear {member}"
         )
         ukcmbed.add_field(name=F"You were banned from:", value=F"{ctx.guild.id}")
@@ -83,7 +83,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.bot_has_guild_permissions(manage_roles=True)
     async def addrole(self, ctx:commands.Context, member:discord.Member, role:discord.Role):
         aembed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         aembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -101,7 +101,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.bot_has_guild_permissions(manage_roles=True)
     async def removerole(self, ctx:commands.Context, member:discord.Member, role:discord.Role):
         rembed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         rembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -121,7 +121,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         channel = ctx.channel if not channel else channel
         overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)}
         lcmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             description=channel.mention,
             timestamp=ctx.message.created_at
         )
@@ -142,7 +142,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         channel = ctx.channel if not channel else channel
         overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=True)}
         ulcmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             description=channel.mention,
             timestamp=ctx.message.created_at
         )
@@ -161,23 +161,23 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.bot_has_guild_permissions(manage_roles=True)
     async def mute(self, ctx:commands.Context, member:discord.Member, *, reason:str=None):
         mtmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         mtmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         for role in ctx.guild.roles:
-            if role.name == "Muted" and role.color == discord.Colour.red():
+            if role.name == "Muted" and role.color == discord.color.red():
                 muterole = role
                 break
         else:
             muterole = await ctx.guild.create_role(
-                colour=discord.Colour.red(),
+                color=discord.color.red(),
                 name="Muted",
                 mentionable=True,
                 reason="There was no Muted role, so I created one."
             )
             crmtmbed = discord.Embed(
-                colour=self.bot.colour,
+                color=self.bot.color,
                 title=F"There was no Muted role, so I created one",
                 timestamp=ctx.message.created_at
             )
@@ -203,7 +203,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.bot_has_guild_permissions(manage_messages=True)
     async def purge(self, ctx:commands.Context, *, amount:int):
         pumbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         pumbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)

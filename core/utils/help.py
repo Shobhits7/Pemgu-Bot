@@ -24,7 +24,7 @@ class MinimalHelp(commands.MinimalHelpCommand):
         )
     async def send_pages(self):
         mhmbed = discord.Embed(
-            colour=self.context.bot.colour,
+            color=self.context.bot.color,
             title=F"{self.context.me.name}'s Help",
             timestamp=self.context.message.created_at
         )
@@ -70,7 +70,7 @@ class CustomHelp(commands.HelpCommand):
     # Help Cog
     async def send_cog_help(self, cog):
         hcogmbed = discord.Embed(
-            colour=self.context.bot.colour,
+            color=self.context.bot.color,
             title=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name} Category [{len(cog.get_commands())}]",
             description=F"{cog.description}\n\n",
             timestamp=self.context.message.created_at
@@ -86,7 +86,7 @@ class CustomHelp(commands.HelpCommand):
     # Help Command
     async def send_command_help(self, command):
         hcmdmbed = discord.Embed(
-            colour=self.context.bot.colour,
+            color=self.context.bot.color,
             title=self.get_command_signature(command),
             description=command.help or "No help found...",
             timestamp=self.context.message.created_at
@@ -109,7 +109,7 @@ class CustomHelp(commands.HelpCommand):
     # Help Group
     async def send_group_help(self, group):
         hgroupmbed = discord.Embed(
-            colour=self.context.bot.colour,
+            color=self.context.bot.color,
             title=self.get_command_signature(group),
             description=F"{group.help or 'No help found...'}\n\n",
             timestamp=self.context.message.created_at
@@ -134,7 +134,7 @@ class CustomHelp(commands.HelpCommand):
     # Help Error
     async def send_error_message(self, error):
         herrormbed = discord.Embed(
-            colour=self.context.bot.colour,
+            color=self.context.bot.color,
             title=error,
             timestamp=self.context.message.created_at
         )

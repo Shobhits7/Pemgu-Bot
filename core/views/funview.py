@@ -19,7 +19,7 @@ class CounterView(discord.ui.View):
         for item in self.children:
             self.clear_items()
         ontimeoutmbed = discord.Embed(
-            colour=self.ctx.bot.colour,
+            color=self.ctx.bot.color,
             title=F"Button was clicked: {self.clicks} times",
         )
         if len(self.clickers) != 0 or self.clicks != 0:
@@ -45,7 +45,7 @@ class NitroView(discord.ui.View):
                     item.style = discord.ButtonStyle.red
                     item.disabled = True
                     ontimeoutmbed = discord.Embed(
-                        colour=self.ctx.bot.colour,
+                        color=self.ctx.bot.color,
                         title="THE NITRO HAS EXPIRED",
                         description="The gift link has either expired or has been revoked.",
                         timestamp=self.ctx.message.created_at
