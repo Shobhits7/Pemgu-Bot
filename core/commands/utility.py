@@ -102,7 +102,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         )
         addmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
         note = await self.bot.postgres.fetchval("SELECT task FROM notes WHERE task=$1 AND user_id=$2", task, ctx.author.id)
-        if not note:
+        if note:
             addmbed.title = "Is already in your notes:"
             addmbed.description = F"> {task}"
             return await ctx.send(embed=addmbed)
