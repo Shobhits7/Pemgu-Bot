@@ -21,7 +21,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     @commands.guild_only()
     async def snipe(self, ctx:commands.Context, number:str=None):
         number = "0" if not number else number
-        dsnipe = self.bot.dsnipe[str(ctx.channel.id)].get("counter", None)
+        dsnipe = self.bot.dsnipe[str(ctx.channel.id)].get("counter")[number]
         dmsgmbed = discord.Embed(
             colour=self.bot.colour,
             timestamp=ctx.message.created_at
