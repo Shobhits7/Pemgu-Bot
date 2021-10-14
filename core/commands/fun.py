@@ -26,9 +26,6 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
             timestamp=ctx.message.created_at
         )
         dmsgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if KeyError(dsnipe):
-            dmsgmbed.title = F"There is no {number}th"
-            return await ctx.send(embed=dmsgmbed)
         dmsgmbed.title = F"Last Deleted Message"
         dmsgmbed.description = F"**{dsnipe.content}**  | {dsnipe.channel.mention}"
         dmsgmbed.set_author(name=F"{dsnipe.author} - {dsnipe.author.id}", icon_url=dsnipe.author.display_avatar.url)
