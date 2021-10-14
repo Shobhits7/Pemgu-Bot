@@ -29,4 +29,4 @@ class OnMessage(commands.Cog):
         counter += 1
 
 def setup(bot):
-    bot.add_cog(OnMessage(bot))e
+    bot.add_cog(OnMessage(bot))
