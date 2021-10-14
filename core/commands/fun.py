@@ -19,7 +19,8 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     # Snipe
     @commands.command(name="snipe", help="Will show the last deleted message")
     @commands.guild_only()
-    async def snipe(self, ctx:commands.Context, number:int=1):
+    async def snipe(self, ctx:commands.Context, number:int=None):
+        number = -1 if not number else number
         dsnipe = self.bot.dsnipe[-number]
         dmsgmbed = discord.Embed(
             colour=self.bot.colour,
