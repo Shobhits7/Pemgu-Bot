@@ -166,7 +166,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         )
         mtmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         for role in ctx.guild.roles:
-            if role.name == "Muted":
+            if role.name.lower().startswith("mute"):
                 muterole = role
                 break
         else:
@@ -183,9 +183,9 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             )
             crmtmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             await ctx.send(content=muterole.mention, embed=crmtmbed)
-        overwrites = {muterole: discord.PermissionOverwrite(add_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False, create_instant_invite=False, create_public_threads=False, create_private_threads=False)}
-        for channel in ctx.guild.channels:
-            await channel.edit(overwrites=overwrites)
+            overwrites = {muterole: discord.PermissionOverwrite(add_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False, create_instant_invite=False, create_public_threads=False, create_private_threads=False)}
+            for channel in ctx.guild.channels:
+                await channel.edit(overwrites=overwrites)
         if muterole in member.roles:
             mtmbed.title = F"Successfully Un-Muted"
             mtmbed.description = F"UnMuted: {member.mention}\nReason: {reason}"
