@@ -19,20 +19,20 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     # Snipe
     @commands.command(name="snipe", help="Will show the last deleted message")
     @commands.guild_only()
-    async def snipe(self, ctx:commands.Context, number:int=None):
-        number = -1 if not number else number
-        dsnipe = self.bot.dsnipe[str(ctx.channel.id)][number]
-        for _ in dsnipe:
-            message = dsnipe[str(_)]
-            break
+    async def snipe(self, ctx:commands.Context, number:str=None):
+        number = 0 if not number else number
+        dsnipe = self.bot.dsnipe[str(ctx.channel.id)].get("counter", None)
         dmsgmbed = discord.Embed(
             colour=self.bot.colour,
             timestamp=ctx.message.created_at
         )
         dmsgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if dsnipe != number:
+            dmsgmbed.title = F"There is no {number}th"
+            return await ctx.send(embed=dmsgmbed)
         dmsgmbed.title = F"Last Deleted Message"
-        dmsgmbed.description = F"**{message.content}**  | {message.channel.mention}"
-        dmsgmbed.set_author(name=F"{message.author} - {message.author.id}", icon_url=message.author.display_avatar.url)
+        dmsgmbed.description = F"**{dsnipe.get('message').content}**  | {dsnipe.get('message').channel.mention}"
+        dmsgmbed.set_author(name=F"{dsnipe.get('message').author} - {dsnipe.get('message').author.id}", icon_url=dsnipe.get('message').author.display_avatar.url)
         await ctx.send(embed=dmsgmbed)
 
     # PP
