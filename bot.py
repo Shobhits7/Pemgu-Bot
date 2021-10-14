@@ -1,4 +1,4 @@
-import discord, asyncpg, os, aiohttp, inspect
+import discord, asyncpg, os, aiohttp, random
 import core.utils.help as help
 from discord.ext import commands
 
@@ -21,7 +21,6 @@ async def create_session_aiohttp():
 class PemguBase(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.color = 0x1D4E9A or 0x4879CE or 0x142966 or 0x093C84
         self.prefix = ".m"
         self._commands = []
         for command in sorted(os.listdir("./core/commands/")):
@@ -42,14 +41,10 @@ class PemguBase(commands.AutoShardedBot):
             await self.session.close()
         await super().close()
 
-    @classmethod
-    def embed(self, ctx:commands.Context, url, title, desc):
-        jtd = discord.Embed()
-        if url: jtd.url = url
-        if title: jtd.title = title
-        if desc: jtd.desc = desc
-        jtd.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        return jtd
+    @property
+    def color(self):
+        color = random.choice([0x1D4E9A, 0x4879CE, 0x142966, 0x093C84])
+        return color
 
 bot = PemguBase(
     command_prefix=get_prefix,
