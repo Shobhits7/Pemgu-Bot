@@ -15,22 +15,23 @@ And I saw a lot of people are using and making discord bots
 So I made my own custom bot so other people can use it
 
 ## More things
-*You can get the prefix with mentioning the bot - currently it's `.m`*
+*You can get the prefix with mentioning the bot or `prefix`*
+*current prefix it's `.m`*
+*but you can change it with `prefix change`*
+*and reset it with `prefix reset`*
 
 **The Commands:**
 
-![Commands](https://cdn.discordapp.com/attachments/381963689470984203/897758185295867904/unknown.png)
-
-**Welcomer & Goodbyer:**
-
+***Welcomer & Goodbyer:***
 For setting up the welcomer you just need to do `welcome change` it will turn on the welcomer
-
 and you can change the message with `welcomer message <your message>`
-
-Just to make sure that you put `.guild` and `.member` in `your message`
-
+Just to make sure that you add `.guild` and `.member` in the message
 `.guild` for the guild name in the message
 `.member` for mentioning the user in the message
 
 These goes for goodbyer as well
 `goodbye change` and `goodbye message`
+
+![Commands](https://cdn.discordapp.com/attachments/381963689470984203/898639049567371314/unknown.png)
+
+![Discord Bots](https://top.gg/api/widget/844226171972616205.svg)
