@@ -7,7 +7,7 @@ class OnCommand(commands.Cog):
     
     @commands.Cog.listener()
     async def on_command(self, ctx:commands.Context):
-        if random.randint(0, 10) == 9:
+        if random.randint(0, 69) == 21:
             if "use_slash_commands" not in ctx.me.guild_permissions:
                 rimbed = discord.Embed(
                     color=self.bot.color,
