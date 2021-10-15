@@ -17,7 +17,7 @@ class RPSButtons(discord.ui.Button):
             self.useroption = "Scissors"
         tierpsmbed = discord.Embed(
             color=self.ctx.bot.color,
-            description=F"We both chose **{self.botoption}**, It's a tie :/ :|",
+            description=F"We both chose **{self.botoption}**, It's a tie :|",
             timestamp=interaction.message.created_at
         )
         tierpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
