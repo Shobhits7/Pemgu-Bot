@@ -47,6 +47,8 @@ class PemguBase(commands.AutoShardedBot):
         return color
 
 bot = PemguBase(
+    slash_commands=True,
+    slash_command_guilds=[804380398296498256],
     command_prefix=get_prefix,
     strip_after_prefix=True,
     case_insensitive=True,
