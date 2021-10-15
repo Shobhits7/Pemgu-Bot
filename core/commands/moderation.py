@@ -84,13 +84,14 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     async def addrole(self, ctx:commands.Context, member:discord.Member, role:discord.Role):
         aembed = discord.Embed(
             color=self.bot.color,
+            description=F"> {member.mention}\n> {role.mention}",
             timestamp=ctx.message.created_at
         )
         aembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if role in member.roles:
-            aembed.title = F"The member already has the {role} role"
+            aembed.title = "Already has"
             return await ctx.send(embed=aembed)
-        aembed.title = F"Successfully added the {role} role"
+        aembed.title = "Successfully added"
         await member.add_roles(role)
         await ctx.send(embed=aembed)
     
@@ -102,14 +103,15 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     async def removerole(self, ctx:commands.Context, member:discord.Member, role:discord.Role):
         rembed = discord.Embed(
             color=self.bot.color,
+            description=F"> {member.mention}\n> {role.mention}",
             timestamp=ctx.message.created_at
         )
         rembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if role in member.roles:
-            rembed.title = F"Successfully removed the {role} role"
+            rembed.title = "Successfully removed"
             await member.remove_roles(role)
             return await ctx.send(embed=rembed)
-        rembed.title = F"The member doesn't have the {role} role"
+        rembed.title = "Doesn't have"
         await ctx.send(embed=rembed)
 
     # Cease
