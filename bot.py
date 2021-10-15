@@ -43,7 +43,7 @@ class PemguBase(commands.AutoShardedBot):
 
     @property
     def color(self):
-        color = random.choice([0x1D4E9A, 0x4879CE, 0x142966, 0x093C84])
+        color = random.choice([0x224585, 0x1D4E9A, 0x4879CE, 0x142966, 0x093C84])
         return color
 
 bot = PemguBase(
