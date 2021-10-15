@@ -125,14 +125,14 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         cembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if channel.permissions_for(ctx.guild.default_role).send_messages():
+        if channel.permissions_for(ctx.guild.default_role).send_messages:
             cembed.title = "Is already unlocked:"
             return await ctx.send(embed=cembed)
         else:
             cembed.title = "Successfully Unlocked:"
             await channel.set_permissions(ctx.guild.default_role, discord.PermissionOverwrite(add_reactions=True, send_messages=True))
             await ctx.send(embed=cembed)
-        if not channel.permissions_for(ctx.guild.default_role).send_messages():
+        if not channel.permissions_for(ctx.guild.default_role).send_messages:
             cembed.title = "Is already locked:"
             return await ctx.send(embed=cembed)
         else:
