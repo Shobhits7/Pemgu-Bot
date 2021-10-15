@@ -161,8 +161,8 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
                 tasks.append(stuff["task"])
             for task in tasks:
                 await self.bot.postgres.execute("DELETE FROM notes WHERE task=$1 AND user_id=$2", task, ctx.author.id)
-            clearmbed.title = "Successfully removed:"
-            clearmbed.description = "**Every Task**"
+            clearmbed.title = "Successfully cleared:"
+            clearmbed.description = "**Your notes**"
             await ctx.send(embed=clearmbed)
 
 def setup(bot):
