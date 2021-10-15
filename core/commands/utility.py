@@ -141,7 +141,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         await ctx.send(embed=removembed)
 
     # Clear
-    @notes.command(name="clear", aliases=["="], help="Will clear your notes")
+    @notes.command(name="clear", aliases=["*"], help="Will clear your notes")
     async def notes_clear(self, ctx:commands.Context):
         clearmbed = discord.Embed(
             color=self.bot.color,
