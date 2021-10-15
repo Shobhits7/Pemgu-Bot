@@ -24,24 +24,22 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         dsnipe = self.bot.dsnipe[-number]
         dmsgmbed = discord.Embed(
             color=self.bot.color,
+            title=F"Last Deleted Message",
+            description=F"**{dsnipe.content}**  | {dsnipe.channel.mention}",
             timestamp=ctx.message.created_at
         )
-        dmsgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        dmsgmbed.title = F"Last Deleted Message"
-        dmsgmbed.description = F"**{dsnipe.content}**  | {dsnipe.channel.mention}"
         dmsgmbed.set_author(name=F"{dsnipe.author} - {dsnipe.author.id}", icon_url=dsnipe.author.display_avatar.url)
+        dmsgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=dmsgmbed)
 
     # PP
     @commands.command(name="pp", help="Will tell your pp's size")
     async def pp(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
-        amount = len(str(user.id)) + random.randint(1, 30)
-        size = F"8{'='*amount}D"
         ppmbed = discord.Embed(
             color=self.bot.color,
             title=F"{user}'s PP Size:",
-            description=size,
+            description=F"8{'='*(len(str(user.id)) + random.randint(1, 30))}D",
             timestamp=ctx.message.created_at
         )
         ppmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -52,7 +50,8 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     async def counter(self, ctx:commands.Context):
         ctrmbed = discord.Embed(
             color=self.bot.color,
-            description="Click the button for counting"
+            description="Click the button for counting",
+            timestamp=ctx.message.created_at
         )
         ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         view = fv.CounterView(ctx)
@@ -143,9 +142,9 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
             title="Here is your answer",
             timestamp=ctx.message.created_at
         )
-        _8bmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         _8bmbed.add_field(name="Your Question:", value=question)
         _8bmbed.add_field(name="Your Answer:", value=response["response"])
+        _8bmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=_8bmbed)
 
     # Roast

@@ -49,7 +49,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
                 await ctx.send(f"```py\n{value}{ret}\n```")
 
     # Load
-    @commands.command(name="load", help="Will load the given cog if it was not already loaded")
+    @commands.command(name="load", help="Will load the given cog")
     @commands.is_owner()
     async def load(self, ctx:commands.Context, *, cog:str):
         loadmbed = discord.Embed(
@@ -62,7 +62,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         await ctx.send(embed=loadmbed)
 
     # Unload
-    @commands.command(name="unload", help="Will unload the given cog if it was already loaded")
+    @commands.command(name="unload", help="Will unload the given cog")
     @commands.is_owner()
     async def unload(self, ctx:commands.Context, *, cog:str):
         unloadmbed = discord.Embed(
@@ -75,7 +75,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         await ctx.send(embed=unloadmbed)
   
     # Reload
-    @commands.command(name="reload", help="Will reload the given  or every cog")
+    @commands.command(name="reload", help="Will reload the given or every cog")
     @commands.is_owner()
     async def reload(self, ctx:commands.Context, *, cog:str=None):
         reloadmbed = discord.Embed(
@@ -175,7 +175,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         await ctx.send(embed=blacklistmbed)
 
     # Screenshot
-    @commands.command(name="screenshot", aliases=["ss"], help="Will give you a preview from the given website")
+    @commands.command(name="screenshot", aliases=["ss"], help="Will give a preview from the given website")
     @commands.is_owner()
     @commands.bot_has_guild_permissions(attach_files=True)
     async def screenshot(self, ctx:commands.Context, *, website:str):

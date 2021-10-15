@@ -27,7 +27,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         abmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=abmbed)
 
-    # colors
+    # Colors
     @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image")
     @commands.bot_has_guild_permissions(attach_files=True)
     async def colors(self, ctx:commands.Context, user:discord.User=None):
@@ -64,11 +64,12 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         fetch = await self.bot.fetch_user(user.id)
         brmbed = discord.Embed(
             color=self.bot.color,
-            title=F"{user}'s Banner",
             timestamp=ctx.message.created_at
         )
-        if fetch.banner: brmbed.set_image(url=fetch.banner.url)
-        else: brmbed.description = "The user doesn't have a banner"
+        if fetch.banner:
+            brmbed.title = F"{user}'s Banner"
+            brmbed.set_image(url=fetch.banner.url)
+        else: brmbed.title = F"{user} doesn't have banner"
         brmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=brmbed)
 
@@ -105,16 +106,16 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             title=F"{member}'s' Information",
             timestamp=ctx.message.created_at
         )
+        uimbed.set_author(name=member, icon_url=member.display_avatar.url)
         uimbed.add_field(name="Global-Information:", value="\n".join(g for g in gi), inline=False)
         uimbed.add_field(name="Server-Information:", value="\n".join(s for s in si), inline=False)
-        uimbed.set_author(name=member, icon_url=member.display_avatar.url)
         if member.guild_avatar: uimbed.set_thumbnail(url=member.guild_avatar.url)
         if fetch.banner: uimbed.set_image(url=fetch.banner.url)
         uimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=uimbed)
 
     # Spotify
-    @commands.command(name="spotify", help="Will show your or the given member's spotify activity if possible")
+    @commands.command(name="spotify", help="Will show your or the given member's spotify activity")
     async def spotify(self, ctx:commands.Context, member:discord.Member=None):
         member = ctx.author if not member else member
         spotifymbed = discord.Embed(
@@ -150,12 +151,13 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     async def icon(self, ctx:commands.Context):
         icmbed = discord.Embed(
             color=self.bot.color,
-            title=F"{ctx.guild}'s Icon",
             timestamp=ctx.message.created_at
         )
         icmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if ctx.guild.icon: icmbed.set_thumbnail(url=ctx.guild.icon.url)
-        else: icmbed.description = "__**Icon:**__ Server doesn't have a icon"
+        if ctx.guild.icon:
+            icmbed.title = F"{ctx.guild}'s Icon",
+            icmbed.set_thumbnail(url=ctx.guild.icon.url)
+        else: icmbed.title = F"{ctx.guild} doesn't have icon"
         await ctx.send(embed=icmbed)
 
     # ServerInfo

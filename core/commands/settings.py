@@ -91,7 +91,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         await ctx.send(embed=welchmbed)
 
     # Welcome-Message
-    @welcome.command(name="message", aliases=["msg"], help="Will change the main welcome message to the new given message, please input .guild and .member")
+    @welcome.command(name="message", aliases=["msg"], help="Will change the main welcome message to the new given message")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def welcome_message(self, ctx:commands.Context, *, msg:str):
@@ -147,7 +147,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         await ctx.send(embed=byechmbed)
 
     # Goodbye-Message
-    @goodbye.command(name="message", aliases=["msg"], help="Will change the main goodbye message to the new given message, please input .guild and .member")
+    @goodbye.command(name="message", aliases=["msg"], help="Will change the main goodbye message to the new given message")
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def goodbye_message(self, ctx:commands.Context, *, msg:str):

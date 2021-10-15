@@ -21,8 +21,8 @@ class Images(commands.Cog, description="Free Photoshop without needing to know P
             title=F"{user} is now Wanted!",
             timestamp=ctx.message.created_at
         )
-        wantedmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         wantedmbed.set_image(url="attachment://wanted.jpg")
+        wantedmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=wantedmbed, file=discord.File(fp="wanted.jpg"))
 
 def setup(bot):

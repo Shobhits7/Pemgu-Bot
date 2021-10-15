@@ -128,12 +128,12 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             tasks.append(stuff["task"])
         if len(tasks) <= number:
             removembed.title = "Is not in your notes:"
-            removembed.description = F"> {number}\n**Check your notes.**"
+            removembed.description = F"> {number}\n**Check your notes**"
             return await ctx.send(embed=removembed)
         note = await self.bot.postgres.fetchval("SELECT task FROM notes WHERE user_id=$1 AND task=$2", ctx.author.id, tasks[number])
         if not note:
             removembed.title = "Is not in your notes:"
-            removembed.description = F"> {number}\n**Check your notes.**"
+            removembed.description = F"> {number}\n**Check your notes**"
             return await ctx.send(embed=removembed)
         await self.bot.postgres.execute("DELETE FROM notes WHERE user_id=$1 AND task=$2", ctx.author.id, tasks[number])
         removembed.title = "Successfully removed:"

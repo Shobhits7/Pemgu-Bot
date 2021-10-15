@@ -112,50 +112,36 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         rembed.title = F"The member doesn't have the {role} role"
         await ctx.send(embed=rembed)
 
-    # Lock
-    @commands.command(name="lock", aliases=["lc"], help="Will lock the given channel", hidden=True)
+    # Cease
+    @commands.command(name="cease", aliases=["ce"], help="Will lock or unlock the this or given channel")
     @commands.guild_only()
     @commands.has_guild_permissions(manage_channels=True)
     @commands.bot_has_guild_permissions(manage_channels=True)
-    async def lock(self, ctx:commands.Context, channel:discord.TextChannel=None):
+    async def cease(self, ctx:commands.Context, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
-        overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=False)}
-        lcmbed = discord.Embed(
+        cembed = discord.Embed(
             color=self.bot.color,
             description=channel.mention,
             timestamp=ctx.message.created_at
         )
-        lcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if channel.overwrites == overwrites:
-            lcmbed.title = "Is already locked:"
-            return await ctx.send(embed=lcmbed)
-        lcmbed.title = "Successfully Locked:"
-        await channel.edit(overwrites=overwrites)
-        await ctx.send(embed=lcmbed)
-
-    # Unlock
-    @commands.command(name="unlock", aliases=["ulc"], help="Will unlock the given channel", hidden=True)
-    @commands.guild_only()
-    @commands.has_guild_permissions(manage_channels=True)
-    @commands.bot_has_guild_permissions(manage_channels=True)
-    async def unlock(self, ctx:commands.Context, channel:discord.TextChannel=None):
-        channel = ctx.channel if not channel else channel
-        overwrites = {ctx.guild.default_role: discord.PermissionOverwrite(send_messages=True)}
-        ulcmbed = discord.Embed(
-            color=self.bot.color,
-            description=channel.mention,
-            timestamp=ctx.message.created_at
-        )
-        ulcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if channel.overwrites == overwrites:
-            ulcmbed.title = "Is already unlocked:"
-            return await ctx.send(embed=ulcmbed)
-        ulcmbed.title = "Successfully Unlocked:"
-        await channel.edit(overwrites=overwrites)
-        await ctx.send(embed=ulcmbed)
+        cembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if channel.permissions_for(ctx.guild.default_role).send_messages():
+            cembed.title = "Is already unlocked:"
+            return await ctx.send(embed=cembed)
+        else:
+            cembed.title = "Successfully Unlocked:"
+            await channel.set_permissions(ctx.guild.default_role, discord.PermissionOverwrite(add_reactions=True, send_messages=True))
+            await ctx.send(embed=cembed)
+        if not channel.permissions_for(ctx.guild.default_role).send_messages():
+            cembed.title = "Is already locked:"
+            return await ctx.send(embed=cembed)
+        else:
+            cembed.title = "Successfully Locked:"
+            await channel.set_permissions(ctx.guild.default_role, discord.PermissionOverwrite(add_reactions=False, send_messages=False))
+            await ctx.send(embed=cembed)
 
     # Mute
-    @commands.command(name="mute", aliases=["mt"], help="Will mute the given user")
+    @commands.command(name="mute", aliases=["mt"], help="Will mute or unmute the given user")
     @commands.guild_only()
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
@@ -166,12 +152,12 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         )
         mtmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         for role in ctx.guild.roles:
-            if role.name == "Muted" and role.color == discord.color.red():
+            if role.name == "Muted" and role.color == discord.Color.red():
                 muterole = role
                 break
         else:
             muterole = await ctx.guild.create_role(
-                color=discord.color.red(),
+                color=discord.Color.red(),
                 name="Muted",
                 mentionable=True,
                 reason="There was no Muted role, so I created one."
@@ -184,7 +170,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             crmtmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             await ctx.send(content=muterole.mention, embed=crmtmbed)
             for channel in ctx.guild.channels:
-                await channel.set_permissions(muterole, add_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False, create_instant_invite=False, create_public_threads=False, create_private_threads=False)
+                await channel.set_permissions(muterole, discord.PermissionOverwrite(add_reactions=False, connect=False, speak=False, stream=False, send_messages=False, send_messages_in_threads=False, send_tts_messages=False, create_instant_invite=False, create_public_threads=False, create_private_threads=False))
         if muterole in member.roles:
             mtmbed.title = F"Successfully Un-Muted"
             mtmbed.description = F"UnMuted: {member.mention}\nReason: {reason}Role: {muterole.mention}"
