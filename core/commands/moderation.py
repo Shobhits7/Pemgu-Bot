@@ -125,13 +125,15 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         cembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        perms = [("add_reactions", False), ("send_messages", False)]
-        if channel.permissions_for(ctx.guild.default_role) in perms:
+        over = channel.overwrites_for(ctx.guild.default_role)
+        over.send_messages = False
+        over.add_reactions = False
+        if not channel.permissions_for(ctx.guild.default_role).send_messages:
             cembed.title = "Is already locked:"
             return await ctx.send(embed=cembed)
         else:
             cembed.title = "Successfully Locked:"
-            await channel.set_permissions(ctx.guild.default_role, ("add_reactions", False), ("send_messages", False))
+            await channel.set_permissions(ctx.guild.default_role, overwrite=over)
             await ctx.send(embed=cembed)
 
     # UnCease
@@ -147,15 +149,15 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         cembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        perms = [("add_reactions", True), ("send_messages", True)]
-        for p in ctx.guild.default_role.permissions:
-            perms.append(p)
-        if channel.permissions_for(ctx.guild.default_role) in perms:
+        over = channel.overwrites_for(ctx.guild.default_role)
+        over.send_messages = True
+        over.add_reactions = True
+        if channel.permissions_for(ctx.guild.default_role).send_messages:
             cembed.title = "Is already unlocked:"
             return await ctx.send(embed=cembed)
         else:
             cembed.title = "Successfully Unlocked:"
-            await channel.set_permissions(ctx.guild.default_role, ("add_reactions", True), ("send_messages", True))
+            await channel.set_permissions(ctx.guild.default_role, overwrite=over)
             await ctx.send(embed=cembed)
 
     # Mute
