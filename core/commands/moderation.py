@@ -113,11 +113,32 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         await ctx.send(embed=rembed)
 
     # Cease
-    @commands.command(name="cease", aliases=["ce"], help="Will lock or unlock the this or given channel")
+    @commands.command(name="cease", aliases=["ce"], help="Will lock this or the given channel")
     @commands.guild_only()
     @commands.has_guild_permissions(manage_channels=True)
     @commands.bot_has_guild_permissions(manage_channels=True)
     async def cease(self, ctx:commands.Context, channel:discord.TextChannel=None):
+        channel = ctx.channel if not channel else channel
+        cembed = discord.Embed(
+            color=self.bot.color,
+            description=channel.mention,
+            timestamp=ctx.message.created_at
+        )
+        cembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if not channel.permissions_for(ctx.guild.default_role).send_messages:
+            cembed.title = "Is already locked:"
+            return await ctx.send(embed=cembed)
+        else:
+            cembed.title = "Successfully Locked:"
+            await channel.set_permissions(ctx.guild.default_role, discord.PermissionOverwrite(add_reactions=False, send_messages=False))
+            await ctx.send(embed=cembed)
+
+    # UnCease
+    @commands.command(name="uncease", aliases=["uce"], help="Will unlock this or the given channel")
+    @commands.guild_only()
+    @commands.has_guild_permissions(manage_channels=True)
+    @commands.bot_has_guild_permissions(manage_channels=True)
+    async def uncease(self, ctx:commands.Context, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
         cembed = discord.Embed(
             color=self.bot.color,
@@ -131,13 +152,6 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         else:
             cembed.title = "Successfully Unlocked:"
             await channel.set_permissions(ctx.guild.default_role, discord.PermissionOverwrite(add_reactions=True, send_messages=True))
-            await ctx.send(embed=cembed)
-        if not channel.permissions_for(ctx.guild.default_role).send_messages:
-            cembed.title = "Is already locked:"
-            return await ctx.send(embed=cembed)
-        else:
-            cembed.title = "Successfully Locked:"
-            await channel.set_permissions(ctx.guild.default_role, discord.PermissionOverwrite(add_reactions=False, send_messages=False))
             await ctx.send(embed=cembed)
 
     # Mute
