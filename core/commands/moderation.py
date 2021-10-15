@@ -126,7 +126,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         )
         cembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         perms = [("add_reactions", False), ("send_messages", False)]
-        if not channel.permissions_for(ctx.guild.default_role) == perms:
+        if channel.permissions_for(ctx.guild.default_role) in perms:
             cembed.title = "Is already locked:"
             return await ctx.send(embed=cembed)
         else:
@@ -150,7 +150,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         perms = [("add_reactions", True), ("send_messages", True)]
         for p in ctx.guild.default_role.permissions:
             perms.append(p)
-        if channel.permissions_for(ctx.guild.default_role) == perms:
+        if channel.permissions_for(ctx.guild.default_role) in perms:
             cembed.title = "Is already unlocked:"
             return await ctx.send(embed=cembed)
         else:
