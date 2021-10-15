@@ -130,7 +130,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             return await ctx.send(embed=cembed)
         else:
             cembed.title = "Successfully Locked:"
-            await channel.set_permissions(ctx.guild.default_role, discord.PermissionOverwrite(add_reactions=False, send_messages=False))
+            await channel.set_permissions(ctx.guild.default_role, add_reactions=False, send_messages=False)
             await ctx.send(embed=cembed)
 
     # UnCease
@@ -151,7 +151,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             return await ctx.send(embed=cembed)
         else:
             cembed.title = "Successfully Unlocked:"
-            await channel.set_permissions(ctx.guild.default_role, discord.PermissionOverwrite(add_reactions=True, send_messages=True))
+            await channel.set_permissions(ctx.guild.default_role, add_reactions=True, send_messages=True)
             await ctx.send(embed=cembed)
 
     # Mute
