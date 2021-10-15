@@ -125,12 +125,13 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         cembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if not channel.permissions_for(ctx.guild.default_role).send_messages:
+        perms = [("add_reactions", False), ("send_messages", False)]
+        if not channel.permissions_for(ctx.guild.default_role) == perms:
             cembed.title = "Is already locked:"
             return await ctx.send(embed=cembed)
         else:
             cembed.title = "Successfully Locked:"
-            await channel.set_permissions(ctx.guild.default_role, add_reactions=False, send_messages=False)
+            await channel.set_permissions(ctx.guild.default_role, perms)
             await ctx.send(embed=cembed)
 
     # UnCease
@@ -146,12 +147,15 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         cembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if channel.permissions_for(ctx.guild.default_role).send_messages:
+        perms = [("add_reactions", True), ("send_messages", True)]
+        for p in ctx.guild.default_role.permissions:
+            perms.append(p)
+        if channel.permissions_for(ctx.guild.default_role) == perms:
             cembed.title = "Is already unlocked:"
             return await ctx.send(embed=cembed)
         else:
             cembed.title = "Successfully Unlocked:"
-            await channel.set_permissions(ctx.guild.default_role, add_reactions=True, send_messages=True)
+            await channel.set_permissions(ctx.guild.default_role, perms)
             await ctx.send(embed=cembed)
 
     # Mute
