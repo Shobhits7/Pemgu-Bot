@@ -126,6 +126,10 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         tasks = []
         for stuff in notes:
             tasks.append(stuff["task"])
+        if len(tasks) <= number:
+            removembed.title = "Is not in your notes:"
+            removembed.description = F"> {number}\n**Check your notes.**"
+            return await ctx.send(embed=removembed)
         note = await self.bot.postgres.fetchval("SELECT task FROM notes WHERE user_id=$1 AND task=$2", ctx.author.id, tasks[number])
         if not note:
             removembed.title = "Is not in your notes:"
@@ -149,7 +153,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             clearmbed.title = "You don't have any note"
             return await ctx.send(embed=clearmbed)
         view = cum.Confirm(ctx)
-        view.message = await ctx.send(content="Choose your options:", view=view)
+        view.message = await ctx.send(content="Are you sure if you want to clear everything:", view=view)
         await view.wait()
         if view.value:
             tasks = []
