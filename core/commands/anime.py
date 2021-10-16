@@ -23,20 +23,9 @@ class Anime(commands.Cog, description="Some Weeb shit?!"):
         await ctx.send(embed=quotembed)
 
     # SFW
-    @commands.group(name="sfw", help="Will send a random sfw waifu or husbando image if not specified", invoke_without_command=True)
+    @commands.group(name="sfw", help="Consider using subcommands", invoke_without_command=True)
     async def sfw(self, ctx:commands.Context):
-        session = await self.bot.session.get("https://api.waifu.im/sfw/all/")
-        response = await session.json()
-        session.close()
-        sfwmbed = discord.Embed(
-            color=self.bot.color,
-            url=F"https://waifu.im/preview/?image={response.get('tags')[0].get('images')[0].get('file')}",
-            title="Here is your SFW Image",
-            timestamp=ctx.message.created_at
-        )
-        sfwmbed.set_image(url=response.get('tags')[0].get('images')[0].get('url'))
-        sfwmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=sfwmbed)
+        await ctx.send_help("sfw")
 
     # SFW-Waifu
     @sfw.command(name="waifu", help="Will send a random sfw waifu image")
@@ -71,21 +60,10 @@ class Anime(commands.Cog, description="Some Weeb shit?!"):
         await ctx.send(embed=smaidmbed)
     
     # NSFW
-    @commands.group(name="nsfw", help="Will send a random nsfw waifu image", invoke_without_command=True)
+    @commands.group(name="nsfw", help="Consider using subcommands", invoke_without_command=True)
     @commands.is_nsfw()
     async def nsfw(self, ctx:commands.Context):
-        session = await self.bot.session.get("https://api.waifu.im/nsfw/ero/")
-        response = await session.json()
-        session.close()
-        nsfwmbed = discord.Embed(
-            color=self.bot.color,
-            url=F"https://waifu.im/preview/?image={response.get('tags')[0].get('images')[0].get('file')}",
-            title="Here is your NSFW Image",
-            timestamp=ctx.message.created_at
-        )
-        nsfwmbed.set_image(url=response.get('tags')[0].get('images')[0].get('url'))
-        nsfwmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=nsfwmbed)
+        await ctx.send_help("nsfw")
 
     # NSFW-Ass
     @nsfw.command(name="ass", help="Will send a random nsfw thicc image")

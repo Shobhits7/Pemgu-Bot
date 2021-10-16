@@ -72,8 +72,8 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             await ctx.author.move_to(ctx.guild.afk_channel)
 
     # Notes
-    @commands.group(name="notes", aliases=["note"], help="Will show all of your or the given user's notes", invoke_without_command=True)
-    async def notes(self, ctx:commands.Context, user:discord.User=None):
+    @commands.group(name="notes", aliases=["note"], help="Consider using subcommands", invoke_without_command=True)
+    async def notes(self, ctx:commands.Context):
         await ctx.send_help("notes")
 
     # Notes-List

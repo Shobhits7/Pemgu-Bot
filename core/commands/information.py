@@ -307,7 +307,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         await ctx.send(final_url)
 
     # RickAndMorty
-    @commands.group(name="rickandmorty", aliases=["ram"], help="Some Rick and Morty commands, use subcommands", invoke_without_command=True)
+    @commands.group(name="rickandmorty", aliases=["ram"], help="Consider using subcommands", invoke_without_command=True)
     async def rickandmorty(self, ctx:commands.Context):
         await ctx.send_help("rickandmorty")
 
