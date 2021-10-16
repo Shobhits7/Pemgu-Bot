@@ -199,12 +199,12 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         if ctx.guild.banner: simbed.set_image(url=ctx.guild.banner.url)
         simbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         simembersmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="Server Members",
             description=F"***Members:*** {ctx.guild.member_count}\n{', '.join(m.mention for m in ctx.guild.members)}"
         )
         sichannelsmbed = discord.Embed(
-            colour=self.bot.colour,
+            color=self.bot.color,
             title="Server Channels",
             description=F"***Categories:*** {len(ctx.guild.categories)}\n***Channels:*** {len(ctx.guild.channels)}\n{', '.join(ch.mention for ch in ctx.guild.channels)}"
         )
