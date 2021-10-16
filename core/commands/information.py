@@ -181,13 +181,10 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             F"***MFA:*** {ctx.guild.mfa_level}",
             F"***Verification:*** {ctx.guild.verification_level}",
             F"***File-Size-Limit:*** {ctx.guild.filesize_limit}",
-            F"***Members:*** {ctx.guild.member_count}",
             F"***Default-Role:*** {ctx.guild.default_role.mention}",
             F"***Boost-Role:*** {'*No boost-role*' if not ctx.guild.premium_subscriber_role else ctx.guild.premium_subscriber_role.mention}",
             F"***Boosters:*** {ctx.guild.premium_subscription_count}",
             F"***Tier:*** {ctx.guild.premium_tier}",
-            F"***Categories:*** {len(ctx.guild.categories)}",
-            F"***Channels:*** {len(ctx.guild.channels)}",
             F"***AFK-Channel:*** {'*No AFK channel*' if not ctx.guild.afk_channel else ctx.guild.afk_channel.mention}",
             F"***AFK-Timeout:*** {ctx.guild.afk_timeout}"
         ]
@@ -201,7 +198,17 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         if ctx.guild.icon: simbed.set_thumbnail(url=ctx.guild.icon.url)
         if ctx.guild.banner: simbed.set_image(url=ctx.guild.banner.url)
         simbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=simbed)
+        simembersmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Server Members",
+            description=F"***Members:*** {ctx.guild.member_count}\n{', '.join(m.mention for m in ctx.guild.members)}"
+        )
+        sichannelsmbed = discord.Embed(
+            colour=self.bot.colour,
+            title="Server Channels",
+            description=F"***Categories:*** {len(ctx.guild.categories)}\n***Channels:*** {len(ctx.guild.channels)}\n{', '.join(ch.mention for ch in ctx.guild.channels)}"
+        )
+        await ctx.send(embeds=[simbed, simembersmbed, sichannelsmbed])
 
     # EmojiInfo
     @commands.command(name="emojiinfo", aliases=["ei"], help="Will give information about the given emoji")
@@ -268,7 +275,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         await ctx.send(embed=permsmbed)
 
     # Invite
-    @commands.command(name="invite", aliases=["ie"], help="Will make a send the link for adding  the bot")
+    @commands.command(name="invite", aliases=["ie"], help="Will make a send the link for adding the bot")
     async def invite(self, ctx:commands.Context):
         iembed = discord.Embed(
             color=self.bot.color,
