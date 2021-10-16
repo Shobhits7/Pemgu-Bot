@@ -9,15 +9,21 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.group(name="prefix", aliases=["pf"], help="Will tell the prefix", invoke_without_command=True)
     @commands.guild_only()
     async def prefix(self, ctx:commands.Context):
+        await ctx.send_help("prefix")
+
+    # Prefix-Status
+    @prefix.command(name="status", aliases=["st"], help="Will show the status for prefix")
+    @commands.guild_only()
+    async def prefix_status(self, ctx:commands.Context):
         prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", ctx.guild.id)
-        pfmbed = discord.Embed(
+        pfstmbed = discord.Embed(
             color=self.bot.color,
             title=F"My Prefix here is:",
             description=F"> {self.bot.prefix if not prefix else prefix}",
             timestamp=ctx.message.created_at
         )
-        pfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=pfmbed)
+        pfstmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=pfstmbed)
 
     # Prefix-Change
     @prefix.command(name="change", aliases=["ch"], help="Will change the prefix to the new given text")
@@ -57,19 +63,25 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.group(name="welcome", aliases=["wel"], help="Will tell the status for welcome", invoke_without_command=True)
     @commands.guild_only()
     async def welcome(self, ctx:commands.Context):
-        welmbed = discord.Embed(
+        await ctx.send_help("welcome")
+
+    # Welcome-Status
+    @welcome.command(name="status", aliases=["st"], help="Will show the status for welcome")
+    @commands.guild_only()
+    async def welcome_status(self, ctx:commands.Context):
+        welstmbed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
-        welmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        welstmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         welcome = await self.bot.postgres.fetchval("SELECT * FROM welcome WHERE guild_id=$1", ctx.guild.id)
         if not welcome:
-            welmbed.title = "Welcome is turned off"
+            welstmbed.title = "Welcome is turned off"
         else:
             msg = await self.bot.postgres.fetchval("SELECT msg FROM welcome WHERE guild_id=$1", ctx.guild.id)
-            welmbed.title = "Status for welcome"
-            welmbed.description = F"> Turned On\n> {msg}"
-        await ctx.send(embed=welmbed)
+            welstmbed.title = "Status for welcome"
+            welstmbed.description = F"> Turned On\n> {msg}"
+        await ctx.send(embed=welstmbed)
 
     # Welcome-Change
     @welcome.command(name="change", aliases=["ch"], help="Will turn off or on the welcome")
@@ -113,19 +125,25 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.group(name="goodbye", aliases=["bye"], help="Will tell the status for goodbye", invoke_without_command=True)
     @commands.guild_only()
     async def goodbye(self, ctx:commands.Context):
-        byembed = discord.Embed(
+        await ctx.send_help("goodbye")
+
+    # Goodbye-Status
+    @goodbye.command(name="status", aliases=["st"], help="Will the status for goodbye")
+    @commands.guild_only()
+    async def goodbye_status(self, ctx:commands.Context):
+        byestmbed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
-        byembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        byestmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         goodbye = await self.bot.postgres.fetchval("SELECT * FROM goodbye WHERE guild_id=$1", ctx.guild.id)
         if not goodbye:
-            byembed.title = "Goodbye is turned off"
+            byestmbed.title = "Goodbye is turned off"
         else:
             msg = await self.bot.postgres.fetchval("SELECT msg FROM goodbye WHERE guild_id=$1", ctx.guild.id)
-            byembed.title = "Status for goodbye"
-            byembed.description = F"> Turned On\n> {msg}"
-        await ctx.send(embed=byembed)
+            byestmbed.title = "Status for goodbye"
+            byestmbed.description = F"> Turned On\n> {msg}"
+        await ctx.send(embed=byestmbed)
 
     # Goodbye-Change
     @goodbye.command(name="change", aliases=["ch"], help="Will turn off or on the goodbye")

@@ -309,7 +309,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     # RickAndMorty
     @commands.group(name="rickandmorty", aliases=["ram"], help="Some Rick and Morty commands, use subcommands", invoke_without_command=True)
     async def rickandmorty(self, ctx:commands.Context):
-        await ctx.send_help(ctx.command.cog)
+        await ctx.send_help("rickandmorty")
 
     # RickAndMorty-Character
     @rickandmorty.command(name="character", aliases=["char"], help="Will show information about the given character")
