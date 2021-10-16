@@ -114,53 +114,53 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         rembed.title = "Doesn't have"
         await ctx.send(embed=rembed)
 
-    # Cease
-    @commands.command(name="cease", aliases=["ce"], help="Will lock this or the given channel")
+    # Lock
+    @commands.command(name="lock", aliases=["lc"], help="Will lock this or the given channel")
     @commands.guild_only()
     @commands.has_guild_permissions(manage_channels=True)
     @commands.bot_has_guild_permissions(manage_channels=True)
-    async def cease(self, ctx:commands.Context, channel:discord.TextChannel=None):
+    async def lock(self, ctx:commands.Context, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
-        cembed = discord.Embed(
+        lcmbed = discord.Embed(
             color=self.bot.color,
             description=channel.mention,
             timestamp=ctx.message.created_at
         )
-        cembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        lcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         over = channel.overwrites_for(ctx.guild.default_role)
         over.send_messages = False
         over.add_reactions = False
         if not channel.permissions_for(ctx.guild.default_role).send_messages:
-            cembed.title = "Is already locked:"
-            return await ctx.send(embed=cembed)
+            lcmbed.title = "Is already locked:"
+            return await ctx.send(embed=lcmbed)
         else:
-            cembed.title = "Successfully Locked:"
+            lcmbed.title = "Successfully Locked:"
             await channel.set_permissions(ctx.guild.default_role, overwrite=over)
-            await ctx.send(embed=cembed)
+            await ctx.send(embed=lcmbed)
 
-    # UnCease
-    @commands.command(name="uncease", aliases=["uce"], help="Will unlock this or the given channel")
+    # UnLock
+    @commands.command(name="unlock", aliases=["ulc"], help="Will unlock this or the given channel")
     @commands.guild_only()
     @commands.has_guild_permissions(manage_channels=True)
     @commands.bot_has_guild_permissions(manage_channels=True)
-    async def uncease(self, ctx:commands.Context, channel:discord.TextChannel=None):
+    async def unlock(self, ctx:commands.Context, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
-        cembed = discord.Embed(
+        ulcmbed = discord.Embed(
             color=self.bot.color,
             description=channel.mention,
             timestamp=ctx.message.created_at
         )
-        cembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        ulcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         over = channel.overwrites_for(ctx.guild.default_role)
         over.send_messages = True
         over.add_reactions = True
         if channel.permissions_for(ctx.guild.default_role).send_messages:
-            cembed.title = "Is already unlocked:"
-            return await ctx.send(embed=cembed)
+            ulcmbed.title = "Is already unlocked:"
+            return await ctx.send(embed=ulcmbed)
         else:
-            cembed.title = "Successfully Unlocked:"
+            ulcmbed.title = "Successfully Unlocked:"
             await channel.set_permissions(ctx.guild.default_role, overwrite=over)
-            await ctx.send(embed=cembed)
+            await ctx.send(embed=ulcmbed)
 
     # Mute
     @commands.command(name="mute", aliases=["mt"], help="Will mute or unmute the given user")
