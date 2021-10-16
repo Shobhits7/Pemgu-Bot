@@ -13,7 +13,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             F"[Source Code](https://github.com/lvlahraam/Pemgu-Bot)",
             F"[Invite]({discord.utils.oauth_url(client_id=self.bot.user.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))})",
             "[Support](https://discord.gg/bWnjkjyFRz)",
-            F"Discord.PY Version {discord.__version__}"
+            F"Discord.PY Version {discord.__version__}",
             F"In {len(self.bot.guilds)} Servers",
             F"Has {len(self.bot.commands)}",
             F"Owner is <@{self.bot.owner_id}>"
