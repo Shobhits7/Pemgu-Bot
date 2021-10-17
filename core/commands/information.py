@@ -80,26 +80,26 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         member = ctx.author if not member else member
         fetch = await self.bot.fetch_user(member.id)
         gi = [
-            F"***Username:*** {member.name}",
-            F"***Discriminator:*** {member.discriminator}",
-            F"***ID:*** {member.id}",
-            F"***Mention:*** {member.mention}",
-            F"***Badges:*** {', '.join([flag.replace('_', '').title() for flag, enabled in member.public_flags if enabled])}",
-            F"***Activity:*** {'*Nothing*' if not member.activity else member.activity.name}",
-            F"***Status:*** {member.status}",
-            F"***Web-Status:*** {member.web_status}",
-            F"***Desktop-Status:*** {member.desktop_status}",
-            F"***Mobile-Status:*** {member.mobile_status}",
-            F"***Registered:*** {discord.utils.format_dt(member.created_at, style='F')} ({discord.utils.format_dt(member.created_at, style='R')})"
+            F"ᓚ***Username:*** {member.name}",
+            F"ᓚ***Discriminator:*** {member.discriminator}",
+            F"ᓚ***ID:*** {member.id}",
+            F"ᓚ***Mention:*** {member.mention}",
+            F"ᓚ***Badges:*** {', '.join([flag.replace('_', '').title() for flag, enabled in member.public_flags if enabled])}",
+            F"ᓚ***Activity:*** {'*Nothing*' if not member.activity else member.activity.name}",
+            F"ᓚ***Status:*** {member.status}",
+            F"ᓚ***Web-Status:*** {member.web_status}",
+            F"ᓚ***Desktop-Status:*** {member.desktop_status}",
+            F"ᓚ***Mobile-Status:*** {member.mobile_status}",
+            F"ᓚ***Registered:*** {discord.utils.format_dt(member.created_at, style='F')} ({discord.utils.format_dt(member.created_at, style='R')})"
         ]
         si = [
-            F"***Joined:*** {discord.utils.format_dt(member.joined_at, style='F')} ({discord.utils.format_dt(member.joined_at, style='R')})",
-            F"***Roles [{len(member.roles)}]:*** {', '.join(role.mention for role in member.roles)}",
-            F"***Top-Role:*** {member.top_role.mention}",
-            F"***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}",
-            F"***Nickname:*** {member.nick}",
-            F"***Voice:*** {'*Not in a voice*' if not member.voice else member.voice.channel.mention}",
-            F"***Server-Permissions:*** {', '.join([perm.replace('_', ' ').title() for perm, enabled in member.guild_permissions if enabled])}",
+            F"ᓚ***Joined:*** {discord.utils.format_dt(member.joined_at, style='F')} ({discord.utils.format_dt(member.joined_at, style='R')})",
+            F"ᓚ***Roles:*** [{len(member.roles)}]",
+            F"ᓚ***Top-Role:*** {member.top_role.mention}",
+            F"ᓚ***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}",
+            F"ᓚ***Nickname:*** {member.nick}",
+            F"ᓚ***Voice:*** {'*Not in a voice*' if not member.voice else member.voice.channel.mention}",
+            F"ᓚ***Server-Permissions:*** {', '.join([perm.replace('_', ' ').title() for perm, enabled in member.guild_permissions if enabled])}",
         ]
         uimbed = discord.Embed(
             color=self.bot.color if not fetch.accent_color else fetch.accent_color,
@@ -125,12 +125,12 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         for activity in member.activities:
             if isinstance(activity, discord.Spotify):
                 si = [
-                    F"**Artists:** {', '.join(artist for artist in activity.artists)}",
-                    F"**Album:** {activity.album}",
-                    F"**Duration:** {time.strftime('%H:%M:%S', time.gmtime(activity.duration.total_seconds()))}",
-                    F"**Track-ID:** {activity.track_id}",
-                    F"**Party-ID:** {activity.party_id}",
-                    F"**Listening-Since:** {discord.utils.format_dt(activity.created_at, style='f')} ({discord.utils.format_dt(activity.created_at, style='R')})"
+                    F"ᓚ**Artists:** {', '.join(artist for artist in activity.artists)}",
+                    F"ᓚ**Album:** {activity.album}",
+                    F"ᓚ**Duration:** {time.strftime('%H:%M:%S', time.gmtime(activity.duration.total_seconds()))}",
+                    F"ᓚ**Track-ID:** {activity.track_id}",
+                    F"ᓚ**Party-ID:** {activity.party_id}",
+                    F"ᓚ**Listening-Since:** {discord.utils.format_dt(activity.created_at, style='f')} ({discord.utils.format_dt(activity.created_at, style='R')})"
                 ]
                 spotifymbed.color = activity.color
                 spotifymbed.url = activity.track_url
@@ -165,31 +165,31 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     @commands.guild_only()
     async def serverinfo(self, ctx:commands.Context):
         oi = [
-            F"***Username:*** {ctx.guild.owner.name}",
-            F"***Discriminator:*** {ctx.guild.owner.discriminator}",
-            F"***ID:*** {ctx.guild.owner.id}",
-            F"***Mention:*** {ctx.guild.owner.mention}",
-            F"***Badges:*** {', '.join([flag.replace('_', ' ').title() for flag, enabled in ctx.guild.owner.public_flags if enabled])}",
-            F"***Registered:*** {discord.utils.format_dt(ctx.guild.owner.created_at, style='F')} ({discord.utils.format_dt(ctx.guild.owner.created_at, style='R')})"
+            F"ᓚ***Username:*** {ctx.guild.owner.name}",
+            F"ᓚ***Discriminator:*** {ctx.guild.owner.discriminator}",
+            F"ᓚ***ID:*** {ctx.guild.owner.id}",
+            F"ᓚ***Mention:*** {ctx.guild.owner.mention}",
+            F"ᓚ***Badges:*** {', '.join([flag.replace('_', ' ').title() for flag, enabled in ctx.guild.owner.public_flags if enabled])}",
+            F"ᓚ***Registered:*** {discord.utils.format_dt(ctx.guild.owner.created_at, style='F')} ({discord.utils.format_dt(ctx.guild.owner.created_at, style='R')})"
         ]
         si = [
-            F"***Name:*** {ctx.guild}",
-            F"***ID:*** {ctx.guild.id}",
-            F"***Description:*** {'*No Description*' if not ctx.guild.description else ctx.guild.description}",
-            F"***Created-At:*** {discord.utils.format_dt(ctx.guild.created_at, style='F')} ({discord.utils.format_dt(ctx.guild.created_at, style='R')})",
-            F"***Region:*** {ctx.guild.region}",
-            F"***MFA:*** {ctx.guild.mfa_level}",
-            F"***Verification:*** {ctx.guild.verification_level}",
-            F"***File-Size-Limit:*** {ctx.guild.filesize_limit}",
-            F"***Members:*** {ctx.guild.member_count}",
-            F"***Default-Role:*** {ctx.guild.default_role.mention}",
-            F"***Boost-Role:*** {'*No boost-role*' if not ctx.guild.premium_subscriber_role else ctx.guild.premium_subscriber_role.mention}",
-            F"***Boosters:*** {ctx.guild.premium_subscription_count}",
-            F"***Tier:*** {ctx.guild.premium_tier}",
-            F"***Categories:*** {len(ctx.guild.categories)}",
-            F"***Channels:*** {len(ctx.guild.channels)}",
-            F"***AFK-Channel:*** {'*No AFK channel*' if not ctx.guild.afk_channel else ctx.guild.afk_channel.mention}",
-            F"***AFK-Timeout:*** {ctx.guild.afk_timeout}"
+            F"ᓚ***Name:*** {ctx.guild}",
+            F"ᓚ***ID:*** {ctx.guild.id}",
+            F"ᓚ***Description:*** {'*No Description*' if not ctx.guild.description else ctx.guild.description}",
+            F"ᓚ***Created-At:*** {discord.utils.format_dt(ctx.guild.created_at, style='F')} ({discord.utils.format_dt(ctx.guild.created_at, style='R')})",
+            F"ᓚ***Region:*** {ctx.guild.region}",
+            F"ᓚ***MFA:*** {ctx.guild.mfa_level}",
+            F"ᓚ***Verification:*** {ctx.guild.verification_level}",
+            F"ᓚ***File-Size-Limit:*** {ctx.guild.filesize_limit}",
+            F"ᓚ***Members:*** {ctx.guild.member_count}",
+            F"ᓚ***Default-Role:*** {ctx.guild.default_role.mention}",
+            F"ᓚ***Boost-Role:*** {'*No boost-role*' if not ctx.guild.premium_subscriber_role else ctx.guild.premium_subscriber_role.mention}",
+            F"ᓚ***Boosters:*** {ctx.guild.premium_subscription_count}",
+            F"ᓚ***Tier:*** {ctx.guild.premium_tier}",
+            F"ᓚ***Categories:*** {len(ctx.guild.categories)}",
+            F"ᓚ***Channels:*** {len(ctx.guild.channels)}",
+            F"ᓚ***AFK-Channel:*** {'*No AFK channel*' if not ctx.guild.afk_channel else ctx.guild.afk_channel.mention}",
+            F"ᓚ***AFK-Timeout:*** {ctx.guild.afk_timeout}"
         ]
         simbed = discord.Embed(
             color=self.bot.color,
@@ -207,13 +207,13 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     @commands.command(name="emojiinfo", aliases=["ei"], help="Will give information about the given emoji")
     async def emoji(self, ctx:commands.Context, emoji:discord.Emoji):
         ei = [
-            F"***Name:*** {emoji.name}",
-            F"***ID:*** {emoji.id}",
-            F"***Animated:*** {emoji.animated}",
-            F"***Requires-Colons:*** {emoji.require_colons}",
-            F"***Available:*** {emoji.available}",
-            F"***Twitch:*** {emoji.managed}",
-            F"***Created-At:*** {discord.utils.format_dt(emoji.created_at)}"
+            F"ᓚ***Name:*** {emoji.name}",
+            F"ᓚ***ID:*** {emoji.id}",
+            F"ᓚ***Animated:*** {emoji.animated}",
+            F"ᓚ***Requires-Colons:*** {emoji.require_colons}",
+            F"ᓚ***Available:*** {emoji.available}",
+            F"ᓚ***Twitch:*** {emoji.managed}",
+            F"ᓚ***Created-At:*** {discord.utils.format_dt(emoji.created_at)}"
         ]
         emmbed = discord.Embed(
             color=self.bot.color,
