@@ -33,7 +33,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         await ctx.send(embed=dmsgmbed)
 
     # PP
-    @commands.command(name="pp", help="Will tell your pp's size")
+    @commands.command(name="pp", help="Will tell your or the given user's pp size")
     async def pp(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
         ppmbed = discord.Embed(
@@ -148,20 +148,20 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         await ctx.send(embed=_8bmbed)
 
     # Roast
-    @commands.command(name="roast", aliases=["rst"], help="Will roast you or the given user")
+    @commands.command(name="roast", aliases=["rt"], help="Will roast you or the given user")
     async def roast(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
         session = await self.bot.session.get("https://api.dagpi.xyz/data/roast", headers=self.dagpi_headers)
         response = await session.json()
         session.close()
-        rstmbed = discord.Embed(
+        rtmbed = discord.Embed(
             color=self.bot.color,
             title=F"Roasting {user}",
             description=response['roast'],
             timestamp=ctx.message.created_at
         )
-        rstmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=rstmbed)
+        rtmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=rtmbed)
 
     # Tweet
     @commands.command(name="tweet", aliases=["tw"], help="Will preview your tweet")
