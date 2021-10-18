@@ -11,7 +11,7 @@ class Paginator(discord.ui.View):
     async def previous(self, button:discord.ui.Button, interaction:discord.Interaction):
         if self.page == 0:
             button.disabled = True
-            await interaction.response.edit_message(content="There are no more quotes", embed=None, view=button.view)
+            return await interaction.response.edit_message(content="There are no more quotes", embed=None, view=button.view)
         self.page -= 1
         await interaction.response.edit_message(embed=self.embeds[self.page])
 
@@ -23,7 +23,7 @@ class Paginator(discord.ui.View):
     async def next(self, button:discord.ui.Button, interaction:discord.Interaction):
         if len(self.embeds) == self.page:
             button.disabled = True
-            await interaction.response.edit_message(content="There are no more quotes", embed=None, view=button.view)
+            return await interaction.response.edit_message(content="There are no more quotes", embed=None, view=button.view)
         self.page += 1
         await interaction.response.edit_message(embed=self.embeds[self.page])
 
@@ -37,10 +37,10 @@ class Paginator(discord.ui.View):
     async def interaction_check(self, interaction:discord.Interaction):
         if self.page == 0:
             self.previous.disabled = True
-            await interaction.response.edit_message(content="There are no more quotes", embed=None, view=self.previous.view)
+            return await interaction.response.edit_message(content="There are no more quotes", embed=None, view=self.previous.view)
         if len(self.embeds) == self.page:
             self.next.disabled = True
-            await interaction.response.edit_message(content="There are no more quotes", embed=None, view=self.next.view)
+            return await interaction.response.edit_message(content="There are no more quotes", embed=None, view=self.next.view)
         if interaction.user.id == self.ctx.message.author.id:
             return True
         icheckmbed = discord.Embed(

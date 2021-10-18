@@ -25,7 +25,7 @@ class Anime(commands.Cog, description="Some Weeb shit?!"):
             quotembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             embeds.append(quotembed)
         view = Paginator(ctx, embeds)
-        await ctx.send(content="Use the buttons for changing the page", view=view)
+        view.message = await ctx.send(content="Use the buttons for changing the page", embed=embeds[0], view=view)
 
     # SFW
     @commands.group(name="sfw", help="Consider using subcommands", invoke_without_command=True)
