@@ -35,6 +35,12 @@ class Paginator(discord.ui.View):
             return
 
     async def interaction_check(self, interaction:discord.Interaction):
+        if self.page == 0:
+            self.previous.disabled = True
+            await interaction.response.edit_message(content="There are no more quotes", embed=None, view=self.previous.view)
+        if len(self.embeds) == self.page:
+            self.next.disabled = True
+            await interaction.response.edit_message(content="There are no more quotes", embed=None, view=self.next.view)
         if interaction.user.id == self.ctx.message.author.id:
             return True
         icheckmbed = discord.Embed(
