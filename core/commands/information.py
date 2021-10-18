@@ -12,7 +12,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         ai = [
             F"[Source Code](https://github.com/lvlahraam/Pemgu-Bot)",
             F"[Invite]({discord.utils.oauth_url(client_id=self.bot.user.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))})",
-            "[Support](https://discord.gg/bWnjkjyFRz)",
+            "[Support](https://discord.gg/Gw9wjvusQX)",
             F"Discord.PY Version {discord.__version__}",
             F"In {len(self.bot.guilds)} Servers",
             F"Has {len(self.bot.commands)}",
@@ -155,9 +155,9 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         )
         icmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if ctx.guild.icon:
-            icmbed.title = F"{ctx.guild}'s Icon",
+            icmbed.title = F"{ctx.guild.name}'s Icon",
             icmbed.set_thumbnail(url=ctx.guild.icon.url)
-        else: icmbed.title = F"{ctx.guild} doesn't have icon"
+        else: icmbed.title = F"{ctx.guild.name} doesn't have icon"
         await ctx.send(embed=icmbed)
 
     # ServerInfo
@@ -173,7 +173,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             F"ᓚ***Registered:*** {discord.utils.format_dt(ctx.guild.owner.created_at, style='F')} ({discord.utils.format_dt(ctx.guild.owner.created_at, style='R')})"
         ]
         si = [
-            F"ᓚ***Name:*** {ctx.guild}",
+            F"ᓚ***Name:*** {ctx.guildguild.name}",
             F"ᓚ***ID:*** {ctx.guild.id}",
             F"ᓚ***Description:*** {'*No Description*' if not ctx.guild.description else ctx.guild.description}",
             F"ᓚ***Created-At:*** {discord.utils.format_dt(ctx.guild.created_at, style='F')} ({discord.utils.format_dt(ctx.guild.created_at, style='R')})",

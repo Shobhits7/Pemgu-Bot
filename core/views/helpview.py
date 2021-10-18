@@ -55,7 +55,7 @@ class PaginatorView(discord.ui.View):
         self.add_item(item=PaginatorButtons(emoji="⏹", style=discord.ButtonStyle.red, view=self))
         self.add_item(item=PaginatorButtons(emoji="⏭", style=discord.ButtonStyle.blurple, view=self))
         self.add_item(item=discord.ui.Button(emoji="🧇", label="Invite", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
-        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support", url="https://discord.gg/bWnjkjyFRz"))
+        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support", url="https://discord.gg/Gw9wjvusQX"))
         self.add_item(item=discord.ui.Button(emoji="👨‍💻", label="Github", url="https://github.com/lvlahraam/Pemgu-Bot"))
 
     async def on_timeout(self):
@@ -125,7 +125,7 @@ class SelectView(discord.ui.View):
                 options.append(option)
         self.add_item(item=SelectUI(placeholder="Where do you want to go...", options=options, min_values=1, max_values=1, view=self))
         self.add_item(item=discord.ui.Button(emoji="🧇", label="Invite", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
-        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support", url="https://discord.gg/bWnjkjyFRz"))
+        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support", url="https://discord.gg/Gw9wjvusQX"))
         self.add_item(item=discord.ui.Button(emoji="👨‍💻", label="Github", url="https://github.com/lvlahraam/Pemgu-Bot"))
 
     @discord.ui.button(emoji="🏠", label="Home", style=discord.ButtonStyle.green)
@@ -203,7 +203,7 @@ class ButtonView(discord.ui.View):
             if not name.startswith("On"):
                 self.add_item(item=ButtonUI(emoji=self.help.emojis.get(name), label=name, style=discord.ButtonStyle.blurple, custom_id=name, view=self))
         self.add_item(item=discord.ui.Button(emoji="🧇", label="Invite", url=discord.utils.oauth_url(client_id=self.help.context.me.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions(administrator=True))))
-        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support", url="https://discord.gg/bWnjkjyFRz"))
+        self.add_item(item=discord.ui.Button(emoji="🍩", label="Support", url="https://discord.gg/Gw9wjvusQX"))
         self.add_item(item=discord.ui.Button(emoji="👨‍💻", label="Github", url="https://github.com/lvlahraam/Pemgu-Bot"))
 
     @discord.ui.button(emoji="🏠", label="Home", style=discord.ButtonStyle.green)
