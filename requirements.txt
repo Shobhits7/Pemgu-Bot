@@ -2,4 +2,4 @@ PyNaCl
 Pillow
 asyncpg
 git+https://github.com/Gorialis/jishaku
-git+https://github.com/Pycord-Development/pycord
+git+https://github.com/iDevision/enhanced-discord.py
