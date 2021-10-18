@@ -1,7 +1,6 @@
 import discord, contextlib
 from discord.ext import commands
 import core.views.helpview as hv
-from core.utils.pagination import Paginator
 
 class MinimalHelp(commands.MinimalHelpCommand):
     def __init__(self):
@@ -58,35 +57,14 @@ class CustomHelp(commands.HelpCommand):
             "Alone": "🔮"
         }
 
-    def gts(self, command):
-        return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
-
     # Help Main
     async def send_bot_help(self, mapping):
-        homepage = discord.Embed(
-            color=self.context.bot.color,
-            title=F"{self.context.me.name} Help",
-        )
-        homepage.add_field(name="Prefix:", value=self.context.clean_prefix)
-        homepage.add_field(name="Arguments", value="[] means the argument is optional\n<> means the argument is needed\n***DO NOT PUT THESE WHEN USING A COMMAND***")
-        embeds = [homepage]
-        for cog, commands in mapping.items():
-            name = cog.qualified_name if cog else "Alone"
-            description = cog.description if cog else "Commands without category"
-            cmds = cog.walk_commands() if cog else commands
-            if not name.startswith("On"):
-                mbed = discord.Embed(
-                    color=self.context.bot.color,
-                    title=F"{self.emojis.get(name) if self.emojis.get(name) else '❓'} {name} Category",
-                    description=F"{description}\n\n{''.join(self.gts(command) for command in cmds)}",
-                    timestamp=self.context.message.created_at
-                )
-                mbed.set_thumbnail(url=self.context.me.display_avatar.url)
-                mbed.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
-                mbed.set_footer(text="<> is required | [] is optional")
-                embeds.append(mbed)
-        view = Paginator(self.context, embeds)
-        await self.context.send(content="Are you lost ?", embed=embeds[0], view=view)
+        view = hv.ButtonView(self, mapping)
+        view.homepage.add_field(name="Prefix:", value=self.context.prefix or "In DM you don't need to use prefix")
+        view.homepage.add_field(name="Arguments:", value="[] means the argument is optional.\n<> means the argument is required.\n***DO NOT USE THESE WHEN DOING A COMMAND***")
+        view.homepage.set_thumbnail(url=self.context.me.display_avatar.url)
+        view.homepage.set_author(name=self.context.author, icon_url=self.context.author.display_avatar.url)
+        view.message = await self.context.send(content="Are you lost ?", embed=view.homepage, view=view)
         return
 
     # Help Cog
