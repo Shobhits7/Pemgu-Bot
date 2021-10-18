@@ -46,9 +46,12 @@ class PemguBase(commands.AutoShardedBot):
         color = random.choice([0x224585, 0x1D4E9A, 0x4879CE, 0x142966, 0x093C84])
         return color
 
+    @classmethod
+    def trim(text: str, limit: int):
+        return text[:limit-3].strip() + "..." if len(text) > limit else text
+
 bot = PemguBase(
     slash_commands=True,
-    slash_command_guilds=[804380398296498256],
     command_prefix=get_prefix,
     strip_after_prefix=True,
     case_insensitive=True,
