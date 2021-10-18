@@ -283,6 +283,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     # Source
     @commands.command(name="source", aliases=["src"], help="Will show the bots source")
     async def source(self, ctx:commands.Context, command:str=None):
+        backtik = "`"
         source_url = "https://github.com/lvlahraam/Pemgu-Bot"
         if not command:
             return await ctx.send(source_url)
@@ -296,15 +297,9 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
                 return await ctx.send("Could not find command.")
             src = obj.callback.__code__
             module = obj.callback.__module__
-            filename = src.co_filename
-        lines, firstlineno = inspect.getsourcelines(src)
-        if not module.startswith("discord"):
-            location = os.path.relpath(filename).replace("\\", "/")
-        else:
-            location = module.replace(".", "/") + ".py"
-            source_url = "https://github.com/lvlahraam/Pemgu-Bot"
+            filename = inspect.getsource(src.co_filename)
         final_url = F"<{source_url}/blob/main/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}>"
-        await ctx.send(final_url)
+        await ctx.send(F"{backtik*3}py\n{filename}\n{backtik*3}")
 
     # RickAndMorty
     @commands.group(name="rickandmorty", aliases=["ram"], help="Consider using subcommands", invoke_without_command=True)
