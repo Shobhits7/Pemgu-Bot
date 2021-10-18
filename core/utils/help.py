@@ -58,9 +58,18 @@ class CustomHelp(commands.HelpCommand):
             "Alone": "🔮"
         }
 
+    def gts(self, command):
+        return F"• **{command.qualified_name}** {command.signature} - {command.help or 'No help found...'}\n"
+
     # Help Main
     async def send_bot_help(self, mapping):
-        embeds = []
+        homepage = discord.Embed(
+            color=self.context.bot.color,
+            title=F"{self.context.me.name} Help",
+        )
+        homepage.add_field(name="Prefix:", value=self.context.clean_prefix)
+        homepage.add_field(name="Arguments", value="[] means the argument is optional\n<> means the argument is needed\n***DO NOT PUT THESE WHEN USING A COMMAND***")
+        embeds = [homepage]
         for cog, commands in mapping.items():
             name = cog.qualified_name if cog else "Alone"
             description = cog.description if cog else "Commands without category"
