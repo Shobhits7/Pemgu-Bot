@@ -165,8 +165,8 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     # Mute
     @commands.command(name="mute", aliases=["mt"], help="Will mute or unmute the given user")
     @commands.guild_only()
-    @commands.has_guild_permissions(manage_members=True)
-    @commands.bot_has_guild_permissions(manage_roles=True, manage_channels=True)
+    @commands.has_guild_permissions(manage_member=True)
+    @commands.bot_has_guild_permissions(manage_member=True, manage_roles=True, manage_channels=True)
     async def mute(self, ctx:commands.Context, member:discord.Member, *, reason:str=None):
         mtmbed = discord.Embed(
             color=self.bot.color,
