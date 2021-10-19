@@ -174,7 +174,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         )
         mtmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         for role in ctx.guild.roles:
-            if role.name == "Muted" and role.color == discord.Color.red():
+            if role.name == "Muted":
                 muterole = role
                 break
         else:
