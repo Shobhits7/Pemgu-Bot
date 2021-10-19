@@ -195,7 +195,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
                 await channel.set_permissions(muterole, send_messages=False)
         if muterole in member.roles:
             mtmbed.title = F"Successfully Un-Muted"
-            mtmbed.description = F"UnMuted: {member.mention}\nReason: {reason}Role: {muterole.mention}"
+            mtmbed.description = F"UnMuted: {member.mention}\nReason: {reason}\nRole: {muterole.mention}"
             await member.remove_roles(muterole, reason=F"UnMuted by {ctx.author}, Because: {reason}")
             await ctx.send(embed=mtmbed)
         else:
