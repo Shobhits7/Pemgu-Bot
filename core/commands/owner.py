@@ -147,18 +147,18 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         if not user:
             reloadmbed = discord.Embed(
                 color=self.bot.color,
-                title="Users in Blacklist",
                 description="",
                 timestamp=ctx.message.created_at
             )
             reloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             blacklisted = await self.bot.postgres.fetch("SELECT * FROM blacklist")
             if not blacklisted:
-                reloadmbed.description += "Nobody is in Blacklist"
+                reloadmbed.title += "Nobody is in Blacklist"
             else:
+                reloadmbed.title = "Users in Blacklist"
                 for users in blacklisted:
                     user = self.bot.get_user(users["user_id"])
-                    reloadmbed.description += F"{user.mention} - {users['reason']}\n"
+                    reloadmbed.description += F"{user} | {user.mention} - {users['reason']}\n"
             return await ctx.send(embed=reloadmbed)
         blacklisted = await self.bot.postgres.fetchval("SELECT user_id FROM blacklist WHERE user_id=$1", user.id)
         blacklistmbed = discord.Embed(
