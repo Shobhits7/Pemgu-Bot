@@ -155,7 +155,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         )
         icmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if ctx.guild.icon:
-            icmbed.title = F"{ctx.guild} 's Icon",
+            icmbed.title = F"{ctx.guild.name}'s Icon",
             icmbed.set_thumbnail(url=ctx.guild.icon.url)
         else: icmbed.title = F"{ctx.guild.name} doesn't have icon"
         await ctx.send(embed=icmbed)
@@ -193,7 +193,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         ]
         simbed = discord.Embed(
             color=self.bot.color,
-            title=F"{ctx.guild} 's Information",
+            title=F"{ctx.guild.name}'s Information",
             timestamp=ctx.message.created_at
         )
         simbed.add_field(name="Owner-Information:", value="\n".join(o for o in oi), inline=False)
