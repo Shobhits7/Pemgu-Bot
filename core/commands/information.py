@@ -150,19 +150,22 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         user = ctx.author if not user else user
         ok_emote = "<:fine:896063337958350919>"
         allowed_emote = "<:allow:896062865071566898>"
+        allowed = []
         denied_emote = "<:deny:896062993090084974>"
+        denied = []
         permsmbed = discord.Embed(
             color=self.bot.color,
             title=F"{ok_emote} {user}'s Permissions",
-            description="",
             timestamp=ctx.message.created_at
         )
         for permission, value in user.guild_permissions:
             permission = permission.replace("_", " ").title()
             if value:
-                permsmbed.description += F"{allowed_emote} - {permission}\n"
+                allowed.append(F"{allowed_emote} - {permission}\n")
             if not value:
-                permsmbed.description += F"{denied_emote} - {permission}\n"
+                denied.append(F"{denied_emote} - {permission}\n")
+        permsmbed.add_field(name=F"{allowed_emote} Allowed:", value="".join(a for a in allowed))
+        permsmbed.add_field(name=F"{denied_emote} Denied:", value="".join(d for d in denied))
         permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=permsmbed)
 
