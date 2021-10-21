@@ -27,6 +27,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         laembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         view = cum.Confirm(ctx)
         view.message = await ctx.send(content="Are you sure you want the bot to leave:", view=view)
+        await view.wait()
         if view.value:
             laembed.title = F"{self.bot.user} has successfully left"
             await ctx.send(embed=laembed)
