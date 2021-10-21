@@ -9,12 +9,12 @@ class RPSButtons(discord.ui.Button):
         self.useroption = view.useroption
 
     async def callback(self, interaction:discord.Interaction):
-        if self.label == "Rock":
-            self.useroption = "Rock"
-        elif self.label == "Paper":
-            self.useroption = "Paper"
-        elif self.label == "Scissors":
-            self.useroption = "Scissors"
+        if self.emoji == "🗻":
+            self.useroption = "🗻"
+        elif self.emoji == "🧻":
+            self.useroption = "🧻"
+        elif self.emoji == "🔪":
+            self.useroption = "🔪"
         tierpsmbed = discord.Embed(
             color=self.ctx.bot.color,
             description=F"We both chose **{self.botoption}**, It's a tie :|",
@@ -53,9 +53,9 @@ class RPSView(discord.ui.View):
         self.ctx = ctx
         self.botoption = random.choice(["Rock", "Paper", "Scissors"])
         self.useroption = ""
-        self.add_item(item=RPSButtons(emoji="🗻", label="Rock", style=discord.ButtonStyle.green, view=self))
-        self.add_item(item=RPSButtons(emoji="🧻", label="Paper", style=discord.ButtonStyle.blurple, view=self))
-        self.add_item(item=RPSButtons(emoji="🔪", label="Scissors", style=discord.ButtonStyle.red, view=self))
+        self.add_item(item=RPSButtons(emoji="🗻", tyle=discord.ButtonStyle.green, view=self))
+        self.add_item(item=RPSButtons(emoji="🧻", style=discord.ButtonStyle.blurple, view=self))
+        self.add_item(item=RPSButtons(emoji="🔪", style=discord.ButtonStyle.red, view=self))
 
     async def on_timeout(self):
         if self.children:
