@@ -157,7 +157,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             description="",
             timestamp=ctx.message.created_at
         )
-        for permission, value in ctx.me.guild_permissions:
+        for permission, value in user.guild_permissions:
             permission = permission.replace("_", " ").title()
             if value:
                 permsmbed.description += F"{allowed_emote} - {permission}\n"
