@@ -148,10 +148,10 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     @commands.command(name="permissions", aliases=["perms"], help="Will show your or the given member's permissions")
     async def permissions(self, ctx:commands.Context, user:discord.Member=None):
         user = ctx.author if not user else user
-        ok_emote = "<:fine:896063337958350919>"
-        allowed_emote = "<:allow:896062865071566898>"
+        ok_emote = "<:ko:896063337958350919>"
+        allowed_emote = "<:ye:896062865071566898>"
         allowed = []
-        denied_emote = "<:deny:896062993090084974>"
+        denied_emote = "<:no:896062993090084974>"
         denied = []
         permsmbed = discord.Embed(
             color=self.bot.color,

@@ -85,22 +85,22 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         )
         if not cog:
             reloadmbed.title = "Successfully reloaded every cog"
-            reloadmbed.description += F"<:greyTick:596576672900186113> Commands:\n"
+            reloadmbed.description += F"<:ko:896063337958350919> Commands:\n"
             for command in self.bot._commands:
                 try:
                     self.bot.reload_extension(F"core.commands.{command}")
-                    reloadmbed.description += F"<:greenTick:596576670815879169> - {command}\n"
+                    reloadmbed.description += F"<:ye:896062865071566898> - {command}\n"
                 except Exception as error:
-                    reloadmbed.description += F"<:redTick:596576672149667840> - {command}\n"
-                    reloadmbed.description += F"<:redTick:596576672149667840> - {error}\n"
-            reloadmbed.description += F"<:greyTick:596576672900186113> Events:\n"
+                    reloadmbed.description += F"<:no:896062993090084974> - {command}\n"
+                    reloadmbed.description += F"<:no:896062993090084974> - {error}\n"
+            reloadmbed.description += F"<:ko:896063337958350919> Events:\n"
             for event in self.bot._events:
                 try:
                     self.bot.reload_extension(F"core.events.{event}")
-                    reloadmbed.description += F"<:greenTick:596576670815879169> - {event}\n"
+                    reloadmbed.description += F"<:ye:896062865071566898> - {event}\n"
                 except Exception as error:
-                    reloadmbed.description += F"<:redTick:596576672149667840> - {event}\n"
-                    reloadmbed.description += F"<:redTick:596576672149667840> - {error}\n"
+                    reloadmbed.description += F"<:no:896062993090084974> - {event}\n"
+                    reloadmbed.description += F"<:no:896062993090084974> - {error}\n"
             return await ctx.send(embed=reloadmbed)
         reloadmbed.title = F"Successfully reloaded {cog}."
         self.bot.reload_extension(cog)
