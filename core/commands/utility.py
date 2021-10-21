@@ -17,6 +17,21 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         await ctx.channel.purge(limit=amount, check=lambda m: m.author.id == self.bot.user.id)
         await ctx.send(embed=cumbed, delete_after=5)
 
+    # Leave
+    @commands.command(name="leave", aliases=["lae"], help="Will make the bot leave")
+    async def leave(self, ctx:commands.Context):
+        laembed = discord.Embed(
+            color=self.bot.color,
+            timestamp=ctx.message.created_at
+        )
+        laembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        view = cum.Confirm(ctx)
+        view.message = await ctx.send(content="Are you sure you want the bot to leave:", view=view)
+        if view.value:
+            laembed.title = F"{self.bot.user} has successfully left"
+            await ctx.send(embed=laembed)
+            await ctx.me.guild.leave()
+
     # Invite
     @commands.command(name="invite", aliases=["ie"], help="Will make a send the link for adding the bot")
     async def invite(self, ctx:commands.Context):
