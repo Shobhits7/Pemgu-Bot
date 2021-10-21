@@ -21,6 +21,13 @@ async def create_session_aiohttp():
 class PemguBase(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.slash_commands = True
+        self.command_prefix = get_prefix
+        self.strip_after_prefix = True
+        self.case_insensitive = True
+        self.help_command = help.CustomHelp()
+        self.intents = discord.Intents.all()
+        self.allowed_mentions = discord.AllowedMentions.none()
         self.prefix = ".m"
         self._commands = []
         for command in sorted(os.listdir("./core/commands/")):
@@ -50,15 +57,7 @@ class PemguBase(commands.AutoShardedBot):
     def trim(text: str, limit: int):
         return text[:limit-3].strip() + "..." if len(text) > limit else text
 
-bot = PemguBase(
-    slash_commands=True,
-    command_prefix=get_prefix,
-    strip_after_prefix=True,
-    case_insensitive=True,
-    help_command=help.CustomHelp(),
-    intents=discord.Intents.all(),
-    allowed_mentions=discord.AllowedMentions.none()
-)
+bot = PemguBase()
 
 @bot.check
 async def blacklisted(ctx:commands.Context):
