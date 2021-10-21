@@ -6,7 +6,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         self.bot = bot
 
     # Ban
-    @commands.command(name="ban", aliases=["bn"], help="Will ban the user")
+    @commands.command(name="ban", aliases=["bn"], help="Will ban the given user")
     @commands.guild_only()
     @commands.has_guild_permissions(ban_members=True)
     @commands.bot_has_guild_permissions(ban_members=True)
@@ -30,7 +30,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         await ctx.send(embed=abnmbed)
 
     # Unban
-    @commands.command(name="unban", aliases=["un"], help="Will unban the user")
+    @commands.command(name="unban", aliases=["un"], help="Will unban the given user")
     @commands.guild_only()
     @commands.has_guild_permissions(ban_members=True)
     @commands.bot_has_guild_permissions(ban_members=True)
@@ -53,7 +53,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         await ctx.send(embed=aunmbed)
 
     # Kick
-    @commands.command(name="kick", aliases=["kc"], help="Will kick the user")
+    @commands.command(name="kick", aliases=["kc"], help="Will kick the given user")
     @commands.guild_only()
     @commands.has_guild_permissions(kick_members=True)
     @commands.bot_has_guild_permissions(kick_members=True)
@@ -205,7 +205,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             await ctx.send(embed=mtmbed)
 
     # Purge
-    @commands.command(name="purge", aliases=["pu"], help="Will delete messages")
+    @commands.command(name="purge", aliases=["pu"], help="Will delete messages with the given amount")
     @commands.guild_only()
     @commands.has_guild_permissions(manage_messages=True)
     @commands.bot_has_guild_permissions(manage_messages=True)

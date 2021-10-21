@@ -1,4 +1,4 @@
-import discord, time, os, io, inspect
+import discord, time, os, io
 from discord.ext import commands
 
 class Information(commands.Cog, description="Stalking people is wrong and bad!"):
@@ -98,8 +98,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             F"ᓚ***Top-Role:*** {member.top_role.mention}",
             F"ᓚ***Boosting:*** {'True' if member in ctx.guild.premium_subscribers else 'False'}",
             F"ᓚ***Nickname:*** {member.nick}",
-            F"ᓚ***Voice:*** {'*Not in a voice*' if not member.voice else member.voice.channel.mention}",
-            F"ᓚ***Server-Permissions:*** {', '.join([perm.replace('_', ' ').title() for perm, enabled in member.guild_permissions if enabled])}",
+            F"ᓚ***Voice:*** {'*Not in a voice*' if not member.voice else member.voice.channel.mention}"
         ]
         uimbed = discord.Embed(
             color=self.bot.color if not fetch.accent_color else fetch.accent_color,
@@ -145,17 +144,39 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             spotifymbed.title = F"{member} is not listening to Spotify"
             await ctx.send(embed=spotifymbed)
 
+    # Permissions
+    @commands.command(name="permissions", aliases=["perms"], help="Will show your or the given member's permissions")
+    async def permissions(self, ctx:commands.Context, user:discord.Member=None):
+        user = ctx.author if not user else user
+        ok_emote = "<:fine:896063337958350919>"
+        allowed_emote = "<:allow:896062865071566898>"
+        denied_emote = "<:deny:896062993090084974>"
+        permsmbed = discord.Embed(
+            color=self.bot.color,
+            title=F"{ok_emote} {user}'s Permissions",
+            description="",
+            timestamp=ctx.message.created_at
+        )
+        for permission, value in ctx.me.guild_permissions:
+            permission = permission.replace("_", " ").title()
+            if value:
+                permsmbed.description += F"{allowed_emote} - {permission}\n"
+            if not value:
+                permsmbed.description += F"{denied_emote} - {permission}\n"
+        permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=permsmbed)
+
     # Icon
     @commands.command(name="icon", aliases=["ic"], help="Will show the server's icon")
     @commands.guild_only()
     async def icon(self, ctx:commands.Context):
         icmbed = discord.Embed(
             color=self.bot.color,
+            title=F"{ctx.guild}'s Icon",
             timestamp=ctx.message.created_at
         )
         icmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if ctx.guild.icon:
-            icmbed.title = F"{ctx.guild.name}'s Icon",
             icmbed.set_thumbnail(url=ctx.guild.icon.url)
         else: icmbed.title = F"{ctx.guild.name} doesn't have icon"
         await ctx.send(embed=icmbed)
@@ -224,132 +245,6 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         emmbed.set_image(url=emoji.url)
         emmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=emmbed)
-
-    # Ping
-    @commands.command(name="ping", aliases=["pi"], help="Will show bot's ping")
-    async def ping(self, ctx:commands.Context):
-        unpimbed = discord.Embed(
-            color=self.bot.color,
-            title="🎾 Pinging...",
-            timestamp=ctx.message.created_at
-        )
-        unpimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        start = time.perf_counter()
-        unpimsg = await ctx.send(embed=unpimbed)
-        end = time.perf_counter()
-        dopimbed = discord.Embed(
-            color=self.bot.color,
-            title="🏓 Pong:",
-            description=F"Websocket: {self.bot.latency * 1000}ms\nTyping: {(end - start) * 1000}ms",
-            timestamp=ctx.message.created_at
-        )
-        dopimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await unpimsg.edit(embed=dopimbed)
-
-    # Permissions
-    @commands.command(name="permissions", aliases=["perms"], help="Will show the permissions that the bot has in this guild")
-    async def permissions(self, ctx:commands.Context):
-        ok_emote = "<:fine:896063337958350919>"
-        allowed_emote = "<:allow:896062865071566898>"
-        denied_emote = "<:deny:896062993090084974>"
-        permsmbed = discord.Embed(
-            color=self.bot.color,
-            title=F"{ok_emote} Bot Permissions",
-            description="",
-            timestamp=ctx.message.created_at
-        )
-        for permission, value in ctx.me.guild_permissions:
-            permission = permission.replace("_", " ").title()
-            if value:
-                permsmbed.description += F"{allowed_emote} - {permission}\n"
-            if not value:
-                permsmbed.description += F"{denied_emote} - {permission}\n"
-        permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=permsmbed)
-
-    # Invite
-    @commands.command(name="invite", aliases=["ie"], help="Will make a send the link for adding the bot")
-    async def invite(self, ctx:commands.Context):
-        iembed = discord.Embed(
-            color=self.bot.color,
-            title="Here is the invite link for adding the bot",
-            url=discord.utils.oauth_url(client_id=self.bot.user.id, scopes=("bot", "applications.commands"), permissions=discord.Permissions(administrator=True)),
-            description="Thank you for adding and inviting me!",
-            timestamp=ctx.message.created_at
-        )
-        iembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=iembed)
-
-    # Source
-    @commands.command(name="source", aliases=["src"], help="Will show the bots source")
-    async def source(self, ctx:commands.Context, command:str=None):
-        source_url = "https://github.com/lvlahraam/Pemgu-Bot"
-        if not command:
-            return await ctx.send(source_url)
-        if command == "help":
-            src = type(self.bot.help_command)
-            module = src.__module__
-            filename = inspect.getsourcefile(src)
-        else:
-            obj = self.bot.get_command(command.replace(".", " "))
-            if not obj:
-                return await ctx.send("Could not find command.")
-            src = obj.callback.__code__
-            module = obj.callback.__module__
-            filename = src.co_filename
-        lines, firstlineno = inspect.getsourcelines(src)
-        if not module.startswith("discord"):
-            location = os.path.relpath(filename).replace("\\", "/")
-        else:
-            location = module.replace(".", "/") + ".py"
-            source_url = "https://github.com/lvlahraam/Pemgu-Bot"
-        final_url = F"<{source_url}/blob/main/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}>"
-        await ctx.send(final_url)
-
-    # RickAndMorty
-    @commands.group(name="rickandmorty", aliases=["ram"], help="Consider using subcommands", invoke_without_command=True)
-    async def rickandmorty(self, ctx:commands.Context):
-        await ctx.send_help("rickandmorty")
-
-    # RickAndMorty-Character
-    @rickandmorty.command(name="character", aliases=["char"], help="Will show information about the given character")
-    async def character(self, ctx:commands.Context, *, character:str):
-        session = await self.bot.session.get(F"https://rickandmortyapi.com/api/character/?name={character}")
-        if session.status != 200:
-            await ctx.send("Couldn't find that character in Rick And Morty")
-            return
-        response = await session.json()
-        session.close()
-        ci = [
-            F"Stauts: {response['results'][0]['status']}",
-            F"Species: {response['results'][0]['species']}",
-            F"Type: {'Unknown' if not response['results'][0]['type'] else response['results'][0]['type']}",
-            F"Gender: {response['results'][0]['gender']}",
-            F"Origin: {response['results'][0]['origin']['name']}",
-            F"Location: {response['results'][0]['location']['name']}",
-            F"Created: {response['results'][0]['created']}"
-        ]
-        ramchmbed = discord.Embed(
-            color=self.bot.color,
-            url=response['results'][0]['url'],
-            title=F"{response['results'][0]['name']}'s Information",
-            description="\n".join(c for c in ci),
-            timestamp=ctx.message.created_at,
-        )
-        ramchmbed.set_image(url=response['results'][0]['image'])
-        await ctx.send(embed=ramchmbed)
-
-    # RickAndMorty-Location
-    @rickandmorty.command(name="location", aliases=["loc"], help="Will show information about the given location")
-    async def location(self, ctx:commands.Context, *, location:str):
-        session = await self.bot.session.get("...")
-        response = await session.json()
-
-    # RickAndMorty-Episode
-    @rickandmorty.command(name="episode", aliases=["ep"], help="Will show information about the given episode")
-    async def episode(self, ctx:commands.Context, *, episode:int):
-        session = await self.bot.session.get("...")
-        response = await session.json()
 
 def setup(bot):
     bot.add_cog(Information(bot))

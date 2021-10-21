@@ -115,18 +115,14 @@ class GuessView(discord.ui.View):
         self.ctx = ctx
         self.choose = None
         self.number = random.randint(1, 5)
-        row = 0
-        for _ in range(1, 6):
-            row += 1
-            if row >= 5:
-                row -= 1
-            self.add_item(item=GuessButtons(label=_, style=discord.ButtonStyle.green, row=row, view=self))
+        for _ in range(1, 4):
+            self.add_item(item=GuessButtons(label=_, style=discord.ButtonStyle.green, view=self))
     
     async def on_timeout(self):
         if self.children:
             for item in self.children:
                 self.clear_items()
-                self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...", style=discord.ButtonStyle.red, disabled=True))
+                self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer", style=discord.ButtonStyle.red, disabled=True))
                 await self.message.edit(view=self)
 
     async def interaction_check(self, interaction:discord.Interaction):

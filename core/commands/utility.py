@@ -1,4 +1,4 @@
-import discord
+import discord, time, inspect, os
 from discord.ext import commands
 import core.views.confirm as cum
 
@@ -14,8 +14,68 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             title=F"Cleaned-up {amount} of bot messages",
         )
         cumbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.channel.purge(limit=amount+1, check=lambda m: m.author.id == self.bot.user.id, bulk=False)
+        await ctx.channel.purge(limit=amount, check=lambda m: m.author.id == self.bot.user.id)
         await ctx.send(embed=cumbed, delete_after=5)
+
+    # Invite
+    @commands.command(name="invite", aliases=["ie"], help="Will make a send the link for adding the bot")
+    async def invite(self, ctx:commands.Context):
+        iembed = discord.Embed(
+            color=self.bot.color,
+            title="Here is the invite link for adding the bot",
+            url=discord.utils.oauth_url(client_id=self.bot.user.id, scopes=("bot", "applications.commands"), permissions=discord.Permissions(administrator=True)),
+            description="Thank you for adding and inviting me!",
+            timestamp=ctx.message.created_at
+        )
+        iembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=iembed)
+
+    # Ping
+    @commands.command(name="ping", aliases=["pi"], help="Will show bot's ping")
+    async def ping(self, ctx:commands.Context):
+        unpimbed = discord.Embed(
+            color=self.bot.color,
+            title="🎾 Pinging...",
+            timestamp=ctx.message.created_at
+        )
+        unpimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        start = time.perf_counter()
+        unpimsg = await ctx.send(embed=unpimbed)
+        end = time.perf_counter()
+        dopimbed = discord.Embed(
+            color=self.bot.color,
+            title="🏓 Pong:",
+            description=F"Websocket: {self.bot.latency * 1000}ms\nTyping: {(end - start) * 1000}ms",
+            timestamp=ctx.message.created_at
+        )
+        dopimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await unpimsg.edit(embed=dopimbed)
+
+    # Source
+    @commands.command(name="source", aliases=["src"], help="Will show the bots source")
+    async def source(self, ctx:commands.Context, command:str=None):
+        source_url = "https://github.com/lvlahraam/Pemgu-Bot"
+        if not command:
+            return await ctx.send(source_url)
+        if command == "help":
+            src = type(self.bot.help_command)
+            module = src.__module__
+            filename = inspect.getsourcefile(src)
+        else:
+            obj = self.bot.get_command(command.replace(".", " "))
+            if not obj:
+                return await ctx.send("Could not find command.")
+            src = obj.callback.__code__
+            module = obj.callback.__module__
+            filename = src.co_filename
+        lines, firstlineno = inspect.getsourcelines(src)
+        if not module.startswith("discord"):
+            location = os.path.relpath(filename).replace("\\", "/")
+        else:
+            location = module.replace(".", "/") + ".py"
+            source_url = "https://github.com/lvlahraam/Pemgu-Bot"
+        final_url = F"<{source_url}/blob/main/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}>"
+        await ctx.send(final_url)
 
     # PYPI
     @commands.command(name="pypi", help="Will give information about the given library in PYPI")

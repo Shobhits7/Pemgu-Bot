@@ -6,7 +6,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         self.bot = bot
 
     # Eval
-    @commands.command(name="eval", help="Evaluates a code")
+    @commands.command(name="eval", help="Evaluates the given code")
     @commands.is_owner()
     async def _eval(self, ctx, *, body:str):
         env = {
@@ -75,16 +75,16 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         await ctx.send(embed=unloadmbed)
   
     # Reload
-    @commands.command(name="reload", help="Will reload the given or every cog")
+    @commands.command(name="reload", help="Will reload the every or given cog")
     @commands.is_owner()
     async def reload(self, ctx:commands.Context, *, cog:str=None):
         reloadmbed = discord.Embed(
             color=self.bot.color,
+            description="",
             timestamp=ctx.message.created_at
         )
         if not cog:
             reloadmbed.title = "Successfully reloaded every cog"
-            reloadmbed.description = ""
             reloadmbed.description += F"<:greyTick:596576672900186113> Commands:\n"
             for command in self.bot._commands:
                 try:
@@ -140,7 +140,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         await self.bot.close()
 
     # Blacklist
-    @commands.command(name="blacklist", help="Will put the given user to blacklist")
+    @commands.command(name="blacklist", help="Will put-in or put-out the given user from blacklist")
     @commands.is_owner()
     async def blacklist(self, ctx:commands.Context, user:discord.User=None, *, reason:str=None):
         if not reason: reason = "No reason was provided"
@@ -190,23 +190,6 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         ssmbed.set_image(url="attachment://screenshot.png")
         ssmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(file=discord.File(fp=response, filename="screenshot.png"), embed=ssmbed)
-
-    # Template
-    @commands.command(name="template", aliases=["te"], help="Will give the guild's template")
-    @commands.is_owner()
-    @commands.guild_only()
-    @commands.has_guild_permissions(manage_guild=True)
-    @commands.bot_has_guild_permissions(manage_guild=True)
-    async def template(self, ctx:commands.Context):
-        tembed = discord.Embed(
-            color=self.bot.color,
-            title="Please check your DM",
-            timestamp=ctx.message.created_at
-        )
-        tembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=tembed)
-        temp = await ctx.guild.templates()
-        await ctx.author.send(temp)
 
 def setup(bot):
     bot.add_cog(Owner(bot))

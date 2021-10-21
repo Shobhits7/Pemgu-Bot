@@ -7,9 +7,9 @@ class OnMember(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member:discord.Member):
-        fetch = await self.bot.fetch_user(member.id)
         welcome = await self.bot.postgres.fetchval("SELECT * FROM welcome WHERE guild_id=$1", member.guild.id)
         if welcome:
+            fetch = await self.bot.fetch_user(member.id)
             msg = await self.bot.postgres.fetchval("SELECT msg FROM welcome WHERE guild_id=$1", member.guild.id)
             msg = msg.replace(".guild", member.guild.name).replace(".member", member.mention)
             mi = [
@@ -33,9 +33,9 @@ class OnMember(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self, member:discord.Member):
-        fetch = await self.bot.fetch_user(member.id)
         goodbye = await self.bot.postgres.fetchval("SELECT * FROM goodbye WHERE guild_id=$1", member.guild.id)
         if goodbye:
+            fetch = await self.bot.fetch_user(member.id)
             msg = await self.bot.postgres.fetchval("SELECT msg FROM goodbye WHERE guild_id=$1", member.guild.id)
             msg = msg.replace(".guild", member.guild.name).replace(".member", member.mention)
             mi = [
@@ -56,7 +56,6 @@ class OnMember(commands.Cog):
             omjmbed.add_field(name="Information:", value="\n".join(m for m in mi))
             omjmbed.set_footer(text=self.bot.user.name, icon_url=self.bot.user.avatar.url)
             await member.guild.system_channel.send(embed=omjmbed)
-        pass
 
 def setup(bot):
     bot.add_cog(OnMember(bot))

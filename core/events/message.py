@@ -4,8 +4,6 @@ from discord.ext import commands
 class OnMessage(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.bot.dsnipe = []
-        self.bot.esnipe = {}
     
     @commands.Cog.listener()
     async def on_message(self, message:discord.Message):
@@ -20,10 +18,6 @@ class OnMessage(commands.Cog):
             )
             pfmbed.set_footer(text=message.author, icon_url=message.author.display_avatar.url)
             await message.channel.send(embed=pfmbed)
-
-    @commands.Cog.listener()
-    async def on_message_delete(self, message:discord.Message):
-        self.bot.dsnipe.append(message)
 
 def setup(bot):
     bot.add_cog(OnMessage(bot))
