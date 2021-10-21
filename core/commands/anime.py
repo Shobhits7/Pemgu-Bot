@@ -28,7 +28,7 @@ class Anime(commands.Cog, description="Some Weeb shit?!"):
         view.message = await ctx.send(content="Use the buttons for changing the page", embed=embeds[0], view=view)
 
     # SFW
-    @commands.group(name="sfw", help="Consider using subcommands", invoke_without_command=True)
+    @commands.command(name="sfw", help="Will send and random SFW Waifu Image")
     async def sfw(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/sfw/waifu/")
         response = await session.json()
@@ -36,7 +36,7 @@ class Anime(commands.Cog, description="Some Weeb shit?!"):
         sfwmbed = discord.Embed(
             color=self.bot.color,
             url=F"https://waifu.im/preview/?image={response.get('tags')[0].get('images')[0].get('file')}",
-            title="Here is your SFW Waifu Image",
+            title="Here is your SFW Image",
             timestamp=ctx.message.created_at
         )
         sfwmbed.set_image(url=response.get('tags')[0].get('images')[0].get('url'))
@@ -44,7 +44,7 @@ class Anime(commands.Cog, description="Some Weeb shit?!"):
         await ctx.send(embed=sfwmbed)
     
     # NSFW
-    @commands.group(name="nsfw", help="Consider using subcommands", invoke_without_command=True)
+    @commands.group(name="nsfw", help="Will send and random NSFW Waifu Image")
     @commands.is_nsfw()
     async def nsfw(self, ctx:commands.Context):
         session = await self.bot.session.get("https://api.waifu.im/nsfw/ero/")
@@ -53,7 +53,7 @@ class Anime(commands.Cog, description="Some Weeb shit?!"):
         nsfwmbed = discord.Embed(
             color=self.bot.color,
             url=F"https://waifu.im/preview/?image={response.get('tags')[0].get('images')[0].get('file')}",
-            title="Here is your NSFW Ero Image",
+            title="Here is your NSFW Image",
             timestamp=ctx.message.created_at
         )
         nsfwmbed.set_image(url=response.get('tags')[0].get('images')[0].get('url'))
