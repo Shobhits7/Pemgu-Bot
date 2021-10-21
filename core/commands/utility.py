@@ -31,7 +31,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         if view.value:
             laembed.title = F"{self.bot.user} has successfully left"
             await ctx.send(embed=laembed)
-            await ctx.guild.leave()
+            await ctx.me.guild.leave()
 
     # Invite
     @commands.command(name="invite", aliases=["ie"], help="Will make a send the link for adding the bot")
