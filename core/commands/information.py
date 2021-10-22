@@ -32,11 +32,12 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     async def serverlist(self, ctx:commands.Context):
         si = []
         for guild in self.bot.guilds:
-            si.append(F"**{guild.name}** - **{guild.id}** | {guild.owner.name}#{guild.owner.discriminator} {guild.owner.id}\n")
+            si.append(F"**{guild.name}** - **{guild.id}** | {guild.owner.mention} {guild.owner.name}#{guild.owner.discriminator}\n")
+        sis = "".join(s for s in si)
         slmbed = discord.Embed(
             color=self.bot.color,
             title="Bot's Servers",
-            description="".join(s for s in si),
+            description=self.bot.trim(sis, 6000),
             timestamp=ctx.message.created_at
         )
         slmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
