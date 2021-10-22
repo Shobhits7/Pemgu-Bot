@@ -27,6 +27,21 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         abmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=abmbed)
 
+    # ServerList
+    @commands.command(name="serverlist", aliases=["sl"], help="Will give the list of bot's servers")
+    async def serverlist(self, ctx:commands.Context):
+        si = []
+        for guild in bot.guilds:
+            si.append(F"**{guild.name}** - **{guild.id}** | {guild.owner.name}#{guild.owner.discriminator} {guild.owner.id}\n")
+        slmbed = discord.Embed(
+            color=self.bot.color,
+            title="Bot's Servers",
+            description="".join(s for s in si),
+            timestamp=ctx.message.created_at
+        )
+        slmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=slmbed)
+
     # Colors
     @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image")
     @commands.bot_has_guild_permissions(attach_files=True)
