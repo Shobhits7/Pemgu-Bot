@@ -53,7 +53,7 @@ class RPSView(discord.ui.View):
         self.ctx = ctx
         self.botoption = random.choice(["Rock", "Paper", "Scissors"])
         self.useroption = ""
-        self.add_item(item=RPSButtons(emoji="🗻", tyle=discord.ButtonStyle.green, view=self))
+        self.add_item(item=RPSButtons(emoji="🗻", style=discord.ButtonStyle.green, view=self))
         self.add_item(item=RPSButtons(emoji="🧻", style=discord.ButtonStyle.blurple, view=self))
         self.add_item(item=RPSButtons(emoji="🔪", style=discord.ButtonStyle.red, view=self))
 
@@ -114,7 +114,7 @@ class GuessView(discord.ui.View):
         super().__init__(timeout=5)
         self.ctx = ctx
         self.choose = None
-        self.number = random.randint(1, 5)
+        self.number = random.randint(1, 3)
         for _ in range(1, 4):
             self.add_item(item=GuessButtons(label=_, style=discord.ButtonStyle.green, view=self))
     
