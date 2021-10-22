@@ -49,7 +49,7 @@ class PemguBase(commands.AutoShardedBot):
     @classmethod
     def trim(self, text: str, limit: int):
         text = text.strip()
-        if len(text) > limit: return text[:limit]
+        if len(text) > limit: return text[:limit-3] + "..."
         return text
 
 bot = PemguBase(
