@@ -15,37 +15,36 @@ class RPSButtons(discord.ui.Button):
             self.useroption = "🧻"
         elif self.emoji == "🔪":
             self.useroption = "🔪"
-        tierpsmbed = discord.Embed(
-            color=self.ctx.bot.color,
-            description=F"We both chose **{self.botoption}**, It's a tie :|",
-            timestamp=interaction.message.created_at
-        )
-        tierpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
-        wonrpsmbed = discord.Embed(
-            color=self.ctx.bot.color,
-            description=F"You chose **{self.useroption}**, But, I chose **{self.botoption}**, You won :) / I lost :(",
-            timestamp=interaction.message.created_at
-        )
-        wonrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
-        lostrpsmbed = discord.Embed(
-            color=self.ctx.bot.color,
-            description=F"I chose **{self.botoption}**, But, You chose **{self.useroption}**, I won :) / You lost :(",
-            timestamp=interaction.message.created_at
-        )
-        lostrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
+        self.view.clear_items()
         if self.useroption == self.botoption:
-            self.view.clear_items()
+            tierpsmbed = discord.Embed(
+                color=self.ctx.bot.color,
+                description=F"We both chose **{self.botoption}**, It's a tie :|",
+                timestamp=interaction.message.created_at
+            )
+            tierpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
             await interaction.response.edit_message(embed=tierpsmbed, view=self.view)
         else:
-            self.view.clear_items()
             if self.useroption == "🗻" and self.botoption == "🔪" \
                or self.useroption == "🧻" and self.botoption == "🗻" \
                    or self.useroption == "🔪" and self.botoption == "🧻":
-                   await interaction.response.edit_message(embed=wonrpsmbed, view=self.view)
+                        wonrpsmbed = discord.Embed(
+                            color=self.ctx.bot.color,
+                            description=F"You chose **{self.useroption}**, But, I chose **{self.botoption}**, You won :) / I lost :(",
+                            timestamp=interaction.message.created_at
+                        )
+                        wonrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
+                        await interaction.response.edit_message(embed=wonrpsmbed, view=self.view)
             elif self.useroption == "🔪" and self.botoption == "🗻" \
                 or self.useroption == "🗻" and self.botoption == "🧻" \
                     or self.useroption == "🧻" and self.botoption == "🔪":
-                    await interaction.response.edit_message(embed=lostrpsmbed, view=self.view)
+                        lostrpsmbed = discord.Embed(
+                            color=self.ctx.bot.color,
+                            description=F"I chose **{self.botoption}**, But, You chose **{self.useroption}**, I won :) / You lost :(",
+                            timestamp=interaction.message.created_at
+                        )
+                        lostrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
+                        await interaction.response.edit_message(embed=lostrpsmbed, view=self.view)
 
 class RPSView(discord.ui.View):
     def __init__(self, ctx):
@@ -90,6 +89,7 @@ class GuessButtons(discord.ui.Button):
             self.choose = True
         elif self.label != self.number:
             self.choose = False
+        self.view.clear_items()
         if self.choose == True:
             truembed = discord.Embed(
                 color=self.ctx.bot.color,
@@ -97,7 +97,6 @@ class GuessButtons(discord.ui.Button):
                 description=F"The number was {self.number}"
             )
             truembed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
-            self.view.clear_items()
             await interaction.response.edit_message(embed=truembed, view=self.view)
         if self.choose == False:
             falsembed = discord.Embed(
@@ -106,7 +105,6 @@ class GuessButtons(discord.ui.Button):
                 description=F"The correct answer was {self.number}"
             )
             falsembed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
-            self.view.clear_items()
             await interaction.response.edit_message(embed=falsembed, view=self.view)
 
 class GuessView(discord.ui.View):
