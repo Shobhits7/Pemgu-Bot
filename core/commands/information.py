@@ -34,6 +34,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         si = []
         for guild in self.bot.guilds:
             si.append(F"{sc}. **{guild.name}** - **{guild.id}** | {guild.owner.mention} {guild.owner.name}#{guild.owner.discriminator}\n")
+            sc += 1
         sis = "".join(s for s in si)
         slmbed = discord.Embed(
             color=self.bot.color,
