@@ -9,38 +9,38 @@ class RPSButtons(discord.ui.Button):
         self.useroption = view.useroption
 
     async def callback(self, interaction:discord.Interaction):
-        if self.emoji == "🗻":
-            self.useroption = "🗻"
-        elif self.emoji == "🧻":
-            self.useroption = "🧻"
-        elif self.emoji == "🔪":
-            self.useroption = "🔪"
+        if self.label == "Rock":
+            self.useroption = "Rock"
+        elif self.label == "Paper":
+            self.useroption = "Paper"
+        elif self.label == "Scissors":
+            self.useroption = "Scissors"
         self.view.clear_items()
         if self.useroption == self.botoption:
             tierpsmbed = discord.Embed(
                 color=self.ctx.bot.color,
-                description=F"We both chose **{self.botoption}**, It's a tie :|",
+                description=F"We both chose **{self.botoption}**, It's a tie",
                 timestamp=interaction.message.created_at
             )
             tierpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
             await interaction.response.edit_message(embed=tierpsmbed, view=self.view)
         else:
-            if self.useroption == "🗻" and self.botoption == "🔪" \
-               or self.useroption == "🧻" and self.botoption == "🗻" \
-                   or self.useroption == "🔪" and self.botoption == "🧻":
+            if self.useroption == "Rock" and self.botoption == "Scissors" \
+               or self.useroption == "Paper" and self.botoption == "Rock" \
+                   or self.useroption == "Scissors" and self.botoption == "Paper":
                         wonrpsmbed = discord.Embed(
                             color=self.ctx.bot.color,
-                            description=F"You chose **{self.useroption}**, But, I chose **{self.botoption}**, You won :) / I lost :(",
+                            description=F"You chose **{self.useroption}**, But, I chose **{self.botoption}**, You won / I lost",
                             timestamp=interaction.message.created_at
                         )
                         wonrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
                         await interaction.response.edit_message(embed=wonrpsmbed, view=self.view)
-            elif self.useroption == "🔪" and self.botoption == "🗻" \
-                or self.useroption == "🗻" and self.botoption == "🧻" \
-                    or self.useroption == "🧻" and self.botoption == "🔪":
+            elif self.useroption == "Scissors" and self.botoption == "Rock" \
+                or self.useroption == "Rock" and self.botoption == "Paper" \
+                    or self.useroption == "Paper" and self.botoption == "Scissors":
                         lostrpsmbed = discord.Embed(
                             color=self.ctx.bot.color,
-                            description=F"I chose **{self.botoption}**, But, You chose **{self.useroption}**, I won :) / You lost :(",
+                            description=F"I chose **{self.botoption}**, But, You chose **{self.useroption}**, I won / You lost",
                             timestamp=interaction.message.created_at
                         )
                         lostrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
@@ -50,11 +50,11 @@ class RPSView(discord.ui.View):
     def __init__(self, ctx):
         super().__init__(timeout=5)
         self.ctx = ctx
-        self.botoption = random.choice(["🗻", "🧻", "🔪"])
+        self.botoption = random.choice(["Rock", "Paper", "Scissors"])
         self.useroption = ""
-        self.add_item(item=RPSButtons(emoji="🗻", style=discord.ButtonStyle.green, view=self))
-        self.add_item(item=RPSButtons(emoji="🧻", style=discord.ButtonStyle.blurple, view=self))
-        self.add_item(item=RPSButtons(emoji="🔪", style=discord.ButtonStyle.red, view=self))
+        self.add_item(item=RPSButtons(emoji="🗻", label="Rock", style=discord.ButtonStyle.green, view=self))
+        self.add_item(item=RPSButtons(emoji="🧻", label="Paper", style=discord.ButtonStyle.blurple, view=self))
+        self.add_item(item=RPSButtons(emoji="✂️", label="Scissors", style=discord.ButtonStyle.red, view=self))
 
     async def on_timeout(self):
         if self.children:
