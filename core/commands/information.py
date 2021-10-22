@@ -1,4 +1,4 @@
-import discord, time, os, io
+import discord, time, inspect, os, io
 from discord.ext import commands
 
 class Information(commands.Cog, description="Stalking people is wrong and bad!"):
@@ -42,6 +42,70 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         )
         slmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=slmbed)
+
+    # Invite
+    @commands.command(name="invite", aliases=["ie"], help="Will make an invite link for the given bot")
+    async def invite(self, ctx:commands.Context, member:discord.Member=None):
+        member = self.bot.user if not member else member
+        iembed = discord.Embed(
+            color=self.bot.color,
+            timestamp=ctx.message.created_at
+        )
+        iembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if not member.bot:
+            iembed.title = "The given member is not a bot"
+            return await ctx.send(embed=iembed)
+        link = discord.utils.oauth_url(client_id=member.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions.all())
+        iembed.title = "Here is the invite link for adding the bot"
+        iembed.url = link
+        await ctx.send(embed=iembed)
+
+    # Ping
+    @commands.command(name="ping", aliases=["pi"], help="Will show bot's ping")
+    async def ping(self, ctx:commands.Context):
+        unpimbed = discord.Embed(
+            color=self.bot.color,
+            title="🎾 Pinging...",
+            timestamp=ctx.message.created_at
+        )
+        unpimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        start = time.perf_counter()
+        unpimsg = await ctx.send(embed=unpimbed)
+        end = time.perf_counter()
+        dopimbed = discord.Embed(
+            color=self.bot.color,
+            title="🏓 Pong:",
+            description=F"> Websocket: {self.bot.latency * 1000}ms\nTyping: {(end - start) * 1000}ms",
+            timestamp=ctx.message.created_at
+        )
+        dopimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await unpimsg.edit(embed=dopimbed)
+
+    # Source
+    @commands.command(name="source", aliases=["src"], help="Will show the bots source")
+    async def source(self, ctx:commands.Context, command:str=None):
+        source_url = "https://github.com/lvlahraam/Pemgu-Bot"
+        if not command:
+            return await ctx.send(source_url)
+        if command == "help":
+            src = type(self.bot.help_command)
+            module = src.__module__
+            filename = inspect.getsourcefile(src)
+        else:
+            obj = self.bot.get_command(command.replace(".", " "))
+            if not obj:
+                return await ctx.send("Could not find command.")
+            src = obj.callback.__code__
+            module = obj.callback.__module__
+            filename = src.co_filename
+        lines, firstlineno = inspect.getsourcelines(src)
+        if not module.startswith("discord"):
+            location = os.path.relpath(filename).replace("\\", "/")
+        else:
+            location = module.replace(".", "/") + ".py"
+            source_url = "https://github.com/lvlahraam/Pemgu-Bot"
+        final_url = F"<{source_url}/blob/main/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}>"
+        await ctx.send(final_url)
 
     # Colors
     @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image")
@@ -261,6 +325,37 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         emmbed.set_image(url=emoji.url)
         emmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=emmbed)
+
+    # PYPI
+    @commands.command(name="pypi", help="Will give information about the given library in PYPI")
+    async def pypi(self, ctx:commands.Context, *, library:str):
+        pypimbed = discord.Embed(
+            color=self.bot.color,
+            timestamp=ctx.message.created_at
+        )
+        pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        session = await self.bot.session.get(F"https://pypi.org/pypi/{library}/json")
+        if session.status != 200:
+            pypimbed.title = "Couldn't find that library in PYPI"
+            return await ctx.send(embed=pypimbed)
+        response = await session.json()
+        session.close()
+        pypimbed.url = response['info']['package_url'],
+        pypimbed.title = response['info']['name'],
+        pypimbed.description = response['info']['summary'],
+        pi = [
+            F"***Version:*** {response['info']['version']}",
+            F"***Download URL:*** {response['info']['download_url']}",
+            F"***Documentation URL:*** {response['info']['docs_url']}",
+            F"***Home Page:*** {response['info']['home_page']}",
+            F"***Yanked:*** {response['info']['yanked']} - {response['info']['yanked_reason']}",
+            F"***Keywords:*** {response['info']['keywords']}",
+            F"***License:*** {response['info']['license']}"
+        ]
+        pypimbed.add_field(name="Author Info:", value=F"Name: {response['info']['author']}\nEmail:{response['info']['author_email']}", inline=False)
+        pypimbed.add_field(name="Package Info:", value="\n".join(p for p in pi), inline=False)
+        pypimbed.add_field(name="Classifiers:", value=",\n    ".join(classifier for classifier in response['info']['classifiers']), inline=False)
+        await ctx.send(embed=pypimbed)
 
 def setup(bot):
     bot.add_cog(Information(bot))
