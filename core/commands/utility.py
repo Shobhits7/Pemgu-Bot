@@ -19,6 +19,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
 
     # Leave
     @commands.command(name="leave", aliases=["lae"], help="Will make the bot leave")
+    @commands.has_guild_permissions(administrator=True)
     async def leave(self, ctx:commands.Context):
         laembed = discord.Embed(
             color=self.bot.color,
@@ -127,7 +128,6 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     # AFK
     @commands.command(name="afk", help="Will make you AFK")
     @commands.guild_only()
-    @commands.has_guild_permissions(change_nickname=True)
     @commands.bot_has_guild_permissions(manage_nicknames=True)
     async def afk(self, ctx:commands.Context):
         afkmbed  = discord.Embed(
