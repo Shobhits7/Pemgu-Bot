@@ -80,7 +80,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
     async def reload(self, ctx:commands.Context, *, cog:str=None):
         reloadmbed = discord.Embed(
             color=self.bot.color,
-            description="",
+            description="> ",
             timestamp=ctx.message.created_at
         )
         if not cog:
@@ -147,7 +147,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         if not user:
             reloadmbed = discord.Embed(
                 color=self.bot.color,
-                description="",
+                description="> ",
                 timestamp=ctx.message.created_at
             )
             reloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)

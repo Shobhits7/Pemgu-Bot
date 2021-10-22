@@ -11,7 +11,7 @@ class Game(commands.Cog, description="Arcade but without having to go outside!")
     async def rockpaperscissors(self, ctx:commands.Context):
         rpsmbed = discord.Embed(
             color=self.bot.color,
-            description="Choose your **tool** with the buttons:",
+            description="> Choose your **tool** with the buttons:",
             timestamp=ctx.message.created_at
         )
         rpsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -23,7 +23,7 @@ class Game(commands.Cog, description="Arcade but without having to go outside!")
     async def guess(self, ctx:commands.Context):
         gsmbed = discord.Embed(
             color=self.bot.color,
-            description="Try to **guess** now"
+            description="> Try to **guess** now"
         )
         gsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         view = gv.GuessView(ctx)

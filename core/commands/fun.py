@@ -23,7 +23,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         ppmbed = discord.Embed(
             color=self.bot.color,
             title=F"{user}'s PP Size:",
-            description=F"8{'='*(len(str(user.id)) + random.randint(1, 30))}D",
+            description=F"> 8{'='*(len(str(user.id)) + random.randint(1, 30))}D",
             timestamp=ctx.message.created_at
         )
         ppmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -34,7 +34,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     async def counter(self, ctx:commands.Context):
         ctrmbed = discord.Embed(
             color=self.bot.color,
-            description="Click the button for counting",
+            description="> Click the button for counting",
             timestamp=ctx.message.created_at
         )
         ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -47,7 +47,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         bnitrombed = discord.Embed(
             color=self.bot.color,
             title="A WILD NITRO GIFT APPEARS?!",
-            description="Expires in 48 hours\nClick the button for claiming Nitro:.",
+            description="> Expires in 48 hours\nClick the button for claiming Nitro:.",
             timestamp=ctx.message.created_at
         )
         bnitrombed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -78,7 +78,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         membed = discord.Embed(
             color=self.bot.color,
             title="Here is a random meme for you",
-            description=F"{response['caption']} - {response['category'].title()}",
+            description=F"> {response['caption']} - {response['category'].title()}",
             timestamp=ctx.message.created_at
         )
         membed.set_image(url=response['image'])

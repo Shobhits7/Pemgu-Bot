@@ -14,7 +14,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         abnmbed = discord.Embed(
             color=self.bot.color,
             title=F"{user} is now Banned",
-            description=F"For reason: {reason}",
+            description=F"> For reason: {reason}",
             timestamp=ctx.message.created_at
         )
         abnmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -61,7 +61,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         akcmbed = discord.Embed(
             color=self.bot.color,
             title=F"{member} is now Kicked",
-            description=F"For reason: {reason}",
+            description=F"> For reason: {reason}",
             timestamp=ctx.message.created_at
         )
         akcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)

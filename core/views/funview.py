@@ -47,7 +47,7 @@ class NitroView(discord.ui.View):
                     ontimeoutmbed = discord.Embed(
                         color=self.ctx.bot.color,
                         title="THE NITRO HAS EXPIRED",
-                        description="The gift link has either expired or has been revoked.",
+                        description="> The gift link has either expired or has been revoked.",
                         timestamp=self.ctx.message.created_at
                     )
                     ontimeoutmbed.set_footer(text=self.ctx.author, icon_url=self.ctx.author.display_avatar.url)

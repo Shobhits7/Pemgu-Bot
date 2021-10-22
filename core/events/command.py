@@ -12,7 +12,7 @@ class OnCommand(commands.Cog):
                 scmdmbed = discord.Embed(
                     color=self.bot.color,
                     title="Please re-invite me again for slash commands",
-                    description="Since discord is forcing every bot to use slash commands `/` please re invite me again, with the command `.m invite`",
+                    description="> Since discord is forcing every bot to use slash commands `/` please re invite me again, with the command `.m invite`",
                     timestamp=ctx.message.created_at
                 )
                 scmdmbed.set_footer(text="From the Pemgu-Bot Developers", icon_url=self.bot.user.avatar.url)

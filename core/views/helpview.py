@@ -29,7 +29,7 @@ class PaginatorView(discord.ui.View):
         self.homepage = discord.Embed(
             color=self.help.context.bot.color,
             title=F"{self.help.context.me.name}'s Help",
-            description="For more help or information use the buttons to change pages.",
+            description="> For more help or information use the buttons to change pages.",
             timestamp=self.help.context.message.created_at
         )
         self.page = 0
@@ -43,7 +43,7 @@ class PaginatorView(discord.ui.View):
                 mbed = discord.Embed(
                         color=self.help.context.bot.color,
                         title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
-                        description=F"{description}\n\n{''.join(gts(command) for command in commands)}",
+                        description=F"> {description}\n\n{''.join(gts(command) for command in commands)}",
                         timestamp=self.help.context.message.created_at
                 )
                 mbed.set_thumbnail(url=self.help.context.me.display_avatar.url)
@@ -70,7 +70,7 @@ class PaginatorView(discord.ui.View):
         icheckmbed = discord.Embed(
             color=self.help.context.bot.color,
             title="You can't use this",
-            description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
+            description=F"> <@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
             timestamp=self.help.context.message.created_at
         )
         icheckmbed.set_thumbnail(url=self.help.context.me.display_avatar.url)
@@ -97,7 +97,7 @@ class SelectUI(discord.ui.Select):
                 mbed = discord.Embed(
                     color=self.help.context.bot.color,
                     title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
-                    description=F"{description}\n\n{''.join(self.gts(command) for command in cmds)}",
+                    description=F"> {description}\n\n{''.join(self.gts(command) for command in cmds)}",
                     timestamp=self.help.context.message.created_at
                 )
                 mbed.set_thumbnail(url=self.help.context.me.display_avatar.url)
@@ -113,7 +113,7 @@ class SelectView(discord.ui.View):
         self.homepage = discord.Embed(
             color=self.help.context.bot.color,
             title=F"{self.help.context.me.name}'s Help",
-            description="For more help or information use the menu.",
+            description="> For more help or information use the menu.",
             timestamp=self.help.context.message.created_at
         )
         options = []
@@ -152,7 +152,7 @@ class SelectView(discord.ui.View):
         icheckmbed = discord.Embed(
             color=self.help.context.bot.color,
             title="You can't use this",
-            description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
+            description=F"> <@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
             timestamp=self.help.context.message.created_at
         )
         icheckmbed.set_thumbnail(url=self.help.context.me.display_avatar.url)
@@ -179,7 +179,7 @@ class ButtonUI(discord.ui.Button):
                 mbed = discord.Embed(
                     color=self.help.context.bot.color,
                     title=F"{self.help.emojis.get(name) if self.help.emojis.get(name) else '❓'} {name} Category",
-                    description=F"{description}\n\n{''.join(self.gts(command) for command in cmds)}",
+                    description=F"> {description}\n\n{''.join(self.gts(command) for command in cmds)}",
                     timestamp=self.help.context.message.created_at
                 )
                 mbed.set_thumbnail(url=self.help.context.me.display_avatar.url)
@@ -195,7 +195,7 @@ class ButtonView(discord.ui.View):
         self.homepage = discord.Embed(
             color=self.help.context.bot.color,
             title=F"{self.help.context.me.name}'s Help",
-            description="For more help or information use and click on the buttons.",
+            description="> For more help or information use and click on the buttons.",
             timestamp=self.help.context.message.created_at
         )
         for cog, commands in self.mapping.items():
@@ -230,7 +230,7 @@ class ButtonView(discord.ui.View):
         icheckmbed = discord.Embed(
             color=self.help.context.bot.color,
             title="You can't use this",
-            description=F"<@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
+            description=F"> <@{interaction.user.id}> - Only <@{self.help.context.author.id}> can use that\nCause they did the command\nIf you wanted to use the command, do what they did",
             timestamp=self.help.context.message.created_at
         )
         icheckmbed.set_thumbnail(url=self.help.context.me.display_avatar.url)

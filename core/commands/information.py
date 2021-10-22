@@ -21,7 +21,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         abmbed = discord.Embed(
             color=self.bot.color,
             title=F"{self.bot.user.name} About",
-            description="\n".join(a for a in ai),
+            description="> \n".join(a for a in ai),
             timestamp=ctx.message.created_at
         )
         abmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -172,7 +172,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         permsmbed = discord.Embed(
             color=self.bot.color,
             title=F"{ok_emote} {user}'s Permissions",
-            description="",
+            description="> ",
             timestamp=ctx.message.created_at
         )
         for permission, value in user.guild_permissions:
@@ -257,7 +257,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         emmbed = discord.Embed(
             color=self.bot.color,
             title=F"{emoji.name}'s Information",
-            description="\n".join(e for e in ei),
+            description="> \n".join(e for e in ei),
             timestamp=ctx.message.created_at
         )
         emmbed.set_image(url=emoji.url)

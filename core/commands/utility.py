@@ -41,7 +41,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             color=self.bot.color,
             title="Here is the invite link for adding the bot",
             url=discord.utils.oauth_url(client_id=self.bot.user.id, scopes=("bot", "applications.commands"), permissions=discord.Permissions(administrator=True)),
-            description="Thank you for adding and inviting me!",
+            description="> Thank you for adding and inviting me!",
             timestamp=ctx.message.created_at
         )
         iembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -62,7 +62,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         dopimbed = discord.Embed(
             color=self.bot.color,
             title="🏓 Pong:",
-            description=F"Websocket: {self.bot.latency * 1000}ms\nTyping: {(end - start) * 1000}ms",
+            description=F"> Websocket: {self.bot.latency * 1000}ms\nTyping: {(end - start) * 1000}ms",
             timestamp=ctx.message.created_at
         )
         dopimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
