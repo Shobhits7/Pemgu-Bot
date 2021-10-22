@@ -226,23 +226,23 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
 
     # Permissions
     @commands.command(name="permissions", aliases=["perms"], help="Will show your or the given member's permissions")
-    async def permissions(self, ctx:commands.Context, user:discord.Member=None):
-        user = ctx.author if not user else user
+    async def permissions(self, ctx:commands.Context, member:discord.Member=None):
+        member = ctx.author if not member else member
         ok_emote = "<:ko:896063337958350919>"
         allowed_emote = "<:ye:896062865071566898>"
         denied_emote = "<:no:896062993090084974>"
         permsmbed = discord.Embed(
             color=self.bot.color,
-            title=F"{ok_emote} {user}'s Permissions",
-            description="> ",
+            title=F"{ok_emote} {member}'s Permissions",
+            description="",
             timestamp=ctx.message.created_at
         )
-        for permission, value in user.guild_permissions:
+        for permission, value in member.guild_permissions:
             permission = permission.replace("_", " ").title()
             if value:
-                permsmbed.description += F"{allowed_emote} - {permission}\n"
+                permsmbed.description += F"> {allowed_emote} - {permission}\n"
             if not value:
-                permsmbed.description += F"{denied_emote} - {permission}\n"
+                permsmbed.description += F"> {denied_emote} - {permission}\n"
         permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=permsmbed)
 
