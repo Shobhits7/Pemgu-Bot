@@ -49,8 +49,8 @@ class PemguBase(commands.AutoShardedBot):
     @classmethod
     def trim(self, text: str, limit: int):
         text = text.strip()
-        if len(text) > limit: return text[limit]
-        else: return text
+        if len(text) > limit: return text[:limit]
+        return text
 
 bot = PemguBase(
     slash_commands=True,
