@@ -31,7 +31,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     @commands.command(name="serverlist", aliases=["sl"], help="Will give the list of bot's servers")
     async def serverlist(self, ctx:commands.Context):
         si = []
-        for guild in bot.guilds:
+        for guild in self.bot.guilds:
             si.append(F"**{guild.name}** - **{guild.id}** | {guild.owner.name}#{guild.owner.discriminator} {guild.owner.id}\n")
         slmbed = discord.Embed(
             color=self.bot.color,
