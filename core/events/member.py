@@ -17,7 +17,9 @@ class OnMember(commands.Cog):
                 F"***Discriminator:*** {member.discriminator}",
                 F"***ID:*** {member.id}",
                 F"***Mention:*** {member.mention}",
-                F"***Registered:*** {discord.utils.format_dt(member.created_at, style='F')} ({discord.utils.format_dt(member.created_at, style='R')})"
+                F"***Bot:*** {member.bot}"
+                F"***Joined-At: {discord.utils.format_dt(member.joined_at, style='F')} ({discord.utils.format_dt(member.joined_at, style='R')})***"
+                F"***Created-At:*** {discord.utils.format_dt(member.created_at, style='F')} ({discord.utils.format_dt(member.created_at, style='R')})"
             ]
             omjmbed = discord.Embed(
                 color=self.bot.color if not fetch.accent_color else fetch.accent_color,
@@ -43,7 +45,9 @@ class OnMember(commands.Cog):
                 F"***Discriminator:*** {member.discriminator}",
                 F"***ID:*** {member.id}",
                 F"***Mention:*** {member.mention}",
-                F"***Registered:*** {discord.utils.format_dt(member.created_at, style='F')} ({discord.utils.format_dt(member.created_at, style='R')})"
+                F"***Bot:*** {member.bot}"
+                F"***Joined-At: {discord.utils.format_dt(member.joined_at, style='F')} ({discord.utils.format_dt(member.joined_at, style='R')})***"
+                F"***Created-At:*** {discord.utils.format_dt(member.created_at, style='F')} ({discord.utils.format_dt(member.created_at, style='R')})"
             ]
             omjmbed = discord.Embed(
                 color=self.bot.color if not fetch.accent_color else fetch.accent_color,
