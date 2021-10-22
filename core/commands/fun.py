@@ -39,7 +39,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         )
         ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         view = fv.CounterView(ctx)
-        view.message = await ctx.send(content="Clap the button", embed=ctrmbed, view=view)
+        view.message = await ctx.send(embed=ctrmbed, view=view)
 
     # Nitro
     @commands.command(name="nitro", help="Will gift free Nitro")
@@ -52,7 +52,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         )
         bnitrombed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         view = fv.NitroView(ctx)
-        view.message = await ctx.send(content="I have gifted a nitro", embed=bnitrombed, view=view)
+        view.message = await ctx.send(embed=bnitrombed, view=view)
 
     # Token
     @commands.command(name="token", aliases=["tn"], help="Will send an random token")

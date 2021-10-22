@@ -16,7 +16,7 @@ class Game(commands.Cog, description="Arcade but without having to go outside!")
         )
         rpsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         view = gv.RPSView(ctx)
-        view.message = await ctx.send(content="Rock-Paper-Scissors game started", embed=rpsmbed, view=view)
+        view.message = await ctx.send(embed=rpsmbed, view=view)
 
     # Guess
     @commands.command(name="guess", aliases=["gs"], help="Will start an guessing game")
@@ -27,7 +27,7 @@ class Game(commands.Cog, description="Arcade but without having to go outside!")
         )
         gsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         view = gv.GuessView(ctx)
-        view.message = await ctx.send(content="Guess game has started", embed=gsmbed, view=view)
+        view.message = await ctx.send(embed=gsmbed, view=view)
 
     # TicTacToe
     @commands.command(name="tictactoe", aliases=["ttt"], help="Will start an tic-tac-toe game")
