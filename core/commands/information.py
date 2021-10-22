@@ -39,7 +39,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         slmbed = discord.Embed(
             color=self.bot.color,
             title=F"Bot's Servers {len(self.bot.guilds)}",
-            description=self.bot.trim(sis, 6000),
+            description=self.bot.trim(sis, 600),
             timestamp=ctx.message.created_at
         )
         slmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
