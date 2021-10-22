@@ -15,7 +15,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             "[Support](https://discord.gg/Gw9wjvusQX)",
             F"Discord.PY Version {discord.__version__}",
             F"In {len(self.bot.guilds)} Servers",
-            F"Has {len(self.bot.commands)}",
+            F"Has {len(self.bot.commands)} Commands",
             F"Made by <@{self.bot.owner_id}>"
         ]
         abmbed = discord.Embed(
