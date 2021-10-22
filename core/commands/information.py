@@ -36,7 +36,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         sis = "".join(s for s in si)
         slmbed = discord.Embed(
             color=self.bot.color,
-            title="Bot's Servers",
+            title=F"Bot's Servers {len(self.bot.guilds)}",
             description=self.bot.trim(sis, 6000),
             timestamp=ctx.message.created_at
         )
