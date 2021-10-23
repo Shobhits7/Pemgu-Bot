@@ -1,5 +1,6 @@
 import discord, io, textwrap, contextlib, traceback
 from discord.ext import commands
+import core.views.confirm as cum
 
 class Owner(commands.Cog, description="Only my Developer can use these!"):
     def __init__(self, bot):
@@ -125,6 +126,28 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         for _ in range(1, time+1):
             await self.bot.process_commands(command)
         await ctx.send(F"Successfully repeated `{command}` - `{time}` times")
+
+    # Leaves
+    @commands.command(name="lives", help="Will leave from the given guilds")
+    @commands.is_owner()
+    async def lives(self, ctx:commands.Context, *, guilds:str):
+        livesmbed = discord.Embed(
+            color=self.bot.color,
+            title="Living the given guilds:",
+            description="",
+            timestamp=ctx.message.created_at
+        )
+        gs = []
+        for guild in guilds.split(", "):
+            g = await self.bot.fetch_guild(guild)
+            gs.append(g)
+            livesmbed.description += F"> {g.name} {g.id} {g.owner.name}#{g.discriminator}"
+        view = cum.Confirm(ctx)
+        view.message = await ctx.send(content="Are you sure you want the bot to live the given guilds?", embed=livesmbed, view=view)
+        await view.wait()
+        if view.value:
+            for g in gs:
+                await g.leave()
 
     # Shutdown
     @commands.command(name="shutdown",  help="Will shutdown the bot")
