@@ -139,6 +139,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         )
         gs = []
         for guild in guilds.split(", "):
+            guild = int(guild)
             g = await self.bot.fetch_guild(guild)
             gs.append(g)
             livesmbed.description += F"> {g.name} {g.id} {g.owner.name}#{g.discriminator}"
