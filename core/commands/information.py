@@ -44,18 +44,18 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         await ctx.send(embed=slmbed)
 
     # Invite
-    @commands.command(name="invite", aliases=["ie"], help="Will make an invite link for the given bot")
-    async def invite(self, ctx:commands.Context, member:discord.Member=None):
-        member = self.bot.user if not member else member
+    @commands.command(name="invite", aliases=["ie"], help="Will make an invite link for the bot or the given bot")
+    async def invite(self, ctx:commands.Context, bot:discord.Member=None):
+        bot = self.bot.user if not bot else bot
         iembed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         iembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if not member.bot:
-            iembed.title = "The given member is not a bot"
+        if not bot.bot:
+            iembed.title = "The given user is not a bot"
             return await ctx.send(embed=iembed)
-        link = discord.utils.oauth_url(client_id=member.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions.all())
+        link = discord.utils.oauth_url(client_id=bot.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions.all())
         iembed.title = "Here is the invite link for adding the bot"
         iembed.url = link
         await ctx.send(embed=iembed)

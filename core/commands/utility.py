@@ -15,7 +15,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         )
         cumbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.channel.purge(limit=amount, check=lambda m: m.author.id == self.bot.user.id)
-        await ctx.send(embed=cumbed, delete_after=5)
+        await ctx.send(embed=cumbed, delete_after=5, ephemeral=True)
 
     # Leave
     @commands.command(name="leave", aliases=["lae"], help="Will make the bot leave")

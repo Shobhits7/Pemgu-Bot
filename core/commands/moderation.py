@@ -220,7 +220,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             return await ctx.send(embed=pumbed, delete_after=5)
         pumbed.title = F"Deleted {amount} amount of messages"
         await ctx.channel.purge(limit=amount+1)
-        await ctx.send(embed=pumbed, delete_after=5)
+        await ctx.send(embed=pumbed, delete_after=5, ephemeral=True)
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
