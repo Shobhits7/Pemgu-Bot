@@ -130,7 +130,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
     # Leaves
     @commands.command(name="lives", help="Will leave from the given guilds")
     @commands.is_owner()
-    async def lives(self, ctx:commands.Context, *, guild:str):
+    async def lives(self, ctx:commands.Context, *, guild:int):
         g = await self.bot.fetch_guild(guild)
         livesmbed = discord.Embed(
             color=self.bot.color,
