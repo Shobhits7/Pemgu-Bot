@@ -141,8 +141,8 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         for guild in guilds.split(", "):
             guild = int(guild)
             g = await self.bot.fetch_guild(guild)
+            livesmbed.description += F"> {g.name} {g.id}"
             gs.append(g)
-            livesmbed.description += F"> {g.name} {g.id} {g.owner.name}#{g.discriminator}"
         view = cum.Confirm(ctx)
         view.message = await ctx.send(content="Are you sure you want the bot to live the given guilds?", embed=livesmbed, view=view)
         await view.wait()
