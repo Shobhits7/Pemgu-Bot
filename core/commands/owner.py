@@ -130,24 +130,19 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
     # Leaves
     @commands.command(name="lives", help="Will leave from the given guilds")
     @commands.is_owner()
-    async def lives(self, ctx:commands.Context, *, guilds:str):
+    async def lives(self, ctx:commands.Context, *, guild:str):
+        g = await self.bot.fetch_guild(guild)
         livesmbed = discord.Embed(
             color=self.bot.color,
             title="Living the given guilds:",
-            description="",
+            description=F"> {g.name} {g.id} {'No Owner' if not g.owner else g.owner}",
             timestamp=ctx.message.created_at
         )
-        gs = []
-        for guild in guilds.split(", "):
-            g = await self.bot.fetch_guild(guild)
-            livesmbed.description += F"> {g.name} {g.id}\n"
-            gs.append(g)
         view = cum.Confirm(ctx)
-        view.message = await ctx.send(content="Are you sure you want the bot to live the given guilds?", embed=livesmbed, view=view)
+        view.message = await ctx.send(content="Are you sure you want the bot to live the given guild?", embed=livesmbed, view=view)
         await view.wait()
         if view.value:
-            for g in gs:
-                await g.leave()
+            await g.leave()
 
     # Shutdown
     @commands.command(name="shutdown",  help="Will shutdown the bot")
