@@ -17,8 +17,8 @@ class OnMember(commands.Cog):
                 F"***Discriminator:*** {member.discriminator}",
                 F"***ID:*** {member.id}",
                 F"***Mention:*** {member.mention}",
-                F"***Bot:*** {member.bot}"
-                F"***Joined-At: {discord.utils.format_dt(member.joined_at, style='F')} ({discord.utils.format_dt(member.joined_at, style='R')})***"
+                F"***Bot:*** {member.bot}",
+                F"***Joined-At: {discord.utils.format_dt(member.joined_at, style='F')} ({discord.utils.format_dt(member.joined_at, style='R')})***",
                 F"***Created-At:*** {discord.utils.format_dt(member.created_at, style='F')} ({discord.utils.format_dt(member.created_at, style='R')})"
             ]
             omjmbed = discord.Embed(
@@ -45,8 +45,8 @@ class OnMember(commands.Cog):
                 F"***Discriminator:*** {member.discriminator}",
                 F"***ID:*** {member.id}",
                 F"***Mention:*** {member.mention}",
-                F"***Bot:*** {member.bot}"
-                F"***Joined-At: {discord.utils.format_dt(member.joined_at, style='F')} ({discord.utils.format_dt(member.joined_at, style='R')})***"
+                F"***Bot:*** {member.bot}",
+                F"***Joined-At: {discord.utils.format_dt(member.joined_at, style='F')} ({discord.utils.format_dt(member.joined_at, style='R')})***",
                 F"***Created-At:*** {discord.utils.format_dt(member.created_at, style='F')} ({discord.utils.format_dt(member.created_at, style='R')})"
             ]
             omjmbed = discord.Embed(
