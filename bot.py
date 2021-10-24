@@ -1,5 +1,6 @@
 import discord, asyncpg, os, aiohttp, random
-import core.utils.help as help
+from core.utils.context import PemguContext
+from core.utils.help import CustomHelp
 from discord.ext import commands
 
 async def create_pool_postgres():
@@ -36,6 +37,9 @@ class PemguBase(commands.AutoShardedBot):
         os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
         os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
 
+    async def get_context(self, message, *, ctx=PemguContext):
+        return await super().get_context(message, cls=ctx)
+
     async def close(self):
         if not self.session.closed:
             await self.session.close()
@@ -57,7 +61,7 @@ bot = PemguBase(
     command_prefix=get_prefix,
     strip_after_prefix=True,
     case_insensitive=True,
-    help_command=help.CustomHelp(),
+    help_command=CustomHelp(),
     intents=discord.Intents.all(),
     allowed_mentions=discord.AllowedMentions.none()
 )
