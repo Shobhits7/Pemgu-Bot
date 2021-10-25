@@ -34,7 +34,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     async def counter(self, ctx:commands.Context):
         ctrmbed = discord.Embed(
             color=self.bot.color,
-            description="> Click the button for counting",
+            title="Click the button for counting",
             timestamp=ctx.message.created_at
         )
         ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
