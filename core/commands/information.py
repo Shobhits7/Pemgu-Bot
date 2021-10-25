@@ -58,6 +58,10 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         link = discord.utils.oauth_url(client_id=bot.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions.all())
         iembed.title = F"Here is the invite link for adding the {bot}"
         iembed.url = link
+        ggurl = F"https://top.gg/bot/{bot.id}"
+        session = await self.bot.session.get(ggurl)
+        if session.status != 404:
+            iembed.description = F"[Top.gg]({url})"
         await ctx.send(embed=iembed)
 
     # Ping
