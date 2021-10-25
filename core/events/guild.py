@@ -13,7 +13,6 @@ class OnGuild(commands.Cog):
             description=F"\nHey there! Thanks for inviting me!\nIf you need any help, just type **{self.bot.prefix}help**",
             timestamp=discord.utils.utcnow()
         )
-        ogjmbed.set_footer(text=F"From {self.bot.user.name} Developers", icon_url=self.bot.user.avatar.url)
         await channel.send(embed=ogjmbed)
 
     @commands.Cog.listener()
