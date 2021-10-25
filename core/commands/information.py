@@ -89,28 +89,34 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     # Source
     @commands.command(name="source", aliases=["src"], help="Will show the bots source")
     async def source(self, ctx:commands.Context, command:str=None):
-        source_url = "https://github.com/lvlahraam/Pemgu-Bot"
-        if not command:
-            return await ctx.send(source_url)
-        if command == "help":
-            src = type(self.bot.help_command)
+        prefix = ctx.clean_prefix
+        source_url = 'https://github.com/lvlahraam/Pemgu-Bot'
+        if command is None:
+            embed = discord.Embed(title=f"Click here for the source code of this bot", url=f"{source_url}")
+            return await ctx.send(embed=embed)
+        if command == 'help':
+            src = type(self.client.help_command)
             module = src.__module__
             filename = inspect.getsourcefile(src)
         else:
-            obj = self.bot.get_command(command.replace(".", " "))
-            if not obj:
-                return await ctx.send("Could not find command.")
+            obj = self.client.get_command(command.replace('.', ' '))
+            if obj is None:
+                embed = discord.Embed(title=f"Click here for the source code of this bot", description="I couldn't find that command", url=f"{source_url}")
+                return await ctx.send(embed=embed)
             src = obj.callback.__code__
             module = obj.callback.__module__
             filename = src.co_filename
         lines, firstlineno = inspect.getsourcelines(src)
-        if not module.startswith("discord"):
-            location = os.path.relpath(filename).replace("\\", "/")
+        if not module.startswith('discord'):
+            location = os.path.relpath(filename).replace('\\', '/')
         else:
-            location = module.replace(".", "/") + ".py"
-            source_url = "https://github.com/lvlahraam/Pemgu-Bot"
-        final_url = F"<{source_url}/blob/main/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}>"
-        await ctx.send(final_url)
+            location = module.replace('.', '/') + '.py'
+            source_url = 'https://github.com/Rapptz/discord.py'
+            branch = 'master'
+        final_url = f'{source_url}/tree/main/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}'
+        embed = discord.Embed(title=f"Click here for the source code of the `{prefix}{command}` command", url=f"{final_url}")
+        embed.set_footer(text=f"{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}")
+        await ctx.send(embed=embed)
 
     # Colors
     @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image")
