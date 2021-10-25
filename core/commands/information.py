@@ -61,7 +61,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         ggurl = F"https://top.gg/bot/{bot.id}"
         session = await self.bot.session.get(ggurl)
         if session.status != 404:
-            iembed.description = F"[Top.gg]({url})"
+            iembed.description = F"[Top.gg]({ggurl})"
         await ctx.send(embed=iembed)
 
     # Ping
