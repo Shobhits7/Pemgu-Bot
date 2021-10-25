@@ -253,20 +253,18 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         for permission, value in member.guild_permissions:
             permission = permission.replace("_", " ").title()
             if value:
-                ai.append(F"> ✅ {permission}\n")
+                ai.append(permission)
             if not value:
-                di.append(F"> ❎ {permission}\n")
+                di.append(permission)
         permsmbed = discord.Embed(
             color=self.bot.color,
             title=F"{member}'s Permissions",
             timestamp=ctx.message.created_at
         )
-        if ai["Administrator"]:
-            permsmbed.description = "> User has Administrator"
         if len(ai) != 0:
-            permsmbed.add_field(name="Allowed:", value="".join(a for a in ai))
+            permsmbed.add_field(name="✅ Allowed:", value="\n".join(a for a in ai))
         if len(di) != 0:
-            permsmbed.add_field(name="Denied:", value="".join(d for d in di))
+            permsmbed.add_field(name="❎ Denied:", value="\n".join(d for d in di))
         permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=permsmbed)
 
