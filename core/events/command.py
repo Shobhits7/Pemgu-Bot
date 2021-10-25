@@ -16,7 +16,6 @@ class OnCommand(commands.Cog):
                     description="> Since discord is forcing every bot to use slash commands `/` please re invite me again, with the command `.m invite`",
                     timestamp=ctx.message.created_at
                 )
-                scmdmbed.set_footer(text="From the Pemgu-Bot Developers", icon_url=self.bot.user.avatar.url)
                 await ctx.send(embed=scmdmbed)
         if number == 70:
             votembed = discord.Embed(
@@ -25,7 +24,6 @@ class OnCommand(commands.Cog):
                 title="Go vote on top.gg",
                 timestamp=ctx.message.created_at
             )
-            votembed.set_footer(text="From the Pemgu-Bot Developers", icon_url=self.bot.user.avatar.url)
             await ctx.send(embed=votembed)
 
 def setup(bot):
