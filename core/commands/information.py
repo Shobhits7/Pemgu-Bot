@@ -89,11 +89,17 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     # Source
     @commands.command(name="source", aliases=["src"], help="Will show the bots source")
     async def source(self, ctx:commands.Context, command:str=None):
+        srcmbed = discord.Embed(
+            color=self.bot.color,
+            timestamp=ctx.message.created_at
+        )
+        srcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
         prefix = ctx.clean_prefix
         source_url = 'https://github.com/lvlahraam/Pemgu-Bot'
         if command is None:
-            embed = discord.Embed(title=F"Click here for the source code of this bot", url=F"{source_url}")
-            return await ctx.send(embed=embed)
+            srcmbed.title = F"Click here for the source code of this bot"
+            srcmbed.url = F"{source_url}"
+            return await ctx.send(embed=srcmbed)
         if command == 'help':
             src = type(self.bot.help_command)
             module = src.__module__
@@ -101,8 +107,10 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         else:
             obj = self.bot.get_command(command.replace('.', ' '))
             if obj is None:
-                embed = discord.Embed(title=F"Click here for the source code of this bot", description="I couldn't find that command", url=F"{source_url}")
-                return await ctx.send(embed=embed)
+                srcmbed.title = F"Click here for the source code of this bot"
+                srcmbed.url = F"{source_url}"
+                srcmbed.description = "I couldn't find that command"
+                return await ctx.send(embed=srcmbed)
             src = obj.callback.__code__
             module = obj.callback.__module__
             filename = src.co_filename
@@ -114,9 +122,10 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             source_url = 'https://github.com/Rapptz/discord.py'
             branch = 'master'
         final_url = f'{source_url}/tree/main/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}'
-        embed = discord.Embed(title=F"Click here for the source code of the `{prefix}{command}` command", url=F"{final_url}")
-        embed.set_footer(text=F"{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}")
-        await ctx.send(embed=embed)
+        srcmbed.title = F"Click here for the source code of the `{prefix}{command}` command"
+        srcmbed.url = F"{final_url}"
+        srcmbed.set_footer(text=f"{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}\n{ctx.author}", icon_url=ctx.author.display_avatar)
+        await ctx.send(embed=srcmbed)
 
     # Colors
     @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image")
