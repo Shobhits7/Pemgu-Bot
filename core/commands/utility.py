@@ -1,10 +1,22 @@
-import discord
+import discord, expr
 from discord.ext import commands
 import core.views.confirm as cum
 
 class Utility(commands.Cog, description="Useful stuff that are open to everyone"):
     def __init__(self, bot):
         self.bot = bot
+
+    # Calculator
+    @commands.command(name="calculator", aliases=["calc"], help="Will calculate the given math")
+    async def calculator(self, ctx:commands.Context, *, math:str):
+        output = expr.evaluate(math)
+        calcmbed = discord.Embed(
+            color=self.bot.color,
+            timestamp=ctx.message.created_at
+        )
+        calcmbed.add_field(name="Input:", value=F"```py\n{math}\n```")
+        calcmbed.add_field(name="Output:", value=F"```py\n{output}\n```")
+        await ctx.send(embed=calcmbed)
 
     # Cleanup
     @commands.command(name="cleanup", aliases=["cu"], help="Will delete bot's messagess")

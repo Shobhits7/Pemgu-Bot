@@ -1,5 +1,6 @@
 PyNaCl
 Pillow
 asyncpg
+git+https://github.com/jay3332/expr.py
 git+https://github.com/Gorialis/jishaku
 git+https://github.com/iDevision/enhanced-discord.py
