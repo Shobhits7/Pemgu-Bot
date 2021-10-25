@@ -33,16 +33,20 @@ class OnError(commands.Cog):
                     view.message = await ctx.send(embed=matcnfmbed)
                 else:
                     await ctx.send(embed=nmatcnfmbed)
+        elif isinstance(error, commands.CheckFailure):
+            cfmbed = discord.Embed(
+                color=self.bot.color,
+                description=F"<:shut:744345896912945214> YOU <:shut:744345896912945214> ARE  <:shut:744345896912945214> IN <:shut:744345896912945214> BLACKLIST <:shut:744345896912945214> YOU <:shut:744345896912945214> S-KID/IDIOT\nSAY <:shut:744345896912945214> YOU <:shut:744345896912945214> ARE <:shut:744345896912945214> SORRY <:shut:744345896912945214> {ctx.author.mention}"
+                timestamp=ctx.message.created_at
+            )
+            cfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            await ctx.send(embed=cfmbed)
         else:
             print("".join(traceback.format_exception(type(error), error,  error.__traceback__)))
-            errors = {
-                commands.CheckFailure: F"<:shut:744345896912945214> YOU <:shut:744345896912945214> ARE  <:shut:744345896912945214> IN <:shut:744345896912945214> BLACKLIST <:shut:744345896912945214> YOU <:shut:744345896912945214> S-KID/IDIOT\nSAY <:shut:744345896912945214> YOU <:shut:744345896912945214> ARE <:shut:744345896912945214> SORRY <:shut:744345896912945214> {ctx.author.mention}",
-            }
-            e = errors.get(error)
             errormbed = discord.Embed(
                 color=self.bot.color,
                 title="❌ There was a problem",
-                description=F"```diff\n{error if not e else e}\n```",
+                description=F"```diff\n{error}\n```",
                 timestamp=ctx.message.created_at
             )
             errormbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
