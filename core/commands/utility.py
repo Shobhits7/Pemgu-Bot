@@ -14,8 +14,9 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
-        calcmbed.add_field(name="Input:", value=F"```py\n{math}\n```")
-        calcmbed.add_field(name="Output:", value=F"```py\n{output}\n```")
+        calcmbed.add_field(name="Input:", value=F"```py\n{math}\n```", inline=False)
+        calcmbed.add_field(name="Output:", value=F"```py\n{output}\n```", inline=False)
+        calcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=calcmbed)
 
     # Cleanup
@@ -89,7 +90,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         tasks = []
         counter = 0
         for stuff in notes:
-            tasks.append(F"{counter}. {stuff['task']}\n")
+            tasks.append(F"`[#{counter}].` {stuff['task']}\n")
             counter += 1
         notelistmbed.title=F"{user}'s notes:"
         notelistmbed.description="".join(task for task in tasks)
