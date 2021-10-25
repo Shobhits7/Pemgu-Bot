@@ -261,7 +261,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             title=F"{member}'s Permissions",
             timestamp=ctx.message.created_at
         )
-        if ai in ("Administrator"):
+        if ai["Administrator"]:
             permsmbed.description = "> User has Administrator"
         if len(ai) != 0:
             permsmbed.add_field(name="Allowed:", value="".join(a for a in ai))
