@@ -1,4 +1,4 @@
-import discord, time, inspect, os, io
+import discord, time, inspect, os, io, typing
 from discord.ext import commands
 
 class Information(commands.Cog, description="Stalking people is wrong and bad!"):
@@ -310,7 +310,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
 
     # EmojiInfo
     @commands.command(name="emojiinfo", aliases=["ei"], help="Will give information about the given emoji")
-    async def emoji(self, ctx:commands.Context, emoji:discord.Emoji):
+    async def emoji(self, ctx:commands.Context, emoji:typing.Union(discord.Emoji, discord.PartialEmoji)):
         ei = [
             F"ᓚ***Name:*** {emoji.name}",
             F"ᓚ***ID:*** {emoji.id}",
