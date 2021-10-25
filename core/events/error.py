@@ -38,10 +38,11 @@ class OnError(commands.Cog):
             errors = {
                 commands.CheckFailure: F"<:shut:744345896912945214> YOU <:shut:744345896912945214> ARE  <:shut:744345896912945214> IN <:shut:744345896912945214> BLACKLIST <:shut:744345896912945214> YOU <:shut:744345896912945214> S-KID/IDIOT\nSAY <:shut:744345896912945214> YOU <:shut:744345896912945214> ARE <:shut:744345896912945214> SORRY <:shut:744345896912945214> {ctx.author.mention}",
             }
+            e = errors.get(error)
             errormbed = discord.Embed(
                 color=self.bot.color,
                 title="❌ There was a problem",
-                description=errors.get(error, None) if not errors else error,
+                description=F"```diff\n{error if not e else e}\n```",
                 timestamp=ctx.message.created_at
             )
             errormbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
