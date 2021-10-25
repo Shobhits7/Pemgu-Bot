@@ -56,7 +56,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             iembed.title = "The given user is not a bot"
             return await ctx.send(embed=iembed)
         link = discord.utils.oauth_url(client_id=bot.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions.all())
-        iembed.title = "Here is the invite link for adding the bot"
+        iembed.title = F"Here is the invite link for adding the {bot}"
         iembed.url = link
         await ctx.send(embed=iembed)
 
