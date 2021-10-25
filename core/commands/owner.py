@@ -25,7 +25,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
             body = "\n".join(body.split("\n")[1:-1])
         body = body.strip("` \n")
         stdout = io.StringIO()
-        to_compile = f"async def func():\n{textwrap.indent(body, '  ')}"
+        to_compile = F"async def func():\n{textwrap.indent(body, '  ')}"
         try:
             exec(to_compile, env)
         except Exception as e:

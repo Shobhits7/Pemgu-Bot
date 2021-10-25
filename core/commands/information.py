@@ -92,7 +92,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         prefix = ctx.clean_prefix
         source_url = 'https://github.com/lvlahraam/Pemgu-Bot'
         if command is None:
-            embed = discord.Embed(title=f"Click here for the source code of this bot", url=f"{source_url}")
+            embed = discord.Embed(title=F"Click here for the source code of this bot", url=F"{source_url}")
             return await ctx.send(embed=embed)
         if command == 'help':
             src = type(self.bot.help_command)
@@ -101,7 +101,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         else:
             obj = self.bot.get_command(command.replace('.', ' '))
             if obj is None:
-                embed = discord.Embed(title=f"Click here for the source code of this bot", description="I couldn't find that command", url=f"{source_url}")
+                embed = discord.Embed(title=F"Click here for the source code of this bot", description="I couldn't find that command", url=F"{source_url}")
                 return await ctx.send(embed=embed)
             src = obj.callback.__code__
             module = obj.callback.__module__
@@ -114,8 +114,8 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             source_url = 'https://github.com/Rapptz/discord.py'
             branch = 'master'
         final_url = f'{source_url}/tree/main/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}'
-        embed = discord.Embed(title=f"Click here for the source code of the `{prefix}{command}` command", url=f"{final_url}")
-        embed.set_footer(text=f"{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}")
+        embed = discord.Embed(title=F"Click here for the source code of the `{prefix}{command}` command", url=F"{final_url}")
+        embed.set_footer(text=F"{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}")
         await ctx.send(embed=embed)
 
     # Colors
