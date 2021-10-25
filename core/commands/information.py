@@ -95,11 +95,11 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             embed = discord.Embed(title=f"Click here for the source code of this bot", url=f"{source_url}")
             return await ctx.send(embed=embed)
         if command == 'help':
-            src = type(self.client.help_command)
+            src = type(self.bot.help_command)
             module = src.__module__
             filename = inspect.getsourcefile(src)
         else:
-            obj = self.client.get_command(command.replace('.', ' '))
+            obj = self.bot.get_command(command.replace('.', ' '))
             if obj is None:
                 embed = discord.Embed(title=f"Click here for the source code of this bot", description="I couldn't find that command", url=f"{source_url}")
                 return await ctx.send(embed=embed)
