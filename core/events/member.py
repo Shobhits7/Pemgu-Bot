@@ -18,7 +18,7 @@ class OnMember(commands.Cog):
                 F"***ID:*** {member.id}",
                 F"***Mention:*** {member.mention}",
                 F"***Bot:*** {member.bot}",
-                F"***Joined-At: {discord.utils.format_dt(member.joined_at, style='F')} ({discord.utils.format_dt(member.joined_at, style='R')})***",
+                F"***Joined-At:*** {discord.utils.format_dt(member.joined_at, style='F')} ({discord.utils.format_dt(member.joined_at, style='R')})",
                 F"***Created-At:*** {discord.utils.format_dt(member.created_at, style='F')} ({discord.utils.format_dt(member.created_at, style='R')})",
                 F"***Member-Count:*** {member.guild.member_count}"
             ]
@@ -47,7 +47,7 @@ class OnMember(commands.Cog):
                 F"***ID:*** {member.id}",
                 F"***Mention:*** {member.mention}",
                 F"***Bot:*** {member.bot}",
-                F"***Joined-At: {discord.utils.format_dt(member.joined_at, style='F')} ({discord.utils.format_dt(member.joined_at, style='R')})***",
+                F"***Joined-At:*** {discord.utils.format_dt(member.joined_at, style='F')} ({discord.utils.format_dt(member.joined_at, style='R')})",
                 F"***Created-At:*** {discord.utils.format_dt(member.created_at, style='F')} ({discord.utils.format_dt(member.created_at, style='R')})",
                 F"***Member-Count:*** {member.guild.member_count}"
             ]
