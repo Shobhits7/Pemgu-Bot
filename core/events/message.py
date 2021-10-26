@@ -25,6 +25,7 @@ class OnMessage(commands.Cog):
                 description=F"> Reason: **{self.bot.afks[message.author.id]['reason']}**\n> Since: **{discord.utils.format_dt(self.bot.afks[message.author.id]['time'], style='R')}**",
                 timestamp=message.created_at
             )
+            omafkmbed.set_footer(text=message.author, icon_url=message.author.display_avatar.url)
             await message.channel.send(embed=omafkmbed)
             del self.bot.afks[message.author.id]
 

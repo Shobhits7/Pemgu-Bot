@@ -61,11 +61,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             afk[ctx.author.id] = {"time":discord.utils.utcnow(), "reason":reason}
             afkmbed.title = "Set your AFK"
             afkmbed.description = F"> Reason: **{afk[ctx.author.id]['reason']}**"
-            return await ctx.send(embed=afkmbed)
-        afkmbed.title = "Removed your AFK"
-        afkmbed.description = F"> Reason: **{afk[ctx.author.id]['reason']}**\n> Since: **{discord.utils.format_dt(afk[ctx.author.id]['time'], style='R')}**"
-        await ctx.send(embed=afkmbed)
-        del afk[ctx.author.id]
+            await ctx.send(embed=afkmbed)
 
     # Notes
     @commands.group(name="notes", aliases=["note"], help="Consider using subcommands", invoke_without_command=True)
