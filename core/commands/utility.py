@@ -56,15 +56,16 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             timestamp=ctx.message.created_at
         )
         afkmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if KeyError(self.bot.afks[ctx.author.id]):
-            self.bot.afks[ctx.author.id] = {"time":discord.utils.utcnow(), "reason":reason}
-            afkmbed.title = "Set your AFK"
-            afkmbed.description = F"> Reason: {self.bot.afks[ctx.author.id]['reason']}"
-            return await ctx.send(embed=afkmbed)
-        afkmbed.title = "Removed your AFK"
-        afkmbed.description = F"👋 Welcome Back\n> You were AFK: for about **{discord.utils.format_dt(self.bot.afks[ctx.author.id]['time'], style='R')}**\n> And the reason: is **{self.bot.afks[ctx.author.id]['reason']}**"
+        if not KeyError(self.bot.afks[ctx.author.id]):
+            afkmbed.title = "Removed your AFK"
+            afkmbed.description = F"👋 Welcome Back\n> You were AFK: for about **{discord.utils.format_dt(self.bot.afks[ctx.author.id]['time'], style='R')}**\n> And the reason: is **{self.bot.afks[ctx.author.id]['reason']}**"
+            await ctx.send(embed=afkmbed)
+            del self.bot.afks[ctx.author.id]
+            return
+        self.bot.afks[ctx.author.id] = {"time":discord.utils.utcnow(), "reason":reason}
+        afkmbed.title = "Set your AFK"
+        afkmbed.description = F"> Reason: {self.bot.afks[ctx.author.id]['reason']}"
         await ctx.send(embed=afkmbed)
-        del self.bot.afks[ctx.author.id]
 
     # Notes
     @commands.group(name="notes", aliases=["note"], help="Consider using subcommands", invoke_without_command=True)
