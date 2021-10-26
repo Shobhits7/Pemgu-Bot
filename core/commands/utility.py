@@ -1,4 +1,4 @@
-import discord, expr
+import discord, expr, asyncio
 from discord.ext import commands
 import core.views.confirm as cum
 
@@ -46,6 +46,13 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             laembed.title = F"{self.bot.user} has successfully left"
             await ctx.send(embed=laembed)
             await ctx.me.guild.leave()
+
+    # Remind
+    @commands.command(name="remind", aliases=["rm"], help="Will remind you with the given task and seconds")
+    async def remind(self, ctx:commands.Context, time:float, *, task:str):
+        message = await ctx.send(F"{ctx.author.mention} I will remind you in `{time}`, About **{task}**")
+        await asyncio.sleep(time)
+        await ctx.send(F"{ctx.author.mention} Reminded you as you said `{time}`, About **{task}**\nHere {message.jump_url}")
 
     # AFK
     @commands.command(name="afk", help="Will make you AFK")
