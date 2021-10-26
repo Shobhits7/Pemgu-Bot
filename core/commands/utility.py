@@ -63,7 +63,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             afkmbed.description = F"> Reason: **{afk[ctx.author.id]['reason']}**"
             return await ctx.send(embed=afkmbed)
         afkmbed.title = "Removed your AFK"
-        afkmbed.description = F"> You were AFK: for about **{discord.utils.format_dt(afk[ctx.author.id]['time'], style='R')}**\n> And the reason: is **{afk[ctx.author.id]['reason']}**"
+        afkmbed.description = F"> Reason: **{afk[ctx.author.id]['reason']}**\n> Since: **{discord.utils.format_dt(afk[ctx.author.id]['time'], style='R')}**"
         await ctx.send(embed=afkmbed)
         del afk[ctx.author.id]
 
