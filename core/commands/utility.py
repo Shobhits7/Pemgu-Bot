@@ -5,7 +5,6 @@ import core.views.confirm as cum
 class Utility(commands.Cog, description="Useful stuff that are open to everyone"):
     def __init__(self, bot):
         self.bot = bot
-        self.bot.afks = {}
 
     # Calculator
     @commands.command(name="calculator", aliases=["calc"], help="Will calculate the given math")

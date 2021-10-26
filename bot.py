@@ -35,6 +35,7 @@ class PemguBase(commands.AutoShardedBot):
         self.load_extension("jishaku")
         os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
         os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
+        self.bot.afks = {}
 
     async def close(self):
         if not self.session.closed:
