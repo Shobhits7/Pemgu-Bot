@@ -5,6 +5,7 @@ import core.views.confirm as cum
 class Utility(commands.Cog, description="Useful stuff that are open to everyone"):
     def __init__(self, bot):
         self.bot = bot
+        self.bot.afks = {}
 
     # Calculator
     @commands.command(name="calculator", aliases=["calc"], help="Will calculate the given math")
@@ -49,25 +50,21 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
 
     # AFK
     @commands.command(name="afk", help="Will make you AFK")
-    @commands.guild_only()
-    @commands.bot_has_guild_permissions(manage_nicknames=True)
-    async def afk(self, ctx:commands.Context):
+    async def afk(self, ctx:commands.Context, reason:str="You didn't provide anything"):
         afkmbed  = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         afkmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if ctx.author.nick == "AFK":
-            afkmbed.title = "Name has been changed to it's original"
-            await ctx.author.edit(nick=None)
+        if KeyError(self.bot.afks[ctx.author.id]):
+            self.bot.afks[ctx.author.id] = {"time":discord.utils.utcnow(), "reason":reason}
+            afkmbed.title = "Set your AFK"
+            afkmbed.description = F"> Reason: {self.bot.afks[ctx.author.id]['reason']}"
             return await ctx.send(embed=afkmbed)
-        afkmbed.title = "Doing AFK"
-        afkmbed.description = "Name has been now changed to AFK"
-        await ctx.author.edit(nick="AFK")
+        afkmbed.title = "Removed your AFK"
+        afkmbed.description = F"👋 Welcome Back\n> You were AFK: for about **{discord.utils.format_dt(self.bot.afks[ctx.author.id]['time'], style='R')}**\n> And the reason: is **{self.bot.afks[ctx.author.id]['reason']}**"
         await ctx.send(embed=afkmbed)
-        if ctx.author.voice:
-            afkmbed.description += "\nNow moving you to AFK voice channel"
-            await ctx.author.move_to(ctx.guild.afk_channel)
+        del self.bot.afks[ctx.author.id]
 
     # Notes
     @commands.group(name="notes", aliases=["note"], help="Consider using subcommands", invoke_without_command=True)
