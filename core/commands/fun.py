@@ -23,18 +23,37 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         ppmbed = discord.Embed(
             color=self.bot.color,
             title=F"{user}'s PP Size:",
-            description=F"> 8{'='*(len(str(user.id)) + random.randint(1, 30))}D",
+            description=F"> 8{'='*random.randint(1, 30)}D",
             timestamp=ctx.message.created_at
         )
         ppmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=ppmbed)
+
+    # Ship
+    @commands.command(name="ship", aliases=["sp"], help="Will ship you with the given user")
+    async def ship(self, ctx:commands.Context, itself:discord.Member=None, user:discord.User=None):
+        itself = ctx.author if not itself else itself
+        user = self.bot.user if not user else user
+        number = random.randint(1, 100)
+        if number < 25: number = number; msg = "Can't see any love 💔"
+        elif number >= 50: number = number; msg = "Can see a sparkle 💖"
+        elif number <= 75: number = number; msg = "I can see both love and sparkle 💓"
+        elif number >= 100: number = number; msg = "I can see a lot of love 💘"
+        spmbed = discord.Embed(
+            color=self.bot.color,
+            title=F"Shipping {itself} with {user}",
+            description=F"`{number}%` - {msg}",
+            timestamp=ctx.message.created_at
+        )
+        spmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.senD(embed=spmbed)
 
     # Counter
     @commands.command(name="counter", aliases=["ctr"], help="Will start an counter")
     async def counter(self, ctx:commands.Context):
         ctrmbed = discord.Embed(
             color=self.bot.color,
-            title="Click the button for counting",
+            description="Click the button for counting",
             timestamp=ctx.message.created_at
         )
         ctrmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
