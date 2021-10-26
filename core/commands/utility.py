@@ -50,7 +50,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     # AFK
     @commands.command(name="afk", help="Will make you AFK")
     async def afk(self, ctx:commands.Context, reason:str=None):
-        reason = "You didn't provide anything" if not reason
+        reason = "You didn't provide anything" if not reason else reason
         afkmbed  = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
