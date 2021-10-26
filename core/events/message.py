@@ -18,6 +18,15 @@ class OnMessage(commands.Cog):
             )
             pfmbed.set_footer(text=message.author, icon_url=message.author.display_avatar.url)
             await message.channel.send(embed=pfmbed)
+        if self.bot.afks.get(message.author.id):
+            omafkmbed = discord.Embed(
+                color=self.bot.color,
+                title="Removed your AFK",
+                description=F"> Reason: **{self.bot.afks[message.author.id]['reason']}**\n> Since: **{discord.utils.format_dt(self.bot.afks[message.author.id]['time'], style='R')}**",
+                timestamp=message.created_at
+            )
+            await message.channel.send(embed=afkmbed)
+            del self.bot.afks[message.author.id]
 
 def setup(bot):
     bot.add_cog(OnMessage(bot))
