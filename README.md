@@ -29,7 +29,7 @@ This is a Discord Bot made by Me aka lvlahraam#8435 on discord and socials
 It's written in Python with Discord.py
 
 ### Why it's called Pemgu
-This name was just to came to my mind
+This name randomly came to my mind
 
 ### Why I made this
 I really Liked Python and programming and i was on Discord 24/7
