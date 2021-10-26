@@ -49,7 +49,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
 
     # AFK
     @commands.command(name="afk", help="Will make you AFK")
-    async def afk(self, ctx:commands.Context, reason:str=None):
+    async def afk(self, ctx:commands.Context, *, reason:str=None):
         reason = "You didn't provide anything" if not reason else reason
         afkmbed  = discord.Embed(
             color=self.bot.color,
@@ -60,10 +60,10 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         if not afk.get(ctx.author.id):
             afk[ctx.author.id] = {"time":discord.utils.utcnow(), "reason":reason}
             afkmbed.title = "Set your AFK"
-            afkmbed.description = F"> Reason: {afk[ctx.author.id]['reason']}"
+            afkmbed.description = F"> Reason: **{afk[ctx.author.id]['reason']}**"
             return await ctx.send(embed=afkmbed)
         afkmbed.title = "Removed your AFK"
-        afkmbed.description = F"👋 Welcome Back\n> You were AFK: for about **{discord.utils.format_dt(afk[ctx.author.id]['time'], style='R')}**\n> And the reason: is **{afk[ctx.author.id]['reason']}**"
+        afkmbed.description = F"> You were AFK: for about **{discord.utils.format_dt(afk[ctx.author.id]['time'], style='R')}**\n> And the reason: is **{afk[ctx.author.id]['reason']}**"
         await ctx.send(embed=afkmbed)
         del afk[ctx.author.id]
 
