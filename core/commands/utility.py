@@ -13,7 +13,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         calcmbed = discord.Embed(
             color=self.bot.color,
             title="Here is your math:",
-            description="> Input: **{math}**\n> Output: **{output}**",
+            description=F"> Input: **{math}**\n> Output: **{output}**",
             timestamp=ctx.message.created_at
         )
         calcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
