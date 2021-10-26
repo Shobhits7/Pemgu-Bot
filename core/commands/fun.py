@@ -31,13 +31,13 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
 
     # Ship
     @commands.command(name="ship", aliases=["sp"], help="Will ship you with the given user")
-    async def ship(self, ctx:commands.Context, member:discord.Member, user:discord.User=None):
-        if user:
-            m = member
-            user = user
+    async def ship(self, ctx:commands.Context, member1:discord.Member, member2:discord.Member=None):
+        if member2:
+            m1 = member1
+            m2 = member2
         else:
-            m = ctx.author
-            user = member
+            m1 = ctx.author
+            m2 = member1
         number = random.randint(1, 100)
         if number < 25:  msg = "Can't see any love 💔"
         elif number >= 25 and number < 50:  msg = "Can see a sparkle 💖"
@@ -45,7 +45,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         elif number > 75:  msg = "I can see a lot of love 💘"
         spmbed = discord.Embed(
             color=self.bot.color,
-            title=F"Shipping {m} with {user}",
+            title=F"Shipping {m1} with {m2}",
             description=F"`{number}%` - {msg}",
             timestamp=ctx.message.created_at
         )
