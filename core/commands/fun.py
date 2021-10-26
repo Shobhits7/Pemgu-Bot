@@ -46,7 +46,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
             timestamp=ctx.message.created_at
         )
         spmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        await ctx.senD(embed=spmbed)
+        await ctx.send(embed=spmbed)
 
     # Counter
     @commands.command(name="counter", aliases=["ctr"], help="Will start an counter")
