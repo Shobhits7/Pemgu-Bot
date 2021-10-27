@@ -60,7 +60,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         if snipe:
             snipe = self.bot.dsnipe.values()
             snipe_list = list(snipe)
-            msg = snipe_list[number].get(ctx.channel.id).get("msg")
+            msg = snipe_list[number].get("msg")
             return await ctx.send(msg)
         await ctx.send("There is no deleted message in this channel")
 
