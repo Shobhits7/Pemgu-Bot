@@ -66,7 +66,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             timestamp=ctx.message.created_at
         )
         afkmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        afk = self.bot.afksget(ctx.author.id)
+        afk = self.bot.afks.get(ctx.author.id)
         if not afk:
             afk = self.bot.afks[ctx.author.id] = {"time":discord.utils.utcnow(), "reason":reason, "jump_url":ctx.message.jump_url}
             view = discord.ui.View()
