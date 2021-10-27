@@ -41,6 +41,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         else: prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", ctx.guild.id)
         if not prefix: await self.bot.postgres.execute("INSERT INTO prefixes(guild_name,guild_id,prefix) VALUES ($1,$2,$3)", ctx.guild.name, ctx.guild.id, text)
         else: await self.bot.postgres.execute("UPDATE prefixes SET prefix=$1 WHERE guild_id=$2", text, ctx.guild.id)
+        self.bot.gprefix[ctx.guild.id] = text
         await ctx.send(embed=pfchmbed)
 
     # Prefix-Reset
@@ -48,15 +49,19 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def prefix_reset(self, ctx:commands.Context):
-        prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", ctx.guild.id)
-        if prefix: await self.bot.postgres.execute("DELETE FROM prefixes WHERE guild_id=$1", ctx.guild.id)
         pfrsmbed = discord.Embed(
             color=self.bot.color,
-            title="Successfully resetted to:",
-            description=F"{self.bot.prefix}",
             timestamp=ctx.message.created_at
         )
         pfrsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", ctx.guild.id)
+        if prefix:
+            await self.bot.postgres.execute("DELETE FROM prefixes WHERE guild_id=$1", ctx.guild.id)
+            self.bot.gprefix[ctx.guild.id] = self.bot.prefix
+            pfrsmbed.title = "Successfully resetted to:"
+            pfrsmbed.description = F"{self.bot.prefix}"
+            return await ctx.send(embed=pfrsmbed)
+        pfrsmbed.title = "Prefix was never changed"
         await ctx.send(embed=pfrsmbed)
 
     # Welcome

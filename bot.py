@@ -12,12 +12,13 @@ async def get_prefix(bot, message:discord.Message):
     gprefix = bot.gprefix.get(message.guild.id)
     if not gprefix:
         db = await bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", message.guild.id)
-        print(F"Cached | {message.guild.name} - {message.guild.id}")
+        print(F"Cached {db} | {message.guild.name} - {message.guild.id}")
         if db:
-            del bot.gprefix[message.guild.id]
-            bot.prefix[message.guild.id] = db
-            prefix = gprefix
-    else: prefix = bot.prefix
+            if db == gprefix:
+                prefix = gprefix
+            else:
+                bot.prefix[message.guild.id] = db
+                prefix = gprefix
     return prefix
 
 async def create_session_aiohttp():

@@ -17,6 +17,7 @@ class OnGuild(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild:discord.Guild):
+        del self.bot.gprefix[guild.id]
         prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", guild.id)
         if prefix:
             await self.bot.postgres.execute("DELETE FROM prefixes WHERE guild_id=$1", guild.id)
