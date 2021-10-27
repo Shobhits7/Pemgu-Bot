@@ -49,10 +49,10 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
 
     # Remind
     @commands.command(name="remind", aliases=["rm"], help="Will remind you with the given task and seconds")
-    async def remind(self, ctx:commands.Context, time:float, *, task:str):
-        await ctx.send(F"{ctx.author.mention} I will remind you in `{time}`, About **{task}**")
-        await asyncio.sleep(time)
-        await ctx.send(F"{ctx.author.mention} Reminded you as you said `{time}`, About **{task}**\nHere {ctx.message.jump_url}")
+    async def remind(self, ctx:commands.Context, seconds:float, *, task:str):
+        await ctx.send(F"{ctx.author.mention} I will remind you in `{seconds}`, About **{task}**")
+        await asyncio.sleep(seconds)
+        await ctx.send(F"{ctx.author.mention} Reminded you as you said `{seconds}`, About **{task}**\nHere {ctx.message.jump_url}")
 
     # AFK
     @commands.command(name="afk", help="Will make you AFK")
