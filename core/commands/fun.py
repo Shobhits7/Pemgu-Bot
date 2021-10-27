@@ -59,7 +59,12 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         snipe = self.bot.dsnipe.get(str(ctx.channel.id))
         if snipe:
             msg = snipe[number].get("msg")
-            return await ctx.send(msg)
+            items = []
+            for item in msg:
+                if item:
+                    items.append(item)
+            await ctx.send("".join(i for i in items))
+            return await ctx.send(F"^ **{msg.author.mention}** ^")
         await ctx.send("There is no deleted message in this channel")
 
     # Counter
