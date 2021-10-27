@@ -64,8 +64,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         snipe = self.bot.dsnipe.get(str(ctx.channel.id))
         if snipe:
             msg = snipe[num].get("msg")
-            sembed.set_author(icon_url=msg.author.display_avatar.url, url=msg.jump_url)
-            sembed.title = F"{msg.author} Said:, In {msg.channel}"
+            sembed.set_author(name=F"{msg.author} Said:, In {msg.channel}", icon_url=msg.author.display_avatar.url, url=msg.jump_url)
             sembed.description = "Message didn't have content..." if not msg.content else msg.content
             fs = []
             for attachment in msg.attachments:
