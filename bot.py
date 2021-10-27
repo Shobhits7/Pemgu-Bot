@@ -12,6 +12,7 @@ async def get_prefix(bot, message:discord.Message):
     prefix = bot.gprefix.get(message.guild.id)
     if not prefix:
         p = await bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", message.guild.id)
+        print(F"Cached | {message.guild.name} - {message.guild.id}")
         if not p: p = bot.prefix
         bot.gprefix[message.guild.id] = p
     else: p = prefix
