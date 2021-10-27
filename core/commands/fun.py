@@ -64,9 +64,9 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         snipe = self.bot.dsnipe.get(str(ctx.channel.id))
         if snipe:
             msg = snipe[number].get("msg")
-            sembed.title = F"{msg.author} Said:"
+            sembed.title = F"{msg.author} Said:, In {msg.channel}"
             sembed.description = "Message didn't have content..." if not msg.content else msg.content
-            sembed.set_author(name=msg.author, icon_url=msg.author.display_avatar.url)
+            sembed.set_author(icon_url=msg.author.display_avatar.url, url=msg.jump_url)
             return await ctx.send(embed=sembed, file=msg.attachments[-1] if msg.attachments else None)
         sembed.title = "There is no deleted message in this channel"
         await ctx.send(embed=sembed)
