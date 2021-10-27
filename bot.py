@@ -60,7 +60,7 @@ bot = PemguBase(
     case_insensitive=True,
     help_command=help.CustomHelp(),
     intents=discord.Intents.all(),
-    allowed_mentions=discord.AllowedMentions.none()
+    allowed_mentions=discord.AllowedMentions(everyone=False, replied_user=True, roles=False, users=False)
 )
 
 @bot.check
