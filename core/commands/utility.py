@@ -50,7 +50,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     # Remind
     @commands.command(name="remind", aliases=["rm"], help="Will remind you with the given task and seconds")
     async def remind(self, ctx:commands.Context, seconds:int, *, task:str):
-        await ctx.send(F"{ctx.author.mention} I will remind you in `{seconds}`, About **{task}**")
+        await ctx.send(F"Alright {ctx.author.mention}, in {seconds} seconds:, I will remidn you About **{task}**")
         await asyncio.sleep(seconds)
         view = discord.ui.View()
         button = discord.ui.Button(label="Go to original message", url=ctx.message.jump_url)
