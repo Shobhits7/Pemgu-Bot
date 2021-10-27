@@ -14,9 +14,9 @@ async def get_prefix(bot, message:discord.Message):
         db = await bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", message.guild.id)
         print(F"Cached {db} | {message.guild.name} - {message.guild.id}")
         if db:
-            bot.gprefix[message.guild.id] = db
+            gprefix = bot.gprefix[message.guild.id] = db
         else:
-            bot.gprefix[message.guild.id] = bot.prefix
+            gprefix = bot.gprefix[message.guild.id] = bot.prefix
     return gprefix
 
 async def create_session_aiohttp():
