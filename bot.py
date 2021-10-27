@@ -12,11 +12,11 @@ async def get_prefix(bot, message:discord.Message):
     prefix = bot.prefixes.get(message.guild.id)
     if prefix is None:
         postgres = await bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", message.guild.id)
-        print(F"Cached {F'{prefix}/d' if not postgres else F'{postgres}/p'} | {message.guild.name} - {message.guild.id}")
         if postgres:
             prefix = bot.prefixes[message.guild.id] = postgres
         else:
             prefix = bot.prefixes[message.guild.id] = bot.default_prefix
+        print(F"Cached {F'{prefix}/d' if not postgres else F'{postgres}/p'} | {message.guild.name} - {message.guild.id}")
     return prefix
 
 async def create_session_aiohttp():
