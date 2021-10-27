@@ -50,12 +50,12 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     # Remind
     @commands.command(name="remind", aliases=["rm"], help="Will remind you with the given task and seconds")
     async def remind(self, ctx:commands.Context, seconds:int, *, task:str):
-        await ctx.send(F"Alright {ctx.author.mention}, in {seconds} seconds:, I will remidn you About **{task}**")
+        await ctx.send(F"Alright {ctx.author.mention}, in {seconds} seconds:, I will remidn you About **{task}**", allowed_mentions=discord.AllowedMentions(users=True))
         await asyncio.sleep(seconds)
         view = discord.ui.View()
         button = discord.ui.Button(label="Go to original message", url=ctx.message.jump_url)
         view.add_item(item=button)
-        await ctx.send(F"{ctx.author.mention} Reminded you as you said `{seconds}`, About **{task}**", view=view)
+        await ctx.send(F"{ctx.author.mention} Reminded you as you said `{discord.utils.format_dt(seconds, style='R')}`, About **{task}**", view=view, allowed_mentions=discord.AllowedMentions(users=True))
 
     # AFK
     @commands.command(name="afk", help="Will make you AFK")
