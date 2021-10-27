@@ -50,12 +50,12 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     # Remind
     @commands.command(name="remind", aliases=["rm"], help="Will remind you with the given task and seconds")
     async def remind(self, ctx:commands.Context, seconds:int, *, task:str):
-        await ctx.send(F"Alright {ctx.author.mention}, in {seconds} seconds:, I will remind you About: **{task}**", allowed_mentions=discord.AllowedMentions(users=True))
+        await ctx.send(F"{ctx.author.mention}, in {seconds} seconds:, I will remind you About: **{task}**", allowed_mentions=discord.AllowedMentions(users=True))
         await asyncio.sleep(seconds)
         view = discord.ui.View()
         button = discord.ui.Button(label="Go to original message", url=ctx.message.jump_url)
         view.add_item(item=button)
-        await ctx.send(F"{ctx.author.mention} Reminded you, as you said **{discord.utils.format_dt(ctx.message.created_at, style='R')}**, About: **{task}**", view=view, allowed_mentions=discord.AllowedMentions(users=True))
+        await ctx.send(F"{ctx.author.mention} Reminded you, as you said in {seconds} seconds, it's been **{discord.utils.format_dt(ctx.message.created_at, style='R')}**, About: **{task}**", view=view, allowed_mentions=discord.AllowedMentions(users=True))
 
     # AFK
     @commands.command(name="afk", help="Will make you AFK")
@@ -66,11 +66,14 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             timestamp=ctx.message.created_at
         )
         afkmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        afk = self.bot.afks
-        if not afk.get(ctx.author.id):
-            afk[ctx.author.id] = {"time":discord.utils.utcnow(), "reason":reason}
+        afk = self.bot.afksget(ctx.author.id)
+        if not afk:
+            afk = self.bot.afks[ctx.author.id] = {"time":discord.utils.utcnow(), "reason":reason, "jump_url":ctx.message.jump_url}
+            view = discord.ui.View()
+            button = discord.ui.Button(label="Go to original message", url=afk["jump_url"])
+            view.add_item(item=button)
             afkmbed.title = "Set your AFK"
-            afkmbed.description = F"Reason: **{afk[ctx.author.id]['reason']}**"
+            afkmbed.description = F"Reason: **{afk['reason']}**"
             await ctx.send(embed=afkmbed)
 
     # Notes
