@@ -24,7 +24,7 @@ async def create_session_aiohttp():
 class PemguBase(commands.AutoShardedBot):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.gprefix
+        self.gprefix = {}
         self.prefix = ".m"
         self._commands = []
         for command in sorted(os.listdir("./core/commands/")):
