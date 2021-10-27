@@ -30,7 +30,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         await ctx.send(embed=ppmbed)
 
     # Ship
-    @commands.command(name="ship", aliases=["sp"], help="Will ship you with the given user")
+    @commands.command(name="ship", aliases=["sp"], help="Will ship you or the given member with the other given member")
     async def ship(self, ctx:commands.Context, member1:discord.Member, member2:discord.Member=None):
         if member2:
             m1 = member1
