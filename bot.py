@@ -64,9 +64,10 @@ bot = PemguBase(
     command_prefix=get_prefix,
     strip_after_prefix=True,
     case_insensitive=True,
+    owner_ids=[494496285676535811, 798928603201929306]
     help_command=help.CustomHelp(),
     intents=discord.Intents.all(),
-    allowed_mentions=discord.AllowedMentions.none()
+    allowed_mentions=discord.AllowedMentions.none(),
 )
 
 @bot.check
