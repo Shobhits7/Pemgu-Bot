@@ -31,5 +31,13 @@ class OnMessage(commands.Cog):
             await message.channel.send(embed=omafkmbed, view=view)
             del self.bot.afks[message.author.id]
 
+    @commands.Cog.listener()
+    async def on_message_delete(self, message:discord.Message):
+        self.bot.dsnipe[message.channel.id] = {"msg":message}
+
+    @commands.Cog.listener()
+    async def on_message_edit(self, message:discord.Message):
+        self.bot.esnipe[message.channel.id] = {"msg":message}
+
 def setup(bot):
     bot.add_cog(OnMessage(bot))

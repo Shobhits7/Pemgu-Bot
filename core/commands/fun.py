@@ -52,6 +52,20 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         spmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=spmbed)
 
+    # Snipe
+    @commands.group(name="snipe", aliases=["se"], help="Will give you the last deleted message in this channel", invoke_without_command=True)
+    async def snipe(self, ctx:commands.Context, number:int=None):
+        number = 1 if not number else number
+        snipe = self.bot.dsnipe.get(ctx.channel.id)
+        if snipe:
+            snipe = self.bot.dsnipe.values()
+            snipe_list = list(snipe)
+            if len(snipe_list) <= number:
+                return await ctx.send(F"There is no `{number}`` message")
+            msg = snipe_list[-number]
+            return await ctx.send(msg)
+        await ctx.send("There is no deleted message in this channel")
+
     # Counter
     @commands.command(name="counter", aliases=["ctr"], help="Will start an counter")
     async def counter(self, ctx:commands.Context):
