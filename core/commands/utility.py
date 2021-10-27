@@ -55,7 +55,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         view = discord.ui.View()
         button = discord.ui.Button(label="Go to original message", url=ctx.message.jump_url)
         view.add_item(item=button)
-        await ctx.send(F"{ctx.author.mention} Reminded you as you said `{discord.utils.format_dt(ctx.message.created_at, style='R')}`, About **{task}**", view=view, allowed_mentions=discord.AllowedMentions(users=True))
+        await ctx.send(F"{ctx.author.mention} Reminded you as you said **{discord.utils.format_dt(ctx.message.created_at, style='R')}**, About **{task}**", view=view, allowed_mentions=discord.AllowedMentions(users=True))
 
     # AFK
     @commands.command(name="afk", help="Will make you AFK")
