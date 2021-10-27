@@ -71,7 +71,7 @@ class CustomHelp(commands.HelpCommand):
         hcogmbed = discord.Embed(
             color=self.context.bot.color,
             title=F"{self.emojis.get(cog.qualified_name) if self.emojis.get(cog.qualified_name) else '❓'} {cog.qualified_name} Category [{len(cog.get_commands())}]",
-            description=F"> {cog.description}\n\n",
+            description=F"{cog.description}\n\n",
             timestamp=self.context.message.created_at
         )
         for command in cog.walk_commands():
@@ -110,7 +110,7 @@ class CustomHelp(commands.HelpCommand):
         hgroupmbed = discord.Embed(
             color=self.context.bot.color,
             title=self.get_command_signature(group),
-            description=F"> {group.help or 'No help found...'}\n\n",
+            description=F"{group.help or 'No help found...'}\n\n",
             timestamp=self.context.message.created_at
         )
         hgroupmbed.set_thumbnail(url=self.context.me.display_avatar.url)

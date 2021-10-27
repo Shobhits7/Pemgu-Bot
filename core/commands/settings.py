@@ -19,7 +19,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         pfstmbed = discord.Embed(
             color=self.bot.color,
             title=F"My Prefix here is:",
-            description=F"> {self.bot.prefix if not prefix else prefix}",
+            description=F"{self.bot.prefix if not prefix else prefix}",
             timestamp=ctx.message.created_at
         )
         pfstmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -33,7 +33,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         pfchmbed = discord.Embed(
             color=self.bot.color,
             title="Successfully changed prefix to:",
-            description=F"> {text}",
+            description=F"{text}",
             timestamp=ctx.message.created_at
         )
         pfchmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -53,7 +53,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         pfrsmbed = discord.Embed(
             color=self.bot.color,
             title="Successfully resetted to:",
-            description=F"> {self.bot.prefix}",
+            description=F"{self.bot.prefix}",
             timestamp=ctx.message.created_at
         )
         pfrsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -80,7 +80,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         else:
             msg = await self.bot.postgres.fetchval("SELECT msg FROM welcome WHERE guild_id=$1", ctx.guild.id)
             welstmbed.title = "Status for welcome"
-            welstmbed.description = F"> Turned On\n> {msg}"
+            welstmbed.description = F"Turned On\n{msg}"
         await ctx.send(embed=welstmbed)
 
     # Welcome-Change
@@ -110,7 +110,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         welmsgmbed = discord.Embed(
             color=self.bot.color,
             title = "Welcome message has been changed to:",
-            description = F"> {msg}",
+            description = F"{msg}",
             timestamp=ctx.message.created_at
         )
         welmsgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -142,7 +142,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         else:
             msg = await self.bot.postgres.fetchval("SELECT msg FROM goodbye WHERE guild_id=$1", ctx.guild.id)
             byestmbed.title = "Status for goodbye"
-            byestmbed.description = F"> Turned On\n> {msg}"
+            byestmbed.description = F"Turned On\n{msg}"
         await ctx.send(embed=byestmbed)
 
     # Goodbye-Change
@@ -178,11 +178,11 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         if not goodbye:
             await self.bot.postgres.execute("INSERT INTO goodbye(guild_name,guild_id,msg) VALUES($1,$2,$3)", ctx.guild.name, ctx.guild.id, msg)
             byemsgmbed.title = "Goodbye message has been changed to:"
-            byemsgmbed.description = F"> {msg}"
+            byemsgmbed.description = F"{msg}"
         else:
             await self.bot.postgres.execute("UPDATE goodbye SET msg=$1 WHERE guild_id=$2", msg, ctx.guild.id)
             byemsgmbed.title = "Goodbye message has been changed to:"
-            byemsgmbed.description = F"> {msg}"
+            byemsgmbed.description = F"{msg}"
         await ctx.send(embed=byemsgmbed)
 
 def setup(bot):

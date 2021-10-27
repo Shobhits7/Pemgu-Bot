@@ -13,7 +13,7 @@ class OnMessage(commands.Cog):
             pfmbed = discord.Embed(
                 color=self.bot.color,
                 title=F"My Prefix here is:",
-                description=F"> {self.bot.prefix if not prefix else prefix}",
+                description=F"{self.bot.prefix if not prefix else prefix}",
                 timestamp=message.created_at
             )
             pfmbed.set_footer(text=message.author, icon_url=message.author.display_avatar.url)
@@ -22,7 +22,7 @@ class OnMessage(commands.Cog):
             omafkmbed = discord.Embed(
                 color=self.bot.color,
                 title="Removed your AFK",
-                description=F"> Reason: **{self.bot.afks[message.author.id]['reason']}**\n> Since: **{discord.utils.format_dt(self.bot.afks[message.author.id]['time'], style='R')}**",
+                description=F"Reason: **{self.bot.afks[message.author.id]['reason']}**\nSince: **{discord.utils.format_dt(self.bot.afks[message.author.id]['time'], style='R')}**",
                 timestamp=message.created_at
             )
             omafkmbed.set_footer(text=message.author, icon_url=message.author.display_avatar.url)

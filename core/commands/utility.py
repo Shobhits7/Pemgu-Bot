@@ -13,7 +13,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         calcmbed = discord.Embed(
             color=self.bot.color,
             title="Here is your math:",
-            description=F"> Input: **{math}**\n> Output: **{output}**",
+            description=F"Input: **{math}**\nOutput: **{output}**",
             timestamp=ctx.message.created_at
         )
         calcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -67,7 +67,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         if not afk.get(ctx.author.id):
             afk[ctx.author.id] = {"time":discord.utils.utcnow(), "reason":reason}
             afkmbed.title = "Set your AFK"
-            afkmbed.description = F"> Reason: **{afk[ctx.author.id]['reason']}**"
+            afkmbed.description = F"Reason: **{afk[ctx.author.id]['reason']}**"
             await ctx.send(embed=afkmbed)
 
     # Notes
@@ -108,11 +108,11 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         note = await self.bot.postgres.fetchval("SELECT task FROM notes WHERE task=$1 AND user_id=$2", task, ctx.author.id)
         if note:
             noteaddmbed.title = "Is already in your notes:"
-            noteaddmbed.description = F"> {task}"
+            noteaddmbed.description = F"{task}"
             return await ctx.send(embed=noteaddmbed)
         await self.bot.postgres.execute("INSERT INTO notes(user_name,user_id,task) VALUES($1,$2,$3)", ctx.author.name, ctx.author.id, task)
         noteaddmbed.title = "Successfully added:"
-        noteaddmbed.description = F"> {task}\n**To your notes**"
+        noteaddmbed.description = F"{task}\n**To your notes**"
         await ctx.send(embed=noteaddmbed)
 
     # Notes-Remove
@@ -132,16 +132,16 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             tasks.append(stuff["task"])
         if len(tasks) <= number:
             noteremovembed.title = "Is not in your notes:"
-            noteremovembed.description = F"> {number}\n**Check your notes**"
+            noteremovembed.description = F"{number}\n**Check your notes**"
             return await ctx.send(embed=noteremovembed)
         note = await self.bot.postgres.fetchval("SELECT task FROM notes WHERE user_id=$1 AND task=$2", ctx.author.id, tasks[number])
         if not note:
             noteremovembed.title = "Is not in your notes:"
-            noteremovembed.description = F"> {number}\n**Check your notes**"
+            noteremovembed.description = F"{number}\n**Check your notes**"
             return await ctx.send(embed=noteremovembed)
         await self.bot.postgres.execute("DELETE FROM notes WHERE user_id=$1 AND task=$2", ctx.author.id, tasks[number])
         noteremovembed.title = "Successfully removed:"
-        noteremovembed.description = F"> {tasks[number]}\n**From your notes**"
+        noteremovembed.description = F"{tasks[number]}\n**From your notes**"
         await ctx.send(embed=noteremovembed)
 
     # Notes-Clear

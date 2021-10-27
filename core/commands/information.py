@@ -80,7 +80,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         dopimbed = discord.Embed(
             color=self.bot.color,
             title="🏓 Pong:",
-            description=F"> Websocket: {self.bot.latency * 1000}ms\nTyping: {(end - start) * 1000}ms",
+            description=F"Websocket: {self.bot.latency * 1000}ms\nTyping: {(end - start) * 1000}ms",
             timestamp=ctx.message.created_at
         )
         dopimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)

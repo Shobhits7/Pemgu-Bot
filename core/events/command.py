@@ -13,7 +13,7 @@ class OnCommand(commands.Cog):
                 scmdmbed = discord.Embed(
                     color=self.bot.color,
                     title="Please re-invite me again for slash commands",
-                    description="> Since discord is forcing every bot to use slash commands `/` please re invite me again, with the command `.m invite`",
+                    description="Since discord is forcing every bot to use slash commands `/` please re invite me again, with the command `.m invite`",
                     timestamp=ctx.message.created_at
                 )
                 await ctx.send(embed=scmdmbed)

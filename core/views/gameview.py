@@ -19,7 +19,7 @@ class RPSButtons(discord.ui.Button):
         if self.useroption == self.botoption:
             tierpsmbed = discord.Embed(
                 color=self.ctx.bot.color,
-                description=F"> We both chose **{self.botoption}**, It's a tie",
+                description=F"We both chose **{self.botoption}**, It's a tie",
                 timestamp=interaction.message.created_at
             )
             tierpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
@@ -30,7 +30,7 @@ class RPSButtons(discord.ui.Button):
                    or self.useroption == "✂️Scissors" and self.botoption == "🧻Paper":
                         wonrpsmbed = discord.Embed(
                             color=self.ctx.bot.color,
-                            description=F"> You chose **{self.useroption}**, But, I chose **{self.botoption}**, You won / I lost",
+                            description=F"You chose **{self.useroption}**, But, I chose **{self.botoption}**, You won / I lost",
                             timestamp=interaction.message.created_at
                         )
                         wonrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
@@ -40,7 +40,7 @@ class RPSButtons(discord.ui.Button):
                     or self.useroption == "🧻Paper" and self.botoption == "✂️Scissors":
                         lostrpsmbed = discord.Embed(
                             color=self.ctx.bot.color,
-                            description=F"> I chose **{self.botoption}**, But, You chose **{self.useroption}**, I won / You lost",
+                            description=F"I chose **{self.botoption}**, But, You chose **{self.useroption}**, I won / You lost",
                             timestamp=interaction.message.created_at
                         )
                         lostrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
@@ -70,7 +70,7 @@ class RPSView(discord.ui.View):
             icheckmbed = discord.Embed(
                 color=self.ctx.bot.color,
                 title=F"You can't use this",
-                description=F"> <@{interaction.user.id}> - Only <@{self.ctx.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
+                description=F"<@{interaction.user.id}> - Only <@{self.ctx.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
                 timestamp=interaction.message.created_at
             )
             icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
@@ -94,7 +94,7 @@ class GuessButtons(discord.ui.Button):
             truembed = discord.Embed(
                 color=self.ctx.bot.color,
                 title="You guessed correctly",
-                description=F"> The number was **{self.number}**"
+                description=F"The number was **{self.number}**"
             )
             truembed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
             await interaction.response.edit_message(embed=truembed, view=self.view)
@@ -102,7 +102,7 @@ class GuessButtons(discord.ui.Button):
             falsembed = discord.Embed(
                 color=self.ctx.bot.color,
                 title="You guessed incorrectly",
-                description=F"> The correct answer was **{self.number}** but you chose **{self.label}**"
+                description=F"The correct answer was **{self.number}** but you chose **{self.label}**"
             )
             falsembed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
             await interaction.response.edit_message(embed=falsembed, view=self.view)
@@ -130,7 +130,7 @@ class GuessView(discord.ui.View):
             icheckmbed = discord.Embed(
                 color=self.ctx.bot.color,
                 title=F"You can't use this",
-                description=F"> <@{interaction.user.id}> - Only <@{self.ctx.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
+                description=F"<@{interaction.user.id}> - Only <@{self.ctx.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
                 timestamp=interaction.message.created_at
             )
             icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)

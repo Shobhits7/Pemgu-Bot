@@ -135,7 +135,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
         livesmbed = discord.Embed(
             color=self.bot.color,
             title="Living the given guilds:",
-            description=F"> {g.name} {g.id} {'No Owner' if not g.owner else g.owner}",
+            description=F"{g.name} {g.id} {'No Owner' if not g.owner else g.owner}",
             timestamp=ctx.message.created_at
         )
         view = cum.Confirm(ctx)

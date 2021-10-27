@@ -49,7 +49,7 @@ class DYMView(discord.ui.View):
             icheckmbed = discord.Embed(
                 color=self.ctx.bot.color,
                 title=F"You can't use this",
-                description=F"> <@{interaction.user.id}> - Only <@{self.ctx.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
+                description=F"<@{interaction.user.id}> - Only <@{self.ctx.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
                 timestamp=interaction.message.created_at
             )
             icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
