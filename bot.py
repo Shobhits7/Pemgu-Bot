@@ -42,8 +42,8 @@ class PemguBase(commands.AutoShardedBot):
         os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
         os.environ["JISHAKU_NO_DM_TRACEBACK"] = "True"
         self.afks = {}
-        self.dsnipe = []
-        self.esnipe = []
+        self.dsnipe = {}
+        self.esnipe = {}
 
     async def close(self):
         if not self.session.closed:

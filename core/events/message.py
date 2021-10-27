@@ -36,8 +36,8 @@ class OnMessage(commands.Cog):
         self.bot.dsnipe[message.channel.id] = {"msg":message}
 
     @commands.Cog.listener()
-    async def on_message_edit(self, message:discord.Message):
-        self.bot.esnipe[message.channel.id] = {"msg":message}
+    async def on_message_edit(self, before:discord.Message, after:discord.Message):
+        self.bot.esnipe[after.channel.id] = {"before":before, "after":after}
 
 def setup(bot):
     bot.add_cog(OnMessage(bot))
