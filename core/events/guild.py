@@ -10,14 +10,14 @@ class OnGuild(commands.Cog):
         channel = random.choice(guild.text_channels)
         ogjmbed = discord.Embed(
             title="Thanks for inviting me!",
-            description=F"\nHey there! Thanks for inviting me!\nIf you need any help, just type **{self.bot.prefix}help**",
+            description=F"\nHey there! Thanks for inviting me!\nIf you need any help, just type **{self.bot.default_prefix}help**",
             timestamp=discord.utils.utcnow()
         )
         await channel.send(embed=ogjmbed)
 
     @commands.Cog.listener()
     async def on_guild_remove(self, guild:discord.Guild):
-        del self.bot.gprefix[guild.id]
+        del self.bot.prefixes[guild.id]
         prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", guild.id)
         if prefix:
             await self.bot.postgres.execute("DELETE FROM prefixes WHERE guild_id=$1", guild.id)

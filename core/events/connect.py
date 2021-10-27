@@ -9,7 +9,7 @@ class OnConnect(commands.Cog):
     async def on_connect(self):
         oni = [
             F"Logged in as: {self.bot.user} - {self.bot.user.id}",
-            F"Main prefix is: {self.bot.prefix}",
+            F"Main prefix is: {self.bot.default_prefix}",
             F"Servers bot is in: {len(self.bot.guilds)}",
             "The Bot is online now"
         ]
