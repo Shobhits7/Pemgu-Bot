@@ -265,7 +265,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         eambed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if not ctx.message.attachments > 0:
+        if not len(ctx.message.attachments) > 0:
             eambed.title = "You need to provide an image"
             return await ctx.send(embed=eambed)
         eambed.title = "Successfully created Emoji:"
