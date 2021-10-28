@@ -71,12 +71,6 @@ bot = PemguBase(
     allowed_mentions=discord.AllowedMentions.none()
 )
 
-@bot.check
-async def blacklisted(ctx:commands.Context):
-    blacklist = await bot.postgres.fetchval("SELECT user_id FROM blacklist WHERE user_id=$1", ctx.author.id)
-    if not blacklist: return True
-    raise commands.CheckAnyFailure
-
 bot.loop.run_until_complete(create_pool_postgres())
 bot.loop.create_task(create_session_aiohttp())
 bot.run(os.getenv("TOKEN"))
