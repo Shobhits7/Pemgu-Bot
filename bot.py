@@ -73,8 +73,7 @@ bot = PemguBase(
 
 @bot.check
 async def no_dm(ctx:commands.Context):
-    if not ctx.guild: return False
-    return True
+    if not ctx.guild: return
 
 @bot.check
 async def blacklisted(ctx:commands.Context):
