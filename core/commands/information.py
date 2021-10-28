@@ -329,7 +329,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     # EmojiInfo
     @commands.command(name="emojiinfo", aliases=["ei"], help="Will give information about the given emoji")
     @commands.guild_only()
-    async def emoji(self, ctx:commands.Context, emoji:typing.Union[discord.Emoji, discord.PartialEmoji]):
+    async def emojiinfo(self, ctx:commands.Context, emoji:typing.Union[discord.Emoji, discord.PartialEmoji]):
         ei = [
             F"ᓚ***Name:*** {emoji.name}",
             F"ᓚ***ID:*** {emoji.id}",

@@ -253,5 +253,26 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         await ctx.channel.purge(limit=amount+1)
         await ctx.send(embed=pumbed, delete_after=5)
 
+    # EmojiAdd
+    @commands.command(name="emojiadd", aliases=["ea"], help="Will create a emoji based on the given name and image")
+    @commands.guild_only()
+    @commands.has_guild_permissions(manage_emojis=True)
+    @commands.bot_has_guild_permissions(manage_emojis=True)
+    async def emoji(self, ctx:commands.Context, name:str):
+        eambed = discord.Embed(
+            color=self.bot.color,
+            timestamp=ctx.message.created_at
+        )
+        eambed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if not ctx.message.attachments[0]:
+            eambed.title = "You need to provide an image"
+            return await ctx.send(embed=eambed)
+        eambed.title = "Successfully created Emoji:"
+        eambed.description = F":{name}:"
+        await ctx.guild.create_custom_emoji(name=name, image=ctx.message.attachments[0].read(), reason=F"Added by: {ctx.author}")
+        await ctx.send(embed=eambed)
+
+    # EmojiRemove
+
 def setup(bot):
     bot.add_cog(Moderation(bot))
