@@ -8,8 +8,11 @@ class OnError(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx:commands.Context, error):
+        ignored =  (commands.CheckAnyFailure, commands.CheckFailure, )
         if isinstance(error, commands.CommandInvokeError):
             error = error.original
+        elif isinstance(error, ignored):
+            return
         if isinstance(error, commands.CommandNotFound):
             cmd = ctx.invoked_with
             cmds = [cmd.name for cmd in self.bot.commands]
@@ -19,22 +22,20 @@ class OnError(commands.Cog):
                 title=F"Couldn't find command called: {cmd}.",
                 description=F"Maybe you meant:\n{' - '.join([match for match in matches])}",
                 timestamp=ctx.message.created_at
-           )
-           matcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-           nmatcnfmbed = discord.Embed(
+            )
+            matcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            nmatcnfmbed = discord.Embed(
                 color=self.bot.color,
                 title=F"Couldn't find command called: {cmd}.",
                 description=F"Use help command to know what command you're looking for",
                 timestamp=ctx.message.created_at
-           )
-           nmatcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-           if len(matches) > 0:
+            )
+            nmatcnfmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            if len(matches) > 0:
                 view = dymview.DYMView(ctx, matches)
                 view.message = await ctx.send(embed=matcnfmbed)
-           else:
+            else:
                 await ctx.send(embed=nmatcnfmbed)
-        elif isinstance(error, commands.CheckFailure):
-            return
         else:
             print("".join(traceback.format_exception(type(error), error,  error.__traceback__)))
             errormbed = discord.Embed(
