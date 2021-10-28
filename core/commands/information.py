@@ -296,6 +296,9 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             F"ᓚ***Badges:*** {', '.join([flag.replace('_', ' ').title() for flag, enabled in ctx.guild.owner.public_flags if enabled])}",
             F"ᓚ***Registered:*** {discord.utils.format_dt(ctx.guild.owner.created_at, style='F')} ({discord.utils.format_dt(ctx.guild.owner.created_at, style='R')})"
         ]
+        boosters = []
+        for booster in ctx.guild.premium_subscribers:
+            boosters.append(booster.mention)
         si = [
             F"ᓚ***Name:*** {ctx.guild.name}",
             F"ᓚ***ID:*** {ctx.guild.id}",
@@ -309,7 +312,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             F"ᓚ***Default-Role:*** {ctx.guild.default_role.mention}",
             F"ᓚ***Boost-Role:*** {'*No boost-role*' if not ctx.guild.premium_subscriber_role else ctx.guild.premium_subscriber_role.mention}",
             F"ᓚ***Boost-Level:*** {ctx.guild.premium_subscription_count}",
-            F"ᓚ***Boosters:*** {len(ctx.guild.premium_subscribers)}",
+            F"ᓚ***Boosters:*** {', '.join(self.bot.trim(b, 20) for b in boosters)}",
             F"ᓚ***Tier:*** {ctx.guild.premium_tier}",
             F"ᓚ***Categories:*** {len(ctx.guild.categories)}",
             F"ᓚ***Channels:*** {len(ctx.guild.channels)}",
