@@ -61,8 +61,9 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         )
         sembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         snipe = self.bot.dsnipe.get(str(ctx.channel.id))
+        num = -1 if not number else -number
         if snipe:
-            msg = snipe[-1 if not number else -number].get("msg")
+            msg = snipe[num].get("msg")
             sembed.set_author(name=F"{msg.author} ({msg.author.id}) said in {msg.channel}", icon_url=msg.author.display_avatar.url, url=msg.jump_url)
             sembed.description = "Message didn't have content..." if not msg.content else msg.content
             sembed.set_image(url=msg.attachments[0].url)
