@@ -298,7 +298,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         ]
         boosters = []
         for booster in ctx.guild.premium_subscribers:
-            boosters.append(booster.mention)
+            boosters.append(booster.name)
         si = [
             F"ᓚ***Name:*** {ctx.guild.name}",
             F"ᓚ***ID:*** {ctx.guild.id}",
