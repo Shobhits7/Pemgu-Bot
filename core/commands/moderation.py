@@ -122,9 +122,9 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_channels=True)
     @commands.bot_has_guild_permissions(manage_channels=True)
-    async def slowmode(self, ctx:commands.Context, channel:discord.TextChannel=None, seconds:int=None):
-        channel = ctx.channel if not channel else channel
+    async def slowmode(self, ctx:commands.Context, seconds:int=None, channel:discord.TextChannel=None):
         seconds = 0 if not seconds else seconds
+        channel = ctx.channel if not channel else channel
         smmbed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
