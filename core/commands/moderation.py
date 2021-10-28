@@ -130,6 +130,8 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         over = channel.overwrites_for(ctx.guild.default_role)
         over.send_messages = False
         over.add_reactions = False
+        over.create_public_threads = False
+        over.create_private_threads = False
         if not channel.permissions_for(ctx.guild.default_role).send_messages:
             lcmbed.title = "Is already locked:"
             return await ctx.send(embed=lcmbed)
@@ -154,6 +156,8 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         over = channel.overwrites_for(ctx.guild.default_role)
         over.send_messages = True
         over.add_reactions = True
+        over.create_public_threads = True
+        over.create_private_threads = True
         if channel.permissions_for(ctx.guild.default_role).send_messages:
             ulcmbed.title = "Is already unlocked:"
             return await ctx.send(embed=ulcmbed)
