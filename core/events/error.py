@@ -8,10 +8,9 @@ class OnError(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx:commands.Context, error):
-        ignored =  (commands.CheckAnyFailure, commands.CheckFailure, )
         if isinstance(error, commands.CommandInvokeError):
             error = error.original
-        elif isinstance(error, ignored):
+        elif isinstance(error, commands.CheckFailure):
             return
         if isinstance(error, commands.CommandNotFound):
             cmd = ctx.invoked_with
