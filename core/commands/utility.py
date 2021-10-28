@@ -44,7 +44,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         await view.wait()
         if view.value:
             laembed.title = F"{self.bot.user} has successfully left"
-            await ctx.send(embed=laembed)
+            await ctx.send(embed=laembed, delete_after=2.5)
             await ctx.me.guild.leave()
 
     # Remind
