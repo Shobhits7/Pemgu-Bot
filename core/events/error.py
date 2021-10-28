@@ -10,9 +10,9 @@ class OnError(commands.Cog):
     async def on_command_error(self, ctx:commands.Context, error):
         if isinstance(error, commands.CommandInvokeError):
             error = error.original
-        elif isinstance(error, commands.CheckAnyFailure):
+        if isinstance(error, commands.CheckAnyFailure):
             return
-        if isinstance(error, commands.CommandNotFound):
+        elif isinstance(error, commands.CommandNotFound):
             cmd = ctx.invoked_with
             cmds = [cmd.name for cmd in self.bot.commands]
             matches = difflib.get_close_matches(cmd, cmds)
