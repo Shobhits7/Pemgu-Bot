@@ -117,6 +117,27 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         rembed.title = "Doesn't have"
         await ctx.send(embed=rembed)
 
+    # Slowmode
+    @commands.command(name="slowmode", aliases=["sm"], help="Will change the slowmode to the given time")
+    @commands.guild_only()
+    @commands.has_guild_permissions(manage_channels=True)
+    @commands.bot_has_guild_permissions(manage_channels=True)
+    async def slowmode(self, ctx:commands.Context, seconds:int, channel:discord.TextChannel=None):
+        channel = ctx.channel if not channel else channel
+        smmbed = discord.Embed(
+            color=self.bot.color,
+            timestamp=ctx.message.created_at
+        )
+        smmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if channel.slowmode_delay == seconds:
+            smmbed.title = "Channel is already at the same slowmode"
+            smmbed.description = F"Channel: {channel.mention}\nTime: {channel.slowmode_delay}"
+            return await ctx.send(embed=smmbed)
+        smmbed.title = "Successfully changed the slowdown:"
+        smmbed.description = F"Channel: {channel.mention}\nTime: {seconds}\nBy: {ctx.author.mention}"
+        await channel.edit(slowmode_delay=seconds)
+        await ctx.send(embed=smmbed)
+
     # Lock
     @commands.command(name="lock", aliases=["lc"], help="Will lock this or the given channel")
     @commands.guild_only()

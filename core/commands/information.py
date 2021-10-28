@@ -166,11 +166,11 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
+        brmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if fetch.banner:
             brmbed.title = F"{user}'s Banner"
             brmbed.set_image(url=fetch.banner.url)
         else: brmbed.title = F"{user} doesn't have banner"
-        brmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=brmbed)
 
     # UserInfo
@@ -261,11 +261,11 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             title=F"{member}'s Permissions",
             timestamp=ctx.message.created_at
         )
+        permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if len(ai) != 0:
             permsmbed.add_field(name="✅ Allowed:", value="\n".join(a for a in ai))
         if len(di) != 0:
             permsmbed.add_field(name="❎ Denied:", value="\n".join(d for d in di))
-        permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=permsmbed)
 
     # Icon
@@ -319,11 +319,11 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             title=F"{ctx.guild.name}'s Information",
             timestamp=ctx.message.created_at
         )
+        simbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         simbed.add_field(name="Owner-Information:", value="\n".join(o for o in oi), inline=False)
         simbed.add_field(name="Server-Information:", value="\n".join(s for s in si), inline=False)
         if ctx.guild.icon: simbed.set_thumbnail(url=ctx.guild.icon.url)
         if ctx.guild.banner: simbed.set_image(url=ctx.guild.banner.url)
-        simbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=simbed)
 
     # EmojiInfo

@@ -163,21 +163,21 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
     async def blacklist(self, ctx:commands.Context, user:discord.User=None, *, reason:str=None):
         reason = "Nothing was provided" if not reason else reason
         if not user:
-            reloadmbed = discord.Embed(
+            blacklistsmbed = discord.Embed(
                 color=self.bot.color,
                 description="",
                 timestamp=ctx.message.created_at
             )
-            reloadmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+            blacklistsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             blacklisted = await self.bot.postgres.fetch("SELECT * FROM blacklist")
             if not blacklisted:
-                reloadmbed.title += "Nobody is in Blacklist"
+                blacklistsmbed.title += "Nobody is in Blacklist"
             else:
-                reloadmbed.title = "Users in Blacklist"
+                blacklistsmbed.title = "Users in Blacklist"
                 for users in blacklisted:
                     user = self.bot.get_user(users["user_id"])
-                    reloadmbed.description += F"{user} | {user.mention} - {users['reason']}\n"
-            return await ctx.send(embed=reloadmbed)
+                    blacklistsmbed.description += F"{user} | {user.mention} - {users['reason']}\n"
+            return await ctx.send(embed=blacklistsmbed)
         blacklisted = await self.bot.postgres.fetchval("SELECT user_id FROM blacklist WHERE user_id=$1", user.id)
         blacklistmbed = discord.Embed(
             color=self.bot.color,

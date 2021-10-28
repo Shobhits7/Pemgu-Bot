@@ -29,12 +29,12 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def prefix_change(self, ctx:commands.Context, *, text:str):
+        prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", ctx.guild.id)
         pfchmbed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         pfchmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", ctx.guild.id)
         if text == prefix:
             pfchmbed.title = "Prefix is the same"
             pfchmbed.description = prefix
@@ -53,12 +53,12 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def prefix_reset(self, ctx:commands.Context):
+        prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", ctx.guild.id)
         pfrsmbed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         pfrsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        prefix = await self.bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", ctx.guild.id)
         if prefix:
             await self.bot.postgres.execute("DELETE FROM prefixes WHERE guild_id=$1", ctx.guild.id)
             pfrsmbed.title = "Successfully resetted to:"
@@ -78,12 +78,12 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @welcome.command(name="status", aliases=["st"], help="Will show the status for welcome")
     @commands.guild_only()
     async def welcome_status(self, ctx:commands.Context):
+        welcome = await self.bot.postgres.fetchval("SELECT * FROM welcome WHERE guild_id=$1", ctx.guild.id)
         welstmbed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         welstmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        welcome = await self.bot.postgres.fetchval("SELECT * FROM welcome WHERE guild_id=$1", ctx.guild.id)
         if not welcome:
             welstmbed.title = "Welcome is turned off"
         else:
@@ -97,12 +97,12 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def welcome_change(self, ctx:commands.Context):
+        welcome = await self.bot.postgres.fetchval("SELECT * FROM welcome WHERE guild_id=$1", ctx.guild.id)
         welchmbed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         welchmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        welcome = await self.bot.postgres.fetchval("SELECT * FROM welcome WHERE guild_id=$1", ctx.guild.id)
         if not welcome:
             await self.bot.postgres.execute("INSERT INTO welcome(guild_name,guild_id,msg) VALUES($1,$2,$3)", ctx.guild.name, ctx.guild.id, "Welcome to .guild .member")
             welchmbed.title = "Welcome has been turned on"
@@ -116,6 +116,7 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def welcome_message(self, ctx:commands.Context, *, msg:str):
+        welcome = await self.bot.postgres.fetchval("SELECT * FROM welcome WHERE guild_id=$1", ctx.guild.id)
         welmsgmbed = discord.Embed(
             color=self.bot.color,
             title = "Welcome message has been changed to:",
@@ -123,7 +124,6 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
             timestamp=ctx.message.created_at
         )
         welmsgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        welcome = await self.bot.postgres.fetchval("SELECT * FROM welcome WHERE guild_id=$1", ctx.guild.id)
         if not welcome:
             await self.bot.postgres.execute("INSERT INTO welcome(guild_name,guild_id,msg) VALUES($1,$2,$3)", ctx.guild.name, ctx.guild.id, msg)
         else:
@@ -140,12 +140,12 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @goodbye.command(name="status", aliases=["st"], help="Will the status for goodbye")
     @commands.guild_only()
     async def goodbye_status(self, ctx:commands.Context):
+        goodbye = await self.bot.postgres.fetchval("SELECT * FROM goodbye WHERE guild_id=$1", ctx.guild.id)
         byestmbed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         byestmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        goodbye = await self.bot.postgres.fetchval("SELECT * FROM goodbye WHERE guild_id=$1", ctx.guild.id)
         if not goodbye:
             byestmbed.title = "Goodbye is turned off"
         else:
@@ -159,12 +159,12 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def goodbye_change(self, ctx:commands.Context):
+        goodbye = await self.bot.postgres.fetchval("SELECT * FROM goodbye WHERE guild_id=$1", ctx.guild.id)
         byechmbed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         byechmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        goodbye = await self.bot.postgres.fetchval("SELECT * FROM goodbye WHERE guild_id=$1", ctx.guild.id)
         if not goodbye:
             await self.bot.postgres.execute("INSERT INTO goodbye(guild_name,guild_id,msg) VALUES($1,$2,$3)", ctx.guild.name, ctx.guild.id, "Thank you .member for being here .guild")
             byechmbed.title = "Goodbye has been turned on"
@@ -178,12 +178,12 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
     @commands.guild_only()
     @commands.has_guild_permissions(administrator=True)
     async def goodbye_message(self, ctx:commands.Context, *, msg:str):
+        goodbye = await self.bot.postgres.fetchval("SELECT * FROM goodbye WHERE guild_id=$1", ctx.guild.id)
         byemsgmbed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         byemsgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        goodbye = await self.bot.postgres.fetchval("SELECT * FROM goodbye WHERE guild_id=$1", ctx.guild.id)
         if not goodbye:
             await self.bot.postgres.execute("INSERT INTO goodbye(guild_name,guild_id,msg) VALUES($1,$2,$3)", ctx.guild.name, ctx.guild.id, msg)
             byemsgmbed.title = "Goodbye message has been changed to:"

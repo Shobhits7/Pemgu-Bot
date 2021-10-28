@@ -61,12 +61,12 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     @commands.command(name="afk", help="Will make you AFK")
     async def afk(self, ctx:commands.Context, *, reason:str=None):
         reason = "You didn't provide anything" if not reason else reason
+        afk = self.bot.afks.get(ctx.author.id)
         afkmbed  = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         afkmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        afk = self.bot.afks.get(ctx.author.id)
         if not afk:
             afk = self.bot.afks[ctx.author.id] = {"time":discord.utils.utcnow(), "reason":reason, "jump_url":ctx.message.jump_url}
             view = discord.ui.View()
@@ -85,12 +85,12 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     @notes.command(name="list", aliases=["="], help="Will show every of your or the given user's notes")
     async def notes_list(self, ctx:commands.Context, user:discord.User=None):
         user = ctx.author if not user else user
+        notes = await self.bot.postgres.fetch("SELECT task FROM notes WHERE user_id=$1", user.id)
         notelistmbed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         notelistmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
-        notes = await self.bot.postgres.fetch("SELECT task FROM notes WHERE user_id=$1", user.id)
         if not notes: 
             notelistmbed.title = F"{user} doesn't have any note"
             return await ctx.send(embed=notelistmbed)
@@ -106,12 +106,12 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     # Notes-Add
     @notes.command(name="add", aliases=["+"], help="Will add the given task to your notes")
     async def notes_add(self, ctx:commands.Context, *, task:str):
+        note = await self.bot.postgres.fetchval("SELECT task FROM notes WHERE task=$1 AND user_id=$2", task, ctx.author.id)
         noteaddmbed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         noteaddmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
-        note = await self.bot.postgres.fetchval("SELECT task FROM notes WHERE task=$1 AND user_id=$2", task, ctx.author.id)
         if note:
             noteaddmbed.title = "Is already in your notes:"
             noteaddmbed.description = F"{task}"
@@ -124,12 +124,12 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     # Notes-Remove
     @notes.command(name="remove", aliases=["-"], help="Will remove the given task from your notes")
     async def notes_remove(self, ctx:commands.Context, *, number:int):
+        notes = await self.bot.postgres.fetch("SELECT * FROM notes WHERE user_id=$1", ctx.author.id)
         noteremovembed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         noteremovembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
-        notes = await self.bot.postgres.fetch("SELECT * FROM notes WHERE user_id=$1", ctx.author.id)
         if not notes:
             noteremovembed.title = "You don't have any note"
             return await ctx.send(embed=noteremovembed)
@@ -153,12 +153,12 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
     # Notes-Clear
     @notes.command(name="clear", aliases=["*"], help="Will clear your notes")
     async def notes_clear(self, ctx:commands.Context):
+        notes = await self.bot.postgres.fetch("SELECT task FROM notes WHERE user_id=$1", ctx.author.id)
         noteclearmbed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         noteclearmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
-        notes = await self.bot.postgres.fetch("SELECT task FROM notes WHERE user_id=$1", ctx.author.id)
         if not notes:
             noteclearmbed.title = "You don't have any note"
             return await ctx.send(embed=noteclearmbed)
