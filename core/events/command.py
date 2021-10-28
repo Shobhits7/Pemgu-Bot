@@ -7,11 +7,6 @@ class OnCommand(commands.Cog):
     
     @commands.Cog.listener()
     async def on_command(self, ctx:commands.Context):
-        if not ctx.guild:
-            return
-        blacklist = await self.bot.postgres.fetchval("SELECT user_id FROM blacklist WHERE user_id=$1", ctx.author.id)
-        if blacklist:
-            return
         number = random.randint(0, 100)
         if number == 55:
             if "use_slash_commands" not in ctx.me.guild_permissions:

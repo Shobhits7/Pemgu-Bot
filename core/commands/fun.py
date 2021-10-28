@@ -54,6 +54,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
 
     # Snipe
     @commands.command(name="snipe", aliases=["se"], help="Will give you the last deleted message in this channel")
+    @commands.guild_only()
     async def snipe(self, ctx:commands.Context, number:int=None):
         sembed = discord.Embed(
             color=self.bot.color,

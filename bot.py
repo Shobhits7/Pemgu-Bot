@@ -7,8 +7,6 @@ async def create_pool_postgres():
     print("Successfully created to the Postgres Pool")
 
 async def get_prefix(bot, message:discord.Message):
-    if not message.guild:
-        return ""
     prefix = bot.prefixes.get(message.guild.id)
     if prefix is None:
         postgres = await bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", message.guild.id)
@@ -70,6 +68,12 @@ bot = PemguBase(
     intents=discord.Intents.all(),
     allowed_mentions=discord.AllowedMentions.none()
 )
+
+@bot.check
+async def blacklisted(ctx:commands.Context):
+    blacklist = await bot.postgres.fetchval("SELECT user_id FROM blacklist WHERE user_id=$1", ctx.author.id)
+    if not blacklist: return True
+    raise commands.CheckAnyFailure
 
 bot.loop.run_until_complete(create_pool_postgres())
 bot.loop.create_task(create_session_aiohttp())

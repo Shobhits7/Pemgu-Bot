@@ -246,6 +246,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
 
     # Permissions
     @commands.command(name="permissions", aliases=["perms"], help="Will show your or the given member's permissions")
+    @commands.guild_only()
     async def permissions(self, ctx:commands.Context, member:discord.Member=None):
         member = ctx.author if not member else member
         ai = []
@@ -328,6 +329,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
 
     # EmojiInfo
     @commands.command(name="emojiinfo", aliases=["ei"], help="Will give information about the given emoji")
+    @commands.guild_only()
     async def emoji(self, ctx:commands.Context, emoji:typing.Union[discord.Emoji, discord.PartialEmoji]):
         ei = [
             F"ᓚ***Name:*** {emoji.name}",

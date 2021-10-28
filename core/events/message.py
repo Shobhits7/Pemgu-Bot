@@ -39,7 +39,9 @@ class OnMessage(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_edit(self, before:discord.Message, after:discord.Message):
-        self.bot.esnipe[after.channel.id] = {"before":before, "after":after}
+        if not str(before.channel.id) in self.bot.esnipe:
+            self.bot.esnipe[str(before.channel.id)] = []
+        self.bot.esnipe[str(before.channel.id)].append({"before":before, "after":after})
 
 def setup(bot):
     bot.add_cog(OnMessage(bot))
