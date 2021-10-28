@@ -122,14 +122,15 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_channels=True)
     @commands.bot_has_guild_permissions(manage_channels=True)
-    async def slowmode(self, ctx:commands.Context, seconds:int=None, channel:discord.TextChannel=None):
-        seconds = 0 if not seconds else seconds
+    async def slowmode(self, ctx:commands.Context, seconds:int, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
         smmbed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         smmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if seconds > 21600:
+            smmbed.title = F"Seconds cannot be more than 21600"
         if channel.slowmode_delay == seconds:
             smmbed.title = "Channel is already at the same slowmode"
             smmbed.description = F"Channel: {channel.mention}\nSeconds: {channel.slowmode_delay}"
