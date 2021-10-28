@@ -7,7 +7,6 @@ class OnGuild(commands.Cog):
 
     @commands.Cog.listener()
     async def on_guild_join(self, guild:discord.Guild):
-        self.bot.prefixes[guild.id] = bot.default_prefix
         channel = random.choice(guild.text_channels)
         ogjmbed = discord.Embed(
             title="Thanks for inviting me!",
