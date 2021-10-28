@@ -136,7 +136,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             return await ctx.send(embed=smmbed)
         smmbed.title = "Successfully changed the slowdown:"
         smmbed.description = F"Channel: {channel.mention}\nTime: {seconds}"
-        await channel.edit(slowmode_delay=seconds)
+        await channel.edit(reason=F"Channel: {channel.mention}\nTime: {seconds}\nBy: {ctx.author}", slowmode_delay=seconds)
         await ctx.send(embed=smmbed)
 
     # Lock
