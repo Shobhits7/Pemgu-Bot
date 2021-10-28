@@ -271,7 +271,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             return await ctx.send(embed=eambed)
         emoji = await ctx.guild.create_custom_emoji(name=name, image=(await ctx.message.attachments[0].read()), reason=F"Added by: {ctx.author}")
         eambed.title = "Successfully created Emoji:"
-        eambed.description = F":{emoji.}:"
+        eambed.description = F":{emoji}:"
         await ctx.send(embed=eambed)
 
     # EmojiRemove
