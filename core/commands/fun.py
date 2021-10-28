@@ -32,24 +32,18 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     # Ship
     @commands.command(name="ship", aliases=["sp"], help="Will ship you or the given member with the other given member")
     async def ship(self, ctx:commands.Context, member1:discord.Member, member2:discord.Member=None):
-        if member2:
-            m1 = member1
-            m2 = member2
-        else:
-            m1 = ctx.author
-            m2 = member1
-        number = random.randint(1, 100)
-        if number < 25:  msg = "Can't see any love 💔"
-        elif number >= 25 and number < 50:  msg = "Can see a sparkle 💖"
-        elif number >= 50 and number <= 75:  msg = "I can see both love and sparkle 💓"
-        elif number > 75:  msg = "I can see a lot of love 💘"
         spmbed = discord.Embed(
             color=self.bot.color,
-            title=F"Shipping {m1} with {m2}",
-            description=F"`{number}%` - {msg}",
             timestamp=ctx.message.created_at
         )
         spmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if member2: spmbed.title = F"Shipping {member1} with {member2}"
+        else: spmbed.title = F"Shipping {ctx.author} with {member1}"
+        number = random.randint(1, 100)
+        if number < 25:  spmbed.description = F"`{number}%` - Can't see any love 💔"
+        elif number >= 25 and number < 50:  spmbed.description = F"`{number}%` - Can see a sparkle 💖"
+        elif number >= 50 and number <= 75:  spmbed.description = F"`{number}%` - I can see pumping 💓"
+        elif number > 75:  spmbed.description = F"`{number}%` - CanI can see a lot of love 💘"
         await ctx.send(embed=spmbed)
 
     # Snipe
@@ -68,7 +62,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
             sembed.set_author(name=F"{msg.author} ({msg.author.id}) said in {msg.channel}", icon_url=msg.author.display_avatar.url, url=msg.jump_url)
             sembed.description = "Message didn't have content..." if not msg.content else msg.content
             sembed.set_image(url=msg.attachments[0].url)
-            return await ctx.send(embeds=[sembed, msg.embed])
+            return await ctx.send(embed=sembed)
         sembed.title = "There is no deleted message in this channel"
         await ctx.send(embed=sembed)
 

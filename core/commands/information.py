@@ -38,7 +38,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         slmbed = discord.Embed(
             color=self.bot.color,
             title=F"Bot's Servers {len(self.bot.guilds)}",
-            description=self.bot.trim(sis, 600),
+            description=self.bot.trim(sis, 603),
             timestamp=ctx.message.created_at
         )
         slmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -57,12 +57,12 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             iembed.title = "The given user is not a bot"
             return await ctx.send(embed=iembed)
         link = discord.utils.oauth_url(client_id=bot.id, scopes=('bot', 'applications.commands'), permissions=discord.Permissions.all())
-        iembed.title = F"Here is the invite link for adding the {bot}"
         iembed.url = link
         ggurl = F"https://top.gg/bot/{bot.id}"
         session = await self.bot.session.get(ggurl)
         if session.status != 404:
             iembed.description = F"[Top.gg]({ggurl})"
+        iembed.title = F"Here is the invite link for adding the {bot}"
         await ctx.send(embed=iembed)
 
     # Ping
@@ -98,7 +98,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         source_url = 'https://github.com/lvlahraam/Pemgu-Bot'
         if command is None:
             srcmbed.title = F"Click here for the source code of this bot"
-            srcmbed.url = F"{source_url}"
+            srcmbed.url = source_url
             return await ctx.send(embed=srcmbed)
         if command == 'help':
             src = type(self.bot.help_command)
@@ -107,8 +107,8 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         else:
             obj = self.bot.get_command(command.replace('.', ' '))
             if obj is None:
+                srcmbed.url = source_url
                 srcmbed.title = F"Click here for the source code of this bot"
-                srcmbed.url = F"{source_url}"
                 srcmbed.description = "I couldn't find that command"
                 return await ctx.send(embed=srcmbed)
             src = obj.callback.__code__
@@ -122,8 +122,8 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             source_url = 'https://github.com/Rapptz/discord.py'
             branch = 'master'
         final_url = f'{source_url}/tree/main/{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}'
+        srcmbed.url = final_url
         srcmbed.title = F"Click here for the source code of the `{prefix}{command}` command"
-        srcmbed.url = F"{final_url}"
         srcmbed.set_footer(text=f"{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}\n{ctx.author}", icon_url=ctx.author.display_avatar)
         await ctx.send(embed=srcmbed)
 

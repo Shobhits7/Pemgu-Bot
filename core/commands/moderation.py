@@ -94,8 +94,8 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         if role in member.roles:
             aembed.title = "Already has"
             return await ctx.send(embed=aembed)
-        aembed.title = "Successfully added"
         await member.add_roles(role)
+        aembed.title = "Successfully added"
         await ctx.send(embed=aembed)
     
     # RemoveRole
@@ -111,8 +111,8 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         )
         rembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if role in member.roles:
-            rembed.title = "Successfully removed"
             await member.remove_roles(role)
+            rembed.title = "Successfully removed"
             return await ctx.send(embed=rembed)
         rembed.title = "Doesn't have"
         await ctx.send(embed=rembed)
@@ -131,13 +131,14 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         smmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if seconds > 21600:
             smmbed.title = F"Seconds cannot be more than 21600"
+            return await ctx.send(embed=smmbed)
         if channel.slowmode_delay == seconds:
             smmbed.title = "Channel is already at the same slowmode"
             smmbed.description = F"Channel: {channel.mention}\nSeconds: {channel.slowmode_delay}"
             return await ctx.send(embed=smmbed)
+        await channel.edit(reason=F"Channel: {channel.mention}\nSeconds: {seconds}\nBy: {ctx.author}", slowmode_delay=seconds)
         smmbed.title = "Successfully changed the slowdown:"
         smmbed.description = F"Channel: {channel.mention}\nSeconds: {seconds}"
-        await channel.edit(reason=F"Channel: {channel.mention}\nSeconds: {seconds}\nBy: {ctx.author}", slowmode_delay=seconds)
         await ctx.send(embed=smmbed)
 
     # Lock
@@ -147,23 +148,23 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.bot_has_guild_permissions(manage_channels=True)
     async def lock(self, ctx:commands.Context, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
+        over = channel.overwrites_for(ctx.guild.default_role)
+        over.send_messages = False
+        over.add_reactions = False
+        over.create_public_threads = False
+        over.create_private_threads = False
         lcmbed = discord.Embed(
             color=self.bot.color,
             description=channel.mention,
             timestamp=ctx.message.created_at
         )
         lcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        over = channel.overwrites_for(ctx.guild.default_role)
-        over.send_messages = False
-        over.add_reactions = False
-        over.create_public_threads = False
-        over.create_private_threads = False
         if not channel.permissions_for(ctx.guild.default_role).send_messages:
             lcmbed.title = "Is already locked:"
             return await ctx.send(embed=lcmbed)
         else:
-            lcmbed.title = "Successfully Locked:"
             await channel.set_permissions(ctx.guild.default_role, overwrite=over)
+            lcmbed.title = "Successfully Locked:"
             await ctx.send(embed=lcmbed)
 
     # UnLock
@@ -173,23 +174,23 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.bot_has_guild_permissions(manage_channels=True)
     async def unlock(self, ctx:commands.Context, channel:discord.TextChannel=None):
         channel = ctx.channel if not channel else channel
+        over = channel.overwrites_for(ctx.guild.default_role)
+        over.send_messages = True
+        over.add_reactions = True
+        over.create_public_threads = True
+        over.create_private_threads = True
         ulcmbed = discord.Embed(
             color=self.bot.color,
             description=channel.mention,
             timestamp=ctx.message.created_at
         )
         ulcmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        over = channel.overwrites_for(ctx.guild.default_role)
-        over.send_messages = True
-        over.add_reactions = True
-        over.create_public_threads = True
-        over.create_private_threads = True
         if channel.permissions_for(ctx.guild.default_role).send_messages:
             ulcmbed.title = "Is already unlocked:"
             return await ctx.send(embed=ulcmbed)
         else:
-            ulcmbed.title = "Successfully Unlocked:"
             await channel.set_permissions(ctx.guild.default_role, overwrite=over)
+            ulcmbed.title = "Successfully Unlocked:"
             await ctx.send(embed=ulcmbed)
 
     # Mute
@@ -250,8 +251,8 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         if amount > 100:
             pumbed.title = "Can't clear more than 100 messages"
             return await ctx.send(embed=pumbed, delete_after=5)
-        pumbed.title = F"Deleted {amount} amount of messages"
         await ctx.channel.purge(limit=amount+1)
+        pumbed.title = F"Deleted {amount} amount of messages"
         await ctx.send(embed=pumbed, delete_after=5)
 
     # EmojiAdd
@@ -268,9 +269,9 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         if not len(ctx.message.attachments) > 0:
             eambed.title = "You need to provide an image"
             return await ctx.send(embed=eambed)
+        emoji = await ctx.guild.create_custom_emoji(name=name, image=(await ctx.message.attachments[0].read()), reason=F"Added by: {ctx.author}")
         eambed.title = "Successfully created Emoji:"
-        eambed.description = F":{name}:"
-        await ctx.guild.create_custom_emoji(name=name, image=(await ctx.message.attachments[0].read()), reason=F"Added by: {ctx.author}")
+        eambed.description = F":{emoji.}:"
         await ctx.send(embed=eambed)
 
     # EmojiRemove

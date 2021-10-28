@@ -119,8 +119,8 @@ class Settings(commands.Cog, description="Setting up the bot with these!"):
         welcome = await self.bot.postgres.fetchval("SELECT * FROM welcome WHERE guild_id=$1", ctx.guild.id)
         welmsgmbed = discord.Embed(
             color=self.bot.color,
-            title = "Welcome message has been changed to:",
-            description = F"{msg}",
+            title="Welcome message has been changed to:",
+            description=msg,
             timestamp=ctx.message.created_at
         )
         welmsgmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
