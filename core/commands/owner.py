@@ -161,7 +161,7 @@ class Owner(commands.Cog, description="Only my Developer can use these!"):
     @commands.command(name="blacklist", help="Will put-in or put-out the given user from blacklist")
     @commands.is_owner()
     async def blacklist(self, ctx:commands.Context, user:discord.User=None, *, reason:str=None):
-        if not reason: reason = "No reason was provided"
+        reason = "Nothing was provided" if not reason else reason
         if not user:
             reloadmbed = discord.Embed(
                 color=self.bot.color,

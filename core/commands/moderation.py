@@ -11,6 +11,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.has_guild_permissions(ban_members=True)
     @commands.bot_has_guild_permissions(ban_members=True)
     async def ban(self, ctx:commands.Context, user:discord.User, *, reason:str=None):
+        reason = "Nothing was provided" if not reason else reason
         abnmbed = discord.Embed(
             color=self.bot.color,
             title=F"{user} is now Banned",
@@ -35,6 +36,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.has_guild_permissions(ban_members=True)
     @commands.bot_has_guild_permissions(ban_members=True)
     async def unban(self, ctx:commands.Context, user:discord.User, *, reason:str=None):
+        reason = "Nothing was provided" if not reason else reason
         aunmbed = discord.Embed(
             color=self.bot.color,
             title=F"{user} is now Unbanned",
@@ -58,6 +60,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.has_guild_permissions(kick_members=True)
     @commands.bot_has_guild_permissions(kick_members=True)
     async def kick(self, ctx:commands.Context, member:discord.Member, *, reason:str=None):
+        reason = "Nothing was provided" if not reason else reason
         akcmbed = discord.Embed(
             color=self.bot.color,
             title=F"{member} is now Kicked",
@@ -172,6 +175,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True, manage_channels=True)
     async def mute(self, ctx:commands.Context, member:discord.Member, *, reason:str=None):
+        reason = "Nothing was provided" if not reason else reason
         mtmbed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
@@ -191,10 +195,11 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             crmtmbed = discord.Embed(
                 color=self.bot.color,
                 title=F"There was no Muted role, so I created one",
+                description=muterole.mention,
                 timestamp=ctx.message.created_at
             )
             crmtmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-            await ctx.send(content=muterole.mention, embed=crmtmbed)
+            await ctx.send(embed=crmtmbed)
             for channel in ctx.guild.channels:
                 await channel.set_permissions(muterole, send_messages=False)
         if muterole in member.roles:
