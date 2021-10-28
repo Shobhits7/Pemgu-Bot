@@ -118,7 +118,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         await ctx.send(embed=rembed)
 
     # Slowmode
-    @commands.command(name="slowmode", aliases=["sm"], help="Will change the slowmode to the given time")
+    @commands.command(name="slowmode", aliases=["sm"], help="Will change the slowmode of this or the given channel to the given seconds")
     @commands.guild_only()
     @commands.has_guild_permissions(manage_channels=True)
     @commands.bot_has_guild_permissions(manage_channels=True)
@@ -132,11 +132,11 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         smmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if channel.slowmode_delay == seconds:
             smmbed.title = "Channel is already at the same slowmode"
-            smmbed.description = F"Channel: {channel.mention}\nTime: {channel.slowmode_delay}"
+            smmbed.description = F"Channel: {channel.mention}\nSeconds: {channel.slowmode_delay}"
             return await ctx.send(embed=smmbed)
         smmbed.title = "Successfully changed the slowdown:"
-        smmbed.description = F"Channel: {channel.mention}\nTime: {seconds}"
-        await channel.edit(reason=F"Channel: {channel.mention}\nTime: {seconds}\nBy: {ctx.author}", slowmode_delay=seconds)
+        smmbed.description = F"Channel: {channel.mention}\nSeconds: {seconds}"
+        await channel.edit(reason=F"Channel: {channel.mention}\nSeconds: {seconds}\nBy: {ctx.author}", slowmode_delay=seconds)
         await ctx.send(embed=smmbed)
 
     # Lock
