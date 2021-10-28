@@ -184,7 +184,6 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             F"ᓚ***Discriminator:*** {member.discriminator}",
             F"ᓚ***ID:*** {member.id}",
             F"ᓚ***Mention:*** {member.mention}",
-            F"ᓚ***Badges:*** {', '.join([flag.replace('_', '').title() for flag, enabled in member.public_flags if enabled])}",
             F"ᓚ***Activity:*** {'*Nothing*' if not member.activity else member.activity.name}",
             F"ᓚ***Status:*** {member.status}",
             F"ᓚ***Web-Status:*** {member.web_status}",
@@ -293,12 +292,8 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             F"ᓚ***Discriminator:*** {ctx.guild.owner.discriminator}",
             F"ᓚ***ID:*** {ctx.guild.owner.id}",
             F"ᓚ***Mention:*** {ctx.guild.owner.mention}",
-            F"ᓚ***Badges:*** {', '.join([flag.replace('_', ' ').title() for flag, enabled in ctx.guild.owner.public_flags if enabled])}",
             F"ᓚ***Registered:*** {discord.utils.format_dt(ctx.guild.owner.created_at, style='F')} ({discord.utils.format_dt(ctx.guild.owner.created_at, style='R')})"
         ]
-        boosters = []
-        for booster in ctx.guild.premium_subscribers:
-            boosters.append(booster.name)
         si = [
             F"ᓚ***Name:*** {ctx.guild.name}",
             F"ᓚ***ID:*** {ctx.guild.id}",
@@ -312,7 +307,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             F"ᓚ***Default-Role:*** {ctx.guild.default_role.mention}",
             F"ᓚ***Boost-Role:*** {'*No boost-role*' if not ctx.guild.premium_subscriber_role else ctx.guild.premium_subscriber_role.mention}",
             F"ᓚ***Boost-Level:*** {ctx.guild.premium_subscription_count}",
-            F"ᓚ***Boosters:*** {', '.join(self.bot.trim(b, 20) for b in boosters)}",
+            F"ᓚ***Boosters:*** {', '.join(self.bot.trim(booster.name, 20) for booster in ctx.guild.premium_subscribers)}",
             F"ᓚ***Tier:*** {ctx.guild.premium_tier}",
             F"ᓚ***Categories:*** {len(ctx.guild.categories)}",
             F"ᓚ***Channels:*** {len(ctx.guild.channels)}",
