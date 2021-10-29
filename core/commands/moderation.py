@@ -207,10 +207,15 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         mtmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         muterole = discord.utils.get(ctx.guild.roles, name="Muted")
         if not muterole:
+            perms = discord.Permissions()
+            perms.add_reaction = False
+            perms.send_messages = False
+            perms.create_public_threads = False
+            perms.create_private_threads = False
             muterole = await ctx.guild.create_role(
                 color=discord.Color.red(),
                 name="Muted",
-                permissions=discord.Permissions(add_reaction=False, send_messages=False, create_public_threads=False, create_private_threads=False),
+                permissions=perms,
                 mentionable=True,
                 reason="There was no Muted role, so I created one."
             )
