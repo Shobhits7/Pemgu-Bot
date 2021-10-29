@@ -51,18 +51,23 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     @commands.guild_only()
     async def snipe(self, ctx:commands.Context, number:int=None):
         snipe = self.bot.dsnipe.get(str(ctx.channel.id))
-        num = -1 if not number else -number
         sembed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         sembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if snipe:
-            msg = snipe[num].get("msg")
+            if len(snipe) < number:
+                sembed.title = F"There is no {number} message"
+                return await ctx.send(embed=sembed)
+            msg = snipe[::-1][number].get("msg")
             sembed.set_author(name=F"{msg.author} ({msg.author.id}) said in {msg.channel}", icon_url=msg.author.display_avatar.url, url=msg.jump_url)
             sembed.description = "Message didn't have content..." if not msg.content else msg.content
             sembed.set_image(url=msg.attachments[0].url)
-            return await ctx.send(embed=sembed)
+            es = [sembed]
+            if msg.embed:
+                es.append(msg.embed)
+            return await ctx.send(embed=es)
         sembed.title = "There is no deleted message in this channel"
         await ctx.send(embed=sembed)
 
