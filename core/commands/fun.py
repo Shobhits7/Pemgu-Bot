@@ -47,7 +47,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         await ctx.send(embed=spmbed)
 
     # Snipe
-    @commands.command(name="snipe", aliases=["se"], help="Will give you the last deleted message in this channel", hidden=Ture)
+    @commands.command(name="snipe", aliases=["se"], help="Will give you the last deleted message in this channel", hidden=True)
     @commands.guild_only()
     async def snipe(self, ctx:commands.Context, number:int=None):
         snipe = self.bot.dsnipe.get(str(ctx.channel.id))
