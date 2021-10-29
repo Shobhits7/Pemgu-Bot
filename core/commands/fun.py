@@ -67,7 +67,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
             es = [sembed]
             if msg.embed:
                 es.append(msg.embed)
-            return await ctx.send(embed=es)
+            return await ctx.send(embeds=es)
         sembed.title = "There is no deleted message in this channel"
         await ctx.send(embed=sembed)
 
