@@ -207,9 +207,15 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         mtmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         muterole = discord.utils.get(ctx.guild.roles, name="Muted")
         if not muterole:
+            perms = discord.Permissions()
+            perms.add_reactions = False
+            perms.send_messages = False
+            perms.create_public_threads = False
+            perms.create_private_threads = False
             muterole = await ctx.guild.create_role(
                 color=discord.Color.red(),
                 name="Muted",
+                permissions=perms,
                 mentionable=True,
                 reason="There was no Muted role, so I created one."
             )
@@ -221,8 +227,6 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             )
             crmtmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
             await ctx.send(embed=crmtmbed)
-            for channel in ctx.guild.channels:
-                await channel.set_permissions(muterole, add_reaction=False, send_messages=False, speak=False, create_public_threads=False, create_private_threads=False)
         if muterole in member.roles:
             mtmbed.title = F"Successfully Un-Muted"
             mtmbed.description = F"UnMuted: {member.mention}\nReason: {reason}\nRole: {muterole.mention}"
