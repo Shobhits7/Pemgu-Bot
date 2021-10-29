@@ -74,13 +74,16 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             timestamp=ctx.message.created_at
         )
         unpimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        start = time.perf_counter()
+        tstart = time.perf_counter()
         unpimsg = await ctx.send(embed=unpimbed)
-        end = time.perf_counter()
+        tend = time.perf_counter()
+        pstart = time.perf_counter()
+        await self.bot.postgres.fetch("SELECT 1")
+        pend = time.perf_counter()
         dopimbed = discord.Embed(
             color=self.bot.color,
             title="🏓 Pong:",
-            description=F"Websocket: {self.bot.latency * 1000}ms\nTyping: {(end - start) * 1000}ms",
+            description=F"Websocket: {self.bot.latency*1000}ms\nTyping: {(tend-tstart)*1000}ms\nPostgres: {(pend-pstart)*1000}ms",
             timestamp=ctx.message.created_at
         )
         dopimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)

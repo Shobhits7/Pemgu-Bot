@@ -23,7 +23,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         ppmbed = discord.Embed(
             color=self.bot.color,
             title=F"{user}'s PP Size:",
-            description=F"8{'='*random.randint(1, 30)}D",
+            description=F"8{'='*random.randint(1, 69)}D",
             timestamp=ctx.message.created_at
         )
         ppmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
@@ -50,17 +50,14 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
     @commands.command(name="snipe", aliases=["se"], help="Will give you the last deleted message in this channel", hidden=True)
     @commands.guild_only()
     async def snipe(self, ctx:commands.Context, number:int=None):
-        snipe = self.bot.dsnipe.get(str(ctx.channel.id))
         number = 0 if not number else number
+        snipe = self.bot.dsnipe.get(str(ctx.channel.id))
         sembed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
         )
         sembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if snipe:
-            if len(snipe) < number:
-                sembed.title = F"There is no {number} message"
-                return await ctx.send(embed=sembed)
             msg = snipe[::-1][number].get("msg")
             sembed.set_author(name=F"{msg.author} ({msg.author.id}) said in {msg.channel}", icon_url=msg.author.display_avatar.url, url=msg.jump_url)
             sembed.description = "Message didn't have content..." if not msg.content else msg.content
