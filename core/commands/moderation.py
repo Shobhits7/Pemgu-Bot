@@ -260,7 +260,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_emojis=True)
     @commands.bot_has_guild_permissions(manage_emojis=True)
-    async def emoji(self, ctx:commands.Context, name:str):
+    async def emojiadd(self, ctx:commands.Context, name:str):
         eambed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
@@ -270,11 +270,25 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             eambed.title = "You need to provide an image"
             return await ctx.send(embed=eambed)
         emoji = await ctx.guild.create_custom_emoji(name=name, image=(await ctx.message.attachments[0].read()), reason=F"Added by: {ctx.author}")
-        eambed.title = "Successfully created Emoji:"
-        eambed.description = F":{emoji}:"
+        eambed.title = "Successfully created the emoji:"
+        eambed.set_image(url=emoji.url)
         await ctx.send(embed=eambed)
 
     # EmojiRemove
+    @commands.command(name="emojiremove", aliases=["er"], help="Will remove the given emoji")
+    @commands.guild_only()
+    @commands.has_guild_permissions(manage_emojis=True)
+    @commands.bot_has_guild_permissions(manage_emojis=True)
+    async def emojiremove(self, ctx:commands.Context, emoji:discord.Emoji):
+        ermbed = discord.Embed(
+            color=self.bot.color,
+            title="Successfully removed the emoji:",
+            timestamp=ctx.message.created_at
+        )
+        ermbed.set_image(url=emoji.url)
+        ermbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await emoji.delete()
+        await ctx.send(embed=ermbed)
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
