@@ -18,7 +18,7 @@ And you can get the status for welcomer with `welcome status`
 These goes for goodbyer as well
 `goodbye change` and `goodbye message` and `goodbye status`
 
-![Commands](https://cdn.discordapp.com/attachments/824216160425869312/901038923575357480/unknown.png)
+![Commands](https://cdn.discordapp.com/attachments/381963689470984203/903590847482834974/unknown.png)
 
 *We are going to make a dashboard for this bot, so if you want to contribute in the dashboard-development please DM on discord @ `lvlahraam#8435`*
 
@@ -37,5 +37,3 @@ I really Liked Python and programming and i was on Discord 24/7
 And I saw a lot of people are using and making discord bots
 
 So I made my own custom bot so other people can use it
-
-![Discord Bots](https://top.gg/api/widget/844226171972616205.svg)
