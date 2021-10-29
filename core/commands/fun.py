@@ -47,10 +47,11 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         await ctx.send(embed=spmbed)
 
     # Snipe
-    @commands.command(name="snipe", aliases=["se"], help="Will give you the last deleted message in this channel")
+    @commands.command(name="snipe", aliases=["se"], help="Will give you the last deleted message in this channel", hidden=Ture)
     @commands.guild_only()
     async def snipe(self, ctx:commands.Context, number:int=None):
         snipe = self.bot.dsnipe.get(str(ctx.channel.id))
+        number = 0 if not number else number
         sembed = discord.Embed(
             color=self.bot.color,
             timestamp=ctx.message.created_at
