@@ -48,6 +48,7 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
 
     # Snipe
     @commands.command(name="snipe", aliases=["se"], help="Will give you the last deleted message in this channel", hidden=True)
+    @commands.is_owner()
     @commands.guild_only()
     async def snipe(self, ctx:commands.Context, number:int=None):
         number = 0 if not number else number
