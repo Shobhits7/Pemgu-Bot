@@ -130,18 +130,29 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         srcmbed.set_footer(text=f"{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}\n{ctx.author}", icon_url=ctx.author.display_avatar)
         await ctx.send(embed=srcmbed)
 
-    # Color
-    @commands.command(name="color", aliases=["clr"], help="Will give info about the given color")
-    async def color(self, ctx:commands.Context, *, color:discord.Color):
+    # Hex
+    @commands.command(name="hex", help="Will give info about the given HEX Color")
+    async def color(self, ctx:commands.Context, *, hex_color:str):
+        hex_color = hex_color[1:] if "#" in hex_color else hex_color
+        session = await self.bot.session.get(F"https://api.alexflipnote.dev/color/{hex_color}")
+        if session.status != 200:
+            return await ctx.send("Please input a valid hex_color")
+        response = await session.json()
+        session.close()
         clrmbed = discord.Embed(
-            color=color,
-            title=F"Information about {color}",
+            color=response.get("hex"),
+            title=F"Information about {response.get('name')}",
             timestamp=ctx.message.created_at
         )
+        clrmbed.add_field(name="HEX:", value=response.get("hex"))
+        clrmbed.add_field(name="RGB:", value=response.get("rgb")[3:-2])
+        clrmbed.add_field(name="Int:", value=response.get("int"))
+        clrmbed.add_field(name="Brightness:", value=response.get("brightness"))
+        clrmbed.add_field(name="Shades:", value=", ".join(s for s in response.get("shade")))
+        clrmbed.add_field(name="Tints:", value=", ".join(t for t in response.get("tint")))
+        clrmbed.set_thumbnail(url=response.get("image"))
+        clrmbed.set_image(url=response.get("image_gradient"))
         clrmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        clrmbed.add_field(name="HEX Value:", value=color)
-        clrmbed.add_field(name="RGB Value:", value=", ".join(str(v) for v in color.to_rgb()))
-        clrmbed.add_field(name="Int Value:", value=color.value)
         await ctx.send(embed=clrmbed)
 
     # Colors
