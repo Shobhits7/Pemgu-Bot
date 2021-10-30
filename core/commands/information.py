@@ -132,15 +132,14 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
 
     # Hex
     @commands.command(name="hex", help="Will give info about the given HEX Color")
-    async def color(self, ctx:commands.Context, *, hex_color:str):
-        hex_color = hex_color[1:] if "#" in hex_color else hex_color
-        session = await self.bot.session.get(F"https://api.alexflipnote.dev/color/{hex_color}")
+    async def color(self, ctx:commands.Context, *, hex_color:discord.Color):
+        session = await self.bot.session.get(F"https://api.alexflipnote.dev/color/{hex_color.value}")
         if session.status != 200:
             return await ctx.send("Please input a valid hex_color")
         response = await session.json()
         session.close()
         clrmbed = discord.Embed(
-            color=response.get("hex"),
+            color=hex_color,
             title=F"Information about {response.get('name')}",
             timestamp=ctx.message.created_at
         )
