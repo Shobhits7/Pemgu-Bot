@@ -142,7 +142,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         clrmbed.add_field(name="HEX Value:", value=color)
         clrmbed.add_field(name="RGB Value:", value=", ".join(str(v) for v in color.to_rgb()))
         clrmbed.add_field(name="Int Value:", value=color.value)
-        clrmbed.add_field(name="Python HEX:", value=F"0x{color}")
+        clrmbed.add_field(name="Python HEX:", value=F"0x{color[1:]}")
         await ctx.send(embed=clrmbed)
 
     # Colors
