@@ -84,13 +84,17 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
-    async def addrole(self, ctx:commands.Context, member:discord.Member, role:discord.Role):
+    async def addrole(self, ctx:commands.Context, role:discord.Role, member:discord.Member=None):
+        member = ctx.author if not member else member
         aembed = discord.Embed(
             color=self.bot.color,
             description=F"{member.mention}\n{role.mention}",
             timestamp=ctx.message.created_at
         )
         aembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if role.position > member.top_role.position:
+            aembed.title = F"The given {role} is higher than {member}"
+            return await ctx.send(embed=aembed)
         if role in member.roles:
             aembed.title = "Already has"
             return await ctx.send(embed=aembed)
@@ -103,13 +107,17 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
-    async def removerole(self, ctx:commands.Context, member:discord.Member, role:discord.Role):
+    async def addrole(self, ctx:commands.Context, role:discord.Role, member:discord.Member=None):
+        member = ctx.author if not member else member
         rembed = discord.Embed(
             color=self.bot.color,
             description=F"{member.mention}\n{role.mention}",
             timestamp=ctx.message.created_at
         )
         rembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if role.position > member.top_role.position:
+            rembed.title = F"The given {role} is higher than {member}"
+            return await ctx.send(embed=rembed)
         if role in member.roles:
             await member.remove_roles(role)
             rembed.title = "Successfully removed"
