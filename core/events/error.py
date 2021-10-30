@@ -39,7 +39,7 @@ class OnError(commands.Cog):
             print("".join(traceback.format_exception(type(error), error,  error.__traceback__)))
             errormbed = discord.Embed(
                 color=self.bot.color,
-                title="❌There was a problem",
+                title="❌ An Error Occurred",
                 description=F"```diff\n- {error}\n```",
                 timestamp=ctx.message.created_at
             )
