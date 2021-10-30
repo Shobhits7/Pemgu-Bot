@@ -130,17 +130,17 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         srcmbed.set_footer(text=f"{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}\n{ctx.author}", icon_url=ctx.author.display_avatar)
         await ctx.send(embed=srcmbed)
 
-    # Hex
-    @commands.command(name="hex", help="Will give info about the given HEX Color")
-    async def color(self, ctx:commands.Context, *, hex_color:discord.Color):
-        color = str(hex_color)[1:] if "#" in str(hex_color) else str(hex_color)
-        session = await self.bot.session.get(F"https://api.alexflipnote.dev/color/{color}")
+    # Color
+    @commands.command(name="color", help="Will give info about the given color")
+    async def color(self, ctx:commands.Context, *, color:discord.Color):
+        hex_color = str(color)[1:] if "#" in str(color) else str(color)
+        session = await self.bot.session.get(F"https://api.alexflipnote.dev/color/{hex_color}")
         if session.status != 200:
             raise commands.BadColorArgument
         response = await session.json()
         session.close()
         clrmbed = discord.Embed(
-            color=hex_color,
+            color=color,
             title=F"Information about: {response.get('name')}",
             timestamp=ctx.message.created_at
         )
