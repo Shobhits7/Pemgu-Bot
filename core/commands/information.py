@@ -134,7 +134,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
     @commands.command(name="color", aliases=["clr"], help="Will give info about the given color")
     async def color(self, ctx:commands.Context, *, color:discord.Color):
         clrmbed = discord.Embed(
-            color=self.bot.color,
+            color=color,
             title=F"Information about {color}",
             timestamp=ctx.message.created_at
         )
