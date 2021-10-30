@@ -107,7 +107,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
     @commands.guild_only()
     @commands.has_guild_permissions(manage_roles=True)
     @commands.bot_has_guild_permissions(manage_roles=True)
-    async def addrole(self, ctx:commands.Context, role:discord.Role, member:discord.Member=None):
+    async def removerole(self, ctx:commands.Context, role:discord.Role, member:discord.Member=None):
         member = ctx.author if not member else member
         rembed = discord.Embed(
             color=self.bot.color,
