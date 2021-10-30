@@ -145,7 +145,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             timestamp=ctx.message.created_at
         )
         clrmbed.add_field(name="HEX:", value=response.get("hex"))
-        clrmbed.add_field(name="RGB:", value=response.get("rgb")[3:-2])
+        clrmbed.add_field(name="RGB:", value=response.get("rgb")[4:-2])
         clrmbed.add_field(name="Int:", value=response.get("int"))
         clrmbed.add_field(name="Brightness:", value=response.get("brightness"))
         clrmbed.set_thumbnail(url=response.get("image"))
