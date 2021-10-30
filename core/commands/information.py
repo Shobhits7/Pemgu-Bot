@@ -141,7 +141,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         session.close()
         clrmbed = discord.Embed(
             color=hex_color,
-            title=F"Information about {response.get('name')}",
+            title=F"Information about: {response.get('name')}",
             timestamp=ctx.message.created_at
         )
         clrmbed.add_field(name="HEX:", value=response.get("hex"))
