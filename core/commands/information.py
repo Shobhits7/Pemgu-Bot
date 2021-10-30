@@ -130,6 +130,19 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         srcmbed.set_footer(text=f"{location}#L{firstlineno}-L{firstlineno + len(lines) - 1}\n{ctx.author}", icon_url=ctx.author.display_avatar)
         await ctx.send(embed=srcmbed)
 
+    # Color
+    @commands.command(name="color", aliases=["clr"], help="Will give info about the given color")
+    async def color(self, ctx:commands.Context, *, color:discord.Color):
+        clrmbed = discord.Embed(
+            color=self.bot.color,
+            title=F"Information about {color}",
+            timestamp=ctx.message.created_at
+        )
+        clrmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        clrmbed.add_field(name="RGB Value:", value=color.to_rgb())
+        clrmbed.add_field(name="Int Value:", value=color.value)
+        await ctx.send(embed=clrmbed)
+
     # Colors
     @commands.command(name="colors", aliases=["clrs"], help="Will give you the colors from the given image")
     @commands.bot_has_guild_permissions(attach_files=True)

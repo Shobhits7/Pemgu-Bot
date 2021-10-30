@@ -88,12 +88,12 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         member = ctx.author if not member else member
         aembed = discord.Embed(
             color=self.bot.color,
-            description=F"{member.mention}\n{role.mention}",
+            description=F"Member: {member.mention}\nRole: {role.mention}",
             timestamp=ctx.message.created_at
         )
         aembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if role.position > member.top_role.position:
-            aembed.title = F"The given {role} is higher than {member}"
+            aembed.title = F"{role} is higher than {member}"
             return await ctx.send(embed=aembed)
         if role in member.roles:
             aembed.title = "Already has"
@@ -111,12 +111,12 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
         member = ctx.author if not member else member
         rembed = discord.Embed(
             color=self.bot.color,
-            description=F"{member.mention}\n{role.mention}",
+            description=F"Member: {member.mention}\nRole: {role.mention}",
             timestamp=ctx.message.created_at
         )
         rembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         if role.position > member.top_role.position:
-            rembed.title = F"The given {role} is higher than {member}"
+            rembed.title = F"{role} is higher than {member}"
             return await ctx.send(embed=rembed)
         if role in member.roles:
             await member.remove_roles(role)
