@@ -28,6 +28,17 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         abmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=abmbed)
 
+    # Uptime
+    @commands.command(name="uptime", aliases=["up"], help="Will the bot's uptime")
+    async def uptime(self, ctx:commands.Context):
+        upmbed = discord.Embed(
+            color=self.bot.color,
+            description=F"Uptime: {discord.utils.format_dt(self.bot.uptime, style='f')} ({discord.utils.format_dt(self.bot.uptime, style='R')})",
+            timestamp=ctx.message.created_at
+        )
+        upmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        await ctx.send(embed=upmbed)
+
     # ServerList
     @commands.command(name="serverlist", aliases=["sl"], help="Will give the list of bot's servers")
     async def serverlist(self, ctx:commands.Context):

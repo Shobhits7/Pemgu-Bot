@@ -7,6 +7,7 @@ class OnConnect(commands.Cog):
     
     @commands.Cog.listener()
     async def on_connect(self):
+        self.bot.uptime = discord.utils.utcnow()
         oni = [
             F"Logged in as: {self.bot.user} - {self.bot.user.id}",
             F"Main prefix is: {self.bot.default_prefix}",
