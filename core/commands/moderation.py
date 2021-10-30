@@ -92,7 +92,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         aembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if role.position > member.top_role.position:
+        if role.position > ctx.author.top_role.position:
             aembed.title = F"{role} is higher than {member}"
             return await ctx.send(embed=aembed)
         if role in member.roles:
@@ -115,7 +115,7 @@ class Moderation(commands.Cog, description="Was someone being bad?"):
             timestamp=ctx.message.created_at
         )
         rembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if role.position > member.top_role.position:
+        if role.position > ctx.author.top_role.position:
             rembed.title = F"{role} is higher than {member}"
             return await ctx.send(embed=rembed)
         if role in member.roles:
