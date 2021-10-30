@@ -136,7 +136,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         hex_color = hex_color[1:] if "#" in hex_color else hex_color
         session = await self.bot.session.get(F"https://api.alexflipnote.dev/color/{hex_color.value}")
         if session.status != 200:
-            return await ctx.send("Please input a valid hex_color")
+            raise commands.BadColorArgument
         response = await session.json()
         session.close()
         clrmbed = discord.Embed(
