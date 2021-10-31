@@ -385,38 +385,5 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         emmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=emmbed)
 
-    # PYPI
-    @commands.command(name="pypi", help="Will give information about the given library in PYPI")
-    async def pypi(self, ctx:commands.Context, *, library:str):
-        pypimbed = discord.Embed(
-            color=self.bot.color,
-            timestamp=ctx.message.created_at
-        )
-        pypimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        session = await self.bot.session.get(F"https://pypi.org/pypi/{library}/json")
-        if session.status != 200:
-            pypimbed.title = "Couldn't find that library in PYPI"
-            return await ctx.send(embed=pypimbed)
-        response = await session.json()
-        session.close()
-        pypimbed.url = response['info']['package_url'],
-        pypimbed.title = response['info']['name'],
-        pypimbed.description = response['info']['summary'],
-        ai = [
-            F"***Author:*** {response['info']['author']}",
-            F"***Author:*** {response['info']['author_email']}"
-        ]
-        pi = [
-            F"***Version:*** {response['info']['version']}",
-            F"***Yanked:*** {response['info']['yanked']} - {response['info']['yanked_reason']}",
-            F"***Keywords:*** {response['info']['keywords']}",
-            F"***License:*** {response['info']['license']}",
-            F"***Needed-Version:*** {response['info']['requires_python']}"
-        ]
-        pypimbed.add_field(name="Author Info:", value="\n".join(a for a in ai), inline=False)
-        pypimbed.add_field(name="Package Info:", value="\n".join(p for p in pi), inline=False)
-        pypimbed.add_field(name="Classifiers:", value=",\n    ".join(c for c in response['info']['classifiers']), inline=False)
-        await ctx.send(embed=pypimbed)
-
 def setup(bot):
     bot.add_cog(Information(bot))

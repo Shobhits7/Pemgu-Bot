@@ -46,27 +46,6 @@ class Fun(commands.Cog, description="You sad? Use these to at least have a smile
         elif number > 75:  spmbed.description = F"`{number}%` - CanI can see a lot of love 💘"
         await ctx.send(embed=spmbed)
 
-    # Snipe
-    @commands.command(name="snipe", aliases=["se"], help="Will give you the last deleted message in this channel", hidden=True)
-    @commands.is_owner()
-    @commands.guild_only()
-    async def snipe(self, ctx:commands.Context, number:int=None):
-        number = 0 if not number else number
-        snipe = self.bot.dsnipe.get(str(ctx.channel.id))[::-1]
-        sembed = discord.Embed(
-            color=self.bot.color,
-            timestamp=ctx.message.created_at
-        )
-        sembed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if snipe:
-            msg = snipe[number].get("msg")
-            sembed.set_author(name=F"{msg.author} ({msg.author.id}) said in {msg.channel}", icon_url=msg.author.display_avatar.url, url=msg.jump_url)
-            sembed.description = "Message didn't have content..." if not msg.content else msg.content
-            sembed.set_image(url=msg.attachments[0].url)
-            return await ctx.send(embed=sembed)
-        sembed.title = "There is no deleted message in this channel"
-        await ctx.send(embed=sembed)
-
     # Counter
     @commands.command(name="counter", aliases=["ctr"], help="Will start an counter")
     async def counter(self, ctx:commands.Context):
