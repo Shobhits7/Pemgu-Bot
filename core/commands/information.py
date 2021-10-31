@@ -402,18 +402,27 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         pypimbed.url = response['info']['package_url'],
         pypimbed.title = response['info']['name'],
         pypimbed.description = response['info']['summary'],
+        ai = [
+            F"***Author:*** {response['info']['author']}",
+            F"***Author:*** {response['info']['author_email']}"
+        ]
         pi = [
             F"***Version:*** {response['info']['version']}",
-            F"***Download URL:*** {response['info']['download_url']}",
-            F"***Documentation URL:*** {response['info']['docs_url']}",
-            F"***Home Page:*** {response['info']['home_page']}",
             F"***Yanked:*** {response['info']['yanked']} - {response['info']['yanked_reason']}",
             F"***Keywords:*** {response['info']['keywords']}",
-            F"***License:*** {response['info']['license']}"
+            F"***License:*** {response['info']['license']}",
+            F"***Needed-Version:*** {response['info']['requires_python']}"
         ]
-        pypimbed.add_field(name="Author Info:", value=F"Name: {response['info']['author']}\nEmail:{response['info']['author_email']}", inline=False)
+        ui = [
+            F"***Documentation:*** {response['info']['project_urls']['Documentation']}",
+            F"***Homepage:*** {response['info']['project_urls']['Documentation']}",
+            F"***Release:*** {response['info']['project_urls']['release_url']}",
+            F"***Issue-Tracker:*** {response['info']['project_urls']['Issue Tracker']}"
+        ]
+        pypimbed.add_field(name="Author Info:", value="\n".join(a for a in ai), inline=False)
         pypimbed.add_field(name="Package Info:", value="\n".join(p for p in pi), inline=False)
-        pypimbed.add_field(name="Classifiers:", value=",\n    ".join(classifier for classifier in response['info']['classifiers']), inline=False)
+        pypimbed.add_field(name="URLs:", value="\n".join(u for u in ui), inline=False)
+        pypimbed.add_field(name="Classifiers:", value=",\n    ".join(c for c in response['info']['classifiers']), inline=False)
         await ctx.send(embed=pypimbed)
 
 def setup(bot):
