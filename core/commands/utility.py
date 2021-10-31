@@ -190,8 +190,8 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             noteeditmbed.description = F"{number}\n**Check your notes**"
             return await ctx.send(embed=noteeditmbed)
         await self.bot.postgres.execute("UPDATE notes SET task=$1 WHERE user_id=$2 AND task=$3", task, ctx.author.id, tasks[number])
-        noteeditmbed.title = "Successfully editted:"
-        noteeditmbed.description = F"Before: {tasks[number]}\nAfter: {task}"
+        noteeditmbed.title = "Successfully edited:"
+        noteeditmbed.description = F"**Before:** {tasks[number]}\n**After:** {task}"
         await ctx.send(embed=noteeditmbed)
 
 def setup(bot):
