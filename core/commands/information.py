@@ -142,7 +142,7 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         await ctx.send(embed=srcmbed)
 
     # Color
-    @commands.command(name="color", help="Will give info about the given color")
+    @commands.command(name="color", aliases=["clr"], help="Will give info about the given color")
     async def color(self, ctx:commands.Context, *, color:discord.Color):
         hex_color = str(color)[1:] if "#" in str(color) else str(color)
         session = await self.bot.session.get(F"https://api.alexflipnote.dev/color/{hex_color}")
