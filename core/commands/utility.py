@@ -172,7 +172,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
 
     # Notes-Edit
     @notes.command(name="edit", aliases=["~"], help="Will edit the given task with the new given task")
-    async def notes_edit(self, ctx:commands.Context, number:int, task:str):
+    async def notes_edit(self, ctx:commands.Context, number:int, *, task:str):
         notes = await self.bot.postgres.fetch("SELECT task FROM notes WHERE user_id=$1", ctx.author.id)
         noteeditmbed = discord.Embed(
             color=self.bot.color,
