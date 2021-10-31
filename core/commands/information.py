@@ -413,15 +413,8 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             F"***License:*** {response['info']['license']}",
             F"***Needed-Version:*** {response['info']['requires_python']}"
         ]
-        ui = [
-            F"***Documentation:*** {response['info']['project_urls']['Documentation']}",
-            F"***Homepage:*** {response['info']['project_urls']['Documentation']}",
-            F"***Release:*** {response['info']['project_urls']['release_url']}",
-            F"***Issue-Tracker:*** {response['info']['project_urls']['Issue Tracker']}"
-        ]
         pypimbed.add_field(name="Author Info:", value="\n".join(a for a in ai), inline=False)
         pypimbed.add_field(name="Package Info:", value="\n".join(p for p in pi), inline=False)
-        pypimbed.add_field(name="URLs:", value="\n".join(u for u in ui), inline=False)
         pypimbed.add_field(name="Classifiers:", value=",\n    ".join(c for c in response['info']['classifiers']), inline=False)
         await ctx.send(embed=pypimbed)
 
