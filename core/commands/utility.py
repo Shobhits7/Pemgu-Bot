@@ -136,12 +136,7 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
         tasks = []
         for stuff in notes:
             tasks.append(stuff["task"])
-        if len(tasks) <= number:
-            noteremovembed.title = "Is not in your notes:"
-            noteremovembed.description = F"{number}\n**Check your notes**"
-            return await ctx.send(embed=noteremovembed)
-        note = await self.bot.postgres.fetchval("SELECT task FROM notes WHERE user_id=$1 AND task=$2", ctx.author.id, tasks[number])
-        if not note:
+        if len(tasks) < number:
             noteremovembed.title = "Is not in your notes:"
             noteremovembed.description = F"{number}\n**Check your notes**"
             return await ctx.send(embed=noteremovembed)
@@ -174,6 +169,30 @@ class Utility(commands.Cog, description="Useful stuff that are open to everyone"
             noteclearmbed.title = "Successfully cleared:"
             noteclearmbed.description = "**Your notes**"
             await ctx.send(embed=noteclearmbed)
+
+    # Notes-Edit
+    @notes.command(name="edit", aliases=["~"], help="Will edit the given task with the new given task")
+    async def notes_edit(self, ctx:commands.Context, number:int, task:str):
+        notes = await self.bot.postgres.fetch("SELECT task FROM notes WHERE user_id=$1", ctx.author.id)
+        noteeditmbed = discord.Embed(
+            color=self.bot.color,
+            timestamp=ctx.message.created_at
+        )
+        noteeditmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar)
+        if not notes:
+            noteeditmbed.title = "You don't have any note"
+            return await ctx.send(embed=noteeditmbed)
+        tasks = []
+        for stuff in notes:
+            tasks.append(stuff["task"])
+        if len(tasks) < number:
+            noteeditmbed.title = "Is not in your notes:"
+            noteeditmbed.description = F"{number}\n**Check your notes**"
+            return await ctx.send(embed=noteeditmbed)
+        await self.bot.postgres.execute("UPDATE notes SET task=$1 WHERE user_id=$2 AND task=$3", task, ctx.author.id, tasks[number])
+        noteeditmbed.title = "Successfully editted:"
+        noteeditmbed.description = F"Before: {tasks[number]}\nAfter: {task}"
+        await ctx.send(embed=noteeditmbed)
 
 def setup(bot):
     bot.add_cog(Utility(bot))

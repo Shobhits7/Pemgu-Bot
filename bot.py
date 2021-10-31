@@ -49,7 +49,44 @@ class PemguBase(commands.AutoShardedBot):
 
     @property
     def color(self):
-        color = random.choice([0x224585, 0x1D4E9A, 0x4879CE, 0x142966, 0x093C84])
+        colors = [
+            0x224585, 0x1D4E9A, 0x4879CE, 0x142966, 0x093C84,
+            discord.Color.blue(),
+            discord.Color.blurple(),
+            discord.Color.brand_green(),
+            discord.Color.brand_red(),
+            discord.Color.dark_blue(),
+            discord.Color.dark_gold(),
+            discord.Color.dark_gray(),
+            discord.Color.dark_green(),
+            discord.Color.dark_grey(),
+            discord.Color.dark_magenta(),
+            discord.Color.dark_orange(),
+            discord.Color.dark_purple(),
+            discord.Color.dark_red(),
+            discord.Color.dark_teal(),
+            discord.Color.dark_theme(),
+            discord.Color.darker_gray(),
+            discord.Color.darker_grey(),
+            discord.Color.default(),
+            discord.Color.fuchsia(),
+            discord.Color.gold(),
+            discord.Color.green(),
+            discord.Color.greyple(),
+            discord.Color.light_gray(),
+            discord.Color.light_grey(),
+            discord.Color.lighter_gray(),
+            discord.Color.lighter_grey(),
+            discord.Color.magenta(),
+            discord.Color.og_blurple(),
+            discord.Color.orange(),
+            discord.Color.purple(),
+            discord.Color.random(),
+            discord.Color.red(),
+            discord.Color.teal(),
+            discord.Color.yellow()
+        ]
+        color = random.choice(colors)
         return color
 
     @classmethod
