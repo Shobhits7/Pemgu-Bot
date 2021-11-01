@@ -246,8 +246,33 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         uimbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
         await ctx.send(embed=uimbed)
 
+    # Permissions
+    @commands.command(name="permissions", aliases=["perms"], help="Will show your or the given member's permissions")
+    @commands.guild_only()
+    async def permissions(self, ctx:commands.Context, member:discord.Member=None):
+        member = ctx.author if not member else member
+        ai = []
+        di = []
+        for permission, value in member.guild_permissions:
+            permission = permission.replace("_", " ").title()
+            if value:
+                ai.append(permission)
+            if not value:
+                di.append(permission)
+        permsmbed = discord.Embed(
+            color=self.bot.color,
+            title=F"{member}'s Permissions",
+            timestamp=ctx.message.created_at
+        )
+        permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
+        if len(ai) != 0:
+            permsmbed.add_field(name="✅ Allowed:", value="\n".join(a for a in ai))
+        if len(di) != 0:
+            permsmbed.add_field(name="❎ Denied:", value="\n".join(d for d in di))
+        await ctx.send(embed=permsmbed)
+
     # Spotify
-    @commands.command(name="spotify", help="Will show your or the given member's spotify activity")
+    @commands.command(name="spotify", aliases=["sy"], help="Will show your or the given member's spotify activity")
     async def spotify(self, ctx:commands.Context, member:discord.Member=None):
         member = ctx.author if not member else member
         spotifymbed = discord.Embed(
@@ -276,31 +301,6 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             spotifymbed.color = self.bot.color
             spotifymbed.title = F"{member} is not listening to Spotify"
             await ctx.send(embed=spotifymbed)
-
-    # Permissions
-    @commands.command(name="permissions", aliases=["perms"], help="Will show your or the given member's permissions")
-    @commands.guild_only()
-    async def permissions(self, ctx:commands.Context, member:discord.Member=None):
-        member = ctx.author if not member else member
-        ai = []
-        di = []
-        for permission, value in member.guild_permissions:
-            permission = permission.replace("_", " ").title()
-            if value:
-                ai.append(permission)
-            if not value:
-                di.append(permission)
-        permsmbed = discord.Embed(
-            color=self.bot.color,
-            title=F"{member}'s Permissions",
-            timestamp=ctx.message.created_at
-        )
-        permsmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
-        if len(ai) != 0:
-            permsmbed.add_field(name="✅ Allowed:", value="\n".join(a for a in ai))
-        if len(di) != 0:
-            permsmbed.add_field(name="❎ Denied:", value="\n".join(d for d in di))
-        await ctx.send(embed=permsmbed)
 
     # Icon
     @commands.command(name="icon", aliases=["ic"], help="Will show the server's icon")
