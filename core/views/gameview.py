@@ -77,6 +77,66 @@ class RPSView(discord.ui.View):
             await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
             return False
 
+class CFButtons(discord.ui.Button):
+    def __init__(self, view, **kwargs):
+        super().__init__(**kwargs)
+        self.ctx = view.ctx
+        self.botoption = view.botoption
+        self.useroption = view.useroption
+
+    async def callback(self, interaction:discord.Interaction):
+        if self.label == "Heads":
+            self.useroption = "Heads"
+        elif self.label == "Tails":
+            self.useroption = "Tails"
+        self.view.clear_items()
+        if self.useroption == self.botoption:
+            wonrpsmbed = discord.Embed(
+                color=self.ctx.bot.color,
+                description=F"It was **{self.useroption}**, You guessed correctly",
+                timestamp=interaction.message.created_at
+            )
+            wonrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
+            await interaction.response.edit_message(embed=wonrpsmbed, view=self.view)
+        else:
+            lostrpsmbed = discord.Embed(
+                color=self.ctx.bot.color,
+                description=F"It was **{self.useroption}**, You guessed incorrectly",
+                timestamp=interaction.message.created_at
+            )
+            lostrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
+            await interaction.response.edit_message(embed=lostrpsmbed, view=self.view)
+
+class CFView(discord.ui.View):
+    def __init__(self, ctx):
+        super().__init__(timeout=5)
+        self.ctx = ctx
+        self.botoption = random.choice(["Heads", "Tails"])
+        self.useroption = ""
+        self.add_item(item=RPSButtons(label="Heads", style=discord.ButtonStyle.green, view=self))
+        self.add_item(item=RPSButtons(label="Tails", style=discord.ButtonStyle.red, view=self))
+
+    async def on_timeout(self):
+        if self.children:
+            for item in self.children:
+                self.clear_items()
+                self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...", style=discord.ButtonStyle.red, disabled=True))
+                await self.message.edit(view=self)
+
+    async def interaction_check(self, interaction:discord.Interaction):
+        if interaction.user.id == self.ctx.message.author.id:
+            return True
+        else:
+            icheckmbed = discord.Embed(
+                color=self.ctx.bot.color,
+                title=F"You can't use this",
+                description=F"<@{interaction.user.id}> - Only <@{self.ctx.message.author.id}> can use this\nCause they did the command\nIf you want to use this, do what they did",
+                timestamp=interaction.message.created_at
+            )
+            icheckmbed.set_author(name=interaction.user, icon_url=interaction.user.display_avatar.url)
+            await interaction.response.send_message(embed=icheckmbed, ephemeral=True)
+            return False
+
 class GuessButtons(discord.ui.Button):
     def __init__(self, view, **kwargs):
         super().__init__(**kwargs)
