@@ -37,3 +37,7 @@ I really Liked Python and programming and i was on Discord 24/7
 And I saw a lot of people are using and making discord bots
 
 So I made my own custom bot so other people can use it
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
