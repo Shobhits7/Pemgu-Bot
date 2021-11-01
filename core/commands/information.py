@@ -238,7 +238,6 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
             title=F"{member}'s' Information",
             timestamp=ctx.message.created_at
         )
-        uimbed.set_author(name=member, icon_url=member.display_avatar.url)
         uimbed.add_field(name="Global-Information:", value="\n".join(g for g in gi), inline=False)
         uimbed.add_field(name="Server-Information:", value="\n".join(s for s in si), inline=False)
         if member.guild_avatar: uimbed.set_thumbnail(url=member.guild_avatar.url)
