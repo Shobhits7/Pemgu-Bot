@@ -100,7 +100,7 @@ class CFButtons(discord.ui.Button):
         else:
             lostrpsmbed = discord.Embed(
                 color=self.ctx.bot.color,
-                description=F"It was **{self.useroption}**, You guessed incorrectly",
+                description=F"It was **{self.botoption}**, You guessed incorrectly **{self.useroption}**",
                 timestamp=interaction.message.created_at
             )
             lostrpsmbed.set_footer(text=interaction.user, icon_url=interaction.user.display_avatar.url)
@@ -112,8 +112,8 @@ class CFView(discord.ui.View):
         self.ctx = ctx
         self.botoption = random.choice(["Heads", "Tails"])
         self.useroption = ""
-        self.add_item(item=CFButtons(label="Heads", style=discord.ButtonStyle.green, view=self))
-        self.add_item(item=CFButtons(label="Tails", style=discord.ButtonStyle.red, view=self))
+        self.add_item(item=CFButtons(emoji="🇭", label="Heads", style=discord.ButtonStyle.green, view=self))
+        self.add_item(item=CFButtons(emoji="🇹", label="Tails", style=discord.ButtonStyle.red, view=self)) 
 
     async def on_timeout(self):
         if self.children:
