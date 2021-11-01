@@ -58,10 +58,9 @@ class RPSView(discord.ui.View):
 
     async def on_timeout(self):
         if self.children:
-            for item in self.children:
-                self.clear_items()
-                self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...", style=discord.ButtonStyle.red, disabled=True))
-                await self.message.edit(view=self)
+            self.clear_items()
+            self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...", style=discord.ButtonStyle.red, disabled=True))
+            await self.message.edit(view=self)
 
     async def interaction_check(self, interaction:discord.Interaction):
         if interaction.user.id == self.ctx.message.author.id:
@@ -113,15 +112,14 @@ class CFView(discord.ui.View):
         self.ctx = ctx
         self.botoption = random.choice(["Heads", "Tails"])
         self.useroption = ""
-        self.add_item(item=RPSButtons(label="Heads", style=discord.ButtonStyle.green, view=self))
-        self.add_item(item=RPSButtons(label="Tails", style=discord.ButtonStyle.red, view=self))
+        self.add_item(item=CFButtons(label="Heads", style=discord.ButtonStyle.green, view=self))
+        self.add_item(item=CFButtons(label="Tails", style=discord.ButtonStyle.red, view=self))
 
     async def on_timeout(self):
         if self.children:
-            for item in self.children:
-                self.clear_items()
-                self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...", style=discord.ButtonStyle.red, disabled=True))
-                await self.message.edit(view=self)
+            self.clear_items()
+            self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer...", style=discord.ButtonStyle.red, disabled=True))
+            await self.message.edit(view=self)
 
     async def interaction_check(self, interaction:discord.Interaction):
         if interaction.user.id == self.ctx.message.author.id:
@@ -178,10 +176,9 @@ class GuessView(discord.ui.View):
     
     async def on_timeout(self):
         if self.children:
-            for item in self.children:
-                self.clear_items()
-                self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer", style=discord.ButtonStyle.red, disabled=True))
-                await self.message.edit(view=self)
+            self.clear_items()
+            self.add_item(discord.ui.Button(emoji="💣", label="You took so long to answer", style=discord.ButtonStyle.red, disabled=True))
+            await self.message.edit(view=self)
 
     async def interaction_check(self, interaction:discord.Interaction):
         if interaction.user.id == self.ctx.message.author.id:
