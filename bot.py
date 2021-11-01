@@ -9,14 +9,14 @@ async def create_pool_postgres():
 async def get_prefix(bot, message:discord.Message):
     prefix = bot.prefixes.get(message.guild.id)
     if prefix:
-        return prefix
+        return commands.when_mentioned_or(prefix)(bot, message)
     postgres = await bot.postgres.fetchval("SELECT prefix FROM prefixes WHERE guild_id=$1", message.guild.id)
     if postgres:
         prefix = bot.prefixes[message.guild.id] = postgres
     else:
         prefix = bot.prefixes[message.guild.id] = bot.default_prefix
     print(F"Cached {F'{prefix}/d' if not postgres else F'{postgres}/p'} | {message.guild.name} - {message.guild.id}")
-    return prefix
+    return commands.when_mentioned_or(prefix)(bot, message)
 
 async def create_session_aiohttp():
     bot.session = aiohttp.ClientSession()
