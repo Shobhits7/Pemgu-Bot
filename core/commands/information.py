@@ -153,12 +153,9 @@ class Information(commands.Cog, description="Stalking people is wrong and bad!")
         clrmbed = discord.Embed(
             color=color,
             title=F"Information about: {response.get('name')}",
+            description=F"**HEX:** {response.get('hex')}\n**RGB:** {response.get('rgb')[4:-2]}\n**Int:** {response.get('int')}\n**Brightness:** {response.get('brightness')}",
             timestamp=ctx.message.created_at
         )
-        clrmbed.add_field(name="HEX:", value=response.get("hex"))
-        clrmbed.add_field(name="RGB:", value=response.get("rgb")[4:-2])
-        clrmbed.add_field(name="Int:", value=response.get("int"))
-        clrmbed.add_field(name="Brightness:", value=response.get("brightness"))
         clrmbed.set_thumbnail(url=response.get("image"))
         clrmbed.set_image(url=response.get("image_gradient"))
         clrmbed.set_footer(text=ctx.author, icon_url=ctx.author.display_avatar.url)
